@@ -24,7 +24,7 @@ public class Swordsmen extends Unit {
 
 	private Hex position;
 
-	@Override
+/*	@Override
 	public boolean move() {
 		//TODO
 		return false;
@@ -55,7 +55,7 @@ public class Swordsmen extends Unit {
 		if (actionPoints>=2) actionPoints-=2;
 		else throw new RuleViolationException("This unit does not have enough action points to Entrench");
 		toughnessMod += ENTRENCH_VAL;
-	}
+	}*/
 
 	@Override
 	public Hex getPosition() {

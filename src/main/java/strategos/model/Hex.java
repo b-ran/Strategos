@@ -6,6 +6,7 @@ import java.util.Map;
 import strategos.util.Util.Direction;
 import static strategos.util.Util.Direction.*;
 import strategos.util.Util.Modifier;
+import strategos.util.exception.FeatureNotImplementedException;
 
 /**
  * The hexagonal tile structure of the map, which holds information on this section of the map.
@@ -52,7 +53,8 @@ public class Hex {
 	 */
 	public boolean isPassable() {
 		// TODO: implement to call terrain.isImpassable().
-		return true;
+		throw new FeatureNotImplementedException("Terrain not yet implemented");
+		//return true;
 	}
 	
 	/**
@@ -62,7 +64,8 @@ public class Hex {
 	 */
 	public Map<Modifier, Integer> getTerrainModifiers() {
 		// TODO: implement modifier calls on the terrain field.
-		return null;
+		throw new FeatureNotImplementedException("Terrain not yet implemented");
+		//return null;
 	}
 	
 	/**

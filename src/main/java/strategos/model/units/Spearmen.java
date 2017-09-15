@@ -24,7 +24,7 @@ public class Spearmen extends Unit {
 
 	private Hex position;
 
-	public void wary() {
+/*	public void wary() {
 		if (actionPoints>=1) actionPoints-=1;
 		else throw new RuleViolationException("This unit does not have enough action points to Wary");
 		toughnessMod += WARY_VAL;
@@ -56,7 +56,7 @@ public class Spearmen extends Unit {
 		//TODO
 		//+6 mod against mounted(ie: if unit.instaceOf(Cavalry))
 		return 0;
-	}
+	}*/
 
 	@Override
 	public Hex getPosition() {

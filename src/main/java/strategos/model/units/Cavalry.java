@@ -24,7 +24,7 @@ public class Cavalry extends Unit {
 
 	private Hex position;
 
-	@Override
+/*	@Override
 	public boolean move() {
 		//TODO
 		return false;
@@ -48,7 +48,7 @@ public class Cavalry extends Unit {
 		if (actionPoints>=1) actionPoints-=1;
 		else throw new RuleViolationException("This unit does not have enough action points to Wary");
 		toughnessMod += WARY_VAL;
-	}
+	}*/
 
 	@Override
 	public Hex getPosition() {

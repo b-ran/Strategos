@@ -25,9 +25,12 @@ public class Archers extends Unit {
 
 	private Hex position;
 
-	public void wary() {
-		if (actionPoints>=1) actionPoints-=1;
-		else throw new RuleViolationException("This unit does not have enough action points to Wary");
+/*	public void wary() {
+		if (actionPoints>=1) { 
+			actionPoints-=1; 
+		} else { 
+			throw new RuleViolationException("This unit does not have enough action points to Wary");
+		}
 		toughnessMod += WARY_VAL;
 	}
 
@@ -57,7 +60,7 @@ public class Archers extends Unit {
 		//TODO
 		//-2 when defending
 		return 0;
-	}
+	}*/
 
 	@Override
 	public Hex getPosition() {
