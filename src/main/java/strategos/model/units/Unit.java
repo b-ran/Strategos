@@ -1,6 +1,6 @@
-package strategos.units;
+package strategos.model.units;
 
-import strategos.mapGeneration.map.board.Hex;
+import strategos.model.Hex;
 import strategos.util.Entity;
 import strategos.util.exception.RuleViolationException;
 

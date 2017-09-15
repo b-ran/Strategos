@@ -1,11 +1,11 @@
-package model;
+package strategos.model;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import util.Util.Direction;
-import static util.Util.Direction.*;
-import util.Util.Modifier;
+import strategos.util.Util.Direction;
+import static strategos.util.Util.Direction.*;
+import strategos.util.Util.Modifier;
 
 /**
  * The hexagonal tile structure of the map, which holds information on this section of the map.

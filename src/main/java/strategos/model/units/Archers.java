@@ -1,12 +1,11 @@
-package strategos.units;
+package strategos.model.units;
 
-import strategos.mapGeneration.map.board.Hex;
+import strategos.model.Hex;
 import strategos.util.exception.RuleViolationException;
 
 import java.awt.*;
 
-import static strategos.StrategosGame.ENTRENCH_VAL;
-import static strategos.StrategosGame.WARY_VAL;
+import static strategos.util.Config.*;
 
 /**
  * Created as part of Strategos project
