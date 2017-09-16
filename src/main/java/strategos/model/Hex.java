@@ -7,6 +7,7 @@ import strategos.util.Util.Direction;
 import static strategos.util.Util.Direction.*;
 import strategos.util.Util.Modifier;
 import strategos.util.exception.FeatureNotImplementedException;
+import strategos.util.exception.RuleViolationException;
 
 /**
  * The hexagonal tile structure of the map, which holds information on this section of the map.
@@ -77,6 +78,16 @@ public class Hex {
 	 */
 	public Hex getNeighbour(Direction direction) {
 		return neighbours.get(direction);
+	}
+	
+	public void addNeighbour(Direction direction, Hex newNeighbour) {
+		if (neighbours.get(direction) != null) {
+			throw new IllegalArgumentException("Cannot overwrite a neighbour");
+		}
+		if (neighbours.size() == 6) {
+			throw new RuleViolationException("A Hex cannot have more than 6 neighbours");
+		}
+		neighbours.put(direction, newNeighbour);
 	}
 	
 	/**
