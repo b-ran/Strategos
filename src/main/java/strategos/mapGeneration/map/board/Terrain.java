@@ -5,4 +5,5 @@ package strategos.mapGeneration.map.board;
  * for Strategos
  */
 public enum Terrain {
+//	public void Terrain {PLAIN, HILL, MOUNTAIN, MARSH, FOREST, RIVER, LAKE}
 }

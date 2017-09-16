@@ -8,7 +8,7 @@ import strategos.util.Entity;
  */
 public class Hex implements Entity {
 
-	public enum Terrain {PLAIN, HILL, MOUNTAIN, MARSH, FOREST, RIVER, LAKE}
+	Terrain terrain;
 	//Index 0 is top edge neighbour the rotates clockwise
 	public final Hex[] neighbours;
 	//sets if the hex has been seen by player yet
