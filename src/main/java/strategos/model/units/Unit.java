@@ -1,6 +1,6 @@
-package strategos.units;
+package strategos.model.units;
 
-import strategos.mapGeneration.map.board.Hex;
+import strategos.model.Hex;
 import strategos.util.Entity;
 import strategos.util.exception.RuleViolationException;
 
@@ -19,31 +19,33 @@ public abstract class Unit implements Entity {
 	public  void doAction(Action act){
 		switch (act) {
 			case WARY:
-				wary();
+				//wary();
 				break;
 			case ENTRENCH:
-				entrench();
+				//entrench();
 				break;
 			default:
 				throw new IllegalArgumentException("No such action.");
 		}
 	}
-
+/*
 	public abstract boolean move();
 
 	public abstract int attack(Unit enemy);
 
 	public abstract int defend(Unit enemy);
 
-	public abstract void wary();
+	public void wary() {
+		throw new RuleViolationException("Unit cannot Wary");
+	}
 
 	public void entrench(){
-		throw new RuleViolationException("Unit cannot entrench");
+		throw new RuleViolationException("Unit cannot Entrench");
 	}
 
 	public void charge(){
 		throw new RuleViolationException("Unit cannot Charge");
-	}
+	}*/
 
 	public abstract Hex getPosition();
 

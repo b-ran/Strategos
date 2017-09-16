@@ -1,18 +1,16 @@
-package strategos.units;
+package strategos.model.units;
 
-import strategos.mapGeneration.map.board.Hex;
+import strategos.model.Hex;
 import strategos.util.exception.RuleViolationException;
 
 import java.awt.*;
 
-import static strategos.StrategosGame.ENTRENCH_VAL;
-import static strategos.StrategosGame.WARY_VAL;
-
+import static strategos.util.Config.*;
 /**
  * Created as part of Strategos project
- * 30/07/2017.
+ * 28/07/2017.
  */
-public class Elite extends Unit {
+public class Spearmen extends Unit {
 	private static final Image sprite = null;
 
 	private int health = 100;
@@ -23,30 +21,10 @@ public class Elite extends Unit {
 
 	private final int toughness = 5;
 	private int toughnessMod = 0;
-	private Unit choosenEnemy;
 
 	private Hex position;
 
-	@Override
-	public boolean move() {
-		//TODO
-		return false;
-	}
-
-	@Override
-	public int attack(Unit enemy) {
-		//TODO
-		//Check that enemy hex is one of your hexes neighbours
-		return 0;
-	}
-
-	@Override
-	public int defend(Unit enemy) {
-		//TODO
-		return 0;
-	}
-
-	public void wary() {
+/*	public void wary() {
 		if (actionPoints>=1) actionPoints-=1;
 		else throw new RuleViolationException("This unit does not have enough action points to Wary");
 		toughnessMod += WARY_VAL;
@@ -60,6 +38,27 @@ public class Elite extends Unit {
 	}
 
 	@Override
+	public boolean move() {
+		//TODO
+		return false;
+	}
+
+	@Override
+	public int attack(Unit enemy) {
+		//TODO
+		//Check that enemy hex is one of your hexes neighbours
+		//+6 mod against mounted(ie: if unit.instanceOf(Cavalry))
+		return 0;
+	}
+
+	@Override
+	public int defend(Unit enemy) {
+		//TODO
+		//+6 mod against mounted(ie: if unit.instaceOf(Cavalry))
+		return 0;
+	}*/
+
+	@Override
 	public Hex getPosition() {
 		return position;
 	}
@@ -67,12 +66,13 @@ public class Elite extends Unit {
 	@Override
 	public int getStrength() {
 		//TODO add terrain mod to this
-		return toughness + toughnessMod;
+		return strength + strengthMod;
 	}
 
 	@Override
 	public int getToughness() {
 		//TODO add terrain mod to this
-		return strength + strengthMod;
+		return toughness + toughnessMod;
 	}
+
 }
