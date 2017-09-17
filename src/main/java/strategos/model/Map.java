@@ -6,68 +6,100 @@ import static strategos.util.Util.Direction.*;
 
 public class Map {
 	
-	public Map() {
-		
+	private Hex[][] map;
+	private final int radius;
+	
+	public Map(int diameter) {
+		map = constructMap(diameter);
+		radius = diameter / 2;
 	}
 	
 	/**
-	 * 
+	 * Creates a 2D array of Hex objects 
 	 * @return
 	 */
-	private Hex[][] constructMap() {
-		Hex[][] map = new Hex[MAP_DIAMETER][MAP_DIAMETER];
+	private Hex[][] constructMap(int diameter) {
 		
-		for (int q = 0; q < MAP_DIAMETER; q++) {
-			for (int r = 0; r < MAP_DIAMETER; r++) {
-				map[q][r] = new NullHex();
+		Hex[][] map = new Hex[diameter][diameter];
+		
+		for (int r = 0; r < diameter; r++) {
+			for (int q = 0; q < diameter; q++) {
+				map[r][q] = new NullHex(r, q);
 			}
 		}
-		Hex centre = new Hex();
-		map[MAP_RADIUS][MAP_RADIUS] = centre;
-		for (int dX = -MAP_RADIUS; dX < MAP_RADIUS; dX++) {
-			int minValue = Math.max(-MAP_RADIUS, -dX - MAP_RADIUS);
-			int maxValue = Math.min(MAP_RADIUS, -dX + MAP_RADIUS);
-			for (int dY = minValue; dY < maxValue; dY++) {
+		/*Hex centre = new Hex(radius, radius);
+		map[radius][radius] = centre;
+		System.out.println(radius);
+		for (int dX = -radius; dX <= radius; dX++) {
+			
+			int minValue = Math.max(-radius, -dX - radius);
+			int maxValue = Math.min(radius, -dX + radius);
+			
+			for (int dY = minValue; dY <= maxValue; dY++) {
 				int dZ = -dX - dY;
 				
-				int column = dX + (dZ - (dZ & 1)) / 2;
-				int row = dX;
-				map[column][row] = new Hex();
+				int column = dX;
+				int row = dZ;
+				System.out.println(column + ", " + row);
+				map[column][row] = new Hex(row, column);
+			}
+		}*/
+		boolean left = true;
+		int offset = diameter / 2;
+		for (int r = 0; r < diameter; r++) {
+			for (int q = 0; q < diameter; q++) {
+				if (left && q < offset || (!left && q >= diameter - offset)) {
+					continue;
+				}
+				set(r, q, map, new Hex(r, q));
+			}
+			if (offset > 0 && left) {
+				offset--;
+			}
+			if (offset == 0) {
+				left = !left;
+			}
+			if (!left) {
+				offset++;
 			}
 		}
-		
-		for (int q = 0; q < MAP_DIAMETER; q++) {
-			for (int r = 0; r < MAP_DIAMETER; r++) {
-				populateNeighbours(q, r, map);
+
+		for (int r = 0; r < map.length; r++) {
+			for (int q = 0; q < map[r].length; q++) {
+				populateNeighbours(r, q, map);
 			}
 		}
 		return map;
 	}
 	
-	private void populateNeighbours(int q, int r, Hex[][] map) {
-		map[q][r].addNeighbour(EAST, get(q, r + 1, map));
-		map[q][r].addNeighbour(WEST, get(q, r - 1, map));
+	private void populateNeighbours(int r, int q, Hex[][] map) {
+		get(r, q, map).addNeighbour(EAST, get(r + 1, q, map));
+		get(r, q, map).addNeighbour(WEST, get(r - 1, q, map));
 
-		// If even row
-		if (r % 2 == 0) {
-			map[q][r].addNeighbour(NORTH_EAST, get(q, r - 1, map));
-			map[q][r].addNeighbour(NORTH_WEST, get(q - 1, r - 1, map));
-			map[q][r].addNeighbour(SOUTH_EAST, get(q, r + 1, map));
-			map[q][r].addNeighbour(SOUTH_WEST, get(q - 1, r + 1, map));
-		// If odd row
-		} else {
-			map[q][r].addNeighbour(NORTH_EAST, get(q + 1, r - 1, map));
-			map[q][r].addNeighbour(NORTH_WEST, get(q, r - 1, map));
-			map[q][r].addNeighbour(SOUTH_EAST, get(q + 1, r + 1, map));
-			map[q][r].addNeighbour(SOUTH_WEST, get(q, r + 1, map));
-		}
+		get(r, q, map).addNeighbour(NORTH_EAST, get(r + 1, q - 1, map));
+		get(r, q, map).addNeighbour(NORTH_WEST, get(r, q - 1, map));
+		get(r, q, map).addNeighbour(SOUTH_EAST, get(r, q + 1, map));
+		get(r, q, map).addNeighbour(SOUTH_WEST, get(r - 1, q + 1, map));
 	}
 	
-	public Hex get(int x, int y, Hex[][] map) {
-		if (x < 0 || x > MAP_DIAMETER || y < 0 || y > MAP_DIAMETER) {
-			return new NullHex();
+	private Hex get(int x, int y, Hex[][] map) {
+		if (x < 0 || x >= map.length || y < 0 || y >= map.length) {
+			return new NullHex(x, y);
 		}
+		
 		return map[x][y];
+	}
+	
+	private void set(int x, int y, Hex[][] map, Hex toSet) {
+		map[x][y] = toSet;
+	}
+	
+	public Hex get(int x, int y) {
+		return get(x, y, map);
+	}
+	
+	public Hex[][] getMap() {
+		return map;
 	}
 	
 }

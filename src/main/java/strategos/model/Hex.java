@@ -17,11 +17,16 @@ import strategos.util.exception.RuleViolationException;
 public class Hex {
 	private Map<Direction, Hex> neighbours;
 	
+	private int xIndex;
+	private int yIndex;
+	
 	/**
 	 * Creates a new Hex object, initialising the neighbours collection. 
 	 * This constructor assumes that the neighbours will be added externally.
 	 */
-	public Hex() {
+	public Hex(int x, int y) {
+		setxIndex(x);
+		setyIndex(y);
 		neighbours = new HashMap<>();
 	}
 	
@@ -35,7 +40,9 @@ public class Hex {
 	 * @param southeast - The neighbouring Hex one to the right and one down.
 	 * @param southwest - The neighbouring Hex one to the left and one down.
 	 */
-	public Hex(Hex east, Hex west, Hex northeast, Hex northwest, Hex southeast, Hex southwest) {
+	public Hex(int x, int y, Hex east, Hex west, Hex northeast, Hex northwest, Hex southeast, Hex southwest) {
+		setxIndex(x);
+		setyIndex(y);
 		neighbours = new HashMap<>();
 		neighbours.put(EAST, east);
 		neighbours.put(WEST, west);
@@ -54,8 +61,8 @@ public class Hex {
 	 */
 	public boolean isPassable() {
 		// TODO: implement to call terrain.isImpassable().
-		throw new FeatureNotImplementedException("Terrain not yet implemented");
-		//return true;
+		//throw new FeatureNotImplementedException("Terrain not yet implemented");
+		return true;
 	}
 	
 	/**
@@ -96,5 +103,26 @@ public class Hex {
 	 */
 	public Map<Direction, Hex> getNeighbours() {
 		return neighbours;
+	}
+	
+	@Override
+	public String toString() {
+		return "[" + getxIndex() + "," + getyIndex() + "]";
+	}
+
+	public int getxIndex() {
+		return xIndex;
+	}
+
+	public void setxIndex(int xIndex) {
+		this.xIndex = xIndex;
+	}
+
+	public int getyIndex() {
+		return yIndex;
+	}
+
+	public void setyIndex(int yIndex) {
+		this.yIndex = yIndex;
 	}
 }
