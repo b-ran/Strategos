@@ -1,6 +1,7 @@
 package strategos.model.units;
 
 import strategos.model.Hex;
+import strategos.util.Config;
 import strategos.util.exception.RuleViolationException;
 
 import java.awt.*;
@@ -15,9 +16,7 @@ public class Swordsmen extends Unit {
 
 	private int health = 100;
 	private double actionPoints = 2;
-
-	private final int strength = 5;
-	private int strengthMod = 0;
+	private final int strength = SWORDSMAN_STRENGTH;
 
 	private final int toughness = 3;
 	private int toughnessMod = 0;

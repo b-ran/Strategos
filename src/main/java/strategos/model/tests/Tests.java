@@ -4,8 +4,7 @@ import org.junit.Test;
 import strategos.model.Hex;
 import strategos.model.Map;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.*;
 import static strategos.util.Util.Direction.*;
 
 public class Tests {

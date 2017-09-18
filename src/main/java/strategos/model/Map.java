@@ -15,7 +15,7 @@ public class Map {
 	}
 	
 	/**
-	 * Creates a 2D array of LinkedTerrainHex objects
+	 * Creates a 2D array of Hex objects
 	 * @return
 	 */
 	private Hex[][] constructMap(int diameter) {
@@ -27,7 +27,7 @@ public class Map {
 				map[r][q] = new NullHex(r, q);
 			}
 		}
-		/*LinkedTerrainHex centre = new LinkedTerrainHex(radius, radius);
+		/*Hex centre = new Hex(radius, radius);
 		map[radius][radius] = centre;
 		System.out.println(radius);
 		for (int dX = -radius; dX <= radius; dX++) {
@@ -41,11 +41,11 @@ public class Map {
 				int column = dX;
 				int row = dZ;
 				System.out.println(column + ", " + row);
-				map[column][row] = new LinkedTerrainHex(row, column);
+				map[column][row] = new Hex(row, column);
 			}
 		}*/
 		boolean left = true;
-		int offset = diameter / 2;
+		int offset = radius;
 		for (int r = 0; r < diameter; r++) {
 			for (int q = 0; q < diameter; q++) {
 				if (left && q < offset || (!left && q >= diameter - offset)) {
