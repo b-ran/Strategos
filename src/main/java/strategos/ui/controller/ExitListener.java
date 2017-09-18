@@ -1,4 +1,16 @@
 package strategos.ui.controller;
 
-public class ExitListener {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class ExitListener extends Controller implements ActionListener {
+
+    public ExitListener(Controller controller) {
+        super(controller);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }

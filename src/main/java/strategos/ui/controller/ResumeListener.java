@@ -1,4 +1,16 @@
 package strategos.ui.controller;
 
-public class ResumeListener {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class ResumeListener extends Controller implements ActionListener {
+
+    public ResumeListener(Controller controller) {
+        super(controller);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }

@@ -4,7 +4,7 @@ import strategos.model.units.*;
 
 import java.awt.*;
 
-public class EntityImage {
+class EntityImage {
 
     Image get(Archers entity) {
         return null;

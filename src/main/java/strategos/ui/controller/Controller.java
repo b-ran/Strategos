@@ -8,13 +8,19 @@ import java.util.List;
 
 public class Controller {
 
-    List<Entity> entities = new LinkedList<>();
-    List<Entity> terrain = new LinkedList<>();
-    View view = new View();
+    protected List<Entity> entities = new LinkedList<>();
+    protected List<Entity> terrain = new LinkedList<>();
+    protected View view = new View();
 
     public Controller(List<Entity> entities, List<Entity> terrain, View view) {
         this.entities = entities;
         this.terrain = terrain;
         this.view = view;
+    }
+
+    protected Controller(Controller controller) {
+        this.entities = controller.entities;
+        this.terrain = controller.terrain;
+        this.view = controller.view;
     }
 }

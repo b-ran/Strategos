@@ -12,4 +12,5 @@ public class Ui {
         View view = new View(entities, terrain);
         Controller controller = new Controller(entities, terrain, view);
     }
+
 }

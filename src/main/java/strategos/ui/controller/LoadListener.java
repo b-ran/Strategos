@@ -1,4 +1,16 @@
 package strategos.ui.controller;
 
-public class LoadListener {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+class LoadListener extends Controller implements ActionListener {
+
+    public LoadListener(Controller controller) {
+        super(controller);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
