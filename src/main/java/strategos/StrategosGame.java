@@ -12,7 +12,6 @@ public class StrategosGame{
 
 
 	public StrategosGame() {
-
 	}
 
 	/**
