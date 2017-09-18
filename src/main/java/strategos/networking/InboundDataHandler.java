@@ -7,8 +7,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 public class InboundDataHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		System.out.println(msg);
-		((ByteBuf) msg).release();
+		System.out.println(((ByteBuf) msg).toString(io.netty.util.CharsetUtil.US_ASCII));
 	}
 
 	@Override

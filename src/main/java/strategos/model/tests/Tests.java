@@ -1,11 +1,11 @@
 package strategos.model.tests;
 
 import org.junit.Test;
-
 import strategos.model.Hex;
 import strategos.model.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static strategos.util.Util.Direction.*;
 
 public class Tests {
@@ -14,7 +14,7 @@ public class Tests {
 	 * Ensures that creating the map works as expected, and that all neighbours of a given LinkedTerrainHex
 	 * 		are as expected.
 	 */
-	@Test
+	@org.junit.Test
 	public void MapConstructionTest_1() {
 		Map map = new Map(6);
 		Hex midHex = map.get(3, 3);
