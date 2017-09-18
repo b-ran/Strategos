@@ -21,7 +21,7 @@ public class Hex {
 	private int yIndex;
 	
 	/**
-	 * Creates a new Hex object, initialising the neighbours collection. 
+	 * Creates a new LinkedTerrainHex object, initialising the neighbours collection.
 	 * This constructor assumes that the neighbours will be added externally.
 	 */
 	public Hex(int x, int y) {
@@ -31,14 +31,14 @@ public class Hex {
 	}
 	
 	/**
-	 * Creates a new Hex object with pre-specified neighbours.
+	 * Creates a new LinkedTerrainHex object with pre-specified neighbours.
 	 * 
-	 * @param east - The neighbouring Hex directly to the right.
-	 * @param west - The neighbouring Hex directly to the left.
-	 * @param northeast - The neighbouring Hex one to the right and one up.
-	  * @param northwest - The neighbouring Hex one to the left and one up.
-	 * @param southeast - The neighbouring Hex one to the right and one down.
-	 * @param southwest - The neighbouring Hex one to the left and one down.
+	 * @param east - The neighbouring LinkedTerrainHex directly to the right.
+	 * @param west - The neighbouring LinkedTerrainHex directly to the left.
+	 * @param northeast - The neighbouring LinkedTerrainHex one to the right and one up.
+	  * @param northwest - The neighbouring LinkedTerrainHex one to the left and one up.
+	 * @param southeast - The neighbouring LinkedTerrainHex one to the right and one down.
+	 * @param southwest - The neighbouring LinkedTerrainHex one to the left and one down.
 	 */
 	public Hex(int x, int y, Hex east, Hex west, Hex northeast, Hex northwest, Hex southeast, Hex southwest) {
 		setxIndex(x);
@@ -53,9 +53,9 @@ public class Hex {
 	}
 	
 	/**
-	 * Returns whether or not this Hex can be moved onto by a Unit.
+	 * Returns whether or not this LinkedTerrainHex can be moved onto by a Unit.
 	 * Calls the isPassable method on the terrain stored by this tile.
-	 * If this Hex is a NullHex, this method will always return false.
+	 * If this LinkedTerrainHex is a NullHex, this method will always return false.
 	 * 
 	 * @return true if the tile can be acted upon or moved onto, false otherwise.
 	 */
@@ -77,11 +77,11 @@ public class Hex {
 	}
 	
 	/**
-	 * Gets the neighbour at the specified orientation relative to this Hex.
+	 * Gets the neighbour at the specified orientation relative to this LinkedTerrainHex.
 	 * Will return a NullHex if no neighbour exists at that position.
 	 *  
-	 * @param direction - The Direction that the desired Hex is, relative to this Hex.
-	 * @return A Hex at the specified Direction.
+	 * @param direction - The Direction that the desired LinkedTerrainHex is, relative to this LinkedTerrainHex.
+	 * @return A LinkedTerrainHex at the specified Direction.
 	 */
 	public Hex getNeighbour(Direction direction) {
 		return neighbours.get(direction);
@@ -92,14 +92,14 @@ public class Hex {
 			throw new IllegalArgumentException("Cannot overwrite a neighbour");
 		}
 		if (neighbours.size() == 6) {
-			throw new RuleViolationException("A Hex cannot have more than 6 neighbours");
+			throw new RuleViolationException("A LinkedTerrainHex cannot have more than 6 neighbours");
 		}
 		neighbours.put(direction, newNeighbour);
 	}
 	
 	/**
-	 * Gets the map of neighbours contained by this Hex.
-	 * @return a Map of Direction to Hex, the adjacent Hexes to this Hex.
+	 * Gets the map of neighbours contained by this LinkedTerrainHex.
+	 * @return a Map of Direction to LinkedTerrainHex, the adjacent Hexes to this LinkedTerrainHex.
 	 */
 	public Map<Direction, Hex> getNeighbours() {
 		return neighbours;

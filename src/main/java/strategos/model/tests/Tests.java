@@ -11,7 +11,7 @@ import static strategos.util.Util.Direction.*;
 public class Tests {
 
 	/**
-	 * Ensures that creating the map works as expected, and that all neighbours of a given Hex
+	 * Ensures that creating the map works as expected, and that all neighbours of a given LinkedTerrainHex
 	 * 		are as expected.
 	 */
 	@Test
@@ -36,7 +36,7 @@ public class Tests {
 	}
 	
 	/**
-	 * Tests that a Hex on the edge of the map has NullHexes as its neighbours.
+	 * Tests that a LinkedTerrainHex on the edge of the map has NullHexes as its neighbours.
 	 */
 	@Test
 	public void MapNeighbourTest_1() {
