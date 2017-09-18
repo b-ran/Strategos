@@ -1,7 +1,6 @@
 package strategos.model.tests;
 
 import org.junit.Test;
-
 import strategos.model.Hex;
 import strategos.model.Map;
 
@@ -11,10 +10,10 @@ import static strategos.util.Util.Direction.*;
 public class Tests {
 
 	/**
-	 * Ensures that creating the map works as expected, and that all neighbours of a given Hex
+	 * Ensures that creating the map works as expected, and that all neighbours of a given LinkedTerrainHex
 	 * 		are as expected.
 	 */
-	@Test
+	@org.junit.Test
 	public void MapConstructionTest_1() {
 		Map map = new Map(6);
 		Hex midHex = map.get(3, 3);
@@ -36,7 +35,7 @@ public class Tests {
 	}
 	
 	/**
-	 * Tests that a Hex on the edge of the map has NullHexes as its neighbours.
+	 * Tests that a LinkedTerrainHex on the edge of the map has NullHexes as its neighbours.
 	 */
 	@Test
 	public void MapNeighbourTest_1() {

@@ -15,7 +15,7 @@ public class Map {
 	}
 	
 	/**
-	 * Creates a 2D array of Hex objects 
+	 * Creates a 2D array of Hex objects
 	 * @return
 	 */
 	private Hex[][] constructMap(int diameter) {
@@ -45,7 +45,7 @@ public class Map {
 			}
 		}*/
 		boolean left = true;
-		int offset = diameter / 2;
+		int offset = radius;
 		for (int r = 0; r < diameter; r++) {
 			for (int q = 0; q < diameter; q++) {
 				if (left && q < offset || (!left && q >= diameter - offset)) {

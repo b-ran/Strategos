@@ -3,6 +3,7 @@ package strategos.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import strategos.mapgeneration.map.board.Terrain;
 import strategos.util.Util.Direction;
 import static strategos.util.Util.Direction.*;
 import strategos.util.Util.Modifier;
@@ -20,8 +21,10 @@ public class Hex {
 	private int xIndex;
 	private int yIndex;
 	
+	private Terrain terrain;
+	
 	/**
-	 * Creates a new Hex object, initialising the neighbours collection. 
+	 * Creates a new Hex object, initialising the neighbours collection.
 	 * This constructor assumes that the neighbours will be added externally.
 	 */
 	public Hex(int x, int y) {
@@ -61,8 +64,8 @@ public class Hex {
 	 */
 	public boolean isPassable() {
 		// TODO: implement to call terrain.isImpassable().
-		//throw new FeatureNotImplementedException("Terrain not yet implemented");
-		return true;
+		throw new FeatureNotImplementedException("Terrain not yet implemented");
+		// return terrain.isImpassable();
 	}
 	
 	/**

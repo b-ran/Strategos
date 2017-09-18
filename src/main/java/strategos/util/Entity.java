@@ -10,7 +10,7 @@ package strategos.util;
  * List of implementers:
  * strategos.StrategosGame
  * strategos.board
- * Hex
+ * LinkedTerrainHex
  * Unit
  */
 public interface Entity {

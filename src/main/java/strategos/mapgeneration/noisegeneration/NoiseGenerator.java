@@ -1,4 +1,4 @@
-package strategos.mapGeneration.noiseGeneration;
+package strategos.mapgeneration.noisegeneration;
 
 /**
  * Created by Shaun Sinclair
