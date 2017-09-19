@@ -1,5 +1,7 @@
 package strategos.model.units;
 
+import strategos.behaviour.HasBehaviour;
+import strategos.behaviour.UnitBehaviour;
 import strategos.model.Hex;
 import strategos.util.Entity;
 import strategos.util.exception.RuleViolationException;
@@ -9,43 +11,33 @@ import strategos.util.exception.RuleViolationException;
  * 28/07/2017.
  */
 
-//This is a interface for all strategos.units
-public abstract class Unit implements Entity {
-	//for use in other files
+public abstract class Unit implements Entity, HasBehaviour<UnitBehaviour> {
 	public enum Action {
-		WARY, ENTRENCH
+		WARY, ENTRENCH, MOVE, 
 	}
 
 	public  void doAction(Action act){
 		switch (act) {
 			case WARY:
-				//wary();
 				break;
 			case ENTRENCH:
-				//entrench();
 				break;
 			default:
 				throw new IllegalArgumentException("No such action.");
 		}
 	}
-/*
-	public abstract boolean move();
 
-	public abstract int attack(Unit enemy);
+	private UnitBehaviour behaviour;
 
-	public abstract int defend(Unit enemy);
-
-	public void wary() {
-		throw new RuleViolationException("Unit cannot Wary");
+	@Override
+	public UnitBehaviour getBehaviour() {
+		return behaviour;
 	}
 
-	public void entrench(){
-		throw new RuleViolationException("Unit cannot Entrench");
+	@Override
+	public void setBehaviour(UnitBehaviour behaviour) {
+		this.behaviour = behaviour;
 	}
-
-	public void charge(){
-		throw new RuleViolationException("Unit cannot Charge");
-	}*/
 
 	public abstract Hex getPosition();
 
