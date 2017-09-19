@@ -3,7 +3,6 @@ package strategos.model.units;
 import strategos.behaviour.HasBehaviour;
 import strategos.behaviour.UnitBehaviour;
 import strategos.model.Hex;
-import strategos.util.Entity;
 import strategos.util.exception.RuleViolationException;
 
 /**
@@ -11,7 +10,10 @@ import strategos.util.exception.RuleViolationException;
  * 28/07/2017.
  */
 
-public abstract class Unit implements Entity, HasBehaviour<UnitBehaviour> {
+public abstract class Unit implements HasBehaviour<UnitBehaviour> {
+
+	private UnitBehaviour behaviour;
+
 	public enum Action {
 		WARY, ENTRENCH, MOVE, 
 	}
@@ -26,8 +28,6 @@ public abstract class Unit implements Entity, HasBehaviour<UnitBehaviour> {
 				throw new IllegalArgumentException("No such action.");
 		}
 	}
-
-	private UnitBehaviour behaviour;
 
 	@Override
 	public UnitBehaviour getBehaviour() {
