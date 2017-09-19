@@ -12,7 +12,6 @@ import static strategos.util.Config.*;
  * 28/07/2017.
  */
 public class Spearmen extends Unit {
-	private static final Image sprite = null;
 	
 	public Spearmen() {
 		//Behaviour.setUnitBehaviour(this);

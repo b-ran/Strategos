@@ -12,7 +12,6 @@ import static strategos.util.Config.*;
  * 30/07/2017.
  */
 public class Swordsmen extends Unit {
-	private static final Image sprite = null;
 
 	@Override
 	public Hex getPosition() {
