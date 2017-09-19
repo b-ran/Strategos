@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import strategos.mapgeneration.map.board.Terrain;
+import strategos.util.Entity;
 import strategos.util.Util.Direction;
 import static strategos.util.Util.Direction.*;
 import strategos.util.Util.Modifier;
@@ -15,7 +16,7 @@ import strategos.util.exception.RuleViolationException;
  * @author Daniel Pinfold
  *
  */
-public class Hex {
+public class Hex implements Entity {
 	private Map<Direction, Hex> neighbours;
 	
 	private int xIndex;

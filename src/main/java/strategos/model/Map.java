@@ -4,6 +4,12 @@ import static strategos.util.Config.MAP_RADIUS;
 import static strategos.util.Config.MAP_DIAMETER;
 import static strategos.util.Util.Direction.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 public class Map {
 	
 	private Hex[][] map;
@@ -100,6 +106,16 @@ public class Map {
 	
 	public Hex[][] getMap() {
 		return map;
+	}
+	
+	public List<Hex> getMapAsList() {
+		List<Hex> temp = new ArrayList<>();
+		for (int x = 0; x < map.length; x++) {
+			for (int y = 0; y < map.length; y++) {
+				temp.add(map[x][y]);
+			}
+		}
+		return temp;
 	}
 	
 }
