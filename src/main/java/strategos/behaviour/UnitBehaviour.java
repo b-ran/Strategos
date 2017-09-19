@@ -6,6 +6,8 @@ import strategos.model.units.*;
 
 public interface UnitBehaviour extends Behaviour {
 
+    void turnTick();
+
     void wary();
 
     void entrench();

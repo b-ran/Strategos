@@ -13,6 +13,10 @@ class UnitBehaviourArchers extends BehaviourBase implements UnitBehaviour {
         this.unit = unit;
     }
 
+    @Override public void turnTick() {
+        throw new NotImplementedException();
+    }
+
     @Override public void wary() {
         throw new NotImplementedException();
     }
