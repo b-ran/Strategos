@@ -1,22 +1,32 @@
 package strategos;
 
+import strategos.model.Player;
+import strategos.model.World;
+import strategos.ui.controller.Controller;
+import strategos.ui.view.View;
+
 /**
  * Created as part of Strategos project
  * 28/07/2017.
  */
 public class StrategosGame{
-
-	public static final int HEX_NUM = 0;
-	public static final int ENTRENCH_VAL = 2;
-	public static final int WARY_VAL = 1;
-
+	
+	private World world;
+	private View view;
+	
+	private Player playerOne;
+	private Player playerTwo;
+	private Controller controller;
 
 	public StrategosGame() {
+		world = new World();
+		/*view = new View(world.getAllUnits(), world.getMap().getMapAsList());
+		controller = new Controller(world.getAllUnits(), world.getMap(), view);*/
+		
+		playerOne = new Player();
+		playerTwo = new Player();
 	}
 
-	/**
-	 * Draws the strategos.board including all tiles and strategos.units
-	 */
 	public void draw() {
 	}
 
