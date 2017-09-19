@@ -13,4 +13,8 @@ public interface Behaviour {
     static void setUnitBehaviourArchers(HasBehaviour<UnitBehaviour> unit) {
         unit.setBehaviour(new UnitBehaviourArchers(unit));
     }
+
+    static void setAiBehaviourArcher(HasBehaviour<UnitBehaviour> unit) {
+        unit.setBehaviour(new AiBehaviourArchers(unit));
+    }
 }
