@@ -14,6 +14,7 @@ class BehaviourBase implements Behaviour {
     }
 
     @Override public void setPosition(Hex position) {
+        assert position != null : "Position should never be set to null.";
         this.position = position;
     }
 }
