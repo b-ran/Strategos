@@ -9,4 +9,8 @@ public interface Behaviour {
     Hex getPosition();
 
     void setPosition(Hex position);
+
+    static void setUnitBehaviourArchers(HasBehaviour<UnitBehaviour> unit) {
+        unit.setBehaviour(new UnitBehaviourArchers(unit));
+    }
 }
