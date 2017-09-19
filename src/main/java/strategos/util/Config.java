@@ -5,8 +5,8 @@ public class Config {
 	public static final int MAP_DIAMETER = MAP_RADIUS * 2;
 	public static final int HEX_NUM = 0;
 	
-	public static final int ENTRENCH_MODIFIER = 2;
-	public static final int WARY_MODIFIER = 1;
+	public static final double ENTRENCH_MODIFIER = 0.3;
+	public static final double WARY_MODIFIER = 0.15;
 
 	public static final int INFANTRY_MOVEMENT = 2;
 	public static final int CAVALRY_MOVEMENT = 4;
