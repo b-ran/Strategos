@@ -7,4 +7,6 @@ import strategos.model.*;
 public interface Behaviour {
 
     Hex getPosition();
+
+    void setPosition(Hex position);
 }
