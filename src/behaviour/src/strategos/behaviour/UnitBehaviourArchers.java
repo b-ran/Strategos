@@ -3,7 +3,6 @@ package strategos.behaviour;
 
 import strategos.behaviour.util.CombatUnit;
 import strategos.behaviour.util.HasBehaviour;
-import strategos.model.units.*;
 import sun.reflect.generics.reflectiveObjects.*;
 
 
