@@ -1,21 +1,20 @@
 package strategos.mapgeneration.map.board;
 
-import strategos.mapgeneration.map.BasicHex;
-import strategos.util.Entity;
+import strategos.mapgeneration.map.Paintable;
 
 /**
  * Created as part of Strategos project
  * 28/07/2017.
  */
-public class LinkedTerrainHex extends BasicHex {
+public class LinkedTerrainHex extends Paintable {
 
 	Terrain terrain;
 	//Index 0 is top edge neighbour the rotates clockwise
-	public final LinkedTerrainHex[] neighbours;
+	private final LinkedTerrainHex[] neighbours;
 	//sets if the hex has been seen by player yet
 	private boolean revealed = false;
 	//Terrain type as from enum
-	public final Terrain terrainType;
+	private final Terrain terrainType;
 //	private Image;
 
 	//TODO make more descriptive
