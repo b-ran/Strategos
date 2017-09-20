@@ -1,12 +1,13 @@
 package strategos.mapgeneration.map.board;
 
 import strategos.mapgeneration.map.Paintable;
+import strategos.mapgeneration.map.board.terrain.Terrain;
 
 /**
  * Created as part of Strategos project
  * 28/07/2017.
  */
-public class LinkedTerrainHex extends Paintable {
+public class LinkedTerrainHex implements Paintable {
 
 	Terrain terrain;
 	//Index 0 is top edge neighbour the rotates clockwise
@@ -28,4 +29,12 @@ public class LinkedTerrainHex extends Paintable {
 		this.terrainType=terrainType;
 	}
 
+
+    public void setTerrain(Terrain terrain) {
+		this.terrain = terrain;
+    }
+
+	public Terrain getTerrain() {
+		return terrain;
+	}
 }

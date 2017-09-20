@@ -3,7 +3,7 @@ package strategos.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import strategos.mapgeneration.map.board.Terrain;
+import strategos.mapgeneration.map.board.terrain.Terrain;
 import strategos.util.Util.Direction;
 import static strategos.util.Util.Direction.*;
 import strategos.util.Util.Modifier;
