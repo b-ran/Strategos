@@ -1,4 +1,4 @@
-package strategos.model;
+package strategos.hexgrid;
 
 public class NullHex extends Hex {
 	

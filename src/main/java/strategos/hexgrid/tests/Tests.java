@@ -1,8 +1,9 @@
-package strategos.model.tests;
+package strategos.hexgrid.tests;
 
 import org.junit.Test;
-import strategos.model.Hex;
-import strategos.model.Map;
+
+import strategos.hexgrid.Hex;
+import strategos.hexgrid.Map;
 
 import static org.junit.Assert.*;
 import static strategos.util.Util.Direction.*;

@@ -1,6 +1,6 @@
 package strategos.model.units;
 
-import strategos.model.Hex;
+import strategos.hexgrid.Hex;
 import strategos.util.Config;
 import strategos.util.exception.RuleViolationException;
 

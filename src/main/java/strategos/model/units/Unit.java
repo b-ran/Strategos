@@ -1,8 +1,7 @@
 package strategos.model.units;
 
-import strategos.behaviour.HasBehaviour;
 import strategos.behaviour.UnitBehaviour;
-import strategos.model.Hex;
+import strategos.hexgrid.Hex;
 import strategos.util.exception.RuleViolationException;
 
 /**
@@ -10,7 +9,7 @@ import strategos.util.exception.RuleViolationException;
  * 28/07/2017.
  */
 
-public abstract class Unit implements HasBehaviour<UnitBehaviour> {
+public abstract class Unit implements strategos.behaviour.util.HasBehaviour<UnitBehaviour> {
 
 	private UnitBehaviour behaviour;
 

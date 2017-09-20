@@ -1,8 +1,9 @@
-package strategos.model;
+package strategos.hexgrid;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import strategos.mapgeneration.map.Paintable;
 import strategos.mapgeneration.map.board.Terrain;
 import strategos.util.Util.Direction;
 import static strategos.util.Util.Direction.*;
@@ -15,7 +16,7 @@ import strategos.util.exception.RuleViolationException;
  * @author Daniel Pinfold
  *
  */
-public class Hex {
+public class Hex extends Paintable {
 	private Map<Direction, Hex> neighbours;
 	
 	private int xIndex;
@@ -98,6 +99,11 @@ public class Hex {
 			throw new RuleViolationException("A Hex cannot have more than 6 neighbours");
 		}
 		neighbours.put(direction, newNeighbour);
+	}
+	
+	@Override
+	public void setTerrain() {
+		this.terrain = terrain;
 	}
 	
 	/**
