@@ -3,6 +3,7 @@ package strategos.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import strategos.hexgrid.Map;
 import strategos.model.units.Unit;
 
 public class World {

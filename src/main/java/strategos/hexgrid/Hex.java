@@ -1,21 +1,23 @@
 package strategos.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import strategos.mapgeneration.map.Paintable;
 import strategos.mapgeneration.map.board.terrain.Terrain;
 import strategos.util.Util.Direction;
-import static strategos.util.Util.Direction.*;
 import strategos.util.Util.Modifier;
 import strategos.util.exception.FeatureNotImplementedException;
 import strategos.util.exception.RuleViolationException;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static strategos.util.Util.Direction.*;
 
 /**
  * The hexagonal tile structure of the map, which holds information on this section of the map.
  * @author Daniel Pinfold
  *
  */
-public class Hex {
+public class Hex implements Paintable {
 	private Map<Direction, Hex> neighbours;
 	
 	private int xIndex;
@@ -99,8 +101,16 @@ public class Hex {
 		}
 		neighbours.put(direction, newNeighbour);
 	}
-	
-	/**
+
+	public void setTerrain(Terrain terrain) {
+		this.terrain = terrain;
+	}
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    /**
 	 * Gets the map of neighbours contained by this Hex.
 	 * @return a Map of Direction to Hex, the adjacent Hexes to this Hex.
 	 */

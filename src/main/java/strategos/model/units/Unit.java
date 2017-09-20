@@ -1,8 +1,8 @@
 package strategos.model.units;
 
-import strategos.behaviour.HasBehaviour;
-import strategos.behaviour.UnitBehaviour;
-import strategos.model.Hex;
+import strategos.behaviour.*;
+import strategos.behaviour.util.HasBehaviour;
+import strategos.hexgrid.Hex;
 import strategos.util.exception.RuleViolationException;
 
 /**

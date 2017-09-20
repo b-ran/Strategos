@@ -1,7 +1,7 @@
 package strategos.model.units;
 
 import strategos.behaviour.Behaviour;
-import strategos.model.Hex;
+import strategos.hexgrid.Hex;
 import strategos.util.exception.RuleViolationException;
 
 import java.awt.*;

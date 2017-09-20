@@ -1,4 +1,4 @@
-package strategos.model;
+package strategos.hexgrid;
 
 import static strategos.util.Config.MAP_RADIUS;
 import static strategos.util.Config.MAP_DIAMETER;
