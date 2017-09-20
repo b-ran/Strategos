@@ -22,6 +22,8 @@ public class View extends JComponent implements Observer {
         this.terrain = terrain;
         frame = new JFrame(WINDOW_NAME);
         setMenu();
+        frame.pack();
+        frame.setVisible(true);
     }
 
     public View() {
