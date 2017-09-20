@@ -7,7 +7,12 @@ import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
 
+import static strategos.util.Config.*;
+
 public class View extends JComponent implements Observer {
+
+
+    private JFrame frame; //Overall Frame
 
     protected Unit[][] entities;
     protected Hex[][] terrain;
@@ -15,6 +20,8 @@ public class View extends JComponent implements Observer {
     public View(Unit[][] entities, Hex[][] terrain) {
         this.entities = entities;
         this.terrain = terrain;
+        frame = new JFrame(WINDOW_NAME);
+        setMenu();
     }
 
     public View() {
@@ -22,5 +29,17 @@ public class View extends JComponent implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        frame.repaint();
+        requestFocus();
+    }
+
+    public void setMenu() {
+        frame.dispose();
+        frame.add(new MenuComponent().getMenu());
+    }
+
+    public void setEscapeMenu() {
+        frame.dispose();
+        frame.add(new MenuComponent().getEscapeMenu());
     }
 }

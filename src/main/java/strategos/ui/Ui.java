@@ -12,4 +12,9 @@ public class Ui {
         Controller controller = new Controller(entities, terrain, view);
     }
 
+
+    public static void main(String[] args) {
+        View view = new View(null, null);
+        Controller controller = new Controller(null, null, view);
+    }
 }
