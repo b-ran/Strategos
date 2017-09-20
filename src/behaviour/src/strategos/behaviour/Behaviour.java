@@ -1,14 +1,15 @@
 package strategos.behaviour;
 
 
-import strategos.model.*;
+import strategos.behaviour.util.HasBehaviour;
+import strategos.behaviour.util.MapLocation;
 
 
 public interface Behaviour {
 
-    Hex getPosition();
+    MapLocation getPosition();
 
-    void setPosition(Hex position);
+    void setPosition(MapLocation position);
 
     static void setUnitBehaviourArchers(HasBehaviour<UnitBehaviour> unit) {
         unit.setBehaviour(new UnitBehaviourArchers(unit));

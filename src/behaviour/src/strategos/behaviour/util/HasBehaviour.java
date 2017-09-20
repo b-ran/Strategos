@@ -1,5 +1,7 @@
-package strategos.behaviour;
+package strategos.behaviour.util;
 
+
+import strategos.behaviour.Behaviour;
 
 public interface HasBehaviour <T extends Behaviour> {
 

@@ -1,19 +1,19 @@
 package strategos.behaviour;
 
 
-import strategos.model.*;
+import strategos.behaviour.util.MapLocation;
 
 
 class BehaviourBase implements Behaviour {
 
-    private Hex position;
+    private MapLocation position;
 
-    @Override public Hex getPosition() {
+    @Override public MapLocation getPosition() {
         assert position != null : "Position should never be null on retrieval.";
         return position;
     }
 
-    @Override public void setPosition(Hex position) {
+    @Override public void setPosition(MapLocation position) {
         assert position != null : "Position should never be set to null.";
         this.position = position;
     }

@@ -1,7 +1,8 @@
 package strategos.behaviour;
 
 
-import strategos.model.units.*;
+import strategos.behaviour.util.CombatUnit;
+import strategos.behaviour.util.HasBehaviour;
 
 
 abstract class AiBehaviour extends BehaviourBase
@@ -37,11 +38,11 @@ abstract class AiBehaviour extends BehaviourBase
         return behaviour.move();
     }
 
-    @Override public int attack(Unit enemy) {
+    @Override public int attack(CombatUnit enemy) {
         return behaviour.attack(enemy);
     }
 
-    @Override public int defend(Unit enemy) {
+    @Override public int defend(CombatUnit enemy) {
         return behaviour.defend(enemy);
     }
 

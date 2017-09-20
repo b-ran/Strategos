@@ -1,7 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.model.units.*;
+import strategos.behaviour.util.CombatUnit;
 
 
 public interface UnitBehaviour extends Behaviour {
@@ -16,9 +16,9 @@ public interface UnitBehaviour extends Behaviour {
 
     boolean move();
 
-    int attack(Unit enemy);
+    int attack(CombatUnit enemy);
 
-    int defend(Unit enemy);
+    int defend(CombatUnit enemy);
 
     int getStrength();
 
