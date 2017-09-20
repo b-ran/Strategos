@@ -1,12 +1,13 @@
 package strategos.mapgeneration.map.board;
 
+import strategos.mapgeneration.map.BasicHex;
 import strategos.util.Entity;
 
 /**
  * Created as part of Strategos project
  * 28/07/2017.
  */
-public class LinkedTerrainHex implements Entity {
+public class LinkedTerrainHex extends BasicHex {
 
 	Terrain terrain;
 	//Index 0 is top edge neighbour the rotates clockwise
