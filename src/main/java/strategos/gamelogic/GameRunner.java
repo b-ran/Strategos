@@ -1,4 +1,4 @@
-package gamelogic;
+package strategos.gamelogic;
 
 import java.util.ArrayList;
 import java.util.List;
