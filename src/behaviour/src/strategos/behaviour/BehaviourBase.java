@@ -1,20 +1,58 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.util.MapLocation;
+import strategos.behaviour.util.*;
 
 
 class BehaviourBase implements Behaviour {
 
-    private MapLocation position;
+    private Behaviour behaviour;
+
+    BehaviourBase(Behaviour behaviour) {
+        this.behaviour = behaviour;
+    }
 
     @Override public MapLocation getPosition() {
-        assert position != null : "Position should never be null on retrieval.";
-        return position;
+        return behaviour.getPosition();
     }
 
     @Override public void setPosition(MapLocation position) {
-        assert position != null : "Position should never be set to null.";
-        this.position = position;
+        behaviour.setPosition(position);
+    }
+
+    @Override public void turnTick() {
+        behaviour.turnTick();
+    }
+
+    @Override public void wary() {
+        behaviour.wary();
+    }
+
+    @Override public void entrench() {
+        behaviour.entrench();
+    }
+
+    @Override public void charge() {
+        behaviour.charge();
+    }
+
+    @Override public boolean move() {
+        return behaviour.move();
+    }
+
+    @Override public int attack(CombatUnit enemy) {
+        return behaviour.attack(enemy);
+    }
+
+    @Override public int defend(CombatUnit enemy) {
+        return behaviour.defend(enemy);
+    }
+
+    @Override public int getStrength() {
+        return behaviour.getStrength();
+    }
+
+    @Override public int getToughness() {
+        return behaviour.getToughness();
     }
 }
