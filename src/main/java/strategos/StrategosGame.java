@@ -20,8 +20,8 @@ public class StrategosGame{
 
 	public StrategosGame() {
 		world = new World();
-		view = new View(world.getAllUnits(), world.getMap().getMap());
-		controller = new Controller(world.getAllUnits(), world.getMap().getMap(), view);
+		view = new View(world.getAllUnits(), world.getMap());
+		controller = new Controller(world.getAllUnits(), world.getMap(), view);
 		
 		playerOne = new Player();
 		playerTwo = new Player();
