@@ -6,5 +6,7 @@ package strategos.mapgeneration.map;
  * 28/07/2017.
  */
 public class TerrainGeneration {
-	//Still picking an algorithm
+    public Paintable[][] generateSquareMap(Paintable[][] map){
+        return new Paintable[2][2];
+    }
 }
