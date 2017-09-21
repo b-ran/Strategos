@@ -4,7 +4,7 @@ import javax.swing.*;
 
 class SidePanelComponent extends JComponent {
 
-    private View view = new View();
+    private View view;
 
     protected SidePanelComponent(View view) {
         this.view = view;
