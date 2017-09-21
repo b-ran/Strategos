@@ -1,0 +1,8 @@
+rootProject.name = 'Strategos'
+include 'behaviour'
+include 'ui'
+include 'networking'
+include 'mapgeneration'
+include 'hexgrid'
+include 'game'
+

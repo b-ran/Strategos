@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="behaviour_main" target="1.8" />
+      <module name="behaviour_test" target="1.8" />
+      <module name="game_main" target="1.8" />
+      <module name="game_test" target="1.8" />
+      <module name="hexgrid_main" target="1.8" />
+      <module name="hexgrid_test" target="1.8" />
+      <module name="mapgeneration_main" target="1.8" />
+      <module name="mapgeneration_test" target="1.8" />
+      <module name="networking_main" target="1.8" />
+      <module name="networking_test" target="1.8" />
+      <module name="Strategos_main" target="1.8" />
+      <module name="Strategos_test" target="1.8" />
+      <module name="ui_main" target="1.8" />
+      <module name="ui_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

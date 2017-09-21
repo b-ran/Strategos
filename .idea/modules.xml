@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Strategos.iml" filepath="$PROJECT_DIR$/.idea/modules/Strategos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Strategos_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Strategos_main.iml" group="Strategos" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Strategos_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Strategos_test.iml" group="Strategos" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/behaviour.iml" filepath="$PROJECT_DIR$/.idea/modules/behaviour.iml" group="behaviour" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/behaviour/behaviour_main.iml" filepath="$PROJECT_DIR$/.idea/modules/behaviour/behaviour_main.iml" group="behaviour" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/behaviour/behaviour_test.iml" filepath="$PROJECT_DIR$/.idea/modules/behaviour/behaviour_test.iml" group="behaviour" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/game.iml" filepath="$PROJECT_DIR$/.idea/modules/game.iml" group="game" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/game/game_main.iml" filepath="$PROJECT_DIR$/.idea/modules/game/game_main.iml" group="game" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/game/game_test.iml" filepath="$PROJECT_DIR$/.idea/modules/game/game_test.iml" group="game" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hexgrid.iml" filepath="$PROJECT_DIR$/.idea/modules/hexgrid.iml" group="hexgrid" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hexgrid/hexgrid_main.iml" filepath="$PROJECT_DIR$/.idea/modules/hexgrid/hexgrid_main.iml" group="hexgrid" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hexgrid/hexgrid_test.iml" filepath="$PROJECT_DIR$/.idea/modules/hexgrid/hexgrid_test.iml" group="hexgrid" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mapgeneration.iml" filepath="$PROJECT_DIR$/.idea/modules/mapgeneration.iml" group="mapgeneration" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mapgeneration/mapgeneration_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mapgeneration/mapgeneration_main.iml" group="mapgeneration" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mapgeneration/mapgeneration_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mapgeneration/mapgeneration_test.iml" group="mapgeneration" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/networking.iml" filepath="$PROJECT_DIR$/.idea/modules/networking.iml" group="networking" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/networking/networking_main.iml" filepath="$PROJECT_DIR$/.idea/modules/networking/networking_main.iml" group="networking" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/networking/networking_test.iml" filepath="$PROJECT_DIR$/.idea/modules/networking/networking_test.iml" group="networking" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ui.iml" filepath="$PROJECT_DIR$/.idea/modules/ui.iml" group="ui" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ui/ui_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ui/ui_main.iml" group="ui" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ui/ui_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ui/ui_test.iml" group="ui" />
+    </modules>
+  </component>
+</project>
