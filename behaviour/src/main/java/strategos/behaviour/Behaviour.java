@@ -1,8 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.util.HasBehaviour;
-import strategos.behaviour.util.MapLocation;
+import strategos.behaviour.util.*;
 
 
 public interface Behaviour {
@@ -11,11 +10,22 @@ public interface Behaviour {
 
     void setPosition(MapLocation position);
 
-    static void setUnitBehaviourArchers(HasBehaviour<UnitBehaviour> unit) {
-        unit.setBehaviour(new UnitBehaviourArchers(unit));
-    }
+    void turnTick();
 
-    static void setAiBehaviourArcher(HasBehaviour<UnitBehaviour> unit) {
-        unit.setBehaviour(new AiBehaviourArchers(unit));
-    }
+    void wary();
+
+    void entrench();
+
+    void charge();
+
+    boolean move();
+
+    int attack(CombatUnit enemy);
+
+    int defend(CombatUnit enemy);
+
+    int getStrength();
+
+    int getToughness();
+
 }
