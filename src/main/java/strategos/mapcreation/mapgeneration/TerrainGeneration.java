@@ -1,4 +1,4 @@
-package strategos.mapgeneration.map;
+package strategos.mapcreation.mapgeneration;
 
 /**
  * Created by Shaun Sinclair

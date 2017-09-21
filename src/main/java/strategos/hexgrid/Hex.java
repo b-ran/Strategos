@@ -1,7 +1,7 @@
 package strategos.model;
 
-import strategos.mapgeneration.map.Paintable;
-import strategos.mapgeneration.map.board.terrain.Terrain;
+import strategos.mapcreation.mapgeneration.Paintable;
+import strategos.mapcreation.mapgeneration.terrain.Terrain;
 import strategos.util.Util.Direction;
 import strategos.util.Util.Modifier;
 import strategos.util.exception.FeatureNotImplementedException;
@@ -13,7 +13,7 @@ import java.util.Map;
 import static strategos.util.Util.Direction.*;
 
 /**
- * The hexagonal tile structure of the map, which holds information on this section of the map.
+ * The hexagonal tile structure of the mapgeneration, which holds information on this section of the mapgeneration.
  * @author Daniel Pinfold
  *
  */
@@ -71,7 +71,7 @@ public class Hex implements Paintable {
 	}
 	
 	/**
-	 * Gets the a map of terrain Modifiers to integers, specifying what statistics
+	 * Gets the a mapgeneration of terrain Modifiers to integers, specifying what statistics
 	 * 		a given unit will be altered by the terrain.  
 	 * @return a Map of Modifier to Integer of terrain modifiers.
 	 */
@@ -111,7 +111,7 @@ public class Hex implements Paintable {
     }
 
     /**
-	 * Gets the map of neighbours contained by this Hex.
+	 * Gets the mapgeneration of neighbours contained by this Hex.
 	 * @return a Map of Direction to Hex, the adjacent Hexes to this Hex.
 	 */
 	public Map<Direction, Hex> getNeighbours() {

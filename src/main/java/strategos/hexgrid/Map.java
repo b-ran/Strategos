@@ -50,7 +50,7 @@ public class Map {
 			}
 		}
 		/*Hex centre = new Hex(radius, radius);
-		map[radius][radius] = centre;
+		mapgeneration[radius][radius] = centre;
 		System.out.println(radius);
 		for (int dX = -radius; dX <= radius; dX++) {
 			
@@ -63,7 +63,7 @@ public class Map {
 				int column = dX;
 				int row = dZ;
 				System.out.println(column + ", " + row);
-				map[column][row] = new Hex(row, column);
+				mapgeneration[column][row] = new Hex(row, column);
 			}
 		}*/
 		boolean left = true;
@@ -96,11 +96,11 @@ public class Map {
 	
 	/**
 	 * For a given Hex at (r, q), calculate all the neighbours using the axial coordinates system.
-	 * 		A map is passed into this function because the map field may not be initialised at this point.
+	 * 		A mapgeneration is passed into this function because the mapgeneration field may not be initialised at this point.
 	 * 
 	 * @param r - The horizontal position of this Hex.
 	 * @param q - The vertical position of this Hex.
-	 * @param map - The map value.
+	 * @param map - The mapgeneration value.
 	 */
 	private void populateNeighbours(int r, int q, Hex[][] map) {
 		get(r, q, map).addNeighbour(EAST, get(r + 1, q, map));
