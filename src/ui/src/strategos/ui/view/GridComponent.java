@@ -4,7 +4,7 @@ import javax.swing.*;
 
 class GridComponent extends JComponent {
 
-    private View view = new View();
+    private View view;
 
     protected GridComponent(View view) {
         this.view = view;

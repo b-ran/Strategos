@@ -4,6 +4,7 @@ import strategos.hexgrid.Hex;
 import strategos.model.units.Unit;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,10 +15,10 @@ public class View extends JComponent implements Observer {
 
     private JFrame frame; //Overall Frame
 
-    protected Unit[][] entities;
+    protected List<Unit> entities;
     protected Hex[][] terrain;
 
-    public View(Unit[][] entities, Hex[][] terrain) {
+    public View(List<Unit> entities, Hex[][] terrain) {
         this.entities = entities;
         this.terrain = terrain;
         frame = new JFrame(WINDOW_NAME);
@@ -26,8 +27,6 @@ public class View extends JComponent implements Observer {
         frame.setVisible(true);
     }
 
-    public View() {
-    }
 
     @Override
     public void update(Observable o, Object arg) {
