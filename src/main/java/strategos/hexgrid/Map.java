@@ -97,7 +97,7 @@ public class Map {
 	/**
 	 * For a given Hex at (r, q), calculate all the neighbours using the axial coordinates system.
 	 * 		A mapgeneration is passed into this function because the mapgeneration field may not be initialised at this point.
-	 * 
+	 *
 	 * @param r - The horizontal position of this Hex.
 	 * @param q - The vertical position of this Hex.
 	 * @param map - The mapgeneration value.
@@ -111,7 +111,7 @@ public class Map {
 		get(r, q, map).addNeighbour(SOUTH_EAST, get(r, q + 1, map));
 		get(r, q, map).addNeighbour(SOUTH_WEST, get(r - 1, q + 1, map));
 	}
-	
+
 	private Hex get(int x, int y, Hex[][] map) {
 		if (x < 0 || x >= map.length || y < 0 || y >= map.length) {
 			return new NullHex(x, y);

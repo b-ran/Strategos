@@ -1,4 +1,4 @@
-package strategos.model;
+package strategos.hexgrid;
 
 import strategos.mapcreation.mapgeneration.Paintable;
 import strategos.mapcreation.mapgeneration.terrain.Terrain;
