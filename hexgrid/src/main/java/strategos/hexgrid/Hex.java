@@ -1,7 +1,7 @@
 package strategos.model;
 
-import strategos.mapgeneration.map.Paintable;
-import strategos.mapgeneration.map.board.terrain.Terrain;
+import map.Paintable;
+import map.board.terrain.Terrain;
 import strategos.util.Util.Direction;
 import strategos.util.Util.Modifier;
 import strategos.util.exception.FeatureNotImplementedException;

@@ -1,4 +1,4 @@
-package strategos.mapgeneration.map.board.terrain;
+package map.terrain;
 
 /**
  * Created by Shaun Sinclair on 09/2017

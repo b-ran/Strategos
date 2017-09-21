@@ -1,6 +1,6 @@
-package strategos.mapgeneration.map;
+package map;
 
-import strategos.mapgeneration.map.board.terrain.Terrain;
+import map.terrain.Terrain;
 
 /**
  * Any object that is passed into this library must extend this, to ensure that it has the required methods and fields
