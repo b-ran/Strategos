@@ -1,12 +1,13 @@
 package strategos.model.units;
 
+import strategos.behaviour.Movable;
 import strategos.hexgrid.Hex;
 
 /**
  * Created as part of Strategos project
  * 28/07/2017.
  */
-public class Spearmen extends Unit {
+public class Spearmen extends Unit implements Movable {
 	
 	public Spearmen() {
 		//Behaviour.setUnitBehaviour(this);

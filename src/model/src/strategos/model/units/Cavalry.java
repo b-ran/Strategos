@@ -1,12 +1,13 @@
 package strategos.model.units;
 
+import strategos.behaviour.Movable;
 import strategos.hexgrid.Hex;
 
 /**
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class Cavalry extends Unit {
+public class Cavalry extends Unit implements Movable {
 
 	@Override
 	public Hex getPosition() {

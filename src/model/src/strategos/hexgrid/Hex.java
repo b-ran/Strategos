@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Daniel Pinfold
  *
  */
-public class Hex implements Paintable, Graphical {
+public class Hex implements Paintable, Graphical, MapLocation {
 	private Map<Direction, Hex> neighbours;
 	
 	private int xIndex;
@@ -117,11 +117,7 @@ public class Hex implements Paintable, Graphical {
 	
 	@Override
 	public String toString() {
-		return "[" + getXIndex() + "," + getYIndex() + "]";
-	}
-
-	public int getXIndex() {
-		return xIndex;
+		return "[" + getX() + "," + getY() + "]";
 	}
 
 	/**
@@ -133,10 +129,6 @@ public class Hex implements Paintable, Graphical {
 		this.xIndex = xIndex;
 	}
 
-	public int getYIndex() {
-		return yIndex;
-	}
-
 	/**
 	 * Changes the y-index of this Hex, i.e. where it is stored in the 2D Map array. WARNING: This method may never need to
 	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
@@ -144,5 +136,15 @@ public class Hex implements Paintable, Graphical {
 	 */
 	public void setYIndex(int yIndex) {
 		this.yIndex = yIndex;
+	}
+
+	@Override
+	public int getX() {
+		return xIndex;
+	}
+
+	@Override
+	public int getY() {
+		return yIndex;
 	}
 }

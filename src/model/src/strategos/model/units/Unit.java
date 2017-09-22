@@ -2,6 +2,7 @@ package strategos.model.units;
 
 import strategos.Graphical;
 import strategos.behaviour.Behaviour;
+import strategos.behaviour.Movable;
 import strategos.hexgrid.Hex;
 
 /**
@@ -9,7 +10,7 @@ import strategos.hexgrid.Hex;
  * 28/07/2017.
  */
 
-public abstract class Unit implements Graphical {
+public abstract class Unit implements Graphical, Movable {
 
 	private Behaviour behaviour;
 

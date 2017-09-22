@@ -1,5 +1,6 @@
 package strategos.model.units;
 
+import strategos.behaviour.Movable;
 import strategos.hexgrid.Hex;
 
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.*;
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class Elite extends Unit {
+public class Elite extends Unit implements Movable {
 	private static final Image sprite = null;
 
 	@Override
