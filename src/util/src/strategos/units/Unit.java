@@ -1,11 +1,10 @@
-package strategos.behaviour;
+package strategos.units;
 
 
-import strategos.MapLocation;
-import strategos.units.*;
+import strategos.*;
 
 
-public interface Behaviour {
+public interface Unit {
 
     MapLocation getPosition();
 
@@ -28,5 +27,4 @@ public interface Behaviour {
     int getStrength();
 
     int getToughness();
-
 }

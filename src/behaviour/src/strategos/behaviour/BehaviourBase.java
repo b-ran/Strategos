@@ -1,7 +1,9 @@
 package strategos.behaviour;
 
 
-import strategos.MapLocation;
+import strategos.*;
+import strategos.units.*;
+
 
 class BehaviourBase implements Behaviour {
 
@@ -39,11 +41,11 @@ class BehaviourBase implements Behaviour {
         return behaviour.move();
     }
 
-    @Override public int attack(Movable enemy) {
+    @Override public int attack(Unit enemy) {
         return behaviour.attack(enemy);
     }
 
-    @Override public int defend(Movable enemy) {
+    @Override public int defend(Unit enemy) {
         return behaviour.defend(enemy);
     }
 
