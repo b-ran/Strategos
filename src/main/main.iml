@@ -18,6 +18,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="behaviour" />
+    <orderEntry type="module" module-name="util" />
   </component>
 </module>
