@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import static strategos.util.Config.*;
+import static strategos.Config.*;
 
 class MenuComponent extends JComponent {
 

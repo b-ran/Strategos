@@ -1,6 +1,8 @@
 package strategos.behaviour;
 
 
+import strategos.MapLocation;
+
 public interface Behaviour {
 
     MapLocation getPosition();
@@ -17,9 +19,9 @@ public interface Behaviour {
 
     boolean move();
 
-    int attack(CombatUnit enemy);
+    int attack(Movable enemy);
 
-    int defend(CombatUnit enemy);
+    int defend(Movable enemy);
 
     int getStrength();
 

@@ -1,4 +1,4 @@
-package strategos.networking;
+package networking;
 
 public class NetworkingHandler {
 	public NetworkingHandler(int port) {

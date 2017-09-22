@@ -1,18 +1,17 @@
 package strategos.ui.controller;
 
-import strategos.hexgrid.Hex;
-import strategos.model.units.Unit;
+import strategos.Graphical;
 import strategos.ui.view.View;
 
 import java.util.List;
 
 public class Controller {
 
-    protected List<Unit> entities;
-    protected Hex[][] terrain;
+    protected List<Graphical> entities;
+    protected Graphical[][]         terrain;
     protected View view = new View(entities, terrain);
 
-    public Controller(List<Unit> entities, Hex[][] terrain, View view) {
+    public Controller(List<Graphical> entities, Graphical[][] terrain, View view) {
         this.entities = entities;
         this.terrain = terrain;
         this.view = view;
