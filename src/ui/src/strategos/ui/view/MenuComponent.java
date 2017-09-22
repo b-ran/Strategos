@@ -15,11 +15,10 @@ public class MenuComponent extends JComponent {
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
     private JPanel p = new JPanel();
 
-    protected JPanel getMenu() {
+    protected JPanel setMenu() {
         p = new JPanel();
         setupButtons();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-
         p.add(newGameButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(loadButton);
@@ -34,7 +33,7 @@ public class MenuComponent extends JComponent {
     }
 
 
-    protected  JPanel getEscapeMenu(){
+    protected JPanel setEscapeMenu(){
         p = new JPanel();
         setupButtons();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));

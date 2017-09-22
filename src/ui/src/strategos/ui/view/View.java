@@ -19,10 +19,12 @@ public class View extends JComponent implements Observer {
     protected Terrain[][] terrain;
 
     private MenuComponent menuComponent = new MenuComponent();
+    private MenuComponent escapeMenuComponent = new MenuComponent();
     private GridComponent gridComponent = new GridComponent();
 
-    private JPanel menuPanel = menuComponent.getMenu();
-    private JPanel gridPanel = gridComponent.getGrid();
+    private JPanel menuPanel = menuComponent.setMenu();
+    private JPanel escapeMenuPanel = escapeMenuComponent.setEscapeMenu();
+    private JLayeredPane gridPanel = gridComponent.getGrid();
 
     protected boolean game = false;
 
@@ -30,7 +32,10 @@ public class View extends JComponent implements Observer {
         this.entities = entities;
         this.terrain = terrain;
         frame = new JFrame(Config.WINDOW_NAME);
+        setFocusable(true);
+        requestFocus();
         setMenu();
+
     }
 
     @Override
@@ -47,15 +52,23 @@ public class View extends JComponent implements Observer {
         game = false;
     }
 
-    public void setEscapeMenu() {
-        frame.add(menuComponent.getEscapeMenu());
+    public void addEscapeMenu() {
+        gridPanel.add(escapeMenuPanel,0);
+        repack();
+    }
+
+    public void removeEscapeMenu() {
+        gridPanel.remove(escapeMenuPanel);
+        frame.remove(gridPanel);
+        gridPanel.remove(gridComponent);
+        setGame();
     }
 
     public void setGame() {
         frame.remove(menuPanel);
         frame.add(gridPanel);
-        frame.pack();
-        frame.setVisible(true);
+        gridPanel.add(gridComponent,1);
+        repack();
         game = true;
     }
 
@@ -69,5 +82,20 @@ public class View extends JComponent implements Observer {
 
     public MenuComponent getMenuComponent() {
         return menuComponent;
+    }
+
+    public GridComponent getGridComponent() {
+        return gridComponent;
+    }
+
+    private void repack() {
+        frame.pack();
+        frame.setVisible(true);
+        gridComponent.setFocusable(true);
+        gridComponent.requestFocus();
+    }
+
+    public MenuComponent getEscapeMenuComponent() {
+        return escapeMenuComponent;
     }
 }

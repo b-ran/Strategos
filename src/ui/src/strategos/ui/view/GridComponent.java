@@ -8,8 +8,13 @@ import static strategos.ui.config.Config.*;
 
 public class GridComponent extends JComponent {
 
-    public JPanel getGrid() {
-        JPanel p = new JPanel();
+    public GridComponent() {
+        setLayout(new BorderLayout());
+        setPreferredSize(GRID_COMPONENT_SIZE);
+    }
+
+    public JLayeredPane getGrid() {
+        JLayeredPane p = new JLayeredPane();
         p.setLayout(new BorderLayout());
         p.setPreferredSize(GRID_COMPONENT_SIZE);
         return p;

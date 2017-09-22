@@ -30,6 +30,7 @@ public class Controller {
 
     protected void setMenuListeners() {
         MenuComponent m = view.getMenuComponent();
+        MenuComponent e = view.getEscapeMenuComponent();
         if (view.status() == false) {
             m.getNewGameButton().addActionListener(new NewGameListener(this));
             m.getLoadButton().addActionListener(new LoadListener(this));
@@ -37,11 +38,16 @@ public class Controller {
             m.getHostButton().addActionListener(new HostListener(this));
             m.getExitButton().addActionListener(new ExitListener(this));
         } else {
-            m.getResumeButton().addActionListener(new ResumeListener(this));
-            m.getNewGameButton().addActionListener(new NewGameListener(this));
-            m.getSaveButton().addActionListener(new SaveListener(this));
-            m.getLoadButton().addActionListener(new LoadListener(this));
-            m.getExitButton().addActionListener(new ExitListener(this));
+            e.getResumeButton().addActionListener(new ResumeListener(this));
+            e.getNewGameButton().addActionListener(new NewGameListener(this));
+            e.getSaveButton().addActionListener(new SaveListener(this));
+            e.getLoadButton().addActionListener(new LoadListener(this));
+            e.getExitButton().addActionListener(new ExitListener(this));
         }
+    }
+
+    protected void setGameListeners() {
+        GridComponent g = view.getGridComponent();
+        g.addKeyListener(new MenuListener(this));
     }
 }
