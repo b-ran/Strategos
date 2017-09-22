@@ -18,15 +18,25 @@ public class View extends JComponent implements Observer {
     protected List<Unit> entities;
     protected Terrain[][] terrain;
 
+    private MenuComponent menuComponent = new MenuComponent();
+    private MenuComponent escapeMenuComponent = new MenuComponent();
+    private GridComponent gridComponent = new GridComponent();
+
+    private JPanel menuPanel = menuComponent.setMenu();
+    private JPanel escapeMenuPanel = escapeMenuComponent.setEscapeMenu();
+    private JLayeredPane gridPanel = gridComponent.getGrid();
+
+    protected boolean game = false;
+
     public View(List<Unit> entities, Terrain[][] terrain) {
         this.entities = entities;
         this.terrain = terrain;
         frame = new JFrame(Config.WINDOW_NAME);
+        setFocusable(true);
+        requestFocus();
         setMenu();
-        frame.pack();
-        frame.setVisible(true);
-    }
 
+    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -35,12 +45,57 @@ public class View extends JComponent implements Observer {
     }
 
     public void setMenu() {
-        frame.dispose();
-        frame.add(new MenuComponent().getMenu());
+        frame.remove(gridPanel);
+        frame.add(menuPanel);
+        frame.pack();
+        frame.setVisible(true);
+        game = false;
     }
 
-    public void setEscapeMenu() {
+    public void addEscapeMenu() {
+        gridPanel.add(escapeMenuPanel,0);
+        repack();
+    }
+
+    public void removeEscapeMenu() {
+        gridPanel.remove(escapeMenuPanel);
+        frame.remove(gridPanel);
+        gridPanel.remove(gridComponent);
+        setGame();
+    }
+
+    public void setGame() {
+        frame.remove(menuPanel);
+        frame.add(gridPanel);
+        gridPanel.add(gridComponent,1);
+        repack();
+        game = true;
+    }
+
+    public boolean status() {
+        return game;
+    }
+
+    public void exit() {
         frame.dispose();
-        frame.add(new MenuComponent().getEscapeMenu());
+    }
+
+    public MenuComponent getMenuComponent() {
+        return menuComponent;
+    }
+
+    public GridComponent getGridComponent() {
+        return gridComponent;
+    }
+
+    private void repack() {
+        frame.pack();
+        frame.setVisible(true);
+        gridComponent.setFocusable(true);
+        gridComponent.requestFocus();
+    }
+
+    public MenuComponent getEscapeMenuComponent() {
+        return escapeMenuComponent;
     }
 }

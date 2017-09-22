@@ -11,6 +11,7 @@ class NewGameListener extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        setGameListeners();
+        view.setGame();
     }
 }
