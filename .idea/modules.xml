@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Strategos.iml" filepath="$PROJECT_DIR$/.idea/modules/Strategos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/UI/UI.iml" filepath="$PROJECT_DIR$/src/UI/UI.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/behaviour/behaviour.iml" filepath="$PROJECT_DIR$/src/behaviour/behaviour.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/ui/ui.iml" filepath="$PROJECT_DIR$/src/ui/ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/util/util.iml" filepath="$PROJECT_DIR$/src/util/util.iml" />
     </modules>
   </component>
