@@ -1,7 +1,9 @@
 package strategos.model.units;
 
-import strategos.behaviour.Movable;
+import strategos.MapLocation;
 import strategos.hexgrid.Hex;
+import strategos.units.Elite;
+import strategos.units.Unit;
 
 import java.awt.*;
 
@@ -9,13 +11,53 @@ import java.awt.*;
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class Elite extends UnitImpl implements Movable {
+public class EliteImpl extends UnitImpl implements Elite {
 	private static final Image sprite = null;
 
 	@Override
 	public Hex getPosition() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setPosition(MapLocation position) {
+
+	}
+
+	@Override
+	public void turnTick() {
+
+	}
+
+	@Override
+	public void wary() {
+
+	}
+
+	@Override
+	public void entrench() {
+
+	}
+
+	@Override
+	public void charge() {
+
+	}
+
+	@Override
+	public boolean move() {
+		return false;
+	}
+
+	@Override
+	public int attack(Unit enemy) {
+		return 0;
+	}
+
+	@Override
+	public int defend(Unit enemy) {
+		return 0;
 	}
 
 	@Override

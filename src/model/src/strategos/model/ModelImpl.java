@@ -4,10 +4,10 @@ import strategos.Direction;
 import strategos.model.units.NullUnitImpl;
 import strategos.units.Unit;
 
-public class Model {
+public class ModelImpl {
 	private World world;
 	
-	public Model(World world) {
+	public ModelImpl(World world) {
 		
 	}
 

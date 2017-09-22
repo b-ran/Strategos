@@ -2,16 +2,16 @@ package strategos.model;
 
 import java.util.ArrayList;
 
-import strategos.model.units.Unit;
+import strategos.model.units.UnitImpl;
 
 public class Player {
 	
-	private ArrayList<Unit> units = new ArrayList<>();
+	private ArrayList<UnitImpl> units = new ArrayList<>();
 	
 	public Player() {
 	}
 	
-	public ArrayList<Unit> getUnits() {
+	public ArrayList<UnitImpl> getUnits() {
 		return units;
 	}
 }
