@@ -3,15 +3,12 @@ package strategos.ui.config;
 import java.awt.*;
 
 public class Config {
-    public static final int MENU_WIDTH_SIZE = 400;
+    //Menu
+    public static final int MENU_PADDING_SIZE = 40;
 
-    public static final int MENU_HEIGHT_SIZE = 400;
+    public static final Dimension MENU_BUTTON_SIZE = new Dimension(300,200);
 
-    public static final int MENU_PADDING_SIZE = 60;
-
-    public static final Dimension MENU_BUTTON_SIZE = new Dimension(300,100);
-
-    public static final Dimension MENU_COMPONENT_SIZE = new Dimension(600,600);
+    public static final Dimension MENU_COMPONENT_SIZE = new Dimension(500,500);
 
     //Text
     public static final String WINDOW_NAME = "Strategos";
@@ -29,4 +26,8 @@ public class Config {
     public static final String CONNECT_BUTTON_NAME = "Connect";
 
     public static final String HOST_BUTTON_NAME = "Host";
+
+    //Grid
+
+    public static  final Dimension GRID_COMPONENT_SIZE = new Dimension(1280, 720);
 }

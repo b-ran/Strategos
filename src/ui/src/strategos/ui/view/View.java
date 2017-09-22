@@ -18,15 +18,20 @@ public class View extends JComponent implements Observer {
     protected List<Unit> entities;
     protected Terrain[][] terrain;
 
+    private MenuComponent menuComponent = new MenuComponent();
+    private GridComponent gridComponent = new GridComponent();
+
+    private JPanel menuPanel = menuComponent.getMenu();
+    private JPanel gridPanel = gridComponent.getGrid();
+
+    protected boolean game = false;
+
     public View(List<Unit> entities, Terrain[][] terrain) {
         this.entities = entities;
         this.terrain = terrain;
         frame = new JFrame(Config.WINDOW_NAME);
         setMenu();
-        frame.pack();
-        frame.setVisible(true);
     }
-
 
     @Override
     public void update(Observable o, Object arg) {
@@ -35,12 +40,34 @@ public class View extends JComponent implements Observer {
     }
 
     public void setMenu() {
-        frame.dispose();
-        frame.add(new MenuComponent().getMenu());
+        frame.remove(gridPanel);
+        frame.add(menuPanel);
+        frame.pack();
+        frame.setVisible(true);
+        game = false;
     }
 
     public void setEscapeMenu() {
+        frame.add(menuComponent.getEscapeMenu());
+    }
+
+    public void setGame() {
+        frame.remove(menuPanel);
+        frame.add(gridPanel);
+        frame.pack();
+        frame.setVisible(true);
+        game = true;
+    }
+
+    public boolean status() {
+        return game;
+    }
+
+    public void exit() {
         frame.dispose();
-        frame.add(new MenuComponent().getEscapeMenu());
+    }
+
+    public MenuComponent getMenuComponent() {
+        return menuComponent;
     }
 }

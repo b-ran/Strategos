@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import static strategos.ui.config.Config.*;
 
-class MenuComponent extends JComponent {
+public class MenuComponent extends JComponent {
 
     private JButton newGameButton = new JButton(NEWGAME_BUTTON_NAME);
     private JButton exitButton = new JButton(EXIT_BUTTON_NAME);
@@ -13,13 +13,11 @@ class MenuComponent extends JComponent {
     private JButton loadButton = new JButton(LOAD_BUTTON_NAME);
     private JButton connectButton = new JButton(CONNECT_BUTTON_NAME);
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
-
-    protected MenuComponent() {
-        setupButtons();
-    }
+    private JPanel p = new JPanel();
 
     protected JPanel getMenu() {
-        JPanel p = new JPanel();
+        p = new JPanel();
+        setupButtons();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
 
         p.add(newGameButton);
@@ -31,15 +29,15 @@ class MenuComponent extends JComponent {
         p.add(hostButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
-
+        p.setPreferredSize(MENU_COMPONENT_SIZE);
         return p;
     }
 
 
     protected  JPanel getEscapeMenu(){
-        JPanel p = new JPanel();
+        p = new JPanel();
+        setupButtons();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-
         p.add(resumeButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(newGameButton);
@@ -49,7 +47,7 @@ class MenuComponent extends JComponent {
         p.add(loadButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
-
+        p.setPreferredSize(MENU_COMPONENT_SIZE);
         return p;
     }
 
@@ -69,11 +67,33 @@ class MenuComponent extends JComponent {
         loadButton.setMaximumSize(MENU_BUTTON_SIZE);
         connectButton.setMaximumSize(MENU_BUTTON_SIZE);
         hostButton.setMaximumSize(MENU_BUTTON_SIZE);
-
     }
 
-    @Override
-    public Dimension getPreferredSize() {
-        return MENU_COMPONENT_SIZE;
+    public JButton getNewGameButton() {
+        return newGameButton;
+    }
+
+    public JButton getExitButton() {
+        return exitButton;
+    }
+
+    public JButton getResumeButton() {
+        return resumeButton;
+    }
+
+    public JButton getSaveButton() {
+        return saveButton;
+    }
+
+    public JButton getLoadButton() {
+        return loadButton;
+    }
+
+    public JButton getConnectButton() {
+        return connectButton;
+    }
+
+    public JButton getHostButton() {
+        return hostButton;
     }
 }
