@@ -1,6 +1,8 @@
 package strategos.ui.view;
 
 import java.awt.*;
+import strategos.units.*;
+import strategos.terrain.*;
 
 class EntityImage {
 
@@ -20,13 +22,24 @@ class EntityImage {
         return null;
     }
 
-    Image get(Swordsmen entity) {
+    Image get(Forest entity) {
         return null;
     }
 
-    /* Need Terrain Objects for Overloading
     Image get(Hill entity) {
         return null;
     }
-    */
+
+    Image get(Mountain entity) {
+        return null;
+    }
+
+    Image get(Plains entity) {
+        return null;
+    }
+
+    Image get(River entity) {
+        return null;
+    }
+
 }
