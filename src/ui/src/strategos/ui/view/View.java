@@ -1,15 +1,14 @@
 package strategos.ui.view;
 
-import strategos.Graphical;
-import strategos.hexgrid.Hex;
-import strategos.model.units.Unit;
+
+import strategos.terrain.Terrain;
+import strategos.ui.config.Config;
+import strategos.units.Unit;
 
 import javax.swing.*;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import static strategos.util.Config.*;
 
 public class View extends JComponent implements Observer {
 
@@ -17,12 +16,12 @@ public class View extends JComponent implements Observer {
     private JFrame frame; //Overall Frame
 
     protected List<Unit> entities;
-    protected Hex[][] terrain;
+    protected Terrain[][] terrain;
 
-    public View(List<Graphical> entities, Graphical[][] terrain) {
+    public View(List<Unit> entities, Terrain[][] terrain) {
         this.entities = entities;
         this.terrain = terrain;
-        frame = new JFrame(WINDOW_NAME);
+        frame = new JFrame(Config.WINDOW_NAME);
         setMenu();
         frame.pack();
         frame.setVisible(true);

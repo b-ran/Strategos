@@ -1,4 +1,4 @@
-package strategos;
+package strategos.terrain;
 
 /**
  * Created by Shaun Sinclair on 09/2017
