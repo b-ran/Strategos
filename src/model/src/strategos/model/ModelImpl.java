@@ -1,10 +1,11 @@
 package strategos.model;
 
 import strategos.Direction;
+import strategos.Model;
 import strategos.model.units.NullUnitImpl;
 import strategos.units.Unit;
 
-public class ModelImpl {
+public class ModelImpl implements Model{
 	private World world;
 	
 	public ModelImpl(World world) {
