@@ -5,9 +5,13 @@ import strategos.hexgrid.Hex;
 
 /**
  * Created as part of Strategos project
- * 30/07/2017.
+ * 28/07/2017.
  */
-public class Cavalry extends Unit implements Movable {
+public class Spearmen extends UnitImpl implements Movable {
+	
+	public Spearmen() {
+		//Behaviour.setUnitBehaviour(this);
+	}
 
 	@Override
 	public Hex getPosition() {

@@ -10,7 +10,7 @@ import strategos.hexgrid.Hex;
  * 28/07/2017.
  */
 
-public abstract class Unit implements Graphical, Movable {
+public abstract class Unit implements Graphical, strategos.units.Unit {
 
 	private Behaviour behaviour;
 

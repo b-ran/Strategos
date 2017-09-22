@@ -9,7 +9,7 @@ import java.awt.*;
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class Elite extends Unit implements Movable {
+public class Elite extends UnitImpl implements Movable {
 	private static final Image sprite = null;
 
 	@Override
