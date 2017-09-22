@@ -1,14 +1,18 @@
 package networking;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+
 public class InboundDataHandler extends ChannelInboundHandlerAdapter {
-//	@Override
+	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//		System.out.println(((ByteBuf) msg).toString(io.netty.util.CharsetUtil.US_ASCII));
+		System.out.println(((ByteBuf) msg).toString(io.netty.util.CharsetUtil.US_ASCII));
 	}
 
-//	@Override
+	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-//		cause.printStackTrace();
-//		ctx.close();
+		cause.printStackTrace();
+		ctx.close();
 	}
 }
