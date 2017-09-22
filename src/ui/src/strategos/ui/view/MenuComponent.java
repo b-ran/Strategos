@@ -1,10 +1,8 @@
 package strategos.ui.view;
 
 import javax.swing.*;
-
 import java.awt.*;
-
-import static strategos.Config.*;
+import static strategos.ui.config.Config.*;
 
 class MenuComponent extends JComponent {
 

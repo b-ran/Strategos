@@ -1,17 +1,18 @@
 package strategos.ui.controller;
 
-import strategos.Graphical;
+import strategos.terrain.Terrain;
 import strategos.ui.view.View;
+import strategos.units.Unit;
 
 import java.util.List;
 
 public class Controller {
 
-    protected List<Graphical> entities;
-    protected Graphical[][]         terrain;
+    protected List<Unit> entities;
+    protected Terrain[][] terrain;
     protected View view = new View(entities, terrain);
 
-    public Controller(List<Graphical> entities, Graphical[][] terrain, View view) {
+    public Controller(List<Unit> entities, Terrain[][] terrain, View view) {
         this.entities = entities;
         this.terrain = terrain;
         this.view = view;
