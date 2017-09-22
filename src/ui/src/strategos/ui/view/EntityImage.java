@@ -1,7 +1,5 @@
 package strategos.ui.view;
 
-import strategos.model.units.*;
-
 import java.awt.*;
 
 class EntityImage {

@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Strategos.iml" filepath="$PROJECT_DIR$/.idea/modules/Strategos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Strategos_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Strategos_main.iml" group="Strategos" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Strategos_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Strategos_test.iml" group="Strategos" />
+      <module fileurl="file://$PROJECT_DIR$/src/behaviour/behaviour.iml" filepath="$PROJECT_DIR$/src/behaviour/behaviour.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/mapcreation/mapcreation.iml" filepath="$PROJECT_DIR$/src/mapcreation/mapcreation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/model/model.iml" filepath="$PROJECT_DIR$/src/model/model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/networking/networking.iml" filepath="$PROJECT_DIR$/src/networking/networking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/ui/ui.iml" filepath="$PROJECT_DIR$/src/ui/ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/util/util.iml" filepath="$PROJECT_DIR$/src/util/util.iml" />
     </modules>
   </component>
 </project>

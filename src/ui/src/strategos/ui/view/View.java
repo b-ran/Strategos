@@ -1,5 +1,6 @@
 package strategos.ui.view;
 
+import strategos.Graphical;
 import strategos.hexgrid.Hex;
 import strategos.model.units.Unit;
 
@@ -18,7 +19,7 @@ public class View extends JComponent implements Observer {
     protected List<Unit> entities;
     protected Hex[][] terrain;
 
-    public View(List<Unit> entities, Hex[][] terrain) {
+    public View(List<Graphical> entities, Graphical[][] terrain) {
         this.entities = entities;
         this.terrain = terrain;
         frame = new JFrame(WINDOW_NAME);
