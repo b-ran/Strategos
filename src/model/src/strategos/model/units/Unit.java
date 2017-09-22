@@ -1,5 +1,6 @@
 package strategos.model.units;
 
+import strategos.Graphical;
 import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 
@@ -8,7 +9,7 @@ import strategos.hexgrid.Hex;
  * 28/07/2017.
  */
 
-public abstract class Unit {
+public abstract class Unit implements Graphical {
 
 	private Behaviour behaviour;
 
