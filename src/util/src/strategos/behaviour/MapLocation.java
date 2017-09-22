@@ -1,4 +1,4 @@
-package strategos.behaviour.util;
+package strategos.behaviour;
 
 public interface MapLocation {
 

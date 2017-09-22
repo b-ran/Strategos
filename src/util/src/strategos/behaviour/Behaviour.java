@@ -1,9 +1,6 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.util.*;
-
-
 public interface Behaviour {
 
     MapLocation getPosition();

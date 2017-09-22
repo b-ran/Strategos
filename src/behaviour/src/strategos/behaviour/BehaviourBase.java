@@ -1,9 +1,6 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.util.*;
-
-
 class BehaviourBase implements Behaviour {
 
     private Behaviour behaviour;
