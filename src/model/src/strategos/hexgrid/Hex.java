@@ -4,6 +4,7 @@ package strategos.hexgrid;
 import strategos.*;
 import strategos.exception.FeatureNotImplementedException;
 import strategos.exception.RuleViolationException;
+import strategos.terrain.Terrain;
 
 import java.util.HashMap;
 import java.util.Map;
