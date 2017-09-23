@@ -45,4 +45,6 @@ public interface GameState {
 	 * @return a List of Units within range.
 	 */
 	public List<Unit> getUnitsInRange(MapLocation location, int range);
+
+	public void nextTurn();
 }
