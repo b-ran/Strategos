@@ -67,9 +67,10 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	 */
 	@Override
 	public boolean isInPlayArea() {
-		// TODO: implement to call terrain.isImpassable().
-		throw new FeatureNotImplementedException("Terrain not yet implemented");
-		// return terrain.isImpassable();
+		if (isPlayable) {
+			// return if terrain is mountain or not
+		}
+		return isPlayable;
 	}
 	
 	/**
