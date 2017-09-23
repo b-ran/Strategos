@@ -29,4 +29,10 @@ public interface Behaviour {
 
     int getToughness();
 
+    boolean isAlive();
+
+    int getSightRadius();
+
+    int getActionPoints();
+
 }
