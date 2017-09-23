@@ -45,7 +45,7 @@ public class Strategos implements GameState {
 				break;
 			}
 			currentPosition = currentPosition.getNeighbour(direction);
-			unit.move();
+			unit.move(direction);
 			amount--;
 		}
 	}
@@ -74,13 +74,38 @@ public class Strategos implements GameState {
 
 	@Override
 	public List<Unit> getUnitsInRange(MapLocation location, int range) {
+
+		List<Unit> units = new ArrayList<>();
+
+		if (location.getY() < 0 || location.getY() > world.getMap().getMap().length ||
+				location.getX() < 0 || location.getY() > world.getMap().getMap().length) {
+			return units;
+		}
+
 		Hex centre = world.getMap().get(location.getX(), location.getY());
-		return null;
+		for (int dX = -range; dX <= range; dX++) {
+
+			int minValue = Math.max(-range, -dX - range);
+			int maxValue = Math.min(range, -dX + range);
+
+			for (int dY = minValue; dY <= maxValue; dY++) {
+				int dZ = -dX - dY;
+
+				int x = centre.getX() + dX;
+				int y = centre.getY() + dZ;
+
+				Unit potentialUnit = getUnitAt(world.getMap().get(x, y));
+				if (!units.contains(potentialUnit) && potentialUnit != null) {
+					units.add(potentialUnit);
+				}
+			}
+		}
+		return units;
 	}
 
 	@Override
 	public Terrain getTerrainAt(MapLocation location) {
-		return null;
+		return world.getMap().get(location.getX(), location.getY()).getTerrain();
 	}
 
 	@Override
