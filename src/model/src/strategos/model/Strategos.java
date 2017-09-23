@@ -2,11 +2,16 @@ package strategos.model;
 
 import strategos.Direction;
 import strategos.GameState;
-import strategos.model.units.NullUnitImpl;
+import strategos.MapLocation;
+import strategos.hexgrid.Hex;
 import strategos.units.Unit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Strategos implements GameState {
 	private World world;
+	private ArrayList<Player> players = new ArrayList<>();
 	
 	public Strategos(World world) {
 		
@@ -21,9 +26,9 @@ public class Strategos implements GameState {
 	}
 
 	@Override
-	public strategos.units.Unit getUnitAt(int xIndex, int yIndex) {
+	public Unit getUnitAt(MapLocation location) {
 		for (strategos.units.Unit u : world.getAllUnits()) {
-			if (u.getPosition().getX() == xIndex && u.getPosition().getY() == yIndex) {
+			if (u.getPosition().getX() == location.getX() && u.getPosition().getY() == location.getY()) {
 				return u;
 			}
 		}
@@ -85,6 +90,16 @@ public class Strategos implements GameState {
 
 	}
 
+	@Override
+	public List<Unit> getUnitsInRange(MapLocation location, int range) {
+		Hex centre = world.getMap().get(location.getX(), location.getY());
+		return null;
+	}
 
-	
+	@Override
+	public void nextTurn() {
+
+	}
+
+
 }
