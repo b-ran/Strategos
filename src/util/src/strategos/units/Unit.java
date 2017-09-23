@@ -18,7 +18,7 @@ public interface Unit {
 
     void charge();
 
-    boolean move();
+    boolean move(Direction direction);
 
     int attack(Unit enemy);
 
