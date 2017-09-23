@@ -1,9 +1,13 @@
 package strategos.behaviour;
 
 
+import strategos.*;
+import strategos.units.*;
+
+
 class BehaviourArchers extends BehaviourBase {
 
-    BehaviourArchers() {
-        super(null);
+    BehaviourArchers(GameState gameState, Unit unit) {
+        super(null, null, null);
     }
 }
