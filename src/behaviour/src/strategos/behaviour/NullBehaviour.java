@@ -7,9 +7,6 @@ import strategos.units.*;
 
 public abstract class NullBehaviour implements Behaviour {
 
-    NullBehaviour() {
-    }
-
     @Override public MapLocation getPosition() {
         return null;
     }
@@ -20,7 +17,7 @@ public abstract class NullBehaviour implements Behaviour {
     @Override public void turnTick() {
     }
 
-    @Override public boolean move() {
+    @Override public boolean move(Direction direction) {
         return false;
     }
 

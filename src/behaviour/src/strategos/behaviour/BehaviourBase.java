@@ -43,8 +43,8 @@ class BehaviourBase implements Behaviour {
         behaviour.charge();
     }
 
-    @Override public boolean move() {
-        return behaviour.move();
+    @Override public boolean move(Direction direction) {
+        return behaviour.move(direction);
     }
 
     @Override public int attack(Unit enemy) {
