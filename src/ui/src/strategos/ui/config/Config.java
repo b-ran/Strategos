@@ -29,7 +29,9 @@ public class Config {
 
     //Grid
 
-    public static  final Dimension GRID_COMPONENT_SIZE = new Dimension(1280, 720);
+    public static final Dimension GRID_COMPONENT_SIZE = new Dimension(1280, 720);
+
+    public static final Integer HEX_SIZE = 100;
 
     //Side
 
@@ -47,4 +49,6 @@ public class Config {
     public static final String ATTACK_BUTTON_NAME = "Attack";
 
     public static final String NEXT_TURN_BUTTON_NAME = "Next Turn";
+
+
 }
