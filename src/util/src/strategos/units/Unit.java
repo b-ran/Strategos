@@ -27,4 +27,12 @@ public interface Unit {
     int getStrength();
 
     int getToughness();
+
+    UnitOwner getOwner();
+
+    boolean isAlive();
+
+    int getSightRadius();
+
+    int getActionPoints();
 }
