@@ -1,6 +1,8 @@
 package strategos.model.units;
 
 import strategos.MapLocation;
+import strategos.UnitOwner;
+import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 import strategos.units.Elite;
 import strategos.units.Unit;
@@ -14,61 +16,7 @@ import java.awt.*;
 public class EliteImpl extends UnitImpl implements Elite {
 	private static final Image sprite = null;
 
-	@Override
-	public Hex getPosition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPosition(MapLocation position) {
-
-	}
-
-	@Override
-	public void turnTick() {
-
-	}
-
-	@Override
-	public void wary() {
-
-	}
-
-	@Override
-	public void entrench() {
-
-	}
-
-	@Override
-	public void charge() {
-
-	}
-
-	@Override
-	public boolean move() {
-		return false;
-	}
-
-	@Override
-	public int attack(Unit enemy) {
-		return 0;
-	}
-
-	@Override
-	public int defend(Unit enemy) {
-		return 0;
-	}
-
-	@Override
-	public int getStrength() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getToughness() {
-		// TODO Auto-generated method stub
-		return 0;
+	public EliteImpl(Behaviour behaviour, UnitOwner owner) {
+		super(behaviour, owner);
 	}
 }

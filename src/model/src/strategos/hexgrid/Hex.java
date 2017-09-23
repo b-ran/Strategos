@@ -22,15 +22,17 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	private int yIndex;
 	
 	private Terrain terrain;
+	private final boolean isPlayable;
 	
 	/**
 	 * Creates a new Hex object, initialising the neighbours collection.
 	 * This constructor assumes that the neighbours will be added externally.
 	 */
-	public Hex(int x, int y) {
+	public Hex(int x, int y, boolean isPlayable) {
 		setXIndex(x);
 		setYIndex(y);
 		neighbours = new HashMap<>();
+		this.isPlayable = isPlayable;
 	}
 	
 	/**
@@ -43,9 +45,10 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	 * @param southeast - The neighbouring Hex one to the right and one down.
 	 * @param southwest - The neighbouring Hex one to the left and one down.
 	 */
-	public Hex(int x, int y, Hex east, Hex west, Hex northeast, Hex northwest, Hex southeast, Hex southwest) {
+	public Hex(int x, int y, boolean isPlayable, Hex east, Hex west, Hex northeast, Hex northwest, Hex southeast, Hex southwest) {
 		setXIndex(x);
 		setYIndex(y);
+		this.isPlayable = isPlayable;
 		neighbours = new HashMap<>();
 		neighbours.put(Direction.EAST, east);
 		neighbours.put(Direction.WEST, west);
@@ -62,7 +65,8 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	 * 
 	 * @return true if the tile can be acted upon or moved onto, false otherwise.
 	 */
-	public boolean isPassable() {
+	@Override
+	public boolean isInPlayArea() {
 		// TODO: implement to call terrain.isImpassable().
 		throw new FeatureNotImplementedException("Terrain not yet implemented");
 		// return terrain.isImpassable();
