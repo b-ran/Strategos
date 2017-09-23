@@ -46,23 +46,6 @@ public class Map {
 				map[r][q] = new Hex(r, q, false);
 			}
 		}
-		/*Hex centre = new Hex(radius, radius);
-		map[radius][radius] = centre;
-		System.out.println(radius);
-		for (int dX = -radius; dX <= radius; dX++) {
-			
-			int minValue = Math.max(-radius, -dX - radius);
-			int maxValue = Math.min(radius, -dX + radius);
-			
-			for (int dY = minValue; dY <= maxValue; dY++) {
-				int dZ = -dX - dY;
-				
-				int column = dX;
-				int row = dZ;
-				System.out.println(column + ", " + row);
-				map[column][row] = new Hex(row, column);
-			}
-		}*/
 		boolean left = true;
 		int offset = radius;
 		for (int r = 0; r < diameter; r++) {

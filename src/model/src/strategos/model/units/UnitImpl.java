@@ -1,5 +1,6 @@
 package strategos.model.units;
 
+import strategos.Direction;
 import strategos.Graphical;
 import strategos.MapLocation;
 import strategos.UnitOwner;
@@ -49,8 +50,8 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 	}
 
 	@Override
-	public boolean move() {
-		return behaviour.move();
+	public boolean move(Direction direction) {
+		return behaviour.move(direction);
 	}
 
 	@Override
