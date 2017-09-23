@@ -76,10 +76,9 @@ public class View extends JComponent implements Observer {
      * Sets view as main menu.
      */
     public void setMenu() {
-        frame.remove(gridPanel);
+        removeAllComponents();
         frame.add(menuPanel);
-        frame.pack();
-        frame.setVisible(true);
+        repack();
         game = false;
     }
 
@@ -95,14 +94,18 @@ public class View extends JComponent implements Observer {
      * Removes escape menu off grid.
      */
     public void removeEscapeMenu() {
+        removeAllComponents();
+        setGame();
+    }
+
+
+    private void removeAllComponents() {
         gridPanel.remove(escapeMenuPanel);
         gridPanel.remove(gridComponent);
         sidePane.remove(sideComponent);
         sidePane.remove(sidePanel);
         gamePane.remove(sidePane);
         frame.remove(gamePane);
-
-        setGame();
     }
 
     /**

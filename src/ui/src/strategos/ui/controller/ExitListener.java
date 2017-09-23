@@ -14,7 +14,9 @@ class ExitListener extends Controller implements ActionListener {
         if (view.status() == true) {
             view.setMenu();
             setMenuListeners();
+        } else {
+            view.exit();
         }
-        view.exit();
     }
+
 }
