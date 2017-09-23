@@ -30,4 +30,21 @@ public class Config {
     //Grid
 
     public static  final Dimension GRID_COMPONENT_SIZE = new Dimension(1280, 720);
+
+    //Side
+
+    public static final Dimension SIDE_COMPONENT_SIZE = new Dimension(400, 1240);
+
+    public static final Dimension SIDE_PANEL_SIZE = new Dimension(400, 40);
+
+    public static final Dimension SIDEPANEL_BUTTON_SIZE = new Dimension(80,100);
+
+    //Text
+    public static final String WARY_BUTTON_NAME = "Wary";
+
+    public static final String CHARGE_BUTTON_NAME = "Charge";
+
+    public static final String ATTACK_BUTTON_NAME = "Attack";
+
+    public static final String NEXT_TURN_BUTTON_NAME = "Next Turn";
 }
