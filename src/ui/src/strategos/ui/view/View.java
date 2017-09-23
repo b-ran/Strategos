@@ -39,12 +39,16 @@ public class View extends JComponent implements Observer {
     private JLayeredPane gridPanel = gridComponent.getGrid();
     private JPanel sidePanel = sideComponent.getSidePanel();
 
+    private JPanel gamePane = new JPanel();
+    private JPanel sidePane = new JPanel();
     /**
      * The game status.
      * False if game not running
      * True if game is running
      */
     protected boolean game = false;
+
+
 
     /**
      * Instantiates a new View.
@@ -92,8 +96,12 @@ public class View extends JComponent implements Observer {
      */
     public void removeEscapeMenu() {
         gridPanel.remove(escapeMenuPanel);
-        frame.remove(gridPanel);
         gridPanel.remove(gridComponent);
+        sidePane.remove(sideComponent);
+        sidePane.remove(sidePanel);
+        gamePane.remove(sidePane);
+        frame.remove(gamePane);
+
         setGame();
     }
 
@@ -101,21 +109,21 @@ public class View extends JComponent implements Observer {
      * Sets view as game.
      */
     public void setGame() {
-        JPanel p = new JPanel();
-        p.setLayout(new BorderLayout());
+        gamePane = new JPanel();
+        gamePane.setLayout(new BorderLayout());
         frame.remove(menuPanel);
 
-        p.add(gridPanel,BorderLayout.CENTER);
+        gamePane.add(gridPanel,BorderLayout.CENTER);
         gridPanel.add(gridComponent,1);
 
-        JPanel sidePane = new JPanel();
+        sidePane = new JPanel();
         sidePane.setLayout(new BoxLayout(sidePane,BoxLayout.Y_AXIS));
 
         sidePane.add(sideComponent);
         sidePane.add(sidePanel);
 
-        p.add(sidePane, BorderLayout.EAST);
-        frame.add(p);
+        gamePane.add(sidePane, BorderLayout.EAST);
+        frame.add(gamePane);
         repack();
         game = true;
     }
