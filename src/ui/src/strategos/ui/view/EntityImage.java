@@ -4,41 +4,98 @@ import java.awt.*;
 import strategos.units.*;
 import strategos.terrain.*;
 
+/**
+ * The type Entity image.
+ */
 class EntityImage {
 
-    Image get(Archers entity) {
+    /**
+     * Get image for Archers.
+     *
+     * @param archers the archers
+     * @return the image
+     */
+    Image get(Archers archers) {
         return null;
     }
 
-    Image get(Cavalry entity) {
+    /**
+     * Get image for Cavalry.
+     *
+     * @param cavalry the cavalry
+     * @return the image
+     */
+    Image get(Cavalry cavalry) {
         return null;
     }
 
-    Image get(Elite entity) {
+    /**
+     * Get image for Elite.
+     *
+     * @param elite the elite
+     * @return the image
+     */
+    Image get(Elite elite) {
         return null;
     }
 
-    Image get(Spearmen entity) {
+    /**
+     * Get image for Spearmen.
+     *
+     * @param spearmen the spearmen
+     * @return the image
+     */
+    Image get(Spearmen spearmen) {
         return null;
     }
 
-    Image get(Forest entity) {
+    /**
+     * Get image for Forest.
+     *
+     * @param forest the forest
+     * @return the image
+     */
+    Image get(Forest forest) {
         return null;
     }
 
-    Image get(Hill entity) {
+    /**
+     * Get image for Hill.
+     *
+     * @param hill the hill
+     * @return the image
+     */
+    Image get(Hill hill) {
         return null;
     }
 
-    Image get(Mountain entity) {
+    /**
+     * Get image for Mountain.
+     *
+     * @param mountain the mountain
+     * @return the image
+     */
+    Image get(Mountain mountain) {
         return null;
     }
 
-    Image get(Plains entity) {
+    /**
+     * Get image for Plains.
+     *
+     * @param plains the plains
+     * @return the image
+     */
+    Image get(Plains plains) {
         return null;
     }
 
-    Image get(River entity) {
+    /**
+     * Get image for River.
+     *
+     * @param river the river
+     * @return the image
+     */
+    Image get(River river) {
         return null;
     }
 

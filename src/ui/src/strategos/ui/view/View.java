@@ -11,12 +11,22 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The type View.
+ */
 public class View extends JComponent implements Observer {
 
 
     private JFrame frame; //Overall Frame
 
+    /**
+     * The units on the grid.
+     */
     protected List<Unit> entities;
+
+    /**
+     * The terrain that makes up the grid.
+     */
     protected Terrain[][] terrain;
 
     private MenuComponent menuComponent = new MenuComponent();
@@ -29,8 +39,19 @@ public class View extends JComponent implements Observer {
     private JLayeredPane gridPanel = gridComponent.getGrid();
     private JPanel sidePanel = sideComponent.getSidePanel();
 
+    /**
+     * The game status.
+     * False if game not running
+     * True if game is running
+     */
     protected boolean game = false;
 
+    /**
+     * Instantiates a new View.
+     *
+     * @param entities the untis on the grid
+     * @param terrain  the terrain that makes up the grid
+     */
     public View(List<Unit> entities, Terrain[][] terrain) {
         this.entities = entities;
         this.terrain = terrain;
@@ -47,6 +68,9 @@ public class View extends JComponent implements Observer {
         requestFocus();
     }
 
+    /**
+     * Sets view as main menu.
+     */
     public void setMenu() {
         frame.remove(gridPanel);
         frame.add(menuPanel);
@@ -55,11 +79,17 @@ public class View extends JComponent implements Observer {
         game = false;
     }
 
+    /**
+     * Adds escape menu on top of grid.
+     */
     public void addEscapeMenu() {
         gridPanel.add(escapeMenuPanel,0);
         repack();
     }
 
+    /**
+     * Removes escape menu off grid.
+     */
     public void removeEscapeMenu() {
         gridPanel.remove(escapeMenuPanel);
         frame.remove(gridPanel);
@@ -67,6 +97,9 @@ public class View extends JComponent implements Observer {
         setGame();
     }
 
+    /**
+     * Sets view as game.
+     */
     public void setGame() {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -87,18 +120,36 @@ public class View extends JComponent implements Observer {
         game = true;
     }
 
+    /**
+     * Status boolean.
+     *
+     * @return true if game is running or false if not
+     */
     public boolean status() {
         return game;
     }
 
+    /**
+     * End all windows.
+     */
     public void exit() {
         frame.dispose();
     }
 
+    /**
+     * Gets menu component.
+     *
+     * @return the menu component
+     */
     public MenuComponent getMenuComponent() {
         return menuComponent;
     }
 
+    /**
+     * Gets grid component.
+     *
+     * @return the grid component
+     */
     public GridComponent getGridComponent() {
         return gridComponent;
     }
@@ -110,6 +161,11 @@ public class View extends JComponent implements Observer {
         gridComponent.requestFocus();
     }
 
+    /**
+     * Gets escape menu component.
+     *
+     * @return the escape menu component
+     */
     public MenuComponent getEscapeMenuComponent() {
         return escapeMenuComponent;
     }

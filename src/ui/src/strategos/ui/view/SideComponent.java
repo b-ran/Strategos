@@ -5,6 +5,9 @@ import java.awt.*;
 
 import static strategos.ui.config.Config.*;
 
+/**
+ * The type Side component.
+ */
 class SideComponent extends JComponent {
 
 
@@ -13,12 +16,20 @@ class SideComponent extends JComponent {
     private JButton attackButton = new JButton(ATTACK_BUTTON_NAME);
     private JButton nextTurnButton = new JButton(NEXT_TURN_BUTTON_NAME);
 
+    /**
+     * Instantiates a new Side component for drawing on.
+     */
     protected SideComponent() {
         setLayout(new BorderLayout());
         setPreferredSize(SIDE_COMPONENT_SIZE);
     }
 
 
+    /**
+     * Gets side panel for buttons.
+     *
+     * @return the side panel
+     */
     public JPanel getSidePanel() {
         JPanel p = new JPanel();
         p.setLayout(new FlowLayout(FlowLayout.RIGHT));
