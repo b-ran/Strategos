@@ -31,7 +31,26 @@ public interface GameState {
 	 */
 	public void move(Unit unit, Direction direction, int amount);
 
+	/**
+	 * Send an attack command to the given Unit, attacking the specified position. Delegate the attack to the Unit
+	 * 		itself, which should fail if the target is out of range.
+	 *
+	 * @deprecated this method uses old integer coordinates. This method will be removed in a few versions in favour
+	 * 		of using a MapLocation. This version converts the x and y coordinates to a MapLocation.
+	 * @param unit the unit to attack with. If this Unit is null, fail the command.
+	 * @param targetX
+	 * @param targetY
+	 */
 	public void attack(Unit unit, int targetX, int targetY);
+
+	/**
+	 * Send an attack command to the given Unit, attacking the specified position. Delegate the attack to the Unit
+	 * 		itself, which should fail if the target is out of range.
+	 *
+	 * @param unit the unit to attack with. If this Unit is null, fail the command.
+	 * @param location
+	 */
+	public void attack(Unit unit, MapLocation location);
 
 	public void wary(Unit unit);
 
