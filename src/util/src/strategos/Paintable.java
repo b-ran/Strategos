@@ -12,10 +12,10 @@ public interface Paintable {
      *
      * @return true if the Paintable is in the play area, false, otherwise
      */
-    public boolean isInPlayArea();
+    boolean isInPlayArea();
 
     //May not be needed
-    public Terrain getTerrain();
+    Terrain getTerrain();
 
-    public void setTerrain(Terrain terrain);
+    void setTerrain(Terrain terrain);
 }

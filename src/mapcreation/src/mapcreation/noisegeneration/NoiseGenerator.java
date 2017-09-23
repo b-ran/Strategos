@@ -6,8 +6,16 @@ package mapcreation.noisegeneration;
  * 28/08/2017.
  */
 public class NoiseGenerator {
-    //TODO find out how to do for hex map instead of square
-    public double[][] generateNoise(int height, int width){
-        return new double[8][8];
+
+    /**
+     * Generates a field of noise with the parameters set by width and height
+     *
+     * @param width Size * 5(sampling for flat top hexes)
+     * @param height Size * 3(sampling for flat top hexes)
+     * @return A field of generated noise(Topology)
+     */
+    public double[][] generateNoise(int width, int height) {
+        //TODO write Perlin
+        return new double[width][height];
     }
 }
