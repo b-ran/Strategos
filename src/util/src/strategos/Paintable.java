@@ -7,6 +7,13 @@ import strategos.terrain.Terrain;
  */
 public interface Paintable {
 
+    /**
+     * Check if a given Paintable can be moved into or selected. These have Terrain of mountains.
+     *
+     * @return true if the Paintable is in the play area, false, otherwise
+     */
+    public boolean isInPlayArea();
+
     //May not be needed
     public Terrain getTerrain();
 

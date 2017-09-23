@@ -1,17 +1,23 @@
 package strategos.behaviour;
 
 
+import strategos.*;
+import strategos.units.*;
+
+import java.util.function.*;
+
+
 public interface BehaviourFactory {
 
-    Behaviour createBehaviourArchers();
+    Behaviour createBehaviourArchers(GameState gameState, Unit unit);
 
-    Behaviour createBehaviourCavalry();
+    Behaviour createBehaviourCavalry(GameState gameState, Unit unit);
 
-    Behaviour createBehaviourElite();
+    Behaviour createBehaviourElite(GameState gameState, Unit unit);
 
-    Behaviour createBehaviourSpearmen();
+    Behaviour createBehaviourSpearmen(GameState gameState, Unit unit);
 
-    Behaviour createBehaviourSwordsmen();
+    Behaviour createBehaviourSwordsmen(GameState gameState, Unit unit);
 
-    Behaviour createAiBehaviour(Behaviour baseBehaviour);
+    Behaviour createAiBehaviour(GameState gameState, Unit unit, BiFunction<GameState, Unit, Behaviour> factoryMethod);
 }

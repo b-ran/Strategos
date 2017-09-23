@@ -1,6 +1,8 @@
 package strategos.hexgrid;
 
 import strategos.Direction;
+import strategos.terrain.Mountain;
+import strategos.terrain.Terrain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ public class Map {
 		
 		for (int r = 0; r < diameter; r++) {
 			for (int q = 0; q < diameter; q++) {
-				map[r][q] = new NullHex(r, q);
+				map[r][q] = new Hex(r, q, false);
 			}
 		}
 		/*Hex centre = new Hex(radius, radius);
@@ -68,7 +70,7 @@ public class Map {
 				if (left && q < offset || (!left && q >= diameter - offset)) {
 					continue;
 				}
-				set(r, q, map, new Hex(r, q));
+				set(r, q, map, new Hex(r, q, true));
 			}
 			if (offset > 0 && left) {
 				offset--;
@@ -109,7 +111,7 @@ public class Map {
 
 	private Hex get(int x, int y, Hex[][] map) {
 		if (x < 0 || x >= map.length || y < 0 || y >= map.length) {
-			return new NullHex(x, y);
+			return new Hex(x, y, false);
 		}
 		
 		return map[x][y];

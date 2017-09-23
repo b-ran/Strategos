@@ -1,37 +1,99 @@
 package strategos.model.units;
 
 import strategos.Graphical;
+import strategos.MapLocation;
+import strategos.UnitOwner;
 import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 import strategos.units.Unit;
 
-/**
- * Created as part of Strategos project
- * 28/07/2017.
- */
+public class UnitImpl implements Graphical, Unit, Behaviour {
 
-public abstract class UnitImpl implements Graphical, Unit {
+	private final Behaviour behaviour;
+	private final UnitOwner owner;
+	private int actionPoints;
 
-	private Behaviour behaviour;
-
-	public enum Action {
-		WARY, ENTRENCH, MOVE, 
+	public UnitImpl(Behaviour behaviour, UnitOwner owner) {
+		this.behaviour = behaviour;
+		this.owner = owner;
 	}
 
-	public  void doAction(Action act){
-		switch (act) {
-			case WARY:
-				break;
-			case ENTRENCH:
-				break;
-			default:
-				throw new IllegalArgumentException("No such action.");
-		}
+	@Override
+	public MapLocation getPosition() {
+		return behaviour.getPosition();
 	}
 
-	public abstract Hex getPosition();
+	@Override
+	public void setPosition(MapLocation position) {
+		behaviour.setPosition(position);
+	}
 
-	public abstract int getStrength();
+	@Override
+	public void turnTick() {
+		behaviour.turnTick();
+	}
 
-	public abstract int getToughness();
+	@Override
+	public void wary() {
+		behaviour.wary();
+	}
+
+	@Override
+	public void entrench() {
+		behaviour.entrench();
+	}
+
+	@Override
+	public void charge() {
+		behaviour.charge();
+	}
+
+	@Override
+	public boolean move() {
+		return behaviour.move();
+	}
+
+	@Override
+	public int attack(Unit enemy) {
+		return behaviour.attack(enemy);
+	}
+
+	@Override
+	public int defend(Unit enemy) {
+		return behaviour.defend(enemy);
+	}
+
+	@Override
+	public int getStrength() {
+		return behaviour.getStrength();
+	}
+
+	@Override
+	public int getToughness() {
+		return behaviour.getToughness();
+	}
+
+	@Override
+	public UnitOwner getOwner() {
+		return null;
+	}
+
+	@Override
+	public boolean isAlive() {
+		return false;
+	}
+
+	@Override
+	public int getSightRadius() {
+		return 0;
+	}
+
+	@Override
+	public int getActionPoints() {
+		return actionPoints;
+	}
+
+	public void setActionPoints(int actionPoints) {
+		this.actionPoints = actionPoints;
+	}
 }

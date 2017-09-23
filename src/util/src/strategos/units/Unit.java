@@ -18,7 +18,7 @@ public interface Unit {
 
     void charge();
 
-    boolean move();
+    boolean move(Direction direction);
 
     int attack(Unit enemy);
 
@@ -27,4 +27,12 @@ public interface Unit {
     int getStrength();
 
     int getToughness();
+
+    UnitOwner getOwner();
+
+    boolean isAlive();
+
+    int getSightRadius();
+
+    int getActionPoints();
 }
