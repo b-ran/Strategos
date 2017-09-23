@@ -4,13 +4,19 @@ package strategos.behaviour;
 import strategos.*;
 import strategos.units.*;
 
+import java.util.function.*;
+
 
 class BehaviourBase implements Behaviour {
 
+    private final GameState gameState;
+    private final Unit unit;
     private Behaviour behaviour;
 
-    BehaviourBase(Behaviour behaviour) {
-        this.behaviour = behaviour;
+    BehaviourBase(GameState gameState, Unit unit, BiFunction<GameState, Unit, Behaviour> factoryMethod) {
+        this.gameState = gameState;
+        this.unit = unit;
+        this.behaviour = factoryMethod.apply(gameState, unit);
     }
 
     @Override public MapLocation getPosition() {
@@ -37,8 +43,8 @@ class BehaviourBase implements Behaviour {
         behaviour.charge();
     }
 
-    @Override public boolean move() {
-        return behaviour.move();
+    @Override public boolean move(Direction direction) {
+        return behaviour.move(direction);
     }
 
     @Override public int attack(Unit enemy) {
@@ -55,5 +61,25 @@ class BehaviourBase implements Behaviour {
 
     @Override public int getToughness() {
         return behaviour.getToughness();
+    }
+
+    @Override public boolean isAlive() {
+        return behaviour.isAlive();
+    }
+
+    @Override public int getSightRadius() {
+        return behaviour.getSightRadius();
+    }
+
+    @Override public int getActionPoints() {
+        return behaviour.getActionPoints();
+    }
+
+    final GameState getGameState() {
+        return gameState;
+    }
+
+    final Unit getUnit() {
+        return unit;
     }
 }
