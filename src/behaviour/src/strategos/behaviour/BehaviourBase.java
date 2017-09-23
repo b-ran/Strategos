@@ -63,6 +63,18 @@ class BehaviourBase implements Behaviour {
         return behaviour.getToughness();
     }
 
+    @Override public boolean isAlive() {
+        return behaviour.isAlive();
+    }
+
+    @Override public int getSightRadius() {
+        return behaviour.getSightRadius();
+    }
+
+    @Override public int getActionPoints() {
+        return behaviour.getActionPoints();
+    }
+
     final GameState getGameState() {
         return gameState;
     }
