@@ -32,10 +32,37 @@ public class Strategos implements GameState {
 
 	public void move(Unit unit, Direction direction, int amount) {
 
+	@Override
+	public void attack(Unit unit, MapLocation location) {
+		Unit target = getUnitAt(location);
+		if (target == null) {
+			return;
+		}
+		unit.attack(target);
 	}
 
+	@Override
 	public void attack(Unit unit, int targetX, int targetY) {
+		Unit target = getUnitAt(new MapLocation() {
+			@Override
+			public int getX() {
+				return targetX;
+			}
 
+			@Override
+			public int getY() {
+				return targetY;
+			}
+
+			@Override
+			public MapLocation getNeighbour(Direction direction) {
+				return null;
+			}
+		});
+		if (target == null) {
+			return;
+		}
+		unit.attack(target);
 	}
 
 	public void wary(Unit unit) {
