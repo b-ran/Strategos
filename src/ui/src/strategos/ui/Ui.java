@@ -24,15 +24,4 @@ public class Ui {
         View view = new View(entities, terrain);
         Controller controller = new Controller(entities, terrain, view);
     }
-
-
-    /**
-     * The entry point of application for self running.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-        View view = new View(new ArrayList<>(), null);
-        Controller controller = new Controller(null, null, view);
-    }
 }
