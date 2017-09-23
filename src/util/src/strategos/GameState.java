@@ -2,6 +2,8 @@ package strategos;
 
 import strategos.units.Unit;
 
+import java.util.List;
+
 public interface GameState {
 
 	public void save();
@@ -34,4 +36,13 @@ public interface GameState {
 	public void wary(Unit unit);
 
 	public void entrench(Unit unit);
+
+	/**
+	 * Find all Units within a given number of tiles from a MapLocation.
+	 *
+	 * @param location
+	 * @param range
+	 * @return a List of Units within range.
+	 */
+	public List<Unit> getUnitsInRange(MapLocation location, int range);
 }
