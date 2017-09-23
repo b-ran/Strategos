@@ -4,6 +4,7 @@ import strategos.Direction;
 import strategos.GameState;
 import strategos.MapLocation;
 import strategos.hexgrid.Hex;
+import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
@@ -60,26 +61,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void attack(Unit unit, int targetX, int targetY) {
-		Unit target = getUnitAt(new MapLocation() {
-			@Override
-			public int getX() {
-				return targetX;
-			}
-
-			@Override
-			public int getY() {
-				return targetY;
-			}
-
-			@Override
-			public MapLocation getNeighbour(Direction direction) {
-				return null;
-			}
-		});
-		if (target == null) {
-			return;
-		}
-		unit.attack(target);
+		attack(unit, world.getMap().get(targetX, targetY));
 	}
 
 	public void wary(Unit unit) {
@@ -93,6 +75,11 @@ public class Strategos implements GameState {
 	@Override
 	public List<Unit> getUnitsInRange(MapLocation location, int range) {
 		Hex centre = world.getMap().get(location.getX(), location.getY());
+		return null;
+	}
+
+	@Override
+	public Terrain getTerrainAt(MapLocation location) {
 		return null;
 	}
 
