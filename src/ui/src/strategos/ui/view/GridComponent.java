@@ -35,26 +35,17 @@ public class GridComponent extends JComponent {
 
     protected void paintComponent(Graphics g) {
         paintHexGrid(g, Color.BLACK, null);
-        System.out.println("Paint");
     }
 
     private void paintHexGrid(Graphics g, Color c, Terrain[][] terrain) {
-        /*g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                hexagon(g, x, y, Color.BLACK);
-            }
-        }*/
-
-        g.setColor(Color.BLACK);
-        for (int y = 0; y < 10; y++) {
-            for (int x = 0; x < 10; x++) {
                 if (y % 2 == 0) {
                     hexagon(g, getGridX(x), getGridY(y), Color.BLACK);
                 } else {
                     hexagon(g, getGridX(x)+HEX_SIZE/2, getGridY(y), Color.BLACK);
                 }
-
             }
         }
     }
