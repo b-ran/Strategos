@@ -60,16 +60,16 @@ public class View extends JComponent implements Observer {
         this.entities = entities;
         this.terrain = terrain;
         frame = new JFrame(Config.WINDOW_NAME);
-        setFocusable(true);
-        requestFocus();
         setMenu();
 
     }
 
     @Override
     public void update(Observable o, Object arg) {
+
         frame.repaint();
-        requestFocus();
+        gridComponent.setFocusable(true);
+        gridComponent.requestFocus();
     }
 
     /**
