@@ -8,21 +8,6 @@ public class NetworkingHandler {
 	private Network type;
 
 	/**
-	 * Constructor for testing purposes
-	 * @param port The port to use
-	 */
-	private NetworkingHandler(int port) {
-		initialise(port);
-		try {
-			run();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public NetworkingHandler() {}
-
-	/**
 	 * Initialises the handler as a server
 	 * @param port The port to open the server on
 	 */
@@ -45,9 +30,5 @@ public class NetworkingHandler {
 	 */
 	public void run() throws InterruptedException {
 		type.run();
-	}
-
-	public static void main(String[] args) {
-		new NetworkingHandler(8080);
 	}
 }
