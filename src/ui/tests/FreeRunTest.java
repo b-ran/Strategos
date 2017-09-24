@@ -12,11 +12,15 @@ public class FreeRunTest {
     public static void main(String[] args) {
         List<Unit> entities = new ArrayList<>();
         Terrain[][] terrain = {
-                {new ForestTestObj(),   new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj()},
-                {new HillTestObj(),     new HillTestObj(),      new HillTestObj(),      new HillTestObj(),},
-                {new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
-                {new PlainsTestObj(),   new PlainsTestObj(),    new PlainsTestObj(),    new PlainsTestObj()},
-                {new RiverTestObj(),    new RiverTestObj(),     new RiverTestObj(),     new RiverTestObj()}
+                {new MountainTestObj(), new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),   new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),     new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),     new ForestTestObj(),    new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new HillTestObj(),     new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new RiverTestObj(),      new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new HillTestObj(),     new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new HillTestObj(),       new HillTestObj(),      new HillTestObj(),      new MountainTestObj()},
+                {new MountainTestObj(), new RiverTestObj(),    new RiverTestObj(),     new HillTestObj(),      new RiverTestObj(),      new HillTestObj(),      new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new HillTestObj(),       new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new PlainsTestObj(),    new PlainsTestObj(),    new PlainsTestObj(),    new PlainsTestObj(),     new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),   new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
         };
 
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
@@ -31,8 +35,8 @@ public class FreeRunTest {
         owner.addUnit(e);
         owner.addUnit(s);
 
-        a.setPosition(new MapLocationTestObj(0,0));
-        c.setPosition(new MapLocationTestObj(1,1));
+        a.setPosition(new MapLocationTestObj(5,1));
+        c.setPosition(new MapLocationTestObj(2,1));
         e.setPosition(new MapLocationTestObj(2,2));
         s.setPosition(new MapLocationTestObj(3,3));
 

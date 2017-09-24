@@ -31,7 +31,7 @@ public class Config {
 
     public static final Dimension GRID_COMPONENT_SIZE = new Dimension(1280, 720);
 
-    public static final Integer HEX_SIZE = 100;
+    public static final Integer HEX_SIZE = 120;
 
     public static final Color NPC_COLOR = Color.YELLOW;
 
@@ -61,12 +61,6 @@ public class Config {
 
     public static final Color TERRAIN_RIVER_COLOR = Color.CYAN;
 
-
-
-
-
-
-
     //Side
 
     public static final Dimension SIDE_COMPONENT_SIZE = new Dimension(400, 1240);
@@ -83,6 +77,5 @@ public class Config {
     public static final String ATTACK_BUTTON_NAME = "Attack";
 
     public static final String NEXT_TURN_BUTTON_NAME = "Next Turn";
-
 
 }
