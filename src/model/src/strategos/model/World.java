@@ -10,8 +10,9 @@ public class World {
 	private Map map;
 	private ArrayList<UnitImpl> allUnits = new ArrayList<>();
 	
-	public World() {
-		
+	public World(Map map, ArrayList<UnitImpl> units) {
+		this.map = map;
+		this.allUnits = units;
 	}
 	
 	public Map getMap() {
@@ -22,4 +23,11 @@ public class World {
 		return allUnits;
 	}
 
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	public void setAllUnits(ArrayList<UnitImpl> allUnits) {
+		this.allUnits = allUnits;
+	}
 }

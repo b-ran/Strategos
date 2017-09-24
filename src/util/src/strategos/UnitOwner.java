@@ -8,7 +8,7 @@ public interface UnitOwner {
 
 	public List<Unit> getUnits();
 
-	public List<MapLocation> getVisibileTiles();
+	public List<MapLocation> getVisibleTiles();
 
 	public boolean isNPC();
 }
