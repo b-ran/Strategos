@@ -6,14 +6,22 @@ import strategos.UnitOwner;
 import strategos.units.Unit;
 
 public class UnitTestObj implements Unit{
+
+    private UnitOwner owner;
+    private MapLocation mapLocation;
+
+    public UnitTestObj (UnitOwner owner) {
+        this.owner = owner;
+    }
+
     @Override
     public MapLocation getPosition() {
-        return null;
+        return mapLocation;
     }
 
     @Override
     public void setPosition(MapLocation position) {
-
+        mapLocation = position;
     }
 
     @Override
@@ -63,7 +71,7 @@ public class UnitTestObj implements Unit{
 
     @Override
     public UnitOwner getOwner() {
-        return null;
+        return owner;
     }
 
     @Override
