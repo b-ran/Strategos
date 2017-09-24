@@ -1,9 +1,6 @@
 package strategos.model;
 
-import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.hexgrid.Hex;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
@@ -12,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Strategos implements GameState {
-	private World world;
-	private ArrayList<Player> players = new ArrayList<>();
-	private Player turn;
+	private GameCollections world;
+	private ArrayList<UnitOwner> players = new ArrayList<>();
+	private UnitOwner turn;
 
 	private List<SaveState> saves = new ArrayList<>();
 
@@ -54,7 +51,7 @@ public class Strategos implements GameState {
 	@Override
 	public void move(Unit unit, Direction direction, int amount) {
 		amount = Math.min(amount, unit.getActionPoints());
-		Hex currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
+		MapLocation currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
 		while (amount > 0) {
 			if (!currentPosition.getNeighbour(direction).isInPlayArea() ||
 					getUnitAt(unit.getPosition()) != null) {
@@ -112,7 +109,7 @@ public class Strategos implements GameState {
 			return units;
 		}
 
-		Hex centre = world.getMap().get(location.getX(), location.getY());
+		MapLocation centre = world.getMap().get(location.getX(), location.getY());
 		for (int dX = -range; dX <= range; dX++) {
 
 			int minValue = Math.max(-range, -dX - range);
@@ -137,7 +134,7 @@ public class Strategos implements GameState {
 
 		List<MapLocation> tiles = new ArrayList<>();
 
-		Hex centre = world.getMap().get(location.getX(), location.getY());
+		MapLocation centre = world.getMap().get(location.getX(), location.getY());
 		for (int dX = -range; dX <= range; dX++) {
 
 			int minValue = Math.max(-range, -dX - range);
@@ -160,7 +157,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public Terrain getTerrainAt(MapLocation location) {
-		return world.getMap().get(location.getX(), location.getY()).getTerrain();
+		return world.getMap().getTerrainAt(location);
 	}
 
 	@Override
