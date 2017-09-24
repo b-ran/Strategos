@@ -66,7 +66,7 @@ public class Strategos implements GameState {
 
 	private void calculateVision(UnitOwner player) {
 		for (Unit unit : player.getUnits()) {
-			List<MapLocation> sightRange = getHexesInRange(unit.getPosition(), 3);
+			List<MapLocation> sightRange = getTilesInRange(unit.getPosition(), 3);
 			for (MapLocation tile : sightRange) {
 				if (!player.getVisibleTiles().contains(tile)) {
 					player.getVisibleTiles().add(tile);
@@ -130,7 +130,7 @@ public class Strategos implements GameState {
 		return units;
 	}
 
-	public List<MapLocation> getHexesInRange(MapLocation location, int range) {
+	public List<MapLocation> getTilesInRange(MapLocation location, int range) {
 
 		List<MapLocation> tiles = new ArrayList<>();
 
