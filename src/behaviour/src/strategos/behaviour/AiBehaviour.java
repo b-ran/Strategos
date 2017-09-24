@@ -22,7 +22,7 @@ class AiBehaviour extends BehaviourBase {
     }
 
     @Override public void turnTick() {
-        super.turnTick();
+        behaviour.turnTick();
 
         Optional<Unit> nearest =
                 getGameState().getUnitsInRange(getPosition(), getSightRadius())
