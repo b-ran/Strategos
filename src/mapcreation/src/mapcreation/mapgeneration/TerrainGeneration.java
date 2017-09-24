@@ -15,20 +15,21 @@ public class TerrainGeneration {
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each
      *
-     * @param map 2D array(Square) of paintable objects
+     * @param hexMap 2D array(Square) of paintable objects
      * @return 2D array of painted objects
      */
-    public Paintable[][] generateSquareMap(Paintable[][] map) {
-        final int size = map.length;
+    public Paintable[][] generateSquareMap(Paintable[][] hexMap, int seed) {
+        final int size = hexMap.length;
         //Calls the noise generation class to produce a field of noise
         //width is multiplied by 4 and y by 3 because i plan to sample every corner and the center of the hex
-        double[][] mapTopology = new NoiseGenerator().generateNoise(size * 5, size * 3);
-        for (int x = 0; x < map[0].length; x++) {
-            for (int y = 0; y < map[x].length; y++) {
-                map[x][y].setTerrain(getTerrain(x, y, size, mapTopology));
+
+//        double[][] mapTopology = new NoiseGenerator(8, 1/2, seed);
+        for (int x = 0; x < hexMap[0].length; x++) {
+            for (int y = 0; y < hexMap[x].length; y++) {
+//                hexMap[x][y].setTerrain(getTerrain(x, y, size, mapTopology));
             }
         }
-        return map;
+        return hexMap;
     }
 
     /**
@@ -37,11 +38,11 @@ public class TerrainGeneration {
      * @param x           X position
      * @param y           Y position
      * @param size        Board size
-     * @param mapTopology Generated topology
      * @return The terrain type
      */
-    public Terrain getTerrain(int x, int y, int size, double[][] mapTopology) {
+    public Terrain getTerrain(int x, int y, int size) {
         //TODO
+        //may remove persistence(and octaves)
         return new Forest();
     }
 }
