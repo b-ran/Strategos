@@ -130,7 +130,7 @@ public class Strategos implements GameState {
 		return units;
 	}
 
-	private List<MapLocation> getHexesInRange(MapLocation location, int range) {
+	public List<MapLocation> getHexesInRange(MapLocation location, int range) {
 
 		List<MapLocation> tiles = new ArrayList<>();
 
