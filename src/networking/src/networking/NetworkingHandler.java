@@ -20,7 +20,7 @@ public class NetworkingHandler {
 		}
 	}
 
-	private NetworkingHandler() {}
+	public NetworkingHandler() {}
 
 	/**
 	 * Initialises the handler as a server
