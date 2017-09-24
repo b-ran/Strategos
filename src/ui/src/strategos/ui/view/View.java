@@ -61,12 +61,12 @@ public class View extends JComponent implements Observer {
         this.terrain = terrain;
         frame = new JFrame(Config.WINDOW_NAME);
         setMenu();
-
+        gridComponent.setEntities(entities);
+        gridComponent.setTerrain(terrain);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-
         frame.repaint();
         gridComponent.setFocusable(true);
         gridComponent.requestFocus();
@@ -106,15 +106,16 @@ public class View extends JComponent implements Observer {
         sidePane.remove(sidePanel);
         gamePane.remove(sidePane);
         frame.remove(gamePane);
+        frame.remove(menuPanel);
     }
 
     /**
      * Sets view as game.
      */
     public void setGame() {
+        removeAllComponents();
         gamePane = new JPanel();
         gamePane.setLayout(new BorderLayout());
-        frame.remove(menuPanel);
 
         gamePane.add(gridPanel,BorderLayout.CENTER);
         gridPanel.add(gridComponent,1);
