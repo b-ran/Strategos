@@ -1,6 +1,7 @@
 package strategos.hexgrid;
 
 import strategos.Direction;
+import strategos.GameBoard;
 import strategos.terrain.Mountain;
 import strategos.terrain.Terrain;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @author Daniel Pinfold
  *
  */
-public class Map {
+public class Map implements GameBoard {
 	
 	private Hex[][] map;
 	private final int radius;
