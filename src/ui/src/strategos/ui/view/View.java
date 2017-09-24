@@ -1,47 +1,184 @@
 package strategos.ui.view;
 
-import strategos.Graphical;
-import strategos.hexgrid.Hex;
-import strategos.model.units.Unit;
+
+import strategos.terrain.Terrain;
+import strategos.ui.config.Config;
+import strategos.units.Unit;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import static strategos.util.Config.*;
-
+/**
+ * The type View.
+ */
 public class View extends JComponent implements Observer {
 
 
     private JFrame frame; //Overall Frame
 
+    /**
+     * The units on the grid.
+     */
     protected List<Unit> entities;
-    protected Hex[][] terrain;
 
-    public View(List<Graphical> entities, Graphical[][] terrain) {
+    /**
+     * The terrain that makes up the grid.
+     */
+    protected Terrain[][] terrain;
+
+    private MenuComponent menuComponent = new MenuComponent();
+    private MenuComponent escapeMenuComponent = new MenuComponent();
+    private GridComponent gridComponent = new GridComponent();
+    private SideComponent sideComponent = new SideComponent();
+
+    private JPanel menuPanel = menuComponent.setMenu();
+    private JPanel escapeMenuPanel = escapeMenuComponent.setEscapeMenu();
+    private JLayeredPane gridPanel = gridComponent.getGrid();
+    private JPanel sidePanel = sideComponent.getSidePanel();
+
+    private JPanel gamePane = new JPanel();
+    private JPanel sidePane = new JPanel();
+    /**
+     * The game status.
+     * False if game not running
+     * True if game is running
+     */
+    protected boolean game = false;
+
+
+
+    /**
+     * Instantiates a new View.
+     *
+     * @param entities the untis on the grid
+     * @param terrain  the terrain that makes up the grid
+     */
+    public View(List<Unit> entities, Terrain[][] terrain) {
         this.entities = entities;
         this.terrain = terrain;
-        frame = new JFrame(WINDOW_NAME);
+        frame = new JFrame(Config.WINDOW_NAME);
         setMenu();
-        frame.pack();
-        frame.setVisible(true);
+        gridComponent.setEntities(entities);
+        gridComponent.setTerrain(terrain);
     }
-
 
     @Override
     public void update(Observable o, Object arg) {
         frame.repaint();
-        requestFocus();
+        gridComponent.setFocusable(true);
+        gridComponent.requestFocus();
     }
 
+    /**
+     * Sets view as main menu.
+     */
     public void setMenu() {
-        frame.dispose();
-        frame.add(new MenuComponent().getMenu());
+        removeAllComponents();
+        frame.add(menuPanel);
+        repack();
+        game = false;
     }
 
-    public void setEscapeMenu() {
+    /**
+     * Adds escape menu on top of grid.
+     */
+    public void addEscapeMenu() {
+        gridPanel.add(escapeMenuPanel,0);
+        repack();
+    }
+
+    /**
+     * Removes escape menu off grid.
+     */
+    public void removeEscapeMenu() {
+        removeAllComponents();
+        setGame();
+    }
+
+
+    private void removeAllComponents() {
+        gridPanel.remove(escapeMenuPanel);
+        gridPanel.remove(gridComponent);
+        sidePane.remove(sideComponent);
+        sidePane.remove(sidePanel);
+        gamePane.remove(sidePane);
+        frame.remove(gamePane);
+        frame.remove(menuPanel);
+    }
+
+    /**
+     * Sets view as game.
+     */
+    public void setGame() {
+        removeAllComponents();
+        gamePane = new JPanel();
+        gamePane.setLayout(new BorderLayout());
+
+        gamePane.add(gridPanel,BorderLayout.CENTER);
+        gridPanel.add(gridComponent,1);
+
+        sidePane = new JPanel();
+        sidePane.setLayout(new BoxLayout(sidePane,BoxLayout.Y_AXIS));
+
+        sidePane.add(sideComponent);
+        sidePane.add(sidePanel);
+
+        gamePane.add(sidePane, BorderLayout.EAST);
+        frame.add(gamePane);
+        repack();
+        game = true;
+    }
+
+    /**
+     * Status boolean.
+     *
+     * @return true if game is running or false if not
+     */
+    public boolean status() {
+        return game;
+    }
+
+    /**
+     * End all windows.
+     */
+    public void exit() {
         frame.dispose();
-        frame.add(new MenuComponent().getEscapeMenu());
+    }
+
+    /**
+     * Gets menu component.
+     *
+     * @return the menu component
+     */
+    public MenuComponent getMenuComponent() {
+        return menuComponent;
+    }
+
+    /**
+     * Gets grid component.
+     *
+     * @return the grid component
+     */
+    public GridComponent getGridComponent() {
+        return gridComponent;
+    }
+
+    private void repack() {
+        frame.pack();
+        frame.setVisible(true);
+        gridComponent.setFocusable(true);
+        gridComponent.requestFocus();
+    }
+
+    /**
+     * Gets escape menu component.
+     *
+     * @return the escape menu component
+     */
+    public MenuComponent getEscapeMenuComponent() {
+        return escapeMenuComponent;
     }
 }

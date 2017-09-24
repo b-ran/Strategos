@@ -1,7 +1,9 @@
 package strategos.behaviour;
 
 
-import strategos.MapLocation;
+import strategos.*;
+import strategos.units.*;
+
 
 public interface Behaviour {
 
@@ -17,14 +19,20 @@ public interface Behaviour {
 
     void charge();
 
-    boolean move();
+    boolean move(Direction direction);
 
-    int attack(Movable enemy);
+    int attack(Unit enemy);
 
-    int defend(Movable enemy);
+    int defend(Unit enemy);
 
     int getStrength();
 
     int getToughness();
+
+    boolean isAlive();
+
+    int getSightRadius();
+
+    int getActionPoints();
 
 }

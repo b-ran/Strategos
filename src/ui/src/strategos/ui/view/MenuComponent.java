@@ -1,12 +1,13 @@
 package strategos.ui.view;
 
 import javax.swing.*;
-
 import java.awt.*;
+import static strategos.ui.config.Config.*;
 
-import static strategos.Config.*;
-
-class MenuComponent extends JComponent {
+/**
+ * The type Menu component.
+ */
+public class MenuComponent extends JComponent {
 
     private JButton newGameButton = new JButton(NEWGAME_BUTTON_NAME);
     private JButton exitButton = new JButton(EXIT_BUTTON_NAME);
@@ -15,15 +16,17 @@ class MenuComponent extends JComponent {
     private JButton loadButton = new JButton(LOAD_BUTTON_NAME);
     private JButton connectButton = new JButton(CONNECT_BUTTON_NAME);
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
+    private JPanel p = new JPanel();
 
-    protected MenuComponent() {
+    /**
+     * Sets component as a main menu.
+     *
+     * @return the menu
+     */
+    protected JPanel setMenu() {
+        p = new JPanel();
         setupButtons();
-    }
-
-    protected JPanel getMenu() {
-        JPanel p = new JPanel();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-
         p.add(newGameButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(loadButton);
@@ -33,15 +36,20 @@ class MenuComponent extends JComponent {
         p.add(hostButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
-
+        p.setPreferredSize(MENU_COMPONENT_SIZE);
         return p;
     }
 
 
-    protected  JPanel getEscapeMenu(){
-        JPanel p = new JPanel();
+    /**
+     * Sets component as an escape menu.
+     *
+     * @return the escape menu
+     */
+    protected JPanel setEscapeMenu(){
+        p = new JPanel();
+        setupButtons();
         p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-
         p.add(resumeButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(newGameButton);
@@ -51,7 +59,7 @@ class MenuComponent extends JComponent {
         p.add(loadButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
-
+        p.setPreferredSize(MENU_COMPONENT_SIZE);
         return p;
     }
 
@@ -71,11 +79,68 @@ class MenuComponent extends JComponent {
         loadButton.setMaximumSize(MENU_BUTTON_SIZE);
         connectButton.setMaximumSize(MENU_BUTTON_SIZE);
         hostButton.setMaximumSize(MENU_BUTTON_SIZE);
-
     }
 
-    @Override
-    public Dimension getPreferredSize() {
-        return MENU_COMPONENT_SIZE;
+    /**
+     * Gets new game button.
+     *
+     * @return the new game button
+     */
+    public JButton getNewGameButton() {
+        return newGameButton;
+    }
+
+    /**
+     * Gets exit button.
+     *
+     * @return the exit button
+     */
+    public JButton getExitButton() {
+        return exitButton;
+    }
+
+    /**
+     * Gets resume button.
+     *
+     * @return the resume button
+     */
+    public JButton getResumeButton() {
+        return resumeButton;
+    }
+
+    /**
+     * Gets save button.
+     *
+     * @return the save button
+     */
+    public JButton getSaveButton() {
+        return saveButton;
+    }
+
+    /**
+     * Gets load button.
+     *
+     * @return the load button
+     */
+    public JButton getLoadButton() {
+        return loadButton;
+    }
+
+    /**
+     * Gets connect button.
+     *
+     * @return the connect button
+     */
+    public JButton getConnectButton() {
+        return connectButton;
+    }
+
+    /**
+     * Gets host button.
+     *
+     * @return the host button
+     */
+    public JButton getHostButton() {
+        return hostButton;
     }
 }

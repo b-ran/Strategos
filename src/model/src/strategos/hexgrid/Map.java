@@ -1,6 +1,9 @@
 package strategos.hexgrid;
 
 import strategos.Direction;
+import strategos.GameBoard;
+import strategos.terrain.Mountain;
+import strategos.terrain.Terrain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.List;
  * @author Daniel Pinfold
  *
  */
-public class Map {
+public class Map implements GameBoard {
 	
 	private Hex[][] map;
 	private final int radius;
@@ -25,7 +28,12 @@ public class Map {
 	 */
 	public Map(int diameter) {
 		map = constructMap(diameter);
-		radius = diameter / 2;
+		this.radius = diameter / 2;
+	}
+
+	public Map(Hex[][] newMap, int radius) {
+		map = newMap.clone();
+		this.radius = radius;
 	}
 	
 	/**
@@ -41,26 +49,9 @@ public class Map {
 		
 		for (int r = 0; r < diameter; r++) {
 			for (int q = 0; q < diameter; q++) {
-				map[r][q] = new NullHex(r, q);
+				map[r][q] = new Hex(r, q, false);
 			}
 		}
-		/*Hex centre = new Hex(radius, radius);
-		mapgeneration[radius][radius] = centre;
-		System.out.println(radius);
-		for (int dX = -radius; dX <= radius; dX++) {
-			
-			int minValue = Math.max(-radius, -dX - radius);
-			int maxValue = Math.min(radius, -dX + radius);
-			
-			for (int dY = minValue; dY <= maxValue; dY++) {
-				int dZ = -dX - dY;
-				
-				int column = dX;
-				int row = dZ;
-				System.out.println(column + ", " + row);
-				mapgeneration[column][row] = new Hex(row, column);
-			}
-		}*/
 		boolean left = true;
 		int offset = radius;
 		for (int r = 0; r < diameter; r++) {
@@ -68,7 +59,7 @@ public class Map {
 				if (left && q < offset || (!left && q >= diameter - offset)) {
 					continue;
 				}
-				set(r, q, map, new Hex(r, q));
+				set(r, q, map, new Hex(r, q, true));
 			}
 			if (offset > 0 && left) {
 				offset--;
@@ -91,11 +82,11 @@ public class Map {
 	
 	/**
 	 * For a given Hex at (r, q), calculate all the neighbours using the axial coordinates system.
-	 * 		A mapgeneration is passed into this function because the mapgeneration field may not be initialised at this point.
+	 * 		A map is passed into this function because the map field may not be initialised at this point.
 	 *
 	 * @param r - The horizontal position of this Hex.
 	 * @param q - The vertical position of this Hex.
-	 * @param map - The mapgeneration value.
+	 * @param map - The map value.
 	 */
 	private void populateNeighbours(int r, int q, Hex[][] map) {
 		get(r, q, map).addNeighbour(Direction.EAST, get(r + 1, q, map));
@@ -109,7 +100,7 @@ public class Map {
 
 	private Hex get(int x, int y, Hex[][] map) {
 		if (x < 0 || x >= map.length || y < 0 || y >= map.length) {
-			return new NullHex(x, y);
+			return new Hex(x, y, false);
 		}
 		
 		return map[x][y];
@@ -123,10 +114,10 @@ public class Map {
 		return get(x, y, map);
 	}
 	
-	public Hex[][] getMap() {
+	public Hex[][] getData() {
 		return map;
 	}
-	
+
 	/**
 	 * Combines the 2D array into a List format, reading left to right, then dropping a line.
 	 * @return A List of Hexes contained by the Map.
@@ -139,6 +130,10 @@ public class Map {
 			}
 		}
 		return temp;
+	}
+
+	public int getRadius() {
+		return radius;
 	}
 	
 }

@@ -1,38 +1,38 @@
 package strategos.hexgrid;
 
 
-import strategos.Direction;
-import strategos.Modifier;
-import strategos.Paintable;
-import strategos.Terrain;
+import strategos.*;
 import strategos.exception.FeatureNotImplementedException;
 import strategos.exception.RuleViolationException;
+import strategos.terrain.Terrain;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 /**
- * The hexagonal tile structure of the mapgeneration, which holds information on this section of the mapgeneration.
+ * The hexagonal tile structure of the map, which holds information on this section of the map.
  * @author Daniel Pinfold
  *
  */
-public class Hex implements Paintable {
+public class Hex implements Paintable, Graphical, MapLocation {
 	private Map<Direction, Hex> neighbours;
 	
 	private int xIndex;
 	private int yIndex;
 	
 	private Terrain terrain;
+	private final boolean isPlayable;
 	
 	/**
 	 * Creates a new Hex object, initialising the neighbours collection.
 	 * This constructor assumes that the neighbours will be added externally.
 	 */
-	public Hex(int x, int y) {
-		setxIndex(x);
-		setyIndex(y);
+	public Hex(int x, int y, boolean isPlayable) {
+		setXIndex(x);
+		setYIndex(y);
 		neighbours = new HashMap<>();
+		this.isPlayable = isPlayable;
 	}
 	
 	/**
@@ -41,13 +41,14 @@ public class Hex implements Paintable {
 	 * @param east - The neighbouring Hex directly to the right.
 	 * @param west - The neighbouring Hex directly to the left.
 	 * @param northeast - The neighbouring Hex one to the right and one up.
-	  * @param northwest - The neighbouring Hex one to the left and one up.
+	 * @param northwest - The neighbouring Hex one to the left and one up.
 	 * @param southeast - The neighbouring Hex one to the right and one down.
 	 * @param southwest - The neighbouring Hex one to the left and one down.
 	 */
-	public Hex(int x, int y, Hex east, Hex west, Hex northeast, Hex northwest, Hex southeast, Hex southwest) {
-		setxIndex(x);
-		setyIndex(y);
+	public Hex(int x, int y, boolean isPlayable, Hex east, Hex west, Hex northeast, Hex northwest, Hex southeast, Hex southwest) {
+		setXIndex(x);
+		setYIndex(y);
+		this.isPlayable = isPlayable;
 		neighbours = new HashMap<>();
 		neighbours.put(Direction.EAST, east);
 		neighbours.put(Direction.WEST, west);
@@ -64,14 +65,16 @@ public class Hex implements Paintable {
 	 * 
 	 * @return true if the tile can be acted upon or moved onto, false otherwise.
 	 */
-	public boolean isPassable() {
-		// TODO: implement to call terrain.isImpassable().
-		throw new FeatureNotImplementedException("Terrain not yet implemented");
-		// return terrain.isImpassable();
+	@Override
+	public boolean isInPlayArea() {
+		if (isPlayable) {
+			// return if terrain is mountain or not
+		}
+		return isPlayable;
 	}
 	
 	/**
-	 * Gets the a mapgeneration of terrain Modifiers to integers, specifying what statistics
+	 * Gets the a Map of terrain Modifiers to integers, specifying what statistics
 	 * 		a given unit will be altered by the terrain.  
 	 * @return a Map of Modifier to Integer of terrain modifiers.
 	 */
@@ -111,7 +114,7 @@ public class Hex implements Paintable {
     }
 
     /**
-	 * Gets the mapgeneration of neighbours contained by this Hex.
+	 * Gets the Map of neighbours contained by this Hex.
 	 * @return a Map of Direction to Hex, the adjacent Hexes to this Hex.
 	 */
 	public Map<Direction, Hex> getNeighbours() {
@@ -120,22 +123,34 @@ public class Hex implements Paintable {
 	
 	@Override
 	public String toString() {
-		return "[" + getxIndex() + "," + getyIndex() + "]";
+		return "[" + getX() + "," + getY() + "]";
 	}
 
-	public int getxIndex() {
-		return xIndex;
-	}
-
-	public void setxIndex(int xIndex) {
+	/**
+	 * Changes the x-index of this Hex, i.e. where it is stored in the 2D Map array. WARNING: This method may never need to
+	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
+	 * @param xIndex - the new x-index for the Hex.
+	 */
+	public void setXIndex(int xIndex) {
 		this.xIndex = xIndex;
 	}
 
-	public int getyIndex() {
-		return yIndex;
+	/**
+	 * Changes the y-index of this Hex, i.e. where it is stored in the 2D Map array. WARNING: This method may never need to
+	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
+	 * @param yIndex - the new y-index for the Hex.
+	 */
+	public void setYIndex(int yIndex) {
+		this.yIndex = yIndex;
 	}
 
-	public void setyIndex(int yIndex) {
-		this.yIndex = yIndex;
+	@Override
+	public int getX() {
+		return xIndex;
+	}
+
+	@Override
+	public int getY() {
+		return yIndex;
 	}
 }

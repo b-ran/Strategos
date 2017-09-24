@@ -11,6 +11,12 @@ class ExitListener extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (view.status() == true) {
+            view.setMenu();
+            setMenuListeners();
+        } else {
+            view.exit();
+        }
     }
+
 }

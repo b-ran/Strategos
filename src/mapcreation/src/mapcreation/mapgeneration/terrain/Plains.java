@@ -1,6 +1,6 @@
 package mapcreation.mapgeneration.terrain;
 
-import strategos.Terrain;
+import strategos.terrain.Terrain;
 
 public class Plains implements Terrain {
 }
