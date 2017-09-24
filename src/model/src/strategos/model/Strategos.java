@@ -3,6 +3,7 @@ package strategos.model;
 import strategos.Direction;
 import strategos.GameState;
 import strategos.MapLocation;
+import strategos.UnitOwner;
 import strategos.hexgrid.Hex;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
@@ -42,7 +43,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public Unit getUnitAt(MapLocation location) {
-		for (strategos.units.Unit u : world.getAllUnits()) {
+		for (Unit u : world.getAllUnits()) {
 			if (u.getPosition().getX() == location.getX() && u.getPosition().getY() == location.getY()) {
 				return u;
 			}
@@ -50,6 +51,7 @@ public class Strategos implements GameState {
 		return null;
 	}
 
+	@Override
 	public void move(Unit unit, Direction direction, int amount) {
 		amount = Math.min(amount, unit.getActionPoints());
 		Hex currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
@@ -61,6 +63,18 @@ public class Strategos implements GameState {
 			currentPosition = currentPosition.getNeighbour(direction);
 			unit.move(direction);
 			amount--;
+			calculateVision(unit.getOwner());
+		}
+	}
+
+	private void calculateVision(UnitOwner player) {
+		for (Unit unit : player.getUnits()) {
+			List<MapLocation> sightRange = getHexesInRange(unit.getPosition(), 3);
+			for (MapLocation tile : sightRange) {
+				if (!player.getVisibleTiles().contains(tile)) {
+					player.getVisibleTiles().add(tile);
+				}
+			}
 		}
 	}
 
@@ -117,6 +131,31 @@ public class Strategos implements GameState {
 			}
 		}
 		return units;
+	}
+
+	private List<MapLocation> getHexesInRange(MapLocation location, int range) {
+
+		List<MapLocation> tiles = new ArrayList<>();
+
+		Hex centre = world.getMap().get(location.getX(), location.getY());
+		for (int dX = -range; dX <= range; dX++) {
+
+			int minValue = Math.max(-range, -dX - range);
+			int maxValue = Math.min(range, -dX + range);
+
+			for (int dY = minValue; dY <= maxValue; dY++) {
+				int dZ = -dX - dY;
+
+				int x = centre.getX() + dX;
+				int y = centre.getY() + dZ;
+
+				MapLocation potentialTile = world.getMap().get(x, y);
+				if (!tiles.contains(potentialTile) && potentialTile != null) {
+					tiles.add(potentialTile);
+				}
+			}
+		}
+		return tiles;
 	}
 
 	@Override
