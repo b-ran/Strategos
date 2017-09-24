@@ -18,20 +18,6 @@ class DrawEntity {
     Color otherPlayerColor = Color.RED;
     Color playerColor = Color.BLUE;
 
-
-    private void setUnitColor(Unit unit, Graphics g) {
-        UnitOwner owner = unit.getOwner();
-        if (owner.isNPC()) {
-            g.setColor(npcColor);
-        } else if (owner.getUnits().contains(unit)) {
-            g.setColor(playerColor);
-        } else {
-            g.setColor(otherPlayerColor);
-        }
-    }
-
-
-
     /**
      * Draws Archers.
      *
@@ -40,7 +26,9 @@ class DrawEntity {
     public void draw(Archers archers, Graphics g) {
         MapLocation m = archers.getPosition();
         setUnitColor(archers, g);
-        g.fillOval(getGridX(m.getX()), getGridY(m.getY()) , HEX_SIZE/2, HEX_SIZE/2);
+        Point p = getGridPos(m);
+
+        g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
     }
 
     /**
@@ -51,7 +39,8 @@ class DrawEntity {
     public void draw(Cavalry cavalry, Graphics g) {
         MapLocation m = cavalry.getPosition();
         setUnitColor(cavalry, g);
-        g.fillOval(getGridX(m.getX()), getGridY(m.getY()) , HEX_SIZE/2, HEX_SIZE/2);
+        Point p = getGridPos(m);
+        g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
     }
 
     /**
@@ -62,7 +51,8 @@ class DrawEntity {
     public void draw(Elite elite, Graphics g) {
         MapLocation m = elite.getPosition();
         setUnitColor(elite, g);
-        g.fillOval(getGridX(m.getX()), getGridY(m.getY()) , HEX_SIZE/2, HEX_SIZE/2);
+        Point p = getGridPos(m);
+        g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
     }
 
     /**
@@ -73,7 +63,8 @@ class DrawEntity {
     public void draw(Spearmen spearmen, Graphics g) {
         MapLocation m = spearmen.getPosition();
         setUnitColor(spearmen, g);
-        g.fillOval(getGridX(m.getX()), getGridY(m.getY()) , HEX_SIZE/2, HEX_SIZE/2);
+        Point p = getGridPos(m);
+        g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
     }
 
     /**
@@ -84,7 +75,8 @@ class DrawEntity {
     public void draw(Swordsmen swordsmen, Graphics g) {
         MapLocation m = swordsmen.getPosition();
         setUnitColor(swordsmen, g);
-        g.fillOval(getGridX(m.getX()), getGridY(m.getY()) , HEX_SIZE/2, HEX_SIZE/2);
+        Point p = getGridPos(m);
+        g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
     }
 
     /**
@@ -130,6 +122,26 @@ class DrawEntity {
      */
     public void draw(River river, Graphics g) {
 
+    }
+
+    private void setUnitColor(Unit unit, Graphics g) {
+        UnitOwner owner = unit.getOwner();
+        if (owner.isNPC()) {
+            g.setColor(npcColor);
+        } else if (owner.getUnits().contains(unit)) {
+            g.setColor(playerColor);
+        } else {
+            g.setColor(otherPlayerColor);
+        }
+    }
+
+    private Point getGridPos (MapLocation m) {
+        int y = getGridY(m.getY())+HEX_SIZE/4;
+        int x = getGridX(m.getX())+HEX_SIZE/4;
+        if (m.getY() % 2 != 0) {
+            x = getGridX(m.getX())+HEX_SIZE/4*3;
+        }
+        return new Point(x,y);
     }
 
     private int getGridY(int y) {
