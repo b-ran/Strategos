@@ -12,7 +12,6 @@ public class Octave {
             new Point(-1, -1)
     };
 
-    private int numberOfSwaps = 400;
     //TODO: rename
     //TODO: describe
     private static short p_supply[] = {
@@ -29,17 +28,15 @@ public class Octave {
             , 175, 38, 6, 120, 212, 233, 19, 197, 236, 86, 46, 63, 243, 98, 26, 78, 95, 164, 81, 17, 64, 70, 119, 125
             , 220, 5, 181, 140
     };
-    //TODO: rename
-    static short p[];
-    private int seed;
     private short[] perm = new short[512];
-    private short[] permMod = new short[512];
+    private short[] permMod12 = new short[512];
 
     public Octave(int seed) {
-        p = p_supply.clone();
+        short[] p = p_supply.clone();
         Random random = new Random(seed);
         short temp;
         int to, from;
+        int numberOfSwaps = 400;
         for (int i = 0; i < numberOfSwaps; i++) {
             from = random.nextInt(p.length);
             to = random.nextInt(p.length);
@@ -53,24 +50,25 @@ public class Octave {
             //    100100101
             //   =00010010
             perm[i] = p[i & 255];
-            permMod[i] = (short) (perm[i] % 4);
+            permMod12[i] = (short) (perm[i] % 4);
         }
 
     }
 
     //rename
-    final double F2 = 0.5 * (Math.sqrt(3.0) - 1);
-    final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
-
-    public double noise(double x, double y) {
-        double s = (x + y) * F2;
-        int i = fastFloor(x + s);
-        int j = fastFloor(y + s);
+    private final double F2 = 0.5 * (Math.sqrt(3.0) - 1);
+    private final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
+//rename to x, y
+    public double noise(double xin, double yin) {
+        double s = (xin + yin) * F2;
+        int i = fastFloor(xin + s);
+        int j = fastFloor(yin + s);
         double t = (i + j) * G2;
         double X0 = i - t;
         double Y0 = j - t;
-        double x0 = x - X0;
-        double y0 = y - Y0;
+        double x0 = xin - X0;
+        double y0 = yin - Y0;
+
         int i1, j1;
         if (x0 > y0) {
             i1 = 1;
@@ -79,6 +77,7 @@ public class Octave {
             i1 = 0;
             j1 = 1;
         }
+
         double x1 = x0 - i1 + G2;
         double y1 = y0 - j1 + G2;
         double x2 = x0 - 1.0 + 2.0 * G2;
@@ -87,9 +86,9 @@ public class Octave {
         int ii = i & 255;
         int jj = j & 255;
 
-        int gi0 = permMod[ii + perm[jj]];
-        int gi1 = permMod[ii + i1 + perm[jj + j1]];
-        int gi2 = permMod[ii + 1 + perm[jj + 1]];
+        int gi0 = permMod12[ii + perm[jj]];
+        int gi1 = permMod12[ii + i1 + perm[jj + j1]];
+        int gi2 = permMod12[ii + 1 + perm[jj + 1]];
         double n0, n1, n2;
         //may be able to use arrays
         double t0 = 0.5 - x0 * x0 - y0 * y0;
@@ -119,7 +118,7 @@ public class Octave {
     }
 
     private double dot(Point point, double x, double y) {
-        return (point.x * x) + (point.y * y);
+        return point.x * x + point.y * y;
     }
 
     /**

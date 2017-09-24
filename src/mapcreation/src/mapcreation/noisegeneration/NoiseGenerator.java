@@ -29,24 +29,11 @@ public class NoiseGenerator {
     }
 
 
-    public double getNoise(int x, int y){
+    public double getNoise(int x, int y) {
         double result = 0;
         for (int i = 0; i < octaves.length; i++) {
-            result+=octaves[i].noise(x/frequencies[i], y/frequencies[i]*amplitudes[i]);
+            result += octaves[i].noise(x / frequencies[i], y / frequencies[i] * amplitudes[i]);
         }
         return result;
     }
-
-    /**
-     * Generates a field of noise with the parameters set by width and height
-     *
-     * @param width  Size * 5(sampling for flat top hexes)
-     * @param height Size * 3(sampling for flat top hexes)
-     * @return A field of generated noise(Topology)
-     */
-    public double[][] generateNoise(int width, int height) {
-        return new double[1][1];
-    }
-
-
 }
