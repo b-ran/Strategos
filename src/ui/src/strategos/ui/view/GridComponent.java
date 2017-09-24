@@ -1,6 +1,6 @@
 package strategos.ui.view;
 
-import strategos.terrain.Terrain;
+import strategos.terrain.*;
 import strategos.units.*;
 
 import javax.swing.*;
@@ -16,6 +16,7 @@ import static strategos.ui.config.Config.*;
 public class GridComponent extends JComponent {
 
     private Terrain[][] terrain;
+    private Terrain[][] seenTerrain;
     private List<Unit> entities;
     private DrawEntity drawEntity = new DrawEntity();
 
@@ -40,21 +41,9 @@ public class GridComponent extends JComponent {
     }
 
     protected void paintComponent(Graphics g) {
-        paintHexGrid(g, Color.BLACK, terrain);
+        paintBlackTerrain(g, terrain);
+        paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
-    }
-
-    private void paintHexGrid(Graphics g, Color c, Terrain[][] terrain) {
-        g.setColor(Color.BLACK);
-        for (int y = 0; y < terrain.length; y++) {
-            for (int x = 0; x < terrain[0].length; x++) {
-                if (y % 2 == 0) {
-                    hexagon(g, getGridX(x), getGridY(y), Color.BLACK);
-                } else {
-                    hexagon(g, getGridX(x)+HEX_SIZE/2, getGridY(y), Color.BLACK);
-                }
-            }
-        }
     }
 
     private void paintUnits(Graphics g, List<Unit> entities) {
@@ -73,22 +62,38 @@ public class GridComponent extends JComponent {
          }
     }
 
-    private void hexagon(Graphics g, int x, int y, Color c) {
-        int nPoints = 6;
-        int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
-        int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};
-        g.setColor(c);
-        g.drawPolygon(xPoints, yPoints, nPoints);
+    private void paintTerrain(Graphics g, Terrain[][] terrain) {
+        for (int y = 0; y < terrain.length; y++) {
+            for (int x = 0; x < terrain[0].length; x++) {
+                Terrain t = terrain[y][x];
+                if (t instanceof Forest) {
+                    drawEntity.draw((Forest)t, g, x, y);
+                } else if (t instanceof Hill) {
+                    drawEntity.draw((Hill)t, g, x, y);
+                } else if (t instanceof Mountain) {
+                    drawEntity.draw((Mountain)t, g, x, y);
+                } else if (t instanceof Plains) {
+                    drawEntity.draw((Plains)t, g, x, y);
+                } else if (t instanceof River) {
+                    drawEntity.draw((River)t, g, x, y);
+                }
+            }
+        }
     }
 
-    //Credit: https://www.redblobgames.com/grids/hexagons/#hex-to-pixel for logic of hex to pixels
-    private int getGridY(int y) {
-        return HEX_SIZE/2 * 3/2 * y;
+    private void paintBlackTerrain(Graphics g, Terrain[][] terrain) {
+        g.setColor(Color.BLACK);
+        for (int y = 0; y < terrain.length; y++) {
+            for (int x = 0; x < terrain[0].length; x++) {
+                if (y % 2 == 0) {
+                    drawEntity.hexagon(g, drawEntity.getGridX(x), drawEntity.getGridY(y), Color.BLACK);
+                } else {
+                    drawEntity.hexagon(g, drawEntity.getGridX(x)+HEX_SIZE/2, drawEntity.getGridY(y), Color.BLACK);
+                }
+            }
+        }
     }
 
-    private int getGridX(int x) {
-        return x * HEX_SIZE + HEX_SIZE;
-    }
 
     public void setEntities(List<Unit> entities) {
         this.entities = entities;
@@ -96,5 +101,6 @@ public class GridComponent extends JComponent {
 
     public void setTerrain(Terrain[][] terrain) {
         this.terrain = terrain;
+        seenTerrain = new Terrain[terrain.length][terrain[0].length];
     }
 }
