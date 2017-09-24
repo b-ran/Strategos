@@ -124,7 +124,19 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
+		for (int i = 0; i < turn.getUnits().size(); i++) {
+			if (!turn.getUnits().get(i).isAlive()) {
+				turn.getUnits().remove(i);
+			}
+		}
+		for (Unit unit : turn.getUnits()) {
+			// TODO: reset unit action points
+			// TODO: set "moved" to false
+		}
 
+		int turnIndex = players.indexOf(turn);
+		turnIndex = (turnIndex + 1) % players.size();
+		turn = players.get(turnIndex);
 	}
 
 
