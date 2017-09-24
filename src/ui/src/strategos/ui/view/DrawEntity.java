@@ -84,7 +84,7 @@ class DrawEntity {
      *
      * @param forest to draw
      */
-    public void draw(Forest forest, Graphics g) {
+    public void draw(Forest forest, Graphics g, int x, int y) {
 
     }
 
@@ -93,7 +93,7 @@ class DrawEntity {
      *
      * @param hill to draw
      */
-    public void draw(Hill hill, Graphics g) {
+    public void draw(Hill hill, Graphics g, int x, int y) {
 
     }
 
@@ -102,7 +102,7 @@ class DrawEntity {
      *
      * @param mountain to draw
      */
-    public void draw(Mountain mountain, Graphics g) {
+    public void draw(Mountain mountain, Graphics g, int x, int y) {
 
     }
 
@@ -111,7 +111,7 @@ class DrawEntity {
      *
      * @param plains to draw
      */
-    public void draw(Plains plains, Graphics g) {
+    public void draw(Plains plains, Graphics g, int x, int y) {
 
     }
 
@@ -120,7 +120,7 @@ class DrawEntity {
      *
      * @param river to draw
      */
-    public void draw(River river, Graphics g) {
+    public void draw(River river, Graphics g, int x, int y) {
 
     }
 
@@ -144,12 +144,21 @@ class DrawEntity {
         return new Point(x,y);
     }
 
-    private int getGridY(int y) {
+    //Credit: https://www.redblobgames.com/grids/hexagons/#hex-to-pixel for logic of hex to pixels
+    protected int getGridY(int y) {
         return HEX_SIZE/2 * 3/2 * y;
     }
 
-    private int getGridX(int x) {
+    protected int getGridX(int x) {
         return x * HEX_SIZE + HEX_SIZE;
+    }
+
+    protected void hexagon(Graphics g, int x, int y, Color c) {
+        int nPoints = 6;
+        int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
+        int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};
+        g.setColor(c);
+        g.drawPolygon(xPoints, yPoints, nPoints);
     }
 
 }
