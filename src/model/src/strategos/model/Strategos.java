@@ -33,9 +33,9 @@ public class Strategos implements GameState {
 		}
 		SaveState toRestore = saves.get(saveIndex);
 
-		this.world = toRestore.world;
-		this.players = toRestore.players;
-		this.turn = toRestore.turn;
+		this.world = toRestore.getWorld();
+		this.players = toRestore.getPlayers();
+		this.turn = toRestore.getTurn();
 	}
 
 	@Override
