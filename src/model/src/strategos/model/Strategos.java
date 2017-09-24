@@ -13,17 +13,31 @@ import java.util.List;
 public class Strategos implements GameState {
 	private World world;
 	private ArrayList<Player> players = new ArrayList<>();
-	
+	private Player turn;
+
+	private List<SaveState> saves = new ArrayList<>();
+
+
 	public Strategos(World world) {
-		
+		this.world = world;
 	}
 
 	public void save() {
-
+		if (saves.size() > 3) {
+			return;
+		}
+		saves.add(new SaveState(world, players, turn));
 	}
 
-	public void load() {
+	public void load(int saveIndex) {
+		if (saves.size() <= saveIndex) {
+			return;
+		}
+		SaveState toRestore = saves.get(saveIndex);
 
+		this.world = toRestore.world;
+		this.players = toRestore.players;
+		this.turn = toRestore.turn;
 	}
 
 	@Override
