@@ -9,7 +9,7 @@ public interface GameState {
 
 	public void save();
 
-	public void load();
+	public void load(int saveIndex);
 
 	/**
 	 * Finds the Unit (if such a Unit exists) at a given index on the Hex board. If no unit is found at the index, it

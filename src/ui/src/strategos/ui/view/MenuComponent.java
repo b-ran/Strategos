@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import static strategos.ui.config.Config.*;
 
+/**
+ * The type Menu component.
+ */
 public class MenuComponent extends JComponent {
 
     private JButton newGameButton = new JButton(NEWGAME_BUTTON_NAME);
@@ -15,6 +18,11 @@ public class MenuComponent extends JComponent {
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
     private JPanel p = new JPanel();
 
+    /**
+     * Sets component as a main menu.
+     *
+     * @return the menu
+     */
     protected JPanel setMenu() {
         p = new JPanel();
         setupButtons();
@@ -33,6 +41,11 @@ public class MenuComponent extends JComponent {
     }
 
 
+    /**
+     * Sets component as an escape menu.
+     *
+     * @return the escape menu
+     */
     protected JPanel setEscapeMenu(){
         p = new JPanel();
         setupButtons();
@@ -68,30 +81,65 @@ public class MenuComponent extends JComponent {
         hostButton.setMaximumSize(MENU_BUTTON_SIZE);
     }
 
+    /**
+     * Gets new game button.
+     *
+     * @return the new game button
+     */
     public JButton getNewGameButton() {
         return newGameButton;
     }
 
+    /**
+     * Gets exit button.
+     *
+     * @return the exit button
+     */
     public JButton getExitButton() {
         return exitButton;
     }
 
+    /**
+     * Gets resume button.
+     *
+     * @return the resume button
+     */
     public JButton getResumeButton() {
         return resumeButton;
     }
 
+    /**
+     * Gets save button.
+     *
+     * @return the save button
+     */
     public JButton getSaveButton() {
         return saveButton;
     }
 
+    /**
+     * Gets load button.
+     *
+     * @return the load button
+     */
     public JButton getLoadButton() {
         return loadButton;
     }
 
+    /**
+     * Gets connect button.
+     *
+     * @return the connect button
+     */
     public JButton getConnectButton() {
         return connectButton;
     }
 
+    /**
+     * Gets host button.
+     *
+     * @return the host button
+     */
     public JButton getHostButton() {
         return hostButton;
     }
