@@ -78,12 +78,14 @@ public class Strategos implements GameState {
 		attack(unit, world.getMap().get(targetX, targetY));
 	}
 
+	@Override
 	public void wary(Unit unit) {
-
+		unit.wary();
 	}
 
+	@Override
 	public void entrench(Unit unit) {
-
+		unit.entrench();
 	}
 
 	@Override
@@ -91,8 +93,8 @@ public class Strategos implements GameState {
 
 		List<Unit> units = new ArrayList<>();
 
-		if (location.getY() < 0 || location.getY() > world.getMap().getMap().length ||
-				location.getX() < 0 || location.getY() > world.getMap().getMap().length) {
+		if (location.getY() < 0 || location.getY() > world.getMap().getData().length ||
+				location.getX() < 0 || location.getY() > world.getMap().getData().length) {
 			return units;
 		}
 
