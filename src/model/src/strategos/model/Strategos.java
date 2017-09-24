@@ -1,9 +1,6 @@
 package strategos.model;
 
-import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.hexgrid.Hex;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
@@ -12,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Strategos implements GameState {
-	private World world;
-	private ArrayList<Player> players = new ArrayList<>();
-	private Player turn;
+	private GameCollections world;
+	private ArrayList<UnitOwner> players = new ArrayList<>();
+	private UnitOwner turn;
 
 	private List<SaveState> saves = new ArrayList<>();
 
@@ -36,9 +33,9 @@ public class Strategos implements GameState {
 		}
 		SaveState toRestore = saves.get(saveIndex);
 
-		this.world = toRestore.world;
-		this.players = toRestore.players;
-		this.turn = toRestore.turn;
+		this.world = toRestore.getWorld();
+		this.players = toRestore.getPlayers();
+		this.turn = toRestore.getTurn();
 	}
 
 	@Override
@@ -54,7 +51,7 @@ public class Strategos implements GameState {
 	@Override
 	public void move(Unit unit, Direction direction, int amount) {
 		amount = Math.min(amount, unit.getActionPoints());
-		Hex currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
+		MapLocation currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
 		while (amount > 0) {
 			if (!currentPosition.getNeighbour(direction).isInPlayArea() ||
 					getUnitAt(unit.getPosition()) != null) {
@@ -69,7 +66,7 @@ public class Strategos implements GameState {
 
 	private void calculateVision(UnitOwner player) {
 		for (Unit unit : player.getUnits()) {
-			List<MapLocation> sightRange = getHexesInRange(unit.getPosition(), 3);
+			List<MapLocation> sightRange = getTilesInRange(unit.getPosition(), 3);
 			for (MapLocation tile : sightRange) {
 				if (!player.getVisibleTiles().contains(tile)) {
 					player.getVisibleTiles().add(tile);
@@ -112,7 +109,7 @@ public class Strategos implements GameState {
 			return units;
 		}
 
-		Hex centre = world.getMap().get(location.getX(), location.getY());
+		MapLocation centre = world.getMap().get(location.getX(), location.getY());
 		for (int dX = -range; dX <= range; dX++) {
 
 			int minValue = Math.max(-range, -dX - range);
@@ -133,11 +130,11 @@ public class Strategos implements GameState {
 		return units;
 	}
 
-	private List<MapLocation> getHexesInRange(MapLocation location, int range) {
+	public List<MapLocation> getTilesInRange(MapLocation location, int range) {
 
 		List<MapLocation> tiles = new ArrayList<>();
 
-		Hex centre = world.getMap().get(location.getX(), location.getY());
+		MapLocation centre = world.getMap().get(location.getX(), location.getY());
 		for (int dX = -range; dX <= range; dX++) {
 
 			int minValue = Math.max(-range, -dX - range);
@@ -160,16 +157,16 @@ public class Strategos implements GameState {
 
 	@Override
 	public Terrain getTerrainAt(MapLocation location) {
-		return world.getMap().get(location.getX(), location.getY()).getTerrain();
+		return world.getMap().getTerrainAt(location);
 	}
 
 	@Override
 	public void nextTurn() {
-		for (int i = 0; i < turn.getUnits().size(); i++) {
+		/*for (int i = 0; i < turn.getUnits().size(); i++) {
 			if (!turn.getUnits().get(i).isAlive()) {
 				turn.getUnits().remove(i);
 			}
-		}
+		}*/
 		for (Unit unit : turn.getUnits()) {
 			// TODO: reset unit action points
 			// TODO: set "moved" to false
