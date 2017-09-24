@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class Tests {
 
 	/**
-	 * Ensures that creating the mapgeneration works as expected, and that all neighbours of a given LinkedTerrainHex
+	 * Ensures that creating the map works as expected, and that all neighbours of a given Hex
 	 * 		are as expected.
 	 */
 	@org.junit.Test
@@ -36,14 +36,14 @@ public class Tests {
 	}
 	
 	/**
-	 * Tests that a LinkedTerrainHex on the edge of the mapgeneration has NullHexes as its neighbours.
+	 * Tests that a Hex on the edge of the map has unplayable Hexes as its neighbours.
 	 */
 	@Test
 	public void MapNeighbourTest_1() {
 		Map map = new Map(6);
 		Hex midHex = map.get(0, 5);
 		
-		assertFalse(midHex.getNeighbour(Direction.WEST).isPassable());
-		assertTrue(midHex.getNeighbour(Direction.EAST).isPassable());
+		assertFalse(midHex.getNeighbour(Direction.WEST).isInPlayArea());
+		assertTrue(midHex.getNeighbour(Direction.EAST).isInPlayArea());
 	}
 }
