@@ -13,7 +13,7 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
-    public void load() {
+    public void load(int saveIndex) {
 
     }
 
