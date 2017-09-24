@@ -3,7 +3,6 @@ package strategos.behaviour;
 
 import strategos.*;
 import strategos.units.*;
-import sun.reflect.generics.reflectiveObjects.*;
 
 import java.util.function.*;
 
@@ -18,22 +17,22 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
 
     @Override
     public Behaviour createBehaviourCavalry(GameState gameState, Unit unit) {
-        throw new NotImplementedException();
+        return new BehaviourCavalry(gameState, unit);
     }
 
     @Override
     public Behaviour createBehaviourElite(GameState gameState, Unit unit) {
-        throw new NotImplementedException();
+        return new BehaviourElite(gameState, unit);
     }
 
     @Override
     public Behaviour createBehaviourSpearmen(GameState gameState, Unit unit) {
-        throw new NotImplementedException();
+        return new BehaviourSpearmen(gameState, unit);
     }
 
     @Override
     public Behaviour createBehaviourSwordsmen(GameState gameState, Unit unit) {
-        throw new NotImplementedException();
+        return new BehaviourSwordsmen(gameState, unit);
     }
 
     @Override public Behaviour createAiBehaviour(
