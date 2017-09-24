@@ -12,23 +12,29 @@ import java.util.Random;
 public class NoiseGenerator {
 
     Octave[] octaves;
-    private int NUM_OCTAVES;
     double[] frequencies, amplitudes;
-    private double PERSISTENCE;
 
 
     public NoiseGenerator(int numOctaves, double persistence, int seed) {
-        NUM_OCTAVES = numOctaves;
-        PERSISTENCE = persistence;
         Random random = new Random(seed);
-        octaves = new Octave[NUM_OCTAVES];
-        frequencies = new double[NUM_OCTAVES];
-        amplitudes = new double[NUM_OCTAVES];
-        for (int i = 0; i < NUM_OCTAVES; i++) {
+        octaves = new Octave[numOctaves];
+        frequencies = new double[numOctaves];
+        amplitudes = new double[numOctaves];
+
+        for (int i = 0; i < numOctaves; i++) {
             octaves[i] = new Octave(random.nextInt());
             frequencies[i] = Math.pow(2, i);
-            amplitudes[i] = Math.pow(PERSISTENCE, NUM_OCTAVES - i);
+            amplitudes[i] = Math.pow(persistence, numOctaves - i);
         }
+    }
+
+
+    public double getNoise(int x, int y){
+        double result = 0;
+        for (int i = 0; i < octaves.length; i++) {
+            result+=octaves[i].noise(x/frequencies[i], y/frequencies[i]*amplitudes[i]);
+        }
+        return result;
     }
 
     /**
