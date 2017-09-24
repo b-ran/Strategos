@@ -22,7 +22,7 @@ public class UnitOwnerTestObj implements UnitOwner {
     }
 
     @Override
-    public List<MapLocation> getVisibileTiles() {
+    public List<MapLocation> getVisibleTiles() {
         return null;
     }
 
