@@ -7,16 +7,12 @@ import strategos.UnitOwner;
 import strategos.units.*;
 import strategos.terrain.*;
 
-import static strategos.ui.config.Config.HEX_SIZE;
+import static strategos.ui.config.Config.*;
 
 /**
  * The type Entity image.
  */
 class DrawEntity {
-
-    Color npcColor = Color.YELLOW;
-    Color otherPlayerColor = Color.RED;
-    Color playerColor = Color.BLUE;
 
     /**
      * Draws Archers.
@@ -28,8 +24,8 @@ class DrawEntity {
         setUnitColor(archers, g);
         Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g.setColor(Color.BLACK);
-        g.drawString("A", p.x, p.y);
+        g.setColor(UNIT_FONT_COLOR);
+        g.drawString(UNIT_ARCHERS_LETTER, p.x, p.y);
     }
 
     /**
@@ -42,8 +38,8 @@ class DrawEntity {
         setUnitColor(cavalry, g);
         Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g.setColor(Color.BLACK);
-        g.drawString("C", p.x, p.y);
+        g.setColor(UNIT_FONT_COLOR);
+        g.drawString(UNIT_CAVALRY_LETTER, p.x, p.y);
     }
 
     /**
@@ -56,8 +52,8 @@ class DrawEntity {
         setUnitColor(elite, g);
         Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g.setColor(Color.BLACK);
-        g.drawString("E", p.x, p.y);
+        g.setColor(UNIT_FONT_COLOR);
+        g.drawString(UNIT_ELITE_LETTER, p.x, p.y);
     }
 
     /**
@@ -70,8 +66,8 @@ class DrawEntity {
         setUnitColor(spearmen, g);
         Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g.setColor(Color.BLACK);
-        g.drawString("Sp", p.x, p.y);
+        g.setColor(UNIT_FONT_COLOR);
+        g.drawString(UNIT_SPEARMEN_LETTER, p.x, p.y);
     }
 
     /**
@@ -84,8 +80,8 @@ class DrawEntity {
         setUnitColor(swordsmen, g);
         Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g.setColor(Color.BLACK);
-        g.drawString("Sw", p.x, p.y);
+        g.setColor(UNIT_FONT_COLOR);
+        g.drawString(UNIT_SWORDSMEN_LETTER, p.x, p.y);
     }
 
     /**
@@ -95,7 +91,7 @@ class DrawEntity {
      */
     public void draw(Forest forest, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, new Color(0,150,0));
+        hexagon(g, p.x, p.y, TERRAIN_FOREST_COLOR);
     }
 
     /**
@@ -105,7 +101,7 @@ class DrawEntity {
      */
     public void draw(Hill hill, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, new Color(0,50,0));
+        hexagon(g, p.x, p.y, TERRAIN_HILL_COLOR);
     }
 
     /**
@@ -115,7 +111,7 @@ class DrawEntity {
      */
     public void draw(Mountain mountain, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, Color.LIGHT_GRAY);
+        hexagon(g, p.x, p.y, TERRAIN_MOUNTAIN_COLOR);
     }
 
     /**
@@ -125,7 +121,7 @@ class DrawEntity {
      */
     public void draw(Plains plains, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, new Color(0,255,0));
+        hexagon(g, p.x, p.y, TERRAIN_PLAINS_COLOR);
     }
 
     /**
@@ -135,7 +131,7 @@ class DrawEntity {
      */
     public void draw(River river, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, Color.CYAN);
+        hexagon(g, p.x, p.y, TERRAIN_RIVER_COLOR);
     }
 
 
@@ -151,11 +147,11 @@ class DrawEntity {
     private void setUnitColor(Unit unit, Graphics g) {
         UnitOwner owner = unit.getOwner();
         if (owner.isNPC()) {
-            g.setColor(npcColor);
+            g.setColor(NPC_COLOR);
         } else if (owner.getUnits().contains(unit)) {
-            g.setColor(playerColor);
+            g.setColor(PLAYER_COLOR);
         } else {
-            g.setColor(otherPlayerColor);
+            g.setColor(NOT_PLAYER_COLOR);
         }
     }
 

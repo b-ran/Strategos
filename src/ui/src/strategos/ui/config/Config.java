@@ -33,6 +33,40 @@ public class Config {
 
     public static final Integer HEX_SIZE = 100;
 
+    public static final Color NPC_COLOR = Color.YELLOW;
+
+    public static final Color NOT_PLAYER_COLOR = Color.RED;
+
+    public static final Color PLAYER_COLOR = Color.BLUE;
+
+    public static final Color UNIT_FONT_COLOR = Color.BLACK;
+
+    public static final String UNIT_ARCHERS_LETTER = "A";
+
+    public static final String UNIT_CAVALRY_LETTER = "C";
+
+    public static final String UNIT_ELITE_LETTER = "E";
+
+    public static final String UNIT_SPEARMEN_LETTER = "Sp";
+
+    public static final String UNIT_SWORDSMEN_LETTER = "Sw";
+
+    public static final Color TERRAIN_FOREST_COLOR = new Color(0,150,0);
+
+    public static final Color TERRAIN_HILL_COLOR = new Color(0,100,0);
+
+    public static final Color TERRAIN_MOUNTAIN_COLOR = Color.LIGHT_GRAY;
+
+    public static final Color TERRAIN_PLAINS_COLOR = new Color(0,255,0);
+
+    public static final Color TERRAIN_RIVER_COLOR = Color.CYAN;
+
+
+
+
+
+
+
     //Side
 
     public static final Dimension SIDE_COMPONENT_SIZE = new Dimension(400, 1240);
