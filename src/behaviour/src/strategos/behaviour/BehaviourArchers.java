@@ -5,9 +5,21 @@ import strategos.*;
 import strategos.units.*;
 
 
-class BehaviourArchers extends BehaviourBase {
+public class BehaviourArchers extends UnitBehaviour {
 
     BehaviourArchers(GameState gameState, Unit unit) {
-        super(null, null, null);
+        super(gameState, unit);
+    }
+
+    @Override public int getStrength() {
+        return 18;
+    }
+
+    @Override public int getToughness() {
+        return 10;
+    }
+
+    @Override public void charge() {
+        // Archers cannot charge
     }
 }

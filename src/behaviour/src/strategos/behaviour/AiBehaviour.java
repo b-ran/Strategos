@@ -10,7 +10,9 @@ import java.util.function.*;
 import static java.lang.Math.*;
 
 
-class AiBehaviour extends BehaviourBase {
+class AiBehaviour extends BaseBehaviour {
+
+    private Behaviour behaviour;
 
     AiBehaviour(
             GameState gameState,
@@ -18,7 +20,16 @@ class AiBehaviour extends BehaviourBase {
             BiFunction<GameState, Unit, Behaviour> factoryMethod
     )
     {
-        super(gameState, unit, factoryMethod);
+        super(gameState, unit);
+        this.behaviour = factoryMethod.apply(gameState, unit);
+    }
+
+    @Override public MapLocation getPosition() {
+        return behaviour.getPosition();
+    }
+
+    @Override public void setPosition(MapLocation position) {
+        behaviour.setPosition(position);
     }
 
     @Override public void turnTick() {
@@ -53,5 +64,49 @@ class AiBehaviour extends BehaviourBase {
         else {
             // TODO: Explore
         }
+    }
+
+    @Override public void wary() {
+        behaviour.wary();
+    }
+
+    @Override public void entrench() {
+        behaviour.entrench();
+    }
+
+    @Override public void charge() {
+        behaviour.charge();
+    }
+
+    @Override public boolean move(Direction direction) {
+        return behaviour.move(direction);
+    }
+
+    @Override public int attack(Unit enemy) {
+        return behaviour.attack(enemy);
+    }
+
+    @Override public int defend(Unit enemy) {
+        return behaviour.defend(enemy);
+    }
+
+    @Override public int getStrength() {
+        return behaviour.getStrength();
+    }
+
+    @Override public int getToughness() {
+        return behaviour.getToughness();
+    }
+
+    @Override public boolean isAlive() {
+        return behaviour.isAlive();
+    }
+
+    @Override public int getSightRadius() {
+        return behaviour.getSightRadius();
+    }
+
+    @Override public int getActionPoints() {
+        return behaviour.getActionPoints();
     }
 }
