@@ -101,6 +101,7 @@ public class GridComponent extends JComponent {
 
     public void setTerrain(Terrain[][] terrain) {
         this.terrain = terrain;
-        seenTerrain = new Terrain[terrain.length][terrain[0].length];
+        //seenTerrain = new Terrain[terrain.length][terrain[0].length];
+        seenTerrain = terrain;
     }
 }

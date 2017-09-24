@@ -26,7 +26,7 @@ class DrawEntity {
     public void draw(Archers archers, Graphics g) {
         MapLocation m = archers.getPosition();
         setUnitColor(archers, g);
-        Point p = getGridPos(m);
+        Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g.setColor(Color.BLACK);
         g.drawString("A", p.x, p.y);
@@ -40,7 +40,7 @@ class DrawEntity {
     public void draw(Cavalry cavalry, Graphics g) {
         MapLocation m = cavalry.getPosition();
         setUnitColor(cavalry, g);
-        Point p = getGridPos(m);
+        Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g.setColor(Color.BLACK);
         g.drawString("C", p.x, p.y);
@@ -54,7 +54,7 @@ class DrawEntity {
     public void draw(Elite elite, Graphics g) {
         MapLocation m = elite.getPosition();
         setUnitColor(elite, g);
-        Point p = getGridPos(m);
+        Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g.setColor(Color.BLACK);
         g.drawString("E", p.x, p.y);
@@ -68,7 +68,7 @@ class DrawEntity {
     public void draw(Spearmen spearmen, Graphics g) {
         MapLocation m = spearmen.getPosition();
         setUnitColor(spearmen, g);
-        Point p = getGridPos(m);
+        Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g.setColor(Color.BLACK);
         g.drawString("Sp", p.x, p.y);
@@ -82,7 +82,7 @@ class DrawEntity {
     public void draw(Swordsmen swordsmen, Graphics g) {
         MapLocation m = swordsmen.getPosition();
         setUnitColor(swordsmen, g);
-        Point p = getGridPos(m);
+        Point p = getUnitGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g.setColor(Color.BLACK);
         g.drawString("Sw", p.x, p.y);
@@ -94,7 +94,8 @@ class DrawEntity {
      * @param forest to draw
      */
     public void draw(Forest forest, Graphics g, int x, int y) {
-
+        Point p = getTerrainGridPos(new Point(x,y));
+        hexagon(g, p.x, p.y, new Color(0,150,0));
     }
 
     /**
@@ -103,7 +104,8 @@ class DrawEntity {
      * @param hill to draw
      */
     public void draw(Hill hill, Graphics g, int x, int y) {
-
+        Point p = getTerrainGridPos(new Point(x,y));
+        hexagon(g, p.x, p.y, new Color(0,50,0));
     }
 
     /**
@@ -112,7 +114,8 @@ class DrawEntity {
      * @param mountain to draw
      */
     public void draw(Mountain mountain, Graphics g, int x, int y) {
-
+        Point p = getTerrainGridPos(new Point(x,y));
+        hexagon(g, p.x, p.y, Color.LIGHT_GRAY);
     }
 
     /**
@@ -121,7 +124,8 @@ class DrawEntity {
      * @param plains to draw
      */
     public void draw(Plains plains, Graphics g, int x, int y) {
-
+        Point p = getTerrainGridPos(new Point(x,y));
+        hexagon(g, p.x, p.y, new Color(0,255,0));
     }
 
     /**
@@ -130,7 +134,18 @@ class DrawEntity {
      * @param river to draw
      */
     public void draw(River river, Graphics g, int x, int y) {
+        Point p = getTerrainGridPos(new Point(x,y));
+        hexagon(g, p.x, p.y, Color.CYAN);
+    }
 
+
+    private Point getTerrainGridPos (Point p) {
+        int y = getGridY(p.y);
+        int x = getGridX(p.x);
+        if (p.getY() % 2 != 0) {
+            x = getGridX(p.x)+HEX_SIZE/2;
+        }
+        return new Point(x,y);
     }
 
     private void setUnitColor(Unit unit, Graphics g) {
@@ -144,7 +159,7 @@ class DrawEntity {
         }
     }
 
-    private Point getGridPos (MapLocation m) {
+    private Point getUnitGridPos (MapLocation m) {
         int y = getGridY(m.getY())+HEX_SIZE/4;
         int x = getGridX(m.getX())+HEX_SIZE/4;
         if (m.getY() % 2 != 0) {
@@ -167,7 +182,7 @@ class DrawEntity {
         int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
         int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};
         g.setColor(c);
-        g.drawPolygon(xPoints, yPoints, nPoints);
+        g.fillPolygon(xPoints, yPoints, nPoints);
     }
 
 }
