@@ -27,7 +27,12 @@ public class Map {
 	 */
 	public Map(int diameter) {
 		map = constructMap(diameter);
-		radius = diameter / 2;
+		this.radius = diameter / 2;
+	}
+
+	public Map(Hex[][] newMap, int radius) {
+		map = newMap.clone();
+		this.radius = radius;
 	}
 	
 	/**
@@ -108,7 +113,7 @@ public class Map {
 		return get(x, y, map);
 	}
 	
-	public Hex[][] getMap() {
+	public Hex[][] getData() {
 		return map;
 	}
 
@@ -124,6 +129,10 @@ public class Map {
 			}
 		}
 		return temp;
+	}
+
+	public int getRadius() {
+		return radius;
 	}
 	
 }
