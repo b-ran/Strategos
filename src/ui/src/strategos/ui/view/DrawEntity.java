@@ -27,8 +27,9 @@ class DrawEntity {
         MapLocation m = archers.getPosition();
         setUnitColor(archers, g);
         Point p = getGridPos(m);
-
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
+        g.setColor(Color.BLACK);
+        g.drawString("A", p.x, p.y);
     }
 
     /**
@@ -41,6 +42,8 @@ class DrawEntity {
         setUnitColor(cavalry, g);
         Point p = getGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
+        g.setColor(Color.BLACK);
+        g.drawString("C", p.x, p.y);
     }
 
     /**
@@ -53,6 +56,8 @@ class DrawEntity {
         setUnitColor(elite, g);
         Point p = getGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
+        g.setColor(Color.BLACK);
+        g.drawString("E", p.x, p.y);
     }
 
     /**
@@ -65,6 +70,8 @@ class DrawEntity {
         setUnitColor(spearmen, g);
         Point p = getGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
+        g.setColor(Color.BLACK);
+        g.drawString("Sp", p.x, p.y);
     }
 
     /**
@@ -77,6 +84,8 @@ class DrawEntity {
         setUnitColor(swordsmen, g);
         Point p = getGridPos(m);
         g.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
+        g.setColor(Color.BLACK);
+        g.drawString("Sw", p.x, p.y);
     }
 
     /**
