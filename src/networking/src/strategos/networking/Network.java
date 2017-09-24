@@ -1,4 +1,4 @@
-package networking;
+package strategos.networking;
 
 /**
  * Interface for Servers and Client

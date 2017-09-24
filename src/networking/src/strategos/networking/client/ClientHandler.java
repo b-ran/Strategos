@@ -1,4 +1,4 @@
-package networking.client;
+package strategos.networking.client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

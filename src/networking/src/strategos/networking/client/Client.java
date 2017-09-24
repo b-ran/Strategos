@@ -1,4 +1,4 @@
-package networking.client;
+package strategos.networking.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,8 +8,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import networking.InboundDataHandler;
-import networking.Network;
+import strategos.networking.InboundDataHandler;
+import strategos.networking.Network;
 
 public class Client implements Network {
 	private String host;
