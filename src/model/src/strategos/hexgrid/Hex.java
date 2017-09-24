@@ -16,7 +16,7 @@ import java.util.Map;
  *
  */
 public class Hex implements Paintable, Graphical, MapLocation {
-	private Map<Direction, Hex> neighbours;
+	private Map<Direction, MapLocation> neighbours;
 	
 	private int xIndex;
 	private int yIndex;
@@ -91,11 +91,11 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	 * @param direction - The Direction that the desired Hex is, relative to this Hex.
 	 * @return A Hex at the specified Direction.
 	 */
-	public Hex getNeighbour(Direction direction) {
+	public MapLocation getNeighbour(Direction direction) {
 		return neighbours.get(direction);
 	}
 	
-	public void addNeighbour(Direction direction, Hex newNeighbour) {
+	public void addNeighbour(Direction direction, MapLocation newNeighbour) {
 		if (neighbours.get(direction) != null) {
 			throw new IllegalArgumentException("Cannot overwrite a neighbour");
 		}
@@ -117,7 +117,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	 * Gets the Map of neighbours contained by this Hex.
 	 * @return a Map of Direction to Hex, the adjacent Hexes to this Hex.
 	 */
-	public Map<Direction, Hex> getNeighbours() {
+	public Map<Direction, MapLocation> getNeighbours() {
 		return neighbours;
 	}
 	

@@ -74,5 +74,7 @@ public interface GameState {
 	 */
 	public Terrain getTerrainAt(MapLocation location);
 
+	public List<MapLocation> getTilesInRange(MapLocation location, int range);
+
 	public void nextTurn();
 }
