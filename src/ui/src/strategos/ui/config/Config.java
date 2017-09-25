@@ -29,9 +29,9 @@ public class Config {
 
     //Grid
 
-    public static final Dimension GRID_COMPONENT_SIZE = new Dimension(1280, 720);
+    public static final Dimension GRID_COMPONENT_SIZE = new Dimension(980, 600);
 
-    public static final Integer HEX_SIZE = 120;
+    public static final Integer HEX_SIZE = 80;
 
     public static final Color NPC_COLOR = Color.YELLOW;
 
@@ -63,7 +63,7 @@ public class Config {
 
     //Side
 
-    public static final Dimension SIDE_COMPONENT_SIZE = new Dimension(400, 1240);
+    public static final Dimension SIDE_COMPONENT_SIZE = new Dimension(400, GRID_COMPONENT_SIZE.height);
 
     public static final Dimension SIDE_PANEL_SIZE = new Dimension(400, 40);
 
