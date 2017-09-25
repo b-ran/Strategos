@@ -34,7 +34,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void turnTick() {
-        // TODO: turn tick
+        actionPoints = getMaxActionPoints();
+
+        if (wary) {
+            actionPoints--;
+        }
     }
 
     @Override public void wary() {
