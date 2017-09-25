@@ -136,5 +136,10 @@ public class Map implements GameBoard {
 	public int getRadius() {
 		return radius;
 	}
-	
+
+	@Override
+	public Terrain getTerrainAt(MapLocation location) {
+		return null;
+	}
+
 }
