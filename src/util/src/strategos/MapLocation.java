@@ -1,5 +1,7 @@
 package strategos;
 
+import java.util.Map;
+
 public interface MapLocation {
 
     int getX();
@@ -23,4 +25,6 @@ public interface MapLocation {
      * @return true if the MapLocation is in the play area, false, otherwise
      */
     public boolean isInPlayArea();
+
+    public Map<Direction, MapLocation> getNeighbours();
 }
