@@ -11,7 +11,7 @@ public class PrintMap {
         BufferedImage image = new BufferedImage(imageData.length, imageData[0].length, BufferedImage.TYPE_INT_RGB);
         for (int x = 0; x < imageData.length; x++) {
             for (int y = 0; y < imageData[0].length; y++) {
-                Color color = new Color((float) imageData[x][y], (float) imageData[x][y], (float) imageData[x][y]);
+                Color color = new Color((int) imageData[x][y], (int) imageData[x][y], (int) imageData[x][y]);
                 image.setRGB(x, y, color.getRGB());
             }
         }

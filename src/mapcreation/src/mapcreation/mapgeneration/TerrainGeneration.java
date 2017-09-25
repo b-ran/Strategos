@@ -29,13 +29,13 @@ public class TerrainGeneration {
 
         NoiseGenerator generatedNoise = new NoiseGenerator(8, 1 / 2, seed);
         double[][] mapTopology = new double[size][size];
-        int resolution =1;
-        int xPos,yPos;
+        int resolution = 1;
+        int xPos, yPos;
         for (int x = 0; x < hexMap[0].length; x++) {
             for (int y = 0; y < hexMap[x].length; y++) {
-                xPos = size*resolution;
-                yPos = size*resolution;
-                double noise = 1+generatedNoise.getNoise(xPos,yPos);
+                xPos = size * resolution;
+                yPos = size * resolution;
+                double noise = 1 + generatedNoise.getNoise(xPos, yPos);
                 mapTopology[x][y] = noise;
             }
         }
@@ -44,16 +44,17 @@ public class TerrainGeneration {
     }
 //    hexMap[x][y].setTerrain(getTerrain(x, y, size, mapTopology));
 
-    private Paintable[][] setTerrain(double[][] mapTopology, Paintable[][] hexMap){
-        if (mapTopology.length!=hexMap.length||mapTopology[0].length!=hexMap[0].length)throw new RuntimeException("mapTopology resolution is incorrect.");
+    private Paintable[][] setTerrain(double[][] mapTopology, Paintable[][] hexMap) {
+        if (mapTopology.length != hexMap.length || mapTopology[0].length != hexMap[0].length)
+            throw new RuntimeException("mapTopology resolution is incorrect.");
         for (int x = 0; x < hexMap.length; x++) {
             for (int y = 0; y < hexMap[0].length; y++) {
-               hexMap[x][y].setTerrain(getTerrain(mapTopology[x][y]));
+                hexMap[x][y].setTerrain(getTerrain(mapTopology[x][y]));
             }
         }
         return hexMap;
     }
-     //Samples the generated topology and sets the terrain of the paintable object
+    //Samples the generated topology and sets the terrain of the paintable object
 
     public Terrain getTerrain(double value) {
         //TODO

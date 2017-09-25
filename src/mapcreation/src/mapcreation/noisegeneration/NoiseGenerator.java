@@ -11,8 +11,8 @@ import java.util.Random;
  */
 public class NoiseGenerator {
 
-    Octave[] octaves;
-    double[] frequencies, amplitudes;
+    private Octave[] octaves;
+    private double[] frequencies, amplitudes;
 
 
     public NoiseGenerator(int numOctaves, double persistence, int seed) {

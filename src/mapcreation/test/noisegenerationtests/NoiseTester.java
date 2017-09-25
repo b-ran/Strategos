@@ -1,11 +1,10 @@
 package noisegenerationtests;
 
 
-import mapcreation.mapgeneration.TerrainGeneration;
 import mapcreation.noisegeneration.NoiseGenerator;
 import mapcreation.noisegeneration.partsNeedsToBeRenamed.Octave;
 import mapcreation.noisegeneration.partsNeedsToBeRenamed.PrintMap;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 
 class NoiseTester {

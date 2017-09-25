@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Random;
 
 public class Octave {
-    //
+
     private Point[] corners = {
             new Point(1, 1),
             new Point(-1, 1),
@@ -46,9 +46,9 @@ public class Octave {
         }
         for (int i = 0; i < p.length; i++) {
             //Does binary "and" on the binary values of i and 255
-            //eg. 001101101
-            //    100100101
-            //   =00010010
+            //eg. 0000 0000 1111 1111
+            //  & 0000 0011 1001 0010
+            //  = 0000 0000 1001 0010
             perm[i] = p[i & 255];
             permMod12[i] = (short) (perm[i] % 4);
         }
@@ -58,7 +58,15 @@ public class Octave {
     //rename
     private final double F2 = 0.5 * (Math.sqrt(3.0) - 1);
     private final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
-//rename to x, y
+
+    //rename to x, y
+
+    /**
+     *
+     * @param xin
+     * @param yin
+     * @return
+     */
     public double noise(double xin, double yin) {
         double s = (xin + yin) * F2;
         int i = fastFloor(xin + s);
@@ -77,52 +85,45 @@ public class Octave {
             i1 = 0;
             j1 = 1;
         }
+        double[] x ={x0,x0 - i1 + G2,x0 - 1.0 + 2.0 * G2};
+        double[] y = {y0,y0 - j1 + G2,y0 - 1.0 + 2.0 * G2};
 
-        double x1 = x0 - i1 + G2;
-        double y1 = y0 - j1 + G2;
-        double x2 = x0 - 1.0 + 2.0 * G2;
-        double y2 = y0 - 1.0 + 2.0 * G2;
+        //Reduce i and j to less than 255 if necessary
+        i &= 255;
+        j &= 255;
 
-        int ii = i & 255;
-        int jj = j & 255;
-
-        int gi0 = permMod12[ii + perm[jj]];
-        int gi1 = permMod12[ii + i1 + perm[jj + j1]];
-        int gi2 = permMod12[ii + 1 + perm[jj + 1]];
-        double n0, n1, n2;
+        int gi[] = {permMod12[i + perm[j]],
+                permMod12[i + i1 + perm[j + j1]],
+                permMod12[i + 1 + perm[j + 1]]};
+        double n[] = new double[3];
         //may be able to use arrays
-        double t0 = 0.5 - x0 * x0 - y0 * y0;
-        if (t0 < 0) {
-            n0 = 0;
-        } else {
-            t0 *= t0;
-            n0 = t0 * t0 * dot(corners[gi0], x0, y0);
-        }
+        double[] tArray = {0.5 - x[0] * x[0] - y[0] * y[0], 0.5 - x[1] * x[1] - y[1] * y[1], 0.5 - x[2] * x[2] - y[2] * y[2]};
 
-        double t1 = 0.5 - x1 * x1 - y1 * y1;
-        if (t1 < 0) {
-            n1 = 0;
-        } else {
-            t1 *= t1;
-            n1 = t1 * t1 * dot(corners[gi1], x1, y1);
+        for (int k = 0; k < tArray.length; k++) {
+            if (tArray[k] < 0) {
+                n[k] = 0;
+            } else {
+                tArray[k] *= tArray[k];
+                n[k] = tArray[k] * tArray[k] * dot(corners[gi[k]], x[k], y[k]);
+            }
         }
-
-        double t2 = 0.5 - x2 * x2 - y2 * y2;
-        if (t1 < 0) {
-            n2 = 0;
-        } else {
-            t2 *= t2;
-            n2 = t2 * t2 * dot(corners[gi2], x2, y2);
-        }
-        return 70 * (n0 + n1 + n2);
+        System.out.println(70 * (n[0] + n[1] + n[2]));
+        return 70 * (n[0] + n[1] + n[2]);
     }
 
+    /**
+     *
+     * @param point
+     * @param x
+     * @param y
+     * @return
+     */
     private double dot(Point point, double x, double y) {
         return point.x * x + point.y * y;
     }
 
     /**
-     * Faster version of floor
+     * "Faster" version of floor
      *
      * @return Integer value of x
      */
