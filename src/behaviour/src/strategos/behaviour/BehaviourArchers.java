@@ -12,11 +12,11 @@ class BehaviourArchers extends UnitBehaviour {
     }
 
     @Override public int getStrength() {
-        return 18;
+        return Config.ARCHERS_STRENGTH;
     }
 
     @Override public int getToughness() {
-        return 10;
+        return Config.ARCHERS_TOUGHNESS;
     }
 
     @Override public void charge() {

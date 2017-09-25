@@ -12,14 +12,14 @@ class BehaviourCavalry extends UnitBehaviour {
     }
 
     @Override int getMaxActionPoints() {
-        return 4;
+        return Config.CAVALRY_ACTION_POINTS;
     }
 
     @Override public int getStrength() {
-        return 30;
+        return Config.CAVALRY_STRENGTH;
     }
 
     @Override public int getToughness() {
-        return 15;
+        return Config.CAVALRY_TOUGHNESS;
     }
 }

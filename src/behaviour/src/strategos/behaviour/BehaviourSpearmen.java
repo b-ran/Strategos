@@ -12,10 +12,10 @@ class BehaviourSpearmen extends UnitBehaviour {
     }
 
     @Override public int getStrength() {
-        return 15;
+        return Config.SPEARMEN_STRENGTH;
     }
 
     @Override public int getToughness() {
-        return 25;
+        return Config.SPEARMEN_TOUGHNESS;
     }
 }

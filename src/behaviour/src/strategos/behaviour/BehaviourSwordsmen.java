@@ -12,10 +12,10 @@ class BehaviourSwordsmen extends UnitBehaviour {
     }
 
     @Override public int getStrength() {
-        return 25;
+        return Config.SWORDSMEN_STRENGTH;
     }
 
     @Override public int getToughness() {
-        return 18;
+        return Config.SWORDSMEN_TOUGHNESS;
     }
 }

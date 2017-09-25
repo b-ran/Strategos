@@ -168,6 +168,6 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     int getMaxActionPoints() {
-        return 2;
+        return Config.INFANTRY_ACTION_POINTS;
     }
 }

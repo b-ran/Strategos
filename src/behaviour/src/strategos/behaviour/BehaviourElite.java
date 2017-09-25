@@ -12,10 +12,10 @@ class BehaviourElite extends UnitBehaviour {
     }
 
     @Override public int getStrength() {
-        return 20;
+        return Config.ELITE_STRENGTH;
     }
 
     @Override public int getToughness() {
-        return 35;
+        return Config.ELITE_TOUGHNESS;
     }
 }
