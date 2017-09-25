@@ -25,4 +25,14 @@ public class MapLocationTestObj implements MapLocation{
     public MapLocation getNeighbour(Direction direction) {
         return null;
     }
+
+    @Override
+    public void addNeighbour(Direction direction, MapLocation location) {
+
+    }
+
+    @Override
+    public boolean isInPlayArea() {
+        return false;
+    }
 }

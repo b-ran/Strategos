@@ -58,6 +58,11 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
+    public List<MapLocation> getTilesInRange(MapLocation location, int range) {
+        return null;
+    }
+
+    @Override
     public void nextTurn() {
 
     }
