@@ -77,4 +77,6 @@ public interface GameState {
 	public List<MapLocation> getTilesInRange(MapLocation location, int range);
 
 	public void nextTurn();
+
+	public GameCollections getWorld();
 }

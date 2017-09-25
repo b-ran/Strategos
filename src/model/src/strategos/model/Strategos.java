@@ -177,5 +177,10 @@ public class Strategos implements GameState {
 		turn = players.get(turnIndex);
 	}
 
+	@Override
+	public GameCollections getWorld() {
+		return world;
+	}
+
 
 }
