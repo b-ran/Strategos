@@ -1,9 +1,6 @@
 import org.junit.jupiter.api.Test;
-import strategos.MapLocation;
 import strategos.terrain.Terrain;
 import strategos.ui.Ui;
-import strategos.units.Cavalry;
-import strategos.units.Elite;
 import strategos.units.Unit;
 import terrain.*;
 import units.*;
@@ -19,11 +16,14 @@ public class Tests extends JComponent {
     private String text = "";
     private Ui ui;
 
+    private int screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
+    private int screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
+
     public Tests() {
         frame.add(this);
         frame.setTitle("Debug View");
         frame.setPreferredSize(new Dimension(800,200));
-        frame.setLocationRelativeTo(null);
+        frame.setLocation(0, screenHeight -300);
         frame.pack();
 
         frame.setVisible(true);
@@ -58,9 +58,9 @@ public class Tests extends JComponent {
                 {new MountainTestObj(), new MountainTestObj()},
                 {new MountainTestObj(), new MountainTestObj()}
         };
+        setText("You should be able to see a menu");
         ui = new Ui(entities,terrain);
         ui.disableInput();
-        setText("You should be able to see a menu");
         waitToClose();
     }
 
@@ -70,10 +70,10 @@ public class Tests extends JComponent {
         Terrain[][] terrain = {
                 {new MountainTestObj()}
         };
+        setText("You should be able to see a hexagon");
         ui = new Ui(entities,terrain);
         ui.disableInput();
         ui.skipMenu();
-        setText("You should be able to see a hexagon");
         waitToClose();
     }
 
@@ -258,10 +258,10 @@ public class Tests extends JComponent {
         entities.add(c);
         entities.add(e);
         entities.add(s);
-
+        setText("Should able to game view with a of grid hexgons and 4 units");
         ui = new Ui(entities, terrain);
         ui.skipMenu();
-        setText("Should able to game view with a of grid hexgons and 4 units");
+
         waitToClose();
     }
 
@@ -300,10 +300,10 @@ public class Tests extends JComponent {
         Terrain[][] terrain = {
                 {t}
         };
+        setText(text);
         ui = new Ui(entities, terrain);
         ui.disableInput();
         ui.skipMenu();
-        setText(text);
         waitToClose();
     }
 
@@ -318,10 +318,10 @@ public class Tests extends JComponent {
         owner.addUnit(unit);
         unit.setPosition(pos);
         entities.add(unit);
+        setText(text);
         ui = new Ui(entities,terrain);
         ui.disableInput();
         ui.skipMenu();
-        setText(text);
         waitToClose();
     }
 
@@ -334,10 +334,10 @@ public class Tests extends JComponent {
         owner.addUnit(unit);
         unit.setPosition(new MapLocationTestObj(0,0));
         entities.add(unit);
+        setText(text);
         ui = new Ui(entities,terrain);
         ui.disableInput();
         ui.skipMenu();
-        setText(text);
         waitToClose();
     }
 
@@ -349,10 +349,10 @@ public class Tests extends JComponent {
         };
         unit.setPosition(new MapLocationTestObj(0,0));
         entities.add(unit);
+        setText(text);
         ui = new Ui(entities, terrain);
         ui.disableInput();
         ui.skipMenu();
-        setText(text);
         waitToClose();
     }
 
