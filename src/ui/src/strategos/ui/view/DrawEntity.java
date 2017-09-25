@@ -19,7 +19,7 @@ class DrawEntity {
      *
      * @param archers to draw
      */
-    public void draw(Archers archers, Graphics g) {
+    void draw(Archers archers, Graphics g) {
         MapLocation m = archers.getPosition();
         setUnitColor(archers, g);
         Point p = getUnitGridPos(m);
@@ -33,7 +33,7 @@ class DrawEntity {
      *
      * @param cavalry to draw
      */
-    public void draw(Cavalry cavalry, Graphics g) {
+    void draw(Cavalry cavalry, Graphics g) {
         MapLocation m = cavalry.getPosition();
         setUnitColor(cavalry, g);
         Point p = getUnitGridPos(m);
@@ -61,7 +61,7 @@ class DrawEntity {
      *
      * @param spearmen to draw
      */
-    public void draw(Spearmen spearmen, Graphics g) {
+    void draw(Spearmen spearmen, Graphics g) {
         MapLocation m = spearmen.getPosition();
         setUnitColor(spearmen, g);
         Point p = getUnitGridPos(m);
@@ -75,7 +75,7 @@ class DrawEntity {
      *
      * @param swordsmen to draw
      */
-    public void draw(Swordsmen swordsmen, Graphics g) {
+    void draw(Swordsmen swordsmen, Graphics g) {
         MapLocation m = swordsmen.getPosition();
         setUnitColor(swordsmen, g);
         Point p = getUnitGridPos(m);
@@ -89,7 +89,7 @@ class DrawEntity {
      *
      * @param forest to draw
      */
-    public void draw(Forest forest, Graphics g, int x, int y) {
+    void draw(Forest forest, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
         hexagon(g, p.x, p.y, TERRAIN_FOREST_COLOR);
     }
@@ -99,7 +99,7 @@ class DrawEntity {
      *
      * @param hill to draw
      */
-    public void draw(Hill hill, Graphics g, int x, int y) {
+    void draw(Hill hill, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
         hexagon(g, p.x, p.y, TERRAIN_HILL_COLOR);
     }
@@ -109,7 +109,7 @@ class DrawEntity {
      *
      * @param mountain to draw
      */
-    public void draw(Mountain mountain, Graphics g, int x, int y) {
+    void draw(Mountain mountain, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
         hexagon(g, p.x, p.y, TERRAIN_MOUNTAIN_COLOR);
     }
@@ -119,7 +119,7 @@ class DrawEntity {
      *
      * @param plains to draw
      */
-    public void draw(Plains plains, Graphics g, int x, int y) {
+    void draw(Plains plains, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
         hexagon(g, p.x, p.y, TERRAIN_PLAINS_COLOR);
     }
@@ -129,7 +129,7 @@ class DrawEntity {
      *
      * @param river to draw
      */
-    public void draw(River river, Graphics g, int x, int y) {
+    void draw(River river, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
         hexagon(g, p.x, p.y, TERRAIN_RIVER_COLOR);
     }
@@ -165,15 +165,15 @@ class DrawEntity {
     }
 
     //Credit: https://www.redblobgames.com/grids/hexagons/#hex-to-pixel for logic of hex to pixels
-    protected int getGridY(int y) {
+    int getGridY(int y) {
         return HEX_SIZE/2 * 3/2 * y;
     }
 
-    protected int getGridX(int x) {
+    int getGridX(int x) {
         return x * HEX_SIZE + HEX_SIZE;
     }
 
-    protected void hexagon(Graphics g, int x, int y, Color c) {
+    void hexagon(Graphics g, int x, int y, Color c) {
         int nPoints = 6;
         int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
         int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};

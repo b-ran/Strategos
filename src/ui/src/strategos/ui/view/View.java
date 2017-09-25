@@ -18,7 +18,6 @@ public class View extends JComponent implements Observer {
 
 
     private JFrame frame; //Overall Frame
-
     /**
      * The units on the grid.
      */
@@ -47,8 +46,6 @@ public class View extends JComponent implements Observer {
      * True if game is running
      */
     protected boolean game = false;
-
-
 
     /**
      * Instantiates a new View.

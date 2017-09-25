@@ -23,7 +23,7 @@ public class GridComponent extends JComponent {
     /**
      * Instantiates a new Grid component for drawing on.
      */
-    public GridComponent() {
+     GridComponent() {
         setLayout(new BorderLayout());
         setPreferredSize(GRID_COMPONENT_SIZE);
     }
@@ -33,13 +33,14 @@ public class GridComponent extends JComponent {
      *
      * @return the grid
      */
-    public JLayeredPane getGrid() {
+     JLayeredPane getGrid() {
         JLayeredPane p = new JLayeredPane();
         p.setLayout(new BorderLayout());
         p.setPreferredSize(GRID_COMPONENT_SIZE);
         return p;
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         paintBlackTerrain(g, terrain);
         paintTerrain(g, seenTerrain);
@@ -94,11 +95,20 @@ public class GridComponent extends JComponent {
         }
     }
 
-
+    /**
+     * Sets entities.
+     *
+     * @param entities the entities
+     */
     public void setEntities(List<Unit> entities) {
         this.entities = entities;
     }
 
+    /**
+     * Sets terrain.
+     *
+     * @param terrain the terrain
+     */
     public void setTerrain(Terrain[][] terrain) {
         this.terrain = terrain;
         //seenTerrain = new Terrain[terrain.length][terrain[0].length];
