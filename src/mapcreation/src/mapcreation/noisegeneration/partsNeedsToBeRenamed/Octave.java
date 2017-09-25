@@ -14,7 +14,7 @@ public class Octave {
 
     //TODO: rename
     //TODO: describe
-    private static short p_supply[] = {
+    private static short randomSupply[] = {
             146, 225, 186, 223, 234, 58, 113, 176, 151, 231, 203, 11, 43, 13, 150, 74, 249, 187, 110, 44, 221, 33, 241
             , 7, 204, 237, 14, 252, 96, 200, 130, 84, 251, 211, 21, 34, 224, 10, 114, 41, 49, 215, 68, 189, 47, 0, 191
             , 166, 80, 69, 83, 9, 208, 238, 170, 65, 162, 180, 16, 85, 18, 167, 141, 228, 132, 28, 248, 250, 152, 75
@@ -29,10 +29,10 @@ public class Octave {
             , 220, 5, 181, 140
     };
     private short[] perm = new short[512];
-    private short[] permMod12 = new short[512];
+    private short[] permMod4 = new short[512];
 
     public Octave(int seed) {
-        short[] p = p_supply.clone();
+        short[] p = randomSupply.clone();
         Random random = new Random(seed);
         short temp;
         int to, from;
@@ -50,7 +50,7 @@ public class Octave {
             //  & 0000 0011 1001 0010
             //  = 0000 0000 1001 0010
             perm[i] = p[i & 255];
-            permMod12[i] = (short) (perm[i] % 4);
+            permMod4[i] = (short) (perm[i] % 4);
         }
 
     }
@@ -62,7 +62,6 @@ public class Octave {
     //rename to x, y
 
     /**
-     *
      * @param xin
      * @param yin
      * @return
@@ -77,27 +76,37 @@ public class Octave {
         double x0 = xin - X0;
         double y0 = yin - Y0;
 
-        int i1, j1;
+        int i1 = 0, j1 = 0;
         if (x0 > y0) {
             i1 = 1;
-            j1 = 0;
         } else {
-            i1 = 0;
             j1 = 1;
         }
-        double[] x ={x0,x0 - i1 + G2,x0 - 1.0 + 2.0 * G2};
-        double[] y = {y0,y0 - j1 + G2,y0 - 1.0 + 2.0 * G2};
+        double[] x = {
+                x0,
+                x0 - i1 + G2,
+                x0 - 1.0 + 2.0 * G2
+        };
+        double[] y = {
+                y0,
+                y0 - j1 + G2,
+                y0 - 1.0 + 2.0 * G2
+        };
 
         //Reduce i and j to less than 255 if necessary
         i &= 255;
         j &= 255;
 
-        int gi[] = {permMod12[i + perm[j]],
-                permMod12[i + i1 + perm[j + j1]],
-                permMod12[i + 1 + perm[j + 1]]};
+        int gi[] = {permMod4[i + perm[j]],
+                permMod4[i + i1 + perm[j + j1]],
+                permMod4[i + 1 + perm[j + 1]]};
         double n[] = new double[3];
         //may be able to use arrays
-        double[] tArray = {0.5 - x[0] * x[0] - y[0] * y[0], 0.5 - x[1] * x[1] - y[1] * y[1], 0.5 - x[2] * x[2] - y[2] * y[2]};
+        double[] tArray = {
+                0.5 - x[0] * x[0] - y[0] * y[0],
+                0.5 - x[1] * x[1] - y[1] * y[1],
+                0.5 - x[2] * x[2] - y[2] * y[2]
+        };
 
         for (int k = 0; k < tArray.length; k++) {
             if (tArray[k] < 0) {
@@ -107,12 +116,11 @@ public class Octave {
                 n[k] = tArray[k] * tArray[k] * dot(corners[gi[k]], x[k], y[k]);
             }
         }
-        System.out.println(70 * (n[0] + n[1] + n[2]));
+//        System.out.println((n[0] + n[1] + n[2]));
         return 70 * (n[0] + n[1] + n[2]);
     }
 
     /**
-     *
      * @param point
      * @param x
      * @param y

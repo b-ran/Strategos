@@ -28,11 +28,16 @@ public class NoiseGenerator {
         }
     }
 
-
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     public double getNoise(int x, int y) {
         double result = 0;
         for (int i = 0; i < octaves.length; i++) {
-            result += octaves[i].noise(x / frequencies[i], y / frequencies[i] * amplitudes[i]);
+            result += octaves[i].noise(x / frequencies[i], y / frequencies[i]);
         }
         return result;
     }
