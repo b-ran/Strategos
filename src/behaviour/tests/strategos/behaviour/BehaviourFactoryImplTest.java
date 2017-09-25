@@ -63,6 +63,15 @@ public class BehaviourFactoryImplTest {
                 return null;
             }
 
+            @Override
+            public List<MapLocation> getTilesInRange(
+                    MapLocation location,
+                    int range
+            )
+            {
+                return null;
+            }
+
             @Override public void nextTurn() {
 
             }
