@@ -178,4 +178,5 @@ public class View extends JComponent implements Observer {
     public MenuComponent getEscapeMenuComponent() {
         return escapeMenuComponent;
     }
+
 }

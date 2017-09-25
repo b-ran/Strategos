@@ -25,7 +25,8 @@ public class Controller {
      * The View.
      */
     protected View view;
-    private boolean start = true;
+    protected Boolean allInput = true;
+
 
     /**
      * Instantiates a new Controller.
@@ -50,12 +51,13 @@ public class Controller {
         this.entities = controller.entities;
         this.terrain = controller.terrain;
         this.view = controller.view;
+        this.allInput = controller.allInput;
     }
 
     /**
      * Sets menu listeners based on status of view.
      */
-    protected void setMenuListeners() {
+    void setMenuListeners() {
         MenuComponent m = view.getMenuComponent();
         MenuComponent e = view.getEscapeMenuComponent();
         if (view.status() == false) {
@@ -76,8 +78,16 @@ public class Controller {
     /**
      * Sets game listeners based on status of view.
      */
-    protected void setGameListeners() {
+    void setGameListeners() {
         GridComponent g = view.getGridComponent();
         g.addKeyListener(new MenuListener(this));
+    }
+
+    public void disableAllInput() {
+        allInput = false;
+    }
+
+    public void skipMenu() {
+        view.setGame();
     }
 }
