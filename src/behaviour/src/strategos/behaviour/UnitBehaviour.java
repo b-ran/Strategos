@@ -26,10 +26,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override final public MapLocation getPosition() {
+        assert position != null
+                : "Method getPosition() shouldn't be returning null";
         return position;
     }
 
     @Override final public void setPosition(MapLocation position) {
+        if (position == null) {
+            throw new NullPointerException(
+                    "Method setPosition() requires non-null position");
+        }
         this.position = position;
     }
 
@@ -54,6 +60,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override final public boolean move(Direction direction) {
+        if (direction == null) {
+            throw new NullPointerException(
+                    "Method move() requires a non-null direction");
+        }
+
         if (getActionPoints() <= 0) {
             return false;
         }
@@ -65,6 +76,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int attack(Unit enemy) {
+        if (enemy == null) {
+            throw new NullPointerException(
+                    "Method attack() requires a non-null enemy");
+        }
+
         if (!isAlive() || !enemy.isAlive()) {
             return 0;
         }
@@ -80,7 +96,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     private int terrainDamageBonus(Unit unit, int damage, boolean attacking) {
+        assert unit != null
+                : "Method terrainDamageBonus() shouldn't be receiving a null unit";
+
         Terrain terrain = getGameState().getTerrainAt(unit.getPosition());
+
         if (terrain instanceof Plains) {
             return damage;
         }
@@ -94,12 +114,13 @@ abstract class UnitBehaviour extends BaseBehaviour {
             return attacking ? (int) (damage * 0.9) : damage;
         }
         else {
-            throw new RuleViolationException("Unit must not be on Mountain");
+            throw new RuleViolationException("Unit must be on valid Terrain");
         }
     }
 
     private int terrainMovementCost() {
         Terrain terrain = getGameState().getTerrainAt(getPosition());
+
         if (terrain instanceof Plains) {
             return -1;
         }
@@ -113,11 +134,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
             return -2;
         }
         else {
-            throw new RuleViolationException("Unit must not be on Mountain");
+            throw new RuleViolationException("Unit must be on valid Terrain");
         }
     }
 
     @Override public int defend(Unit enemy) {
+        if (enemy == null) {
+            throw new NullPointerException(
+                    "Method defend() requires a non-null enemy");
+        }
+
         int attack = terrainDamageBonus(enemy, enemy.getStrength(), true);
 
         hitpoints -= attack;

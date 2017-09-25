@@ -21,14 +21,32 @@ class AiBehaviour extends BaseBehaviour {
     )
     {
         super(gameState, unit);
+
+        if (factoryMethod == null) {
+            throw new NullPointerException(
+                    "AiBehaviour constructor requires non-null factoryMethod");
+        }
+
         this.behaviour = factoryMethod.apply(gameState, unit);
+
+        if (this.behaviour == null) {
+            throw new NullPointerException(
+                    "Behaviour factory method should not return null");
+        }
     }
 
     @Override public MapLocation getPosition() {
-        return behaviour.getPosition();
+        MapLocation position = behaviour.getPosition();
+        assert position != null
+                : "Method getPosition() shouldn't be returning null";
+        return position;
     }
 
     @Override public void setPosition(MapLocation position) {
+        if (position == null) {
+            throw new NullPointerException(
+                    "Method setPosition() requires non-null position");
+        }
         behaviour.setPosition(position);
     }
 
@@ -79,14 +97,26 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override public boolean move(Direction direction) {
+        if (direction == null) {
+            throw new NullPointerException(
+                    "Method move() requires a non-null direction");
+        }
         return behaviour.move(direction);
     }
 
     @Override public int attack(Unit enemy) {
+        if (enemy == null) {
+            throw new NullPointerException(
+                    "Method attack() requires a non-null enemy");
+        }
         return behaviour.attack(enemy);
     }
 
     @Override public int defend(Unit enemy) {
+        if (enemy == null) {
+            throw new NullPointerException(
+                    "Method defend() requires a non-null enemy");
+        }
         return behaviour.defend(enemy);
     }
 
