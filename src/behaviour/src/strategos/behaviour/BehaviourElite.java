@@ -5,7 +5,7 @@ import strategos.*;
 import strategos.units.*;
 
 
-public class BehaviourElite extends UnitBehaviour {
+class BehaviourElite extends UnitBehaviour {
 
     BehaviourElite(GameState gameState, Unit unit) {
         super(gameState, unit);

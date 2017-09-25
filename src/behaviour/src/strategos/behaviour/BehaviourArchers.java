@@ -5,7 +5,7 @@ import strategos.*;
 import strategos.units.*;
 
 
-public class BehaviourArchers extends UnitBehaviour {
+class BehaviourArchers extends UnitBehaviour {
 
     BehaviourArchers(GameState gameState, Unit unit) {
         super(gameState, unit);
