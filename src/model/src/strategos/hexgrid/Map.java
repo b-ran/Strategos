@@ -1,6 +1,8 @@
 package strategos.hexgrid;
 
 import strategos.Direction;
+import strategos.GameBoard;
+import strategos.MapLocation;
 import strategos.terrain.Mountain;
 import strategos.terrain.Terrain;
 
@@ -16,9 +18,9 @@ import java.util.List;
  * @author Daniel Pinfold
  *
  */
-public class Map {
+public class Map implements GameBoard {
 	
-	private Hex[][] map;
+	private MapLocation[][] map;
 	private final int radius;
 	
 	/**
@@ -30,7 +32,7 @@ public class Map {
 		this.radius = diameter / 2;
 	}
 
-	public Map(Hex[][] newMap, int radius) {
+	public Map(MapLocation[][] newMap, int radius) {
 		map = newMap.clone();
 		this.radius = radius;
 	}
@@ -87,7 +89,7 @@ public class Map {
 	 * @param q - The vertical position of this Hex.
 	 * @param map - The map value.
 	 */
-	private void populateNeighbours(int r, int q, Hex[][] map) {
+	private void populateNeighbours(int r, int q, MapLocation[][] map) {
 		get(r, q, map).addNeighbour(Direction.EAST, get(r + 1, q, map));
 		get(r, q, map).addNeighbour(Direction.WEST, get(r - 1, q, map));
 
@@ -97,7 +99,7 @@ public class Map {
 		get(r, q, map).addNeighbour(Direction.SOUTH_WEST, get(r - 1, q + 1, map));
 	}
 
-	private Hex get(int x, int y, Hex[][] map) {
+	private MapLocation get(int x, int y, MapLocation[][] map) {
 		if (x < 0 || x >= map.length || y < 0 || y >= map.length) {
 			return new Hex(x, y, false);
 		}
@@ -105,15 +107,15 @@ public class Map {
 		return map[x][y];
 	}
 	
-	private void set(int x, int y, Hex[][] map, Hex toSet) {
+	private void set(int x, int y, MapLocation[][] map, MapLocation toSet) {
 		map[x][y] = toSet;
 	}
 	
-	public Hex get(int x, int y) {
+	public MapLocation get(int x, int y) {
 		return get(x, y, map);
 	}
 	
-	public Hex[][] getData() {
+	public MapLocation[][] getData() {
 		return map;
 	}
 
@@ -121,8 +123,8 @@ public class Map {
 	 * Combines the 2D array into a List format, reading left to right, then dropping a line.
 	 * @return A List of Hexes contained by the Map.
 	 */
-	public List<Hex> getMapAsList() {
-		List<Hex> temp = new ArrayList<>();
+	public List<MapLocation> getMapAsList() {
+		List<MapLocation> temp = new ArrayList<>();
 		for (int x = 0; x < map.length; x++) {
 			for (int y = 0; y < map.length; y++) {
 				temp.add(map[x][y]);
