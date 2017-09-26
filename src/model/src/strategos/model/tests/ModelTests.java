@@ -157,6 +157,27 @@ public class ModelTests {
 	}
 
 	@Test
+	public void visionTest_3() {
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+
+		GameCollections world = gameState.getWorld();
+
+		Player p = new Player(false);
+		gameState.getPlayers().add(p);
+
+		SwordsmenImpl unit = new SwordsmenImpl(p);
+		unit.setBehaviour(new TestBehaviour(gameState, unit));
+		unit.setPosition(world.getMap().get(3, 3));
+		p.getUnits().add(unit);
+
+		gameState.move(unit, EAST, 1);
+		int visibleSize = p.getVisibleTiles().size();
+
+		gameState.move(unit, EAST, 1);
+		assertTrue(p.getVisibleTiles().size() > visibleSize);
+	}
+
+	@Test
 	public void findUnitsTest_1() {
 		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
 
@@ -251,7 +272,12 @@ public class ModelTests {
 		TestBehaviour b = new TestBehaviour(gameState, unit);
 		unit.setBehaviour(b);
 		unit.setPosition(world.getMap().get(3, 3));
-		world.getMap().getData()[4][3] = new Hex(4, 3, false);
+		MapLocation location2 = unit.getPosition().getNeighbour(EAST);
+
+		MapLocation hex = new Hex(location2.getX(), location2.getY(), false);
+		world.getMap().set(location2.getX(), location2.getY(), hex);
+		unit.getPosition().addNeighbour(EAST, hex);
+
 		p.getUnits().add(unit);
 
 		gameState.move(unit, EAST, 1);
@@ -289,9 +315,140 @@ public class ModelTests {
 		assertFalse(unit.getPosition().getX() == 4);
 	}
 
-	// check impassable unit
-	// check attack
-	// check wary
-	// check entrench
+	@Test
+	public void attackTest_1() {
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+
+		GameCollections world = gameState.getWorld();
+
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		gameState.getPlayers().add(p);
+		gameState.getPlayers().add(p2);
+
+		SwordsmenImpl unit = new SwordsmenImpl(p);
+		SwordsmenImpl unit2 = new SwordsmenImpl(p2);
+		TestBehaviour b = new TestBehaviour(gameState, unit);
+
+		unit.setBehaviour(b);
+		TestBehaviour b2 = new TestBehaviour(gameState, unit2);
+		unit2.setBehaviour(b2);
+
+		unit.setPosition(world.getMap().get(3, 3));
+		unit2.setPosition(unit.getPosition().getNeighbour(EAST));
+
+		p.getUnits().add(unit);
+		p2.getUnits().add(unit2);
+		world.getAllUnits().add(unit);
+		world.getAllUnits().add(unit2);
+
+		gameState.attack(unit, unit2.getPosition());
+
+		assertTrue(b.attacking);
+	}
+
+	@Test
+	public void attackTest_2() {
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+
+		GameCollections world = gameState.getWorld();
+
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		gameState.getPlayers().add(p);
+		gameState.getPlayers().add(p2);
+
+		SwordsmenImpl unit = new SwordsmenImpl(p);
+		SwordsmenImpl unit2 = new SwordsmenImpl(p);
+		TestBehaviour b = new TestBehaviour(gameState, unit);
+
+		unit.setBehaviour(b);
+		TestBehaviour b2 = new TestBehaviour(gameState, unit2);
+		unit2.setBehaviour(b2);
+
+		unit.setPosition(world.getMap().get(3, 3));
+		unit2.setPosition(unit.getPosition().getNeighbour(EAST));
+
+		p.getUnits().add(unit);
+		p.getUnits().add(unit2);
+		world.getAllUnits().add(unit);
+		world.getAllUnits().add(unit2);
+
+		gameState.attack(unit, unit2.getPosition());
+
+		assertFalse(b.attacking);
+	}
+
+	@Test
+	public void attackTest_3() {
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+
+		GameCollections world = gameState.getWorld();
+
+		Player p = new Player(false);
+		gameState.getPlayers().add(p);
+
+		SwordsmenImpl unit = new SwordsmenImpl(p);
+		TestBehaviour b = new TestBehaviour(gameState, unit);
+
+		unit.setBehaviour(b);
+
+		unit.setPosition(world.getMap().get(3, 3));
+
+		p.getUnits().add(unit);
+		world.getAllUnits().add(unit);
+
+		gameState.attack(unit, unit.getPosition().getNeighbour(EAST));
+
+		assertFalse(b.attacking);
+	}
+
+	@Test
+	public void waryTest_1() {
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+
+		GameCollections world = gameState.getWorld();
+
+		Player p = new Player(false);
+		gameState.getPlayers().add(p);
+
+		SwordsmenImpl unit = new SwordsmenImpl(p);
+		TestBehaviour b = new TestBehaviour(gameState, unit);
+
+		unit.setBehaviour(b);
+
+		unit.setPosition(world.getMap().get(3, 3));
+
+		p.getUnits().add(unit);
+		world.getAllUnits().add(unit);
+
+		gameState.wary(unit);
+
+		assertTrue(b.wary);
+	}
+
+	@Test
+	public void entrenchTest_1() {
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+
+		GameCollections world = gameState.getWorld();
+
+		Player p = new Player(false);
+		gameState.getPlayers().add(p);
+
+		SwordsmenImpl unit = new SwordsmenImpl(p);
+		TestBehaviour b = new TestBehaviour(gameState, unit);
+
+		unit.setBehaviour(b);
+
+		unit.setPosition(world.getMap().get(3, 3));
+
+		p.getUnits().add(unit);
+		world.getAllUnits().add(unit);
+
+		gameState.entrench(unit);
+
+		assertTrue(b.entrenched);
+	}
 
 }
