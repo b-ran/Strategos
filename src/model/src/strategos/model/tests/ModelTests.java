@@ -196,7 +196,7 @@ public class ModelTests {
 		unit.setPosition(world.getMap().get(3, 3));
 		unit2.setPosition(world.getMap().get(4, 3));
 		unit3.setPosition(world.getMap().get(0, 3));
-		unit4.setPosition(world.getMap().get(3, 3));
+		unit4.setPosition(world.getMap().get(3, 5));
 
 		p.getUnits().add(unit);
 		p.getUnits().add(unit2);
@@ -209,10 +209,13 @@ public class ModelTests {
 		world.getAllUnits().add(unit4);
 
 		List<Unit> units = gameState.getUnitsInRange(unit.getPosition(), 3);
-		System.out.println(units);
-		assertTrue(units.size() == 4 );
 
-		//assertTrue(gameState.getUnitAt(world.getMap().get(3,3)).equals(unit));
+		assertTrue(units.size() == 4);
+
+		assertTrue(units.contains(unit));
+		assertTrue(units.contains(unit2));
+		assertTrue(units.contains(unit3));
+		assertTrue(units.contains(unit4));
 	}
 
 	@Test
