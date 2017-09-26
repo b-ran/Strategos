@@ -23,4 +23,11 @@ public interface NetworkHandler {
 	 * @throws InterruptedException when the connection is unexpectedly interrupted
 	 */
 	void run() throws InterruptedException;
+
+	/**
+	 * Gets the type of network
+	 * @return The Network the
+	 */
+
+	Network getType();
 }

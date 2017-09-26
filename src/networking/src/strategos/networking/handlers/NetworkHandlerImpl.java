@@ -30,11 +30,6 @@ public class NetworkHandlerImpl implements NetworkHandler {
 		return type;
 	}
 
-	/**
-	 * Sends a SaveInstance to the Network
-	 * @param instance The SaveInstance to be sent
-	 * @throws InterruptedException
-	 */
 	public void send(SaveInstance instance) throws InterruptedException {
 		type.send(instance);
 	}
