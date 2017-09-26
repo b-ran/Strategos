@@ -1,9 +1,11 @@
 package strategos.networking;
 
+import strategos.SaveInstance;
+
 /**
  * Handles everything to do with 
  */
-public interface NetworkHandler {
+public interface NetworkingHandler {
 
 	/**
 	 * Initialises the handler as a server
@@ -25,9 +27,9 @@ public interface NetworkHandler {
 	void run() throws InterruptedException;
 
 	/**
-	 * Gets the type of network
-	 * @return The Network the
+	 * Sends a {@code SaveInstance} over the network
+	 * @param instance The SaveInstance to be sent
+	 * @throws InterruptedException when the connection is interrupted
 	 */
-
-	Network getType();
+	void send(SaveInstance instance) throws InterruptedException;
 }

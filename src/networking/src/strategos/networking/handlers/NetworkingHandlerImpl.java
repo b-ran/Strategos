@@ -2,12 +2,11 @@ package strategos.networking.handlers;
 
 import strategos.SaveInstance;
 import strategos.networking.Network;
-import strategos.networking.NetworkHandler;
-import strategos.networking.client.Client;
-import strategos.networking.server.Server;
-import strategos.networking.server.ServerHandler;
+import strategos.networking.NetworkingHandler;
+import strategos.networking.networks.Client;
+import strategos.networking.networks.Server;
 
-public class NetworkHandlerImpl implements NetworkHandler {
+public class NetworkingHandlerImpl implements NetworkingHandler {
 	private Network type;
 
 	@Override
@@ -23,11 +22,6 @@ public class NetworkHandlerImpl implements NetworkHandler {
 	@Override
 	public void run() throws InterruptedException {
 		type.run();
-	}
-
-	@Override
-	public Network getType() {
-		return type;
 	}
 
 	public void send(SaveInstance instance) throws InterruptedException {

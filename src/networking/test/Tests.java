@@ -1,16 +1,23 @@
 import org.junit.Test;
-import strategos.networking.NetworkHandler;
-import strategos.networking.handlers.NetworkHandlerImpl;
+import strategos.SaveInstance;
+import strategos.networking.NetworkingHandler;
+import strategos.networking.handlers.NetworkingHandlerImpl;
 
 public class Tests {
 	@Test
 	public void testSendFromServer() throws InterruptedException {
-		NetworkHandler server = new NetworkHandlerImpl();
-		NetworkHandler client = new NetworkHandlerImpl();
+		NetworkingHandler server = new NetworkingHandlerImpl();
+		NetworkingHandler client = new NetworkingHandlerImpl();
 		server.initialise(8080);
 		client.initialise("localhost", 8080);
 		server.run();
 		client.run();
-		server.send();
+		try {
+			SaveInstance instance = SaveInstance.class.newInstance();
+			server.send(instance);
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

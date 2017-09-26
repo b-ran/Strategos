@@ -1,4 +1,4 @@
-package strategos.networking.server;
+package strategos.networking.networks;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -7,7 +7,7 @@ import strategos.SaveInstance;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerHandler extends SimpleChannelInboundHandler<SaveInstance> {
+public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	private List<ChannelHandlerContext> connections = new ArrayList<>();
 

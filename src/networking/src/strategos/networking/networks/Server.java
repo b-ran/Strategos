@@ -1,4 +1,4 @@
-package strategos.networking.server;
+package strategos.networking.networks;
 
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -19,15 +19,15 @@ import strategos.networking.handlers.OutboundDataHandler;
 public class Server implements Network {
 	private int port;
 
-	public ServerHandler getServerHandler() {
+	public NetworkHandler getServerHandler() {
 		return serverHandler;
 	}
 
-	private ServerHandler serverHandler;
+	private NetworkHandler serverHandler;
 
 	public Server(int port) {
 		this.port = port;
-		serverHandler = new ServerHandler();
+		serverHandler = new NetworkHandler();
 	}
 
 	@Override
