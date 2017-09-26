@@ -52,6 +52,7 @@ public class TestBehaviour implements Behaviour {
 	@Override
 	public boolean move(Direction direction) {
 		moved = true;
+		setPosition(getPosition().getNeighbour(direction));
 		return true;
 	}
 
