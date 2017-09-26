@@ -12,7 +12,13 @@ public class NoiseGenerator {
     private Octave[] octaves;
     private double[] frequencies, amplitudes;
 
-
+    /**
+     * Produces and collates A number of octaves of noise into a map
+     *
+     * @param numOctaves  Number of octaves to create
+     * @param persistence //TODO
+     * @param seed        Seed for the randomisation so that the same map will be made of the same seed
+     */
     public NoiseGenerator(int numOctaves, double persistence, int seed) {
         Random random = new Random(seed);
         octaves = new Octave[numOctaves];
@@ -27,10 +33,11 @@ public class NoiseGenerator {
     }
 
     /**
+     * Returns the value from  that position
      *
-     * @param x
-     * @param y
-     * @return
+     * @param x X position to sample
+     * @param y Y position to sample
+     * @return Noise value from map
      */
     public double getNoise(int x, int y) {
         double result = 0;

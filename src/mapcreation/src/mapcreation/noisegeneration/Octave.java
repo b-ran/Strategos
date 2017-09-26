@@ -3,17 +3,8 @@ package mapcreation.noisegeneration;
 import java.awt.*;
 import java.util.Random;
 
-public class Octave {
-
-    private Point[] corners = {
-            new Point(1, 1),
-            new Point(-1, 1),
-            new Point(1, -1),
-            new Point(-1, -1)
-    };
-
-    //TODO: rename
-    //TODO: describe
+class Octave {
+    //TODO: rename and describe
     private static short randomSupply[] = {
             146, 225, 186, 223, 234, 58, 113, 176, 151, 231, 203, 11, 43, 13, 150, 74, 249, 187, 110, 44, 221, 33, 241
             , 7, 204, 237, 14, 252, 96, 200, 130, 84, 251, 211, 21, 34, 224, 10, 114, 41, 49, 215, 68, 189, 47, 0, 191
@@ -28,10 +19,25 @@ public class Octave {
             , 175, 38, 6, 120, 212, 233, 19, 197, 236, 86, 46, 63, 243, 98, 26, 78, 95, 164, 81, 17, 64, 70, 119, 125
             , 220, 5, 181, 140
     };
+    /**
+     * Corners of the graph
+     */
+    private Point[] corners = {
+            new Point(1, 1),
+            new Point(-1, 1),
+            new Point(1, -1),
+            new Point(-1, -1)
+    };
+    //TODO: rename and describe
     private short[] perm = new short[512];
     private short[] permMod4 = new short[512];
 
-    public Octave(int seed) {
+    /**
+     * Initialises the lookup tables that noise is created from later
+     *
+     * @param seed Allows for predictable randomisation
+     */
+    Octave(int seed) {
         short[] p = randomSupply.clone();
         Random random = new Random(seed);
         short temp;
@@ -62,11 +68,11 @@ public class Octave {
     //rename to x, y
 
     /**
-     * @param xin
-     * @param yin
-     * @return
+     * @param xin X position to to sample
+     * @param yin Y position to sample
+     * @return Noise value at xin, yin
      */
-    public double noise(double xin, double yin) {
+    double noise(double xin, double yin) {
         double s = (xin + yin) * F2;
         int i = fastFloor(xin + s);
         int j = fastFloor(yin + s);
@@ -121,10 +127,12 @@ public class Octave {
     }
 
     /**
-     * @param point
-     * @param x
-     * @param y
-     * @return
+     * //TODO: comment
+     *
+     * @param point Corner started from
+     * @param x X position to to sample
+     * @param y Y position to sample
+     * @return //TODO
      */
     private double dot(Point point, double x, double y) {
         return point.x * x + point.y * y;
