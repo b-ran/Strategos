@@ -47,14 +47,16 @@ public class Strategos implements GameState {
 	@Override
 	public void move(Unit unit, Direction direction, int amount) {
 		amount = Math.min(amount, unit.getActionPoints());
-		MapLocation currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
-		while (amount > 0) {
+		MapLocation currentPosition = unit.getPosition();
+		while (amount != 0) {
 			if (!currentPosition.getNeighbour(direction).isInPlayArea() ||
-					getUnitAt(unit.getPosition()) != null) {
+					getUnitAt(currentPosition.getNeighbour(direction)) != null) {
 				break;
 			}
 			currentPosition = currentPosition.getNeighbour(direction);
-			unit.move(direction);
+			if (!unit.move(direction)) {
+				break;
+			}
 			amount--;
 			calculateVision(unit.getOwner());
 		}
@@ -62,7 +64,7 @@ public class Strategos implements GameState {
 
 	private void calculateVision(UnitOwner player) {
 		for (Unit unit : player.getUnits()) {
-			List<MapLocation> sightRange = getTilesInRange(unit.getPosition(), 3);
+			List<MapLocation> sightRange = getTilesInRange(unit.getPosition(), unit.getSightRadius());
 			for (MapLocation tile : sightRange) {
 				if (!player.getVisibleTiles().contains(tile)) {
 					player.getVisibleTiles().add(tile);
@@ -167,6 +169,9 @@ public class Strategos implements GameState {
 			// TODO: reset unit action points
 			// TODO: set "moved" to false
 		}
+		for (UnitOwner player : getPlayers()) {
+			calculateVision(player);
+		}
 
 		int turnIndex = players.indexOf(turn);
 		turnIndex = (turnIndex + 1) % players.size();
@@ -176,6 +181,16 @@ public class Strategos implements GameState {
 	@Override
 	public GameCollections getWorld() {
 		return world;
+	}
+
+	@Override
+	public List<UnitOwner> getPlayers() {
+		return players;
+	}
+
+	@Override
+	public UnitOwner getCurrentTurn() {
+		return turn;
 	}
 
 
