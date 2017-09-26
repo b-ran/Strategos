@@ -79,4 +79,8 @@ public interface GameState {
 	public void nextTurn();
 
 	public GameCollections getWorld();
+
+	public List<UnitOwner> getPlayers();
+
+	public UnitOwner getCurrentTurn();
 }

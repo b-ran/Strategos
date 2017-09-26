@@ -10,13 +10,22 @@ import strategos.units.Unit;
 
 public class UnitImpl implements Graphical, Unit, Behaviour {
 
-	private final Behaviour behaviour;
+	private Behaviour behaviour;
 	private final UnitOwner owner;
 	private int actionPoints;
 
-	public UnitImpl(Behaviour behaviour, UnitOwner owner) {
-		this.behaviour = behaviour;
+	public UnitImpl(UnitOwner owner) {
 		this.owner = owner;
+	}
+
+	public UnitImpl(Behaviour behaviour, UnitOwner owner) {
+		setBehaviour(behaviour);
+		this.owner = owner;
+	}
+
+	@Override
+	public void setBehaviour(Behaviour behaviour) {
+		this.behaviour = behaviour;
 	}
 
 	@Override
@@ -76,22 +85,22 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 
 	@Override
 	public UnitOwner getOwner() {
-		return null;
+		return owner;
 	}
 
 	@Override
 	public boolean isAlive() {
-		return false;
+		return behaviour.isAlive();
 	}
 
 	@Override
 	public int getSightRadius() {
-		return 0;
+		return behaviour.getSightRadius();
 	}
 
 	@Override
 	public int getActionPoints() {
-		return actionPoints;
+		return behaviour.getActionPoints();
 	}
 
 	public void setActionPoints(int actionPoints) {

@@ -16,7 +16,7 @@ import java.awt.*;
 public class EliteImpl extends UnitImpl implements Elite {
 	private static final Image sprite = null;
 
-	public EliteImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public EliteImpl(UnitOwner owner) {
+		super(owner);
 	}
 }

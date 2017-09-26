@@ -155,6 +155,11 @@ public class Map implements GameBoard {
 	private void set(int x, int y, MapLocation[][] map, MapLocation toSet) {
 		map[x][y] = toSet;
 	}
+
+	@Override
+	public void set(int x, int y, MapLocation location) {
+		set(x, y, map, location);
+	}
 	
 	public MapLocation get(int x, int y) {
 		return get(x, y, map);
