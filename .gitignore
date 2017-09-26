@@ -69,6 +69,8 @@ local.properties
 .idea/dictionaries
 .idea/uiDesigner.xml
 .idea/vcs.xml
+.idea/modules/Strategos.iml
+.idea/modules.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
