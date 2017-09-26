@@ -8,16 +8,20 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import strategos.networking.InboundDataHandler;
+import strategos.SaveInstance;
+import strategos.exception.FeatureNotImplementedException;
+import strategos.networking.handlers.InboundDataHandler;
 import strategos.networking.Network;
 
 public class Client implements Network {
 	private String host;
 	private int port;
+	private ClientHandler clientHandler;
 
 	public Client(String host, int port) {
 		this.host = host;
 		this.port = port;
+		clientHandler = new ClientHandler();
 	}
 
 	@Override
@@ -31,7 +35,7 @@ public class Client implements Network {
 			b.handler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				public void initChannel(SocketChannel ch) throws InterruptedException {
-					ch.pipeline().addLast(new InboundDataHandler());
+					ch.pipeline().addLast(new InboundDataHandler(), clientHandler);
 				}
 			});
 
@@ -43,5 +47,10 @@ public class Client implements Network {
 		} finally {
 			workerGroup.shutdownGracefully();
 		}
+	}
+
+	@Override
+	public void send(SaveInstance instance) throws InterruptedException {
+		throw new FeatureNotImplementedException("Send from client not implemented yet");
 	}
 }

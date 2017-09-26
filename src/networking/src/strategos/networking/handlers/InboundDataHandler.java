@@ -1,4 +1,4 @@
-package strategos.networking;
+package strategos.networking.handlers;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
@@ -13,7 +13,9 @@ public class InboundDataHandler extends ChannelInboundHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		ObjectInputStream in = new ObjectInputStream(new ByteBufInputStream((ByteBuf) msg));
 		GameCollections out = (GameCollections) in.readObject();
-		System.out.println(out);
+		System.out.println(out.getAllUnits());
+		System.out.println(out.getMap());
+		System.out.println();
 	}
 
 	@Override

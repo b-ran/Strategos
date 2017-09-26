@@ -1,26 +1,40 @@
 package strategos.networking.server;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
+import strategos.SaveInstance;
 
-public class ServerHandler extends ChannelInboundHandlerAdapter {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ServerHandler extends SimpleChannelInboundHandler<SaveInstance> {
+
+	private List<ChannelHandlerContext> connections = new ArrayList<>();
+
 	@Override
-	public void channelActive(final ChannelHandlerContext ctx) {
-		final ByteBuf time = ctx.alloc().buffer(4);
-
-		final ChannelFuture f = ctx.writeAndFlush(time);
-		f.addListener((ChannelFutureListener) future -> {
-			assert f == future;
-			ctx.close();
-		});
+	public void channelActive(final ChannelHandlerContext ctx) throws Exception {
+		super.channelActive(ctx);
+		connections.add(ctx);
+	}
+	@Override
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		super.channelInactive(ctx);
+		connections.remove(ctx);
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 		cause.printStackTrace();
 		ctx.close();
+	}
+
+
+	public void send(SaveInstance instance) {
+		connections.forEach(conn-> conn.writeAndFlush(instance));
+	}
+
+	@Override
+	protected void messageReceived(ChannelHandlerContext ctx, SaveInstance msg) throws Exception {
+
 	}
 }

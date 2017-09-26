@@ -9,7 +9,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import strategos.SaveInstance;
 import strategos.networking.Network;
+import strategos.networking.handlers.OutboundDataHandler;
 
 /**
  * The server used for transmitting objects
@@ -17,8 +19,15 @@ import strategos.networking.Network;
 public class Server implements Network {
 	private int port;
 
+	public ServerHandler getServerHandler() {
+		return serverHandler;
+	}
+
+	private ServerHandler serverHandler;
+
 	public Server(int port) {
 		this.port = port;
+		serverHandler = new ServerHandler();
 	}
 
 	@Override
@@ -31,7 +40,7 @@ public class Server implements Network {
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						public void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new ServerHandler());
+							ch.pipeline().addLast(new OutboundDataHandler(), serverHandler);
 						}
 					})
 					.option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);
@@ -47,5 +56,10 @@ public class Server implements Network {
 			workerGroup.shutdownGracefully();
 			bossGroup.shutdownGracefully();
 		}
+	}
+
+	@Override
+	public void send(SaveInstance instance) throws InterruptedException {
+		serverHandler.send(instance);
 	}
 }
