@@ -1,11 +1,11 @@
 package strategos.ui.controller;
 
 import strategos.terrain.Terrain;
-import strategos.ui.view.*;
+import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
+import strategos.ui.view.View;
 import strategos.units.Unit;
 
-import java.awt.*;
 import java.util.List;
 
 /**
@@ -60,19 +60,16 @@ public class Controller {
     void setMenuListeners() {
         MenuComponent m = view.getMenuComponent();
         MenuComponent e = view.getEscapeMenuComponent();
-        if (view.status() == false) {
-            m.getNewGameButton().addActionListener(new NewGameListener(this));
-            m.getLoadButton().addActionListener(new LoadListener(this));
-            m.getConnectButton().addActionListener(new ConnectListener(this));
-            m.getHostButton().addActionListener(new HostListener(this));
-            m.getExitButton().addActionListener(new ExitListener(this));
-        } else {
-            e.getResumeButton().addActionListener(new ResumeListener(this));
-            e.getNewGameButton().addActionListener(new NewGameListener(this));
-            e.getSaveButton().addActionListener(new SaveListener(this));
-            e.getLoadButton().addActionListener(new LoadListener(this));
-            e.getExitButton().addActionListener(new ExitListener(this));
-        }
+        m.getNewGameButton().addActionListener(new NewGameListener(this));
+        m.getLoadButton().addActionListener(new LoadListener(this));
+        m.getConnectButton().addActionListener(new ConnectListener(this));
+        m.getHostButton().addActionListener(new HostListener(this));
+        m.getExitButton().addActionListener(new ExitListener(this));
+        e.getResumeButton().addActionListener(new ResumeListener(this));
+        e.getNewGameButton().addActionListener(new NewGameListener(this));
+        e.getSaveButton().addActionListener(new SaveListener(this));
+        e.getLoadButton().addActionListener(new LoadListener(this));
+        e.getExitButton().addActionListener(new ExitListener(this));
     }
 
     /**
