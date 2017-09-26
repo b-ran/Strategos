@@ -1,6 +1,10 @@
 package noisegenerationtests;
 
 
+import mapcreation.mapgeneration.TerrainGeneration;
+import mapcreation.noisegeneration.noiseutil.PrintMap;
+import org.junit.Test;
+
 class TestResources {
     static double[][] testMap = {
             {0.45, 0.3825845168836898, 0.47269400916647863, 0.3665450521216709, 0.37675446207936303, 0.39444144356119154, 0.37092863700139445, 0.3773432143487213, 0.43080102899118894, 0.39444603242556475, 0.41427855568661903, 0.3885146905257685, 0.3854391481091475, 0.4151241191707675, 0.4752152651213436, 0.5122818809641008, 0.43020485400966385, 0.5160151121826438, 0.3806157340066397, 0.37543833292506945, 0.377160736758015, 0.4308194464073239, 0.4579228605798656, 0.41982579915067975, 0.4484180792238221, 0.4645989863116135, 0.4989829505654632, 0.4505662096607306, 0.5149284759919213, 0.47601591948002664, 0.5086980715136017, 0.47202934164557153, 0.5059703536626028, 0.5374701998592174, 0.529255364634503, 0.5116966736053346, 0.389484826435897, 0.39685095658346653, 0.4224912762858436, 0.3516139644678938, 0.4181829044283136, 0.4018016484793159, 0.3973522725049932, 0.31100240836186455, 0.3720186191221465, 0.44916059124177204, 0.3984166619023075, 0.3523777068581801, 0.42471368987959174, 0.4242483508610866},
@@ -55,6 +59,24 @@ class TestResources {
             {0.42289887178298957, 0.46955359944085856, 0.5070217433214033, 0.5553975194499031, 0.5873381077815998, 0.4686445817053978, 0.4948405794634594, 0.4150925353009688, 0.45130114592706433, 0.5285652467429818, 0.5278308596461291, 0.46267224506976246, 0.4178732529949459, 0.4889755274395389, 0.5574833993492682, 0.5072589574786556, 0.4859565074089363, 0.39064000026544976, 0.4791824505441523, 0.5260176424189968, 0.4255175589890883, 0.40897804265906823, 0.35712843987101817, 0.3452449338365691, 0.4769957266378518, 0.3337044705592358, 0.2684790690802658, 0.24537955485421367, 0.3556650144195752, 0.38724005150234864, 0.3094970272385543, 0.3208412280868556, 0.2743316301500654, 0.3564292238585541, 0.4607455139060175, 0.37434295849099025, 0.37895519289832363, 0.48031798017317934, 0.461500793857552, 0.5008658313030664, 0.3861783053272084, 0.3847319607100562, 0.3029465100733689, 0.2871421258519235, 0.3931646553361879, 0.39610812669947015, 0.325994721285365, 0.32881302411879, 0.3401486683675712, 0.4323126653868917},
     };
 
+    /**
+     * for filling TestResources.testMap
+     */
+    @Test
+    public void fillTestMap() {
+        TerrainGeneration TG = new TerrainGeneration();
+        double[][] map = TG.testFillMap(50, 50, 1, 90);
+        PrintMap.greyImage(map);
+        for (double[] aMap : map) {
+            System.out.print("{");
+            for (int y = 0; y < map[0].length; y++) {
+                if (y != 0) System.out.print(",");
+                System.out.print(aMap[y]);
+            }
+            System.out.println("},");
+        }
+    }
+
     static boolean[][] testForest = {{false, false, true, true, false, true, false, true, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, false, true, false, false},
             {false, false, true, true, true, false, true, false, false, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, false, false, false, false, false, true, true, false, false, true, false, false},
             {true, true, true, true, false, true, true, false, false, false, true, true, true, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, true, false, false, false, true, true, false, false, false, false, false, false},
@@ -106,4 +128,23 @@ class TestResources {
             {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, false, false, true, true, true, true, true, true, true, false, false, true, true, false, false, false, true, true, true, true, true},
             {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, true, true, true, false, true, true, true, true, true, true, true, false, false, false, true, true, true, false, false, false, false, false, false},
     };
+
+    /**
+     * for filling TestResources.testForest
+     */
+    @Test
+    public void fillTestForest() {
+        TerrainGeneration TG = new TerrainGeneration();
+        boolean[][] map = TG.testFillForest(50, 50, 1, 90);
+        PrintMap.greyImage(map);
+        for (boolean[] aMap : map) {
+            System.out.print("{");
+            for (int y = 0; y < map[0].length; y++) {
+                if (y != 0) System.out.print(",");
+                System.out.print(aMap[y]);
+            }
+            System.out.println("},");
+        }
+    }
+
 }

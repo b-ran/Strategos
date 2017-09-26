@@ -6,8 +6,6 @@ import mapcreation.noisegeneration.NoiseGenerator;
 import mapcreation.noisegeneration.noiseutil.PrintMap;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 
 public class NoiseTester {
 
@@ -45,16 +43,14 @@ public class NoiseTester {
     public void mapTest_1() {
         TerrainGeneration TG = new TerrainGeneration();
         double[][] map = TG.testFillMap(50, 50, 1, 90);
+        //To physically compare to correctTopology
         PrintMap.greyImage(map);
         double[][] testMap = TestResources.testMap;
         for (int x = 0; x < map.length; x++) {
-//            System.out.print("{");
             for (int y = 0; y < map[0].length; y++) {
-//                if (y!=0) System.out.print(",");
-//                System.out.print(map[x][y]);
                 if (map[x][y] != testMap[x][y]) System.out.println(map[x][y] + "!=" + testMap[x][y]);
+
             }
-//            System.out.println("},");
         }
     }
 
@@ -62,11 +58,12 @@ public class NoiseTester {
     public void forestTest_1() {
         TerrainGeneration TG = new TerrainGeneration();
         boolean[][] forest = TG.testFillForest(50, 50, 1, 90);
+        //To physically compare to correctForest
         PrintMap.greyImage(forest);
         boolean[][] testForest = TestResources.testForest;
         for (int x = 0; x < forest.length; x++) {
             for (int y = 0; y < forest[0].length; y++) {
-                assertEquals(forest[x][y], testForest[x][y]);
+                assert (forest[x][y] == testForest[x][y]);
             }
         }
     }
