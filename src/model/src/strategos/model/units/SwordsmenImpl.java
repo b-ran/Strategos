@@ -13,7 +13,7 @@ import strategos.units.Unit;
  */
 public class SwordsmenImpl extends UnitImpl implements Swordsmen {
 
-	public SwordsmenImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public SwordsmenImpl(UnitOwner owner) {
+		super(owner);
 	}
 }

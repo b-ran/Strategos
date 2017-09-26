@@ -14,7 +14,7 @@ import strategos.units.Unit;
  */
 public class ArchersImpl extends UnitImpl implements Archers {
 
-	public ArchersImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public ArchersImpl(UnitOwner owner) {
+		super(owner);
 	}
 }
