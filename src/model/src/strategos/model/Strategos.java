@@ -79,6 +79,9 @@ public class Strategos implements GameState {
 		if (target == null) {
 			return;
 		}
+		if (target.getOwner().equals(unit.getOwner())) {
+			return;
+		}
 		unit.attack(target);
 	}
 
