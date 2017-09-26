@@ -14,8 +14,5 @@ public interface Paintable {
      */
     boolean isInPlayArea();
 
-    //May not be needed
-    Terrain getTerrain();
-
     void setTerrain(Terrain terrain);
 }

@@ -1,10 +1,8 @@
 package strategos.hexgrid;
 
 
-import strategos.Direction;
-import strategos.Graphical;
-import strategos.MapLocation;
-import strategos.Paintable;
+import strategos.*;
+import strategos.exception.FeatureNotImplementedException;
 import strategos.exception.RuleViolationException;
 import strategos.terrain.Terrain;
 
@@ -19,7 +17,7 @@ import java.util.Map;
  */
 public class Hex implements Paintable, Graphical, MapLocation {
 	private Map<Direction, MapLocation> neighbours;
-	
+
 	private int xIndex;
 	private int yIndex;
 
@@ -39,7 +37,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 
 	/**
 	 * Creates a new Hex object with pre-specified neighbours.
-	 * 
+	 *
 	 * @param east - The neighbouring Hex directly to the right.
 	 * @param west - The neighbouring Hex directly to the left.
 	 * @param northeast - The neighbouring Hex one to the right and one up.
@@ -63,7 +61,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	/**
 	 * Returns whether or not this Hex can be moved onto by a Unit.
 	 * Calls the isPassable method on the terrain stored by this tile.
-	 * 
+	 *
 	 * @return true if the tile can be acted upon or moved onto, false otherwise.
 	 */
 	@Override
@@ -77,7 +75,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	/**
 	 * Gets the neighbour at the specified orientation relative to this Hex.
 	 * Will return a NullHex if no neighbour exists at that position.
-	 *  
+	 *
 	 * @param direction - The Direction that the desired Hex is, relative to this Hex.
 	 * @return A Hex at the specified Direction.
 	 */
