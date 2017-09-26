@@ -1,6 +1,4 @@
-import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
+import strategos.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
@@ -13,7 +11,7 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
-    public void load() {
+    public void load(SaveInstance toRestore) {
 
     }
 
@@ -58,7 +56,17 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
+    public List<MapLocation> getTilesInRange(MapLocation location, int range) {
+        return null;
+    }
+
+    @Override
     public void nextTurn() {
 
+    }
+
+    @Override
+    public GameCollections getWorld() {
+        return null;
     }
 }
