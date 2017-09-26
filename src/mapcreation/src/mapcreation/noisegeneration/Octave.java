@@ -1,4 +1,4 @@
-package mapcreation.noisegeneration.partsNeedsToBeRenamed;
+package mapcreation.noisegeneration;
 
 import java.awt.*;
 import java.util.Random;

@@ -1,7 +1,5 @@
 package mapcreation.noisegeneration;
 
-import mapcreation.noisegeneration.partsNeedsToBeRenamed.Octave;
-
 import java.util.Random;
 
 /**

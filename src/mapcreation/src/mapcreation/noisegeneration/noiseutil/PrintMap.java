@@ -1,4 +1,4 @@
-package mapcreation.noisegeneration.partsNeedsToBeRenamed;
+package mapcreation.noisegeneration.noiseutil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,7 +9,6 @@ import java.io.IOException;
 public class PrintMap {
     public static void greyImage(double[][] imageData) {
         BufferedImage image = new BufferedImage(imageData.length, imageData[0].length, BufferedImage.TYPE_INT_RGB);
-        System.out.println("data: " + imageData[0][0]);
         float colorValue;
         for (int x = 0; x < imageData.length; x++) {
             for (int y = 0; y < imageData[0].length; y++) {
@@ -21,11 +20,27 @@ public class PrintMap {
             }
         }
         try {
-            File file = new File("noise.png");
+            File file = new File("topology.png");
             ImageIO.write(image, "PNG", file);
         } catch (IOException e) {
             throw new RuntimeException("Image drawing failed.");
         }
     }
 
+    public static void greyImage(boolean[][] imageData) {
+        BufferedImage image = new BufferedImage(imageData.length, imageData[0].length, BufferedImage.TYPE_INT_RGB);
+        int colorValue;
+        for (int x = 0; x < imageData.length; x++) {
+            for (int y = 0; y < imageData[0].length; y++) {
+                colorValue = imageData[x][y] ? 255 : 0;
+                image.setRGB(x, y, new Color(colorValue, colorValue, colorValue).getRGB());
+            }
+        }
+        try {
+            File file = new File("forest.png");
+            ImageIO.write(image, "PNG", file);
+        } catch (IOException e) {
+            throw new RuntimeException("Image drawing failed.");
+        }
+    }
 }
