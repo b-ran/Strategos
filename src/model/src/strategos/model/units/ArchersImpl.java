@@ -1,5 +1,6 @@
 package strategos.model.units;
 
+import strategos.Direction;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.behaviour.Behaviour;

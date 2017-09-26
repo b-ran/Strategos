@@ -24,7 +24,7 @@ public class Player implements UnitOwner{
 	}
 
 	@Override
-	public List<MapLocation> getVisibileTiles() {
+	public List<MapLocation> getVisibleTiles() {
 		return visibleTiles;
 	}
 

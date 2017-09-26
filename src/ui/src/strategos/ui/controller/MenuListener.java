@@ -6,9 +6,11 @@ import java.awt.event.KeyListener;
 class MenuListener extends Controller implements KeyListener {
 
     private boolean toggle = false;
+    private Controller controller;
 
     public MenuListener(Controller controller) {
         super(controller);
+        this.controller = controller;
     }
 
     @Override
@@ -17,6 +19,7 @@ class MenuListener extends Controller implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (!controller.allInput) return;
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE && toggle == false) {
             view.addEscapeMenu();
             toggle = true;

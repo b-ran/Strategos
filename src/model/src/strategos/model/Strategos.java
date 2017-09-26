@@ -1,33 +1,42 @@
 package strategos.model;
 
-import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
+import strategos.*;
 import strategos.hexgrid.Hex;
+import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Strategos implements GameState {
-	private World world;
-	private ArrayList<Player> players = new ArrayList<>();
-	
+	private GameCollections world;
+	private ArrayList<UnitOwner> players = new ArrayList<>();
+	private UnitOwner turn;
+
+	private List<SaveState> saves = new ArrayList<>();
+
+
 	public Strategos(World world) {
-		
+		this.world = world;
 	}
 
 	public void save() {
-
+		if (saves.size() > 3) {
+			return;
+		}
+		saves.add(new SaveState(world, players, turn));
 	}
 
-	public void load() {
+	public void load(SaveInstance toRestore) {
 
+		this.world = toRestore.getWorld();
+		this.players = toRestore.getPlayers();
+		this.turn = toRestore.getTurn();
 	}
 
 	@Override
 	public Unit getUnitAt(MapLocation location) {
-		for (strategos.units.Unit u : world.getAllUnits()) {
+		for (Unit u : world.getAllUnits()) {
 			if (u.getPosition().getX() == location.getX() && u.getPosition().getY() == location.getY()) {
 				return u;
 			}
@@ -35,17 +44,30 @@ public class Strategos implements GameState {
 		return null;
 	}
 
+	@Override
 	public void move(Unit unit, Direction direction, int amount) {
 		amount = Math.min(amount, unit.getActionPoints());
-		Hex currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
+		MapLocation currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
 		while (amount > 0) {
 			if (!currentPosition.getNeighbour(direction).isInPlayArea() ||
 					getUnitAt(unit.getPosition()) != null) {
 				break;
 			}
 			currentPosition = currentPosition.getNeighbour(direction);
-			unit.move();
+			unit.move(direction);
 			amount--;
+			calculateVision(unit.getOwner());
+		}
+	}
+
+	private void calculateVision(UnitOwner player) {
+		for (Unit unit : player.getUnits()) {
+			List<MapLocation> sightRange = getTilesInRange(unit.getPosition(), 3);
+			for (MapLocation tile : sightRange) {
+				if (!player.getVisibleTiles().contains(tile)) {
+					player.getVisibleTiles().add(tile);
+				}
+			}
 		}
 	}
 
@@ -60,45 +82,100 @@ public class Strategos implements GameState {
 
 	@Override
 	public void attack(Unit unit, int targetX, int targetY) {
-		Unit target = getUnitAt(new MapLocation() {
-			@Override
-			public int getX() {
-				return targetX;
-			}
-
-			@Override
-			public int getY() {
-				return targetY;
-			}
-
-			@Override
-			public MapLocation getNeighbour(Direction direction) {
-				return null;
-			}
-		});
-		if (target == null) {
-			return;
-		}
-		unit.attack(target);
+		attack(unit, world.getMap().get(targetX, targetY));
 	}
 
+	@Override
 	public void wary(Unit unit) {
-
+		unit.wary();
 	}
 
+	@Override
 	public void entrench(Unit unit) {
-
+		unit.entrench();
 	}
 
 	@Override
 	public List<Unit> getUnitsInRange(MapLocation location, int range) {
-		Hex centre = world.getMap().get(location.getX(), location.getY());
-		return null;
+
+		List<Unit> units = new ArrayList<>();
+
+		if (location.getY() < 0 || location.getY() > world.getMap().getData().length ||
+				location.getX() < 0 || location.getY() > world.getMap().getData().length) {
+			return units;
+		}
+
+		MapLocation centre = world.getMap().get(location.getX(), location.getY());
+		for (int dX = -range; dX <= range; dX++) {
+
+			int minValue = Math.max(-range, -dX - range);
+			int maxValue = Math.min(range, -dX + range);
+
+			for (int dY = minValue; dY <= maxValue; dY++) {
+				int dZ = -dX - dY;
+
+				int x = centre.getX() + dX;
+				int y = centre.getY() + dZ;
+
+				Unit potentialUnit = getUnitAt(world.getMap().get(x, y));
+				if (!units.contains(potentialUnit) && potentialUnit != null) {
+					units.add(potentialUnit);
+				}
+			}
+		}
+		return units;
+	}
+
+	public List<MapLocation> getTilesInRange(MapLocation location, int range) {
+
+		List<MapLocation> tiles = new ArrayList<>();
+
+		MapLocation centre = world.getMap().get(location.getX(), location.getY());
+		for (int dX = -range; dX <= range; dX++) {
+
+			int minValue = Math.max(-range, -dX - range);
+			int maxValue = Math.min(range, -dX + range);
+
+			for (int dY = minValue; dY <= maxValue; dY++) {
+				int dZ = -dX - dY;
+
+				int x = centre.getX() + dX;
+				int y = centre.getY() + dZ;
+
+				MapLocation potentialTile = world.getMap().get(x, y);
+				if (!tiles.contains(potentialTile) && potentialTile != null) {
+					tiles.add(potentialTile);
+				}
+			}
+		}
+		return tiles;
+	}
+
+	@Override
+	public Terrain getTerrainAt(MapLocation location) {
+		return world.getMap().getTerrainAt(location);
 	}
 
 	@Override
 	public void nextTurn() {
+		/*for (int i = 0; i < turn.getUnits().size(); i++) {
+			if (!turn.getUnits().get(i).isAlive()) {
+				turn.getUnits().remove(i);
+			}
+		}*/
+		for (Unit unit : turn.getUnits()) {
+			// TODO: reset unit action points
+			// TODO: set "moved" to false
+		}
 
+		int turnIndex = players.indexOf(turn);
+		turnIndex = (turnIndex + 1) % players.size();
+		turn = players.get(turnIndex);
+	}
+
+	@Override
+	public GameCollections getWorld() {
+		return world;
 	}
 
 

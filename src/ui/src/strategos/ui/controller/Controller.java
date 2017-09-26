@@ -8,13 +8,33 @@ import strategos.units.Unit;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The type Controller.
+ */
 public class Controller {
 
+    /**
+     * The Entities.
+     */
     protected List<Unit> entities;
+    /**
+     * The Terrain.
+     */
     protected Terrain[][] terrain;
+    /**
+     * The View.
+     */
     protected View view;
-    private boolean start = true;
+    protected Boolean allInput = true;
 
+
+    /**
+     * Instantiates a new Controller.
+     *
+     * @param entities the units on grid
+     * @param terrain  the terrain that makes up grid
+     * @param view     the view
+     */
     public Controller(List<Unit> entities, Terrain[][] terrain, View view) {
         this.entities = entities;
         this.terrain = terrain;
@@ -22,13 +42,22 @@ public class Controller {
         setMenuListeners();
     }
 
+    /**
+     * Instantiates a new Controller Clone.
+     *
+     * @param controller the controller
+     */
     protected Controller(Controller controller) {
         this.entities = controller.entities;
         this.terrain = controller.terrain;
         this.view = controller.view;
+        this.allInput = controller.allInput;
     }
 
-    protected void setMenuListeners() {
+    /**
+     * Sets menu listeners based on status of view.
+     */
+    void setMenuListeners() {
         MenuComponent m = view.getMenuComponent();
         MenuComponent e = view.getEscapeMenuComponent();
         if (view.status() == false) {
@@ -46,8 +75,19 @@ public class Controller {
         }
     }
 
-    protected void setGameListeners() {
+    /**
+     * Sets game listeners based on status of view.
+     */
+    void setGameListeners() {
         GridComponent g = view.getGridComponent();
         g.addKeyListener(new MenuListener(this));
+    }
+
+    public void disableAllInput() {
+        allInput = false;
+    }
+
+    public void skipMenu() {
+        view.setGame();
     }
 }
