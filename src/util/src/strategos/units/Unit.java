@@ -2,9 +2,12 @@ package strategos.units;
 
 
 import strategos.*;
+import strategos.behaviour.Behaviour;
 
 
 public interface Unit {
+
+    void setBehaviour(Behaviour behaviour);
 
     MapLocation getPosition();
 
