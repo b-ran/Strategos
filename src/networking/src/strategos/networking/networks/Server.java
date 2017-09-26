@@ -11,7 +11,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import strategos.SaveInstance;
 import strategos.networking.Network;
-import strategos.networking.handlers.OutboundDataHandler;
+import strategos.networking.handlers.DataHandler;
 
 /**
  * The server used for transmitting objects
@@ -40,7 +40,7 @@ public class Server implements Network {
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						public void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new OutboundDataHandler(), serverHandler);
+							ch.pipeline().addLast(new DataHandler(), serverHandler);
 						}
 					})
 					.option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);

@@ -10,8 +10,20 @@ public class Tests {
 		NetworkingHandler client = new NetworkingHandlerImpl();
 		server.initialise(8080);
 		client.initialise("localhost", 8080);
-		server.run();
-		client.run();
+		new Thread(() -> {
+			try {
+				server.run();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}).run();
+		new Thread(() -> {
+			try {
+				client.run();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
 		try {
 			SaveInstance instance = SaveInstance.class.newInstance();
 			server.send(instance);

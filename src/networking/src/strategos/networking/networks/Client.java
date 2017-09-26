@@ -10,6 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import strategos.SaveInstance;
 import strategos.networking.Network;
+import strategos.networking.handlers.DataHandler;
 
 public class Client implements Network {
 	private String host;
@@ -33,7 +34,7 @@ public class Client implements Network {
 			b.handler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				public void initChannel(SocketChannel ch) throws InterruptedException {
-					ch.pipeline().addLast(clientHandler);
+					ch.pipeline().addLast(new DataHandler(), clientHandler);
 				}
 			});
 
