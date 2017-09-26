@@ -37,7 +37,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	
 	/**
 	 * Creates a new Hex object with pre-specified neighbours.
-	 * 
+	 *
 	 * @param east - The neighbouring Hex directly to the right.
 	 * @param west - The neighbouring Hex directly to the left.
 	 * @param northeast - The neighbouring Hex one to the right and one up.
@@ -61,7 +61,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	/**
 	 * Returns whether or not this Hex can be moved onto by a Unit.
 	 * Calls the isPassable method on the terrain stored by this tile.
-	 * 
+	 *
 	 * @return true if the tile can be acted upon or moved onto, false otherwise.
 	 */
 	@Override
@@ -75,7 +75,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	/**
 	 * Gets the neighbour at the specified orientation relative to this Hex.
 	 * Will return a NullHex if no neighbour exists at that position.
-	 *  
+	 *
 	 * @param direction - The Direction that the desired Hex is, relative to this Hex.
 	 * @return A Hex at the specified Direction.
 	 */
