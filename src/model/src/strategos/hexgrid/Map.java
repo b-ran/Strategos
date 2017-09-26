@@ -36,14 +36,52 @@ public class Map implements GameBoard {
 		map = newMap.clone();
 		this.radius = radius;
 	}
-	
-	/**
+
+	private Hex[][] constructMap(int diameter) {
+		Hex[][] map = new Hex[diameter][diameter];
+
+			for (int r = 0; r < diameter; r++) {
+					for (int q = 0; q < diameter; q++) {
+						map[q][r] = new Hex(q, r, false);
+					}
+		}
+		boolean left = true;
+		int offset = diameter / 2;
+		for (int r = 0; r < diameter; r++) {
+			for (int q = 0; q < diameter; q++) {
+				if (left && q < offset || (!left && q >= diameter - offset)) {
+					continue;
+				}
+				set(r, q, map, new Hex(r, q, true));
+			}
+			if (offset > 0 && left) {
+				offset--;
+			}
+			if (!left) {
+				offset++;
+			}
+			if (offset == 0) {
+				left = !left;
+			}
+
+		}
+
+		for (int r = 0; r < map.length; r++) {
+			for (int q = 0; q < map[r].length; q++) {
+				populateNeighbours(r, q, map);
+			}
+		}
+
+		return map;
+	}
+
+/*	*//**
 	 * Creates a 2D array of Hex objects. Has an offset of radius-1, where the top left
 	 * 		and bottom right corners are NullHexes, up to the size of the offset. This simulates
 	 * 		a grid of tessellated hexagons.
 	 * 
 	 * @return A 2D array of Hexes.
-	 */
+	 *//*
 	private Hex[][] constructMap(int diameter) {
 		
 		Hex[][] map = new Hex[diameter][diameter];
@@ -58,7 +96,8 @@ public class Map implements GameBoard {
 		for (int r = 0; r < diameter; r++) {
 			for (int q = 0; q < diameter; q++) {
 				if (left && q < offset || (!left && q >= diameter - offset)) {
-					continue;
+
+						continue;
 				}
 				set(r, q, map, new Hex(r, q, true));
 			}
@@ -78,8 +117,14 @@ public class Map implements GameBoard {
 				populateNeighbours(r, q, map);
 			}
 		}
+		for (int r = 0; r < map.length; r++) {
+			for (int q = 0; q < map[r].length; q++) {
+				System.out.print(map[r][q]);
+			}
+			System.out.println();
+		}
 		return map;
-	}
+	}*/
 	
 	/**
 	 * For a given Hex at (r, q), calculate all the neighbours using the axial coordinates system.
@@ -136,5 +181,10 @@ public class Map implements GameBoard {
 	public int getRadius() {
 		return radius;
 	}
-	
+
+	@Override
+	public Terrain getTerrainAt(MapLocation location) {
+		return null;
+	}
+
 }
