@@ -8,6 +8,7 @@ import java.util.List;
 public class UnitOwnerTestObj implements UnitOwner {
 
     private List<Unit> units = new ArrayList<>();
+    private boolean npc = false;
 
     public UnitOwnerTestObj() {
     }
@@ -22,12 +23,18 @@ public class UnitOwnerTestObj implements UnitOwner {
     }
 
     @Override
-    public List<MapLocation> getVisibileTiles() {
+    public List<MapLocation> getVisibleTiles() {
         return null;
     }
 
     @Override
     public boolean isNPC() {
-        return false;
+        return npc;
     }
+
+    public void setAsNpc() {
+        npc = true;
+    }
+
+
 }

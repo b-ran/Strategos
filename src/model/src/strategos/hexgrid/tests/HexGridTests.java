@@ -9,7 +9,7 @@ import strategos.hexgrid.Map;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Tests {
+public class HexGridTests {
 
 	/**
 	 * Ensures that creating the map works as expected, and that all neighbours of a given Hex

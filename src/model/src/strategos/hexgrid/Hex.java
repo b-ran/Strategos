@@ -37,7 +37,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	
 	/**
 	 * Creates a new Hex object with pre-specified neighbours.
-	 * 
+	 *
 	 * @param east - The neighbouring Hex directly to the right.
 	 * @param west - The neighbouring Hex directly to the left.
 	 * @param northeast - The neighbouring Hex one to the right and one up.
@@ -61,33 +61,21 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	/**
 	 * Returns whether or not this Hex can be moved onto by a Unit.
 	 * Calls the isPassable method on the terrain stored by this tile.
-	 * If this Hex is a NullHex, this method will always return false.
-	 * 
+	 *
 	 * @return true if the tile can be acted upon or moved onto, false otherwise.
 	 */
 	@Override
 	public boolean isInPlayArea() {
 		if (isPlayable) {
-			// return if terrain is mountain or not
+			// return if the terrain can be moved over
 		}
 		return isPlayable;
 	}
-	
-	/**
-	 * Gets the a Map of terrain Modifiers to integers, specifying what statistics
-	 * 		a given unit will be altered by the terrain.  
-	 * @return a Map of Modifier to Integer of terrain modifiers.
-	 */
-	public Map<Modifier, Integer> getTerrainModifiers() {
-		// TODO: implement modifier calls on the terrain field.
-		throw new FeatureNotImplementedException("Terrain not yet implemented");
-		//return null;
-	}
-	
+
 	/**
 	 * Gets the neighbour at the specified orientation relative to this Hex.
 	 * Will return a NullHex if no neighbour exists at that position.
-	 *  
+	 *
 	 * @param direction - The Direction that the desired Hex is, relative to this Hex.
 	 * @return A Hex at the specified Direction.
 	 */
@@ -123,7 +111,10 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	
 	@Override
 	public String toString() {
-		return "[" + getX() + "," + getY() + "]";
+		if (isInPlayArea()) {
+			return "[" + getX() + "," + getY() + "]";
+		}
+		return "[N|N]";
 	}
 
 	/**
