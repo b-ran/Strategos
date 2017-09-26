@@ -1,5 +1,8 @@
 import strategos.Direction;
 import strategos.MapLocation;
+import strategos.terrain.Terrain;
+
+import java.util.Map;
 
 public class MapLocationTestObj implements MapLocation{
 
@@ -34,5 +37,20 @@ public class MapLocationTestObj implements MapLocation{
     @Override
     public boolean isInPlayArea() {
         return false;
+    }
+
+    @Override
+    public Terrain getTerrain() {
+        return null;
+    }
+
+    @Override
+    public void setTerrain(Terrain terrain) {
+
+    }
+
+    @Override
+    public Map<Direction, MapLocation> getNeighbours() {
+        return null;
     }
 }

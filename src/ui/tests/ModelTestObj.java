@@ -1,6 +1,4 @@
-import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
+import strategos.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
@@ -13,7 +11,7 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
-    public void load(int saveIndex) {
+    public void load(SaveInstance toRestore) {
 
     }
 
@@ -65,5 +63,10 @@ public class ModelTestObj implements GameState {
     @Override
     public void nextTurn() {
 
+    }
+
+    @Override
+    public GameCollections getWorld() {
+        return null;
     }
 }
