@@ -15,7 +15,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static strategos.Direction.*;
 
-public class Tests {
+public class ModelTests {
 
 	@Test
 	public void inRangeTest_1() {
@@ -64,5 +64,26 @@ public class Tests {
 			assertTrue(hexes.contains(entry.getValue().getNeighbour(SOUTH_WEST)));
 		}
 	}
+
+	@Test
+	public void inRangeTest_3() {
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+
+		GameCollections world = gameState.getWorld();
+
+		MapLocation mid = world.getMap().get(3, 3);
+
+		List<MapLocation> hexes = gameState.getTilesInRange(mid, 3);
+
+		for (int x = 0; x < world.getMap().getData().length; x++) {
+			for (int y = 0; y < world.getMap().getData()[x].length; y++) {
+				if (world.getMap().getData()[x][y].isInPlayArea()) {
+					assertTrue(hexes.contains(world.getMap().getData()[x][y]));
+				}
+			}
+		}
+	}
+
+
 
 }

@@ -27,11 +27,7 @@ public class Strategos implements GameState {
 		saves.add(new SaveState(world, players, turn));
 	}
 
-	public void load(int saveIndex) {
-		if (saves.size() <= saveIndex) {
-			return;
-		}
-		SaveState toRestore = saves.get(saveIndex);
+	public void load(SaveInstance toRestore) {
 
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();

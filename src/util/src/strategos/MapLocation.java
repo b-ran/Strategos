@@ -2,7 +2,7 @@ package strategos;
 
 import java.util.Map;
 
-public interface MapLocation {
+public interface MapLocation extends Paintable{
 
     int getX();
 
