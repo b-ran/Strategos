@@ -1,11 +1,12 @@
 package mapcreation.mapgeneration;
 
-import mapcreation.mapgeneration.terrain.*;
+import mapcreation.mapgeneration.terrain.Forest;
+import mapcreation.mapgeneration.terrain.Hill;
+import mapcreation.mapgeneration.terrain.Mountain;
+import mapcreation.mapgeneration.terrain.Plains;
 import mapcreation.noisegeneration.NoiseGenerator;
 import strategos.Paintable;
 import strategos.terrain.Terrain;
-
-import java.util.Random;
 
 /**
  * Created by Shaun Sinclair
@@ -40,42 +41,16 @@ public class TerrainGeneration {
      * Frequency of different terrain types
      * Highest value it occurs at
      */
-    private double plainsFreq = 0.5, hillFreq = 0.2 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
+    private double plainsFreq = 0.5, hillFreq = 0.2 + plainsFreq, mountainFreq = 0.3 + hillFreq + plainsFreq;
 
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each
      *
      * @param hexMap 2D array(Square) of paintable objects
-     * @param seed   Seed for maps random so a map can be played more than once
      * @return 2D array of painted objects
      */
     public Paintable[][] populateMap(Paintable[][] hexMap, int seed) {
-        //Map must be min of 15 in size, square
-        if (hexMap.length != hexMap[0].length || hexMap.length < 15) {
-            throw new RuntimeException("Map to small");
-        }
-        //Dimensions for noise map
-        int width = hexMap[0].length, height = hexMap.length;
-        //Create map and fills it with noise values
-        double[][] mapTopology = fillMap(width, height, seed);
-        boolean[][] forestMap = fillForest(width, height, seed);
 
-        return setTerrain(mapTopology, forestMap, hexMap);
-    }
-
-    /**
-     * Takes a square 2D array of paintable objects and applies generated terrain to each
-     *
-     * @param hexMap 2D array(Square) of paintable objects
-     * @return 2D array of painted objects
-     */
-    public Paintable[][] populateMap(Paintable[][] hexMap) {
-        Random rand = new Random();
-        int seed = rand.nextInt();
-        //Map must be min of 15 in size, square
-        if (hexMap.length != hexMap[0].length || hexMap.length < 15) {
-            throw new RuntimeException("Map to small");
-        }
         //Dimensions for noise map
         int width = hexMap[0].length, height = hexMap.length;
         //Create map and fills it with noise values
@@ -169,19 +144,13 @@ public class TerrainGeneration {
      * @return hexMap with terrain filled in
      */
     private Paintable[][] setTerrain(double[][] mapTopology, boolean[][] forestMap, Paintable[][] hexMap) {
-        //TODO check if this will work as the hexes are off by a margin
         if (mapTopology.length != hexMap.length || mapTopology[0].length != hexMap[0].length)
             throw new RuntimeException("mapTopology resolution is incorrect.");
         for (int x = 0; x < hexMap.length; x++) {
             for (int y = 0; y < hexMap[0].length; y++) {
-                if (hexMap[x][y].isInPlayArea()) {
-                    hexMap[x][y].setTerrain(getTerrain(mapTopology[x][y], forestMap[x][y]));
-                } else {
-                    hexMap[x][y].setTerrain(new Mountain());
-                }
+                hexMap[x][y].setTerrain(getTerrain(mapTopology[x][y], forestMap[x][y]));
             }
         }
-        hexMap = generateRiver(hexMap);
         return hexMap;
     }
 
@@ -203,23 +172,6 @@ public class TerrainGeneration {
         } else {
             return new Mountain();
         }
-    }
-
-    /**
-     * Generates a river going from top left to bottom right with some variation
-     *
-     * @param hexMap Map to put rivers into
-     * @return hexMap with river
-     */
-    private Paintable[][] generateRiver(Paintable[][] hexMap) {
-        int width = hexMap.length, height = hexMap[0].length;
-        int x = 0, y = 0;
-        for (int i = 0; i < width + height - 2; i++) {
-            if (i % 2 == 0) x++;
-            else y++;
-            hexMap[x][y].setTerrain(new River());
-        }
-        return hexMap;
     }
 
 }
