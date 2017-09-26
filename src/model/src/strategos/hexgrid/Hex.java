@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Daniel Pinfold
  *
  */
-public class Hex implements Paintable, Graphical, MapLocation {
+public class Hex implements Graphical, MapLocation {
 	private Map<Direction, MapLocation> neighbours;
 	
 	private int xIndex;
@@ -66,9 +66,11 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	 */
 	@Override
 	public boolean isInPlayArea() {
-		if (isPlayable) {
-			// return if the terrain can be moved over
+		/*if (isPlayable) {
+			// TODO: return if the terrain can be moved over
+			return true;
 		}
+		return false;*/
 		return isPlayable;
 	}
 
@@ -84,12 +86,6 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	}
 	
 	public void addNeighbour(Direction direction, MapLocation newNeighbour) {
-		if (neighbours.get(direction) != null) {
-			throw new IllegalArgumentException("Cannot overwrite a neighbour");
-		}
-		if (neighbours.size() == 6) {
-			throw new RuleViolationException("A Hex cannot have more than 6 neighbours");
-		}
 		neighbours.put(direction, newNeighbour);
 	}
 
