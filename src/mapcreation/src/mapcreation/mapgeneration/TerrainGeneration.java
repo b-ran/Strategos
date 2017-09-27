@@ -106,8 +106,6 @@ public class TerrainGeneration {
                 noise = (noise + 10) / 20;
                 //Shifts the values of map
                 noise = (noise / 100) * flatness;
-                if ((noise < -10 && seed % 2 == 0 && seed < 11) || (noise > 10 && seed % 2 == 0 && seed < 11))
-                    System.out.println(noise + "\n" + seed);
                 mapTopology[x][y] = noise;
             }
         }
@@ -133,11 +131,11 @@ public class TerrainGeneration {
      * @return If the tile is forested or not
      */
     private boolean[][] fillForest(int width, int height, int seed) {
-        //Calls the noise generation class to produce a field of noiseutil(seed incremented to provide some deviation from the topologyMap)
+        //Calls the noise generation class to produce a field of noise(seed incremented to provide some deviation from the topologyMap)
         NoiseGenerator generatedNoise = new NoiseGenerator(512, 0.01, seed + 1);
         boolean[][] forestMap = new boolean[width * xRes][height * yRes];
         double noise;
-        //Fill forestMap with noiseutil
+        //Fill forestMap with noise
         for (int x = 0; x < forestMap.length; x++) {
             for (int y = 0; y < forestMap[0].length; y++) {
                 noise = generatedNoise.getNoise(x, y);
@@ -193,11 +191,7 @@ public class TerrainGeneration {
      */
     private Terrain getTerrain(double value, boolean forest) {
         if (value < plainsFreq) {
-            if (forest) {
-                return new Forest();
-            } else {
-                return new Plains();
-            }
+            return forest ? new Forest() : new Plains();
         } else if (value < hillFreq) {
             return new Hill();
         } else {

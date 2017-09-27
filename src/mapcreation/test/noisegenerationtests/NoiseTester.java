@@ -48,8 +48,7 @@ public class NoiseTester {
         double[][] testMap = TestResources.testMap;
         for (int x = 0; x < map.length; x++) {
             for (int y = 0; y < map[0].length; y++) {
-                if (map[x][y] != testMap[x][y]) System.out.println(map[x][y] + "!=" + testMap[x][y]);
-
+                assert (map[x][y] == testMap[x][y]);
             }
         }
     }
@@ -68,16 +67,6 @@ public class NoiseTester {
         }
     }
 
-    @Test
-    public void genericTest() {
-        int width = 7, height = 7;
-        int x = 0, y = 0;
-        for (int i = 0; i < width + height - 2; i++) {
-            if (i % 2 == 0) x++;
-            else y++;
-            System.out.println("[" + x + "][" + y + "]");
-        }
 
-    }
 
 }
