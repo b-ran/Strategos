@@ -13,10 +13,16 @@ public class SaveState implements SaveInstance {
 	private final UnitOwner turn;
 
 	public SaveState(GameCollections world, ArrayList<UnitOwner> players, UnitOwner turn) {
-		this.world = new World(new Map(world.getMap().getData(), world.getMap().getRadius()),
+		this.world = new World(
+				new Map(world.getMap().getData(),
+				world.getMap().getRadius()),
 				new ArrayList<>(world.getAllUnits()));
 
 		this.players = new ArrayList<>(players);
+
+		for (UnitOwner p : this.players) {
+			p.setUnits(p.getUnits());
+	}
 		this.turn = this.players.get(players.indexOf(turn));
 	}
 
