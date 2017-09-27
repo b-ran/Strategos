@@ -8,6 +8,11 @@ import strategos.units.Unit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
+ * 		libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
+ * 		of GameCollections and UnitOwners.
+ */
 public class Strategos implements GameState {
 	private GameCollections world;
 	private ArrayList<UnitOwner> players = new ArrayList<>();

@@ -76,8 +76,7 @@ public class Hex implements Graphical, MapLocation {
 
 	/**
 	 * Gets the neighbour at the specified orientation relative to this Hex.
-	 * Will return a NullHex if no neighbour exists at that position.
-	 *  
+	 *
 	 * @param direction - The Direction that the desired Hex is, relative to this Hex.
 	 * @return A Hex at the specified Direction.
 	 */
