@@ -102,8 +102,4 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 	public int getActionPoints() {
 		return behaviour.getActionPoints();
 	}
-
-	public void setActionPoints(int actionPoints) {
-		this.actionPoints = actionPoints;
-	}
 }
