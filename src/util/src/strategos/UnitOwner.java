@@ -11,4 +11,6 @@ public interface UnitOwner {
 	public List<MapLocation> getVisibleTiles();
 
 	public boolean isNPC();
+
+	public void setUnits(List<Unit> newUnits);
 }

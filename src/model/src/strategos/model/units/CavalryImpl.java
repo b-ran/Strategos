@@ -13,7 +13,7 @@ import strategos.units.Unit;
  */
 public class CavalryImpl extends UnitImpl implements Cavalry {
 
-	public CavalryImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public CavalryImpl(UnitOwner owner) {
+		super(owner);
 	}
 }
