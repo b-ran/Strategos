@@ -1,8 +1,9 @@
 package strategos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public interface SaveInstance {
+public interface SaveInstance extends Serializable {
 
 	public GameCollections getWorld();
 
