@@ -1,17 +1,14 @@
 package strategos.model;
 
 import org.junit.Test;
-import strategos.Direction;
-import strategos.GameCollections;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 import strategos.hexgrid.Map;
 import strategos.model.Player;
 import strategos.model.Strategos;
 import strategos.model.World;
-import strategos.model.tests.util.TestBehaviour;
+import util.TestBehaviour;
 import strategos.model.units.SwordsmenImpl;
 import strategos.model.units.UnitImpl;
 import strategos.terrain.Mountain;
@@ -449,6 +446,43 @@ public class ModelTests {
 		gameState.entrench(unit);
 
 		assertTrue(b.entrenched);
+	}
+
+	@Test
+	public void saveTest_1() {
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+
+		GameCollections world = gameState.getWorld();
+
+		Player p = new Player(false);
+		gameState.getPlayers().add(p);
+
+		Unit unit = new SwordsmenImpl(p);
+		TestBehaviour b = new TestBehaviour(gameState, unit);
+
+		unit.setBehaviour(b);
+
+		unit.setPosition(world.getMap().get(3, 3));
+
+		p.getUnits().add(unit);
+		world.getAllUnits().add(unit);
+
+		gameState.move(unit, EAST, 1);
+
+		assertTrue(unit.getPosition().getX() == 4);
+
+		unit = gameState.getPlayers().get(0).getUnits().get(0);
+		System.out.println(unit.getPosition());
+
+		SaveInstance save = new SaveState(world, gameState.getPlayers(), p);
+
+		gameState.load(save);
+
+		unit = gameState.getPlayers().get(0).getUnits().get(0);
+		System.out.println(unit.getPosition());
+
+		assertTrue(unit.getPosition().getX() == 3);
+
 	}
 
 }
