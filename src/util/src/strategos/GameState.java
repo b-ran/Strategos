@@ -3,6 +3,7 @@ package strategos;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface GameState {
@@ -80,7 +81,7 @@ public interface GameState {
 
 	public GameCollections getWorld();
 
-	public List<UnitOwner> getPlayers();
+	public ArrayList<UnitOwner> getPlayers();
 
 	public UnitOwner getCurrentTurn();
 }

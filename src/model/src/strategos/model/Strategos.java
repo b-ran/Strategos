@@ -30,7 +30,7 @@ public class Strategos implements GameState {
 	public void load(SaveInstance toRestore) {
 
 		this.world = toRestore.getWorld();
-		this.players = toRestore.getPlayers();
+		this.players = new ArrayList<>(toRestore.getPlayers());
 		this.turn = toRestore.getTurn();
 	}
 
@@ -187,7 +187,7 @@ public class Strategos implements GameState {
 	}
 
 	@Override
-	public List<UnitOwner> getPlayers() {
+	public ArrayList<UnitOwner> getPlayers() {
 		return players;
 	}
 
