@@ -12,7 +12,7 @@ public interface Paintable {
      *
      * @return true if the Paintable is in the play area, false, otherwise
      */
-    public boolean isInPlayArea();
+    boolean isInPlayArea();
 
     /**
      * Gets the terrain contained by this Paintable.
