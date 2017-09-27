@@ -1,4 +1,4 @@
-package strategos.model.tests.util;
+package util;
 
 import strategos.Direction;
 import strategos.GameState;
