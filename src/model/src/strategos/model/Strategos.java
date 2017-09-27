@@ -1,8 +1,8 @@
 package strategos.model;
 
 import strategos.*;
-import strategos.hexgrid.Hex;
 import strategos.terrain.Terrain;
+import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
@@ -18,11 +18,14 @@ public class Strategos implements GameState {
 	private ArrayList<UnitOwner> players = new ArrayList<>();
 	private UnitOwner turn;
 
-	private List<SaveState> saves = new ArrayList<>();
+	private List<SaveInstance> saves = new ArrayList<>();
 
-
-	public Strategos(World world) {
+	public Strategos(World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
 		this.world = world;
+		players.add(playerOne);
+		players.add(playerTwo);
+		players.add(barbarians);
+		turn = playerOne;
 	}
 
 	public void save() {
@@ -54,8 +57,7 @@ public class Strategos implements GameState {
 		amount = Math.min(amount, unit.getActionPoints());
 		MapLocation currentPosition = unit.getPosition();
 		while (amount != 0) {
-			if (!currentPosition.getNeighbour(direction).isInPlayArea() ||
-					getUnitAt(currentPosition.getNeighbour(direction)) != null) {
+			if (!currentPosition.getNeighbour(direction).isInPlayArea() || !canPassUnit(unit, currentPosition, direction)) {
 				break;
 			}
 			currentPosition = currentPosition.getNeighbour(direction);
@@ -65,6 +67,14 @@ public class Strategos implements GameState {
 			amount--;
 			calculateVision(unit.getOwner());
 		}
+	}
+
+	private boolean canPassUnit(Unit mover, MapLocation location, Direction direction) {
+		Unit u = getUnitAt(location.getNeighbour(direction));
+		if (u != null) {
+			return (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
+		}
+		return true;
 	}
 
 	private void calculateVision(UnitOwner player) {
@@ -194,6 +204,11 @@ public class Strategos implements GameState {
 	@Override
 	public ArrayList<UnitOwner> getPlayers() {
 		return players;
+	}
+
+	@Override
+	public List<SaveInstance> getSaves() {
+		return saves;
 	}
 
 	@Override
