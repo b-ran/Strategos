@@ -1,4 +1,4 @@
-package strategos.model.tests;
+package strategos.model;
 
 import org.junit.Test;
 import strategos.Direction;

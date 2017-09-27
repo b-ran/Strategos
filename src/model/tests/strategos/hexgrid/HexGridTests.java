@@ -1,4 +1,4 @@
-package strategos.hexgrid.tests;
+package strategos.hexgrid;
 
 import org.junit.Test;
 import strategos.Direction;
