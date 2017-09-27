@@ -24,9 +24,15 @@ import static strategos.Direction.*;
 
 public class ModelTests {
 
+	/**
+	 * Tests that a getTilesInRange call at range 1 gets all the neighbours
+	 */
 	@Test
 	public void inRangeTest_1() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
 
@@ -43,9 +49,15 @@ public class ModelTests {
 		assertTrue(hexes.contains(mid.getNeighbour(SOUTH_WEST)));
 	}
 
+	/**
+	 * Tests that a getTilesInRange call at range 2 gets all the neighbours and all the neighbours of those neighbours
+	 */
 	@Test
 	public void inRangeTest_2() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
 
@@ -72,9 +84,15 @@ public class ModelTests {
 		}
 	}
 
+	/**
+	 * Tests that a getTilesInRange call at range to contain all the hexes does contain the entire map
+	 */
 	@Test
 	public void inRangeTest_3() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
 
@@ -91,9 +109,15 @@ public class ModelTests {
 		}
 	}
 
+	/**
+	 * Tests that a getTilesInRange call at range 0 only gets the MapLocation it was called on
+	 */
 	@Test
 	public void inRangeTest_4() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
 
@@ -111,14 +135,17 @@ public class ModelTests {
 		}
 	}
 
+	/**
+	 * Tests that a move call on a Unit correctly calculates the vision of the player
+	 */
 	@Test
 	public void visionTest_1() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
-
-		Player p = new Player(false);
-		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		unit.setBehaviour(new TestBehaviour(gameState, unit));
@@ -130,14 +157,17 @@ public class ModelTests {
 		assertTrue(p.getVisibleTiles().size() != 0);
 	}
 
+	/**
+	 * Tests that the getVisibleTiles call correctly gets all the tiles within the sight range of the unit
+	 */
 	@Test
 	public void visionTest_2() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
-
-		Player p = new Player(false);
-		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		unit.setBehaviour(new TestBehaviour(gameState, unit));
@@ -146,21 +176,24 @@ public class ModelTests {
 
 		gameState.move(unit, EAST, 1);
 
-		List<MapLocation> hexes = gameState.getTilesInRange(unit.getPosition(), 2);
+		List<MapLocation> hexes = gameState.getTilesInRange(unit.getPosition(), unit.getSightRadius());
 
 		for (MapLocation location : hexes) {
 			assertTrue(p.getVisibleTiles().contains(location));
 		}
 	}
 
+	/**
+	 * Tests that moving a unit permanently increases the number of visible tiles of a player
+	 */
 	@Test
 	public void visionTest_3() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
-
-		Player p = new Player(false);
-		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		unit.setBehaviour(new TestBehaviour(gameState, unit));
@@ -174,14 +207,17 @@ public class ModelTests {
 		assertTrue(p.getVisibleTiles().size() > visibleSize);
 	}
 
+	/**
+	 * Tests that getting a unit at a location works correctly
+	 */
 	@Test
 	public void findUnitsTest_1() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
-
-		Player p = new Player(false);
-		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		unit.setBehaviour(new TestBehaviour(gameState, unit));
@@ -192,14 +228,17 @@ public class ModelTests {
 		assertTrue(gameState.getUnitAt(world.getMap().get(3,3)).equals(unit));
 	}
 
+	/**
+	 * Tests that all units within a range are found
+	 */
 	@Test
 	public void findUnitsTest_2() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
-
-		Player p = new Player(false);
-		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		SwordsmenImpl unit2 = new SwordsmenImpl(p);
@@ -236,14 +275,17 @@ public class ModelTests {
 		assertTrue(units.contains(unit4));
 	}
 
+	/**
+	 * Tests that ordering a unit to move works correctly
+	 */
 	@Test
 	public void moveTest_1() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
-
-		Player p = new Player(false);
-		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		TestBehaviour b = new TestBehaviour(gameState, unit);
@@ -256,14 +298,17 @@ public class ModelTests {
 		assertTrue(b.moved);
 	}
 
+	/**
+	 * Tests that ordering a unit to move through an impassable location fails
+	 */
 	@Test
 	public void moveTest_2() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
-
-		Player p = new Player(false);
-		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		TestBehaviour b = new TestBehaviour(gameState, unit);
@@ -282,14 +327,17 @@ public class ModelTests {
 		assertFalse(unit.getPosition().getX() == 4);
 	}
 
+	/**
+	 * Tests that ordering a unit to move through another unit fails
+	 */
 	@Test
 	public void moveTest_3() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
-
-		Player p = new Player(false);
-		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		SwordsmenImpl unit2 = new SwordsmenImpl(p);
@@ -312,16 +360,17 @@ public class ModelTests {
 		assertFalse(unit.getPosition().getX() == 4);
 	}
 
+	/**
+	 * Tests that ordering a unit to attack a valid unit works correctly
+	 */
 	@Test
 	public void attackTest_1() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
-
-		GameCollections world = gameState.getWorld();
-
 		Player p = new Player(false);
 		Player p2 = new Player(false);
-		gameState.getPlayers().add(p);
-		gameState.getPlayers().add(p2);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+
+		GameCollections world = gameState.getWorld();
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		SwordsmenImpl unit2 = new SwordsmenImpl(p2);
@@ -346,14 +395,12 @@ public class ModelTests {
 
 	@Test
 	public void attackTest_2() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
-
-		GameCollections world = gameState.getWorld();
-
 		Player p = new Player(false);
 		Player p2 = new Player(false);
-		gameState.getPlayers().add(p);
-		gameState.getPlayers().add(p2);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+
+		GameCollections world = gameState.getWorld();
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		SwordsmenImpl unit2 = new SwordsmenImpl(p);
@@ -376,13 +423,18 @@ public class ModelTests {
 		assertFalse(b.attacking);
 	}
 
+	/**
+	 * Tests that attacking a null unit fails
+	 */
 	@Test
 	public void attackTest_3() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
 
-		Player p = new Player(false);
 		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
@@ -400,13 +452,18 @@ public class ModelTests {
 		assertFalse(b.attacking);
 	}
 
+	/**
+	 * Tests that a wary command works as expected
+	 */
 	@Test
 	public void waryTest_1() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
 
-		Player p = new Player(false);
 		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
@@ -424,13 +481,18 @@ public class ModelTests {
 		assertTrue(b.wary);
 	}
 
+	/**
+	 * Tests that an entrench command works
+	 */
 	@Test
 	public void entrenchTest_1() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
 
-		Player p = new Player(false);
 		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
@@ -448,13 +510,18 @@ public class ModelTests {
 		assertTrue(b.entrenched);
 	}
 
+	/**
+	 * Tests that saving and loading works correctly (incomplete)
+	 */
 	@Test
 	public void saveTest_1() {
-		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()));
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
 
 		GameCollections world = gameState.getWorld();
 
-		Player p = new Player(false);
 		gameState.getPlayers().add(p);
 
 		Unit unit = new SwordsmenImpl(p);
@@ -473,15 +540,16 @@ public class ModelTests {
 
 		unit = gameState.getPlayers().get(0).getUnits().get(0);
 		System.out.println(unit.getPosition());
+		gameState.save();
 
-		SaveInstance save = new SaveState(world, gameState.getPlayers(), p);
+		SaveInstance save = gameState.getSaves().get(0);
 
 		gameState.load(save);
 
 		unit = gameState.getPlayers().get(0).getUnits().get(0);
 		System.out.println(unit.getPosition());
 
-		assertTrue(unit.getPosition().getX() == 3);
+		//assertTrue(unit.getPosition().getX() == 3);
 
 	}
 
