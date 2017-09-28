@@ -36,6 +36,9 @@ public class TerrainGeneration {
      */
     private int forested = 90;
 
+    private int octaves = 512;
+    private double persistence = 0.01;
+
     /**
      * Frequency of different terrain types
      * Highest value it occurs at
@@ -95,7 +98,7 @@ public class TerrainGeneration {
      */
     private double[][] fillMap(int width, int height, int seed) {
         //Calls the noise generation class to produce a field of noise
-        NoiseGenerator generatedNoise = new NoiseGenerator(512, 0.01, seed);
+        NoiseGenerator generatedNoise = new NoiseGenerator(octaves, persistence, seed);
         //Create a topology map to fill
         double[][] mapTopology = new double[width * xRes][height * yRes];
         double noise;

@@ -66,15 +66,12 @@ public class MapTester {
 
     }
 
+    /**
+     * Used to check bits of code work properly while isolated
+     */
     @Test
     public void genericTest() {
-        int width = 7, height = 7;
-        int x = 0, y = 0;
-        for (int i = 0; i < width + height - 2; i++) {
-            if (i % 2 == 0) x++;
-            else y++;
-            System.out.println("[" + x + "][" + y + "]");
-        }
+
     }
 
 }
