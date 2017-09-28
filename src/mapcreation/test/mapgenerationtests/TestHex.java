@@ -1,12 +1,12 @@
 package mapgenerationtests;
 
-
+import mapcreation.mapgeneration.terrain.TerrainTile;
 import strategos.Paintable;
 import strategos.terrain.Terrain;
 
 public class TestHex implements Paintable {
     private boolean isInPlayArea;
-    private Terrain terrain;
+    private TerrainTile terrain;
 
     TestHex(boolean isInPlayArea) {
         this.isInPlayArea = isInPlayArea;
@@ -18,14 +18,17 @@ public class TestHex implements Paintable {
     }
 
     String getTerrain() {
-        return terrain.toString();
+        return isInPlayArea ? terrain.toString() : "";
+    }
+
+    public void setTerrain(TerrainTile terrain) {
+        if (isInPlayArea && this.terrain == null) {
+            this.terrain = terrain;
+        }
     }
 
     @Override
-    public void setTerrain(Terrain terrain) {
-        if (isInPlayArea && this.terrain == null) {
-            System.out.println("1");
-            this.terrain = terrain;
-        }
+    public void setTerrain(Terrain t) {
+
     }
 }

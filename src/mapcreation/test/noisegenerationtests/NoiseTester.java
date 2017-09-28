@@ -17,6 +17,7 @@ public class NoiseTester {
         double max = Double.MIN_VALUE, min = Double.MAX_VALUE;
         double noise;
         int seed;
+
         for (int i = 0; i < 100; i++) {
             seed = (int) (Math.random() * 255);
             NoiseGenerator generatedNoise = new NoiseGenerator(64, 0.01, seed);
@@ -33,7 +34,7 @@ public class NoiseTester {
                 }
             }
         }
-        //Includes a little leeway
+        //Includes a little leeway due to float rounding being weird
         assert (max < 1.02);
         assert (min > -0.02);
 

@@ -175,7 +175,7 @@ public class TerrainGeneration {
                 if (hexMap[x][y].isInPlayArea()) {
                     hexMap[x][y].setTerrain(getTerrain(mapTopology[x][y], forestMap[x][y]));
                 } else {
-                    hexMap[x][y].setTerrain(new Mountain());
+                    hexMap[x][y].setTerrain(new MountainTile());
                 }
             }
         }
@@ -187,15 +187,15 @@ public class TerrainGeneration {
      * Samples the generated topology and sets the terrain of the paintable object
      *
      * @param value Noise at that point
-     * @return Terrain specific to that hex
+     * @return TerrainTile specific to that hex
      */
     private Terrain getTerrain(double value, boolean forest) {
         if (value < plainsFreq) {
-            return forest ? new Forest() : new Plains();
+            return forest ? new ForestTile() : new PlainsTile();
         } else if (value < hillFreq) {
-            return new Hill();
+            return new HillTile();
         } else {
-            return new Mountain();
+            return new MountainTile();
         }
     }
 
@@ -211,7 +211,7 @@ public class TerrainGeneration {
         for (int i = 0; i < width + height - 2; i++) {
             if (i % 2 == 0) x++;
             else y++;
-            hexMap[x][y].setTerrain(new River());
+            hexMap[x][y].setTerrain(new RiverTile());
         }
         return hexMap;
     }
