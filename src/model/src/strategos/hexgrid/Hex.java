@@ -1,8 +1,10 @@
 package strategos.hexgrid;
 
 
-import strategos.*;
-import strategos.exception.FeatureNotImplementedException;
+import strategos.Direction;
+import strategos.Graphical;
+import strategos.MapLocation;
+import strategos.Paintable;
 import strategos.exception.RuleViolationException;
 import strategos.terrain.Terrain;
 
@@ -20,10 +22,10 @@ public class Hex implements Graphical, MapLocation {
 	
 	private int xIndex;
 	private int yIndex;
-	
+
 	private Terrain terrain;
 	private final boolean isPlayable;
-	
+
 	/**
 	 * Creates a new Hex object, initialising the neighbours collection.
 	 * This constructor assumes that the neighbours will be added externally.
@@ -34,10 +36,10 @@ public class Hex implements Graphical, MapLocation {
 		neighbours = new HashMap<>();
 		this.isPlayable = isPlayable;
 	}
-	
+
 	/**
 	 * Creates a new Hex object with pre-specified neighbours.
-	 * 
+	 *
 	 * @param east - The neighbouring Hex directly to the right.
 	 * @param west - The neighbouring Hex directly to the left.
 	 * @param northeast - The neighbouring Hex one to the right and one up.
@@ -57,11 +59,11 @@ public class Hex implements Graphical, MapLocation {
 		neighbours.put(Direction.SOUTH_EAST, southeast);
 		neighbours.put(Direction.SOUTH_WEST, southwest);
 	}
-	
+
 	/**
 	 * Returns whether or not this Hex can be moved onto by a Unit.
 	 * Calls the isPassable method on the terrain stored by this tile.
-	 * 
+	 *
 	 * @return true if the tile can be acted upon or moved onto, false otherwise.
 	 */
 	@Override
@@ -103,7 +105,7 @@ public class Hex implements Graphical, MapLocation {
 	public Map<Direction, MapLocation> getNeighbours() {
 		return neighbours;
 	}
-	
+
 	@Override
 	public String toString() {
 		if (isInPlayArea()) {
