@@ -3,7 +3,6 @@ package strategos.hexgrid;
 import strategos.Direction;
 import strategos.GameBoard;
 import strategos.MapLocation;
-import strategos.terrain.Mountain;
 import strategos.terrain.Terrain;
 
 import java.util.ArrayList;
@@ -75,57 +74,6 @@ public class Map implements GameBoard {
 		return map;
 	}
 
-/*	*//**
-	 * Creates a 2D array of Hex objects. Has an offset of radius-1, where the top left
-	 * 		and bottom right corners are NullHexes, up to the size of the offset. This simulates
-	 * 		a grid of tessellated hexagons.
-	 * 
-	 * @return A 2D array of Hexes.
-	 *//*
-	private Hex[][] constructMap(int diameter) {
-		
-		Hex[][] map = new Hex[diameter][diameter];
-		
-		for (int r = 0; r < diameter; r++) {
-			for (int q = 0; q < diameter; q++) {
-				map[r][q] = new Hex(r, q, false);
-			}
-		}
-		boolean left = true;
-		int offset = radius;
-		for (int r = 0; r < diameter; r++) {
-			for (int q = 0; q < diameter; q++) {
-				if (left && q < offset || (!left && q >= diameter - offset)) {
-
-						continue;
-				}
-				set(r, q, map, new Hex(r, q, true));
-			}
-			if (offset > 0 && left) {
-				offset--;
-			}
-			if (offset == 0) {
-				left = !left;
-			}
-			if (!left) {
-				offset++;
-			}
-		}
-
-		for (int r = 0; r < map.length; r++) {
-			for (int q = 0; q < map[r].length; q++) {
-				populateNeighbours(r, q, map);
-			}
-		}
-		for (int r = 0; r < map.length; r++) {
-			for (int q = 0; q < map[r].length; q++) {
-				System.out.print(map[r][q]);
-			}
-			System.out.println();
-		}
-		return map;
-	}*/
-	
 	/**
 	 * For a given Hex at (r, q), calculate all the neighbours using the axial coordinates system.
 	 * 		A map is passed into this function because the map field may not be initialised at this point.
@@ -154,6 +102,11 @@ public class Map implements GameBoard {
 	
 	private void set(int x, int y, MapLocation[][] map, MapLocation toSet) {
 		map[x][y] = toSet;
+	}
+
+	@Override
+	public void set(int x, int y, MapLocation location) {
+		set(x, y, map, location);
 	}
 	
 	public MapLocation get(int x, int y) {
@@ -184,7 +137,7 @@ public class Map implements GameBoard {
 
 	@Override
 	public Terrain getTerrainAt(MapLocation location) {
-		return null;
+		return location.getTerrain();
 	}
 
 }

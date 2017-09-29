@@ -3,6 +3,7 @@ package strategos;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface GameState {
@@ -46,15 +47,25 @@ public interface GameState {
 
 	/**
 	 * Send an attack command to the given Unit, attacking the specified position. Delegate the attack to the Unit
-	 * 		itself, which should fail if the target is out of range.
+	 * 		itself. If the target is out of range or invalid, the attack will fail.
 	 *
-	 * @param unit the unit to attack with. If this Unit is null, fail the command.
+	 * @param unit the unit to attack with. If the attack is invalid fail the command.
 	 * @param location
 	 */
 	public void attack(Unit unit, MapLocation location);
 
+	/**
+	 * Puts the unit in the wary state. Delegates the command to the Unit itself.
+	 *
+	 * @param unit
+	 */
 	public void wary(Unit unit);
 
+	/**
+	 * Puts the unit in the entrenched state. Delegates the command to the Unit itself.
+	 *
+	 * @param unit
+	 */
 	public void entrench(Unit unit);
 
 	/**
@@ -74,9 +85,29 @@ public interface GameState {
 	 */
 	public Terrain getTerrainAt(MapLocation location);
 
+	/**
+	 * Find all MapLocations within a given number of tiles from a MapLocation. Includes the MapLocation parameter.
+	 *
+	 * @param location
+	 * @param range
+	 * @return a List of MapLocations within range.
+	 */
 	public List<MapLocation> getTilesInRange(MapLocation location, int range);
 
+	/**
+	 * Resets values and prepares the game for the next player to act.
+	 */
 	public void nextTurn();
 
 	public GameCollections getWorld();
+
+	public ArrayList<UnitOwner> getPlayers();
+
+	public List<SaveInstance> getSaves();
+
+	/**
+	 * Gets the UnitOwner whose turn it is.
+	 * @return a UnitOwner that is stored in currentTurn
+	 */
+	public UnitOwner getCurrentTurn();
 }

@@ -13,7 +13,7 @@ import strategos.units.Unit;
  */
 public class SpearmenImpl extends UnitImpl implements Spearmen {
 
-	public SpearmenImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public SpearmenImpl(UnitOwner owner) {
+		super(owner);
 	}
 }

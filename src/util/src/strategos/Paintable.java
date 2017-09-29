@@ -14,5 +14,11 @@ public interface Paintable {
      */
     boolean isInPlayArea();
 
-    void setTerrain(Terrain terrain);
+    /**
+     * Gets the terrain contained by this Paintable.
+     * @return a Terrain object at this Paintable
+     */
+    public Terrain getTerrain();
+
+    public void setTerrain(Terrain terrain);
 }

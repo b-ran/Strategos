@@ -33,11 +33,11 @@ public class BehaviourSpearmenTest {
     }
 
     @Test public void charge() throws Exception {
-        // TODO
+        assertFalse(true);
     }
 
     @Test public void attack() throws Exception {
-        // TODO
+        assertFalse(true);
     }
 
     @Test public void getActionPoints() throws Exception {

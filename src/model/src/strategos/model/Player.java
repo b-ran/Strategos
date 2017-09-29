@@ -32,4 +32,9 @@ public class Player implements UnitOwner{
 	public boolean isNPC() {
 		return isNPC;
 	}
+
+	@Override
+	public void setUnits(List<Unit> newUnits) {
+		units = new ArrayList<>(newUnits);
+	}
 }

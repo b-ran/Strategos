@@ -1,23 +1,31 @@
 package strategos.model;
 
 import strategos.*;
-import strategos.hexgrid.Hex;
 import strategos.terrain.Terrain;
+import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
+ * 		libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
+ * 		of GameCollections and UnitOwners.
+ */
 public class Strategos implements GameState {
 	private GameCollections world;
 	private ArrayList<UnitOwner> players = new ArrayList<>();
 	private UnitOwner turn;
 
-	private List<SaveState> saves = new ArrayList<>();
+	private List<SaveInstance> saves = new ArrayList<>();
 
-
-	public Strategos(World world) {
+	public Strategos(World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
 		this.world = world;
+		players.add(playerOne);
+		players.add(playerTwo);
+		players.add(barbarians);
+		turn = playerOne;
 	}
 
 	public void save() {
@@ -30,7 +38,7 @@ public class Strategos implements GameState {
 	public void load(SaveInstance toRestore) {
 
 		this.world = toRestore.getWorld();
-		this.players = toRestore.getPlayers();
+		this.players = new ArrayList<>(toRestore.getPlayers());
 		this.turn = toRestore.getTurn();
 	}
 
@@ -47,22 +55,31 @@ public class Strategos implements GameState {
 	@Override
 	public void move(Unit unit, Direction direction, int amount) {
 		amount = Math.min(amount, unit.getActionPoints());
-		MapLocation currentPosition = world.getMap().get(unit.getPosition().getX(), unit.getPosition().getY());
-		while (amount > 0) {
-			if (!currentPosition.getNeighbour(direction).isInPlayArea() ||
-					getUnitAt(unit.getPosition()) != null) {
+		MapLocation currentPosition = unit.getPosition();
+		while (amount != 0) {
+			if (!currentPosition.getNeighbour(direction).isInPlayArea() || !canPassUnit(unit, currentPosition, direction)) {
 				break;
 			}
 			currentPosition = currentPosition.getNeighbour(direction);
-			unit.move(direction);
+			if (!unit.move(direction)) {
+				break;
+			}
 			amount--;
 			calculateVision(unit.getOwner());
 		}
 	}
 
+	private boolean canPassUnit(Unit mover, MapLocation location, Direction direction) {
+		Unit u = getUnitAt(location.getNeighbour(direction));
+		if (u != null) {
+			return (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
+		}
+		return true;
+	}
+
 	private void calculateVision(UnitOwner player) {
 		for (Unit unit : player.getUnits()) {
-			List<MapLocation> sightRange = getTilesInRange(unit.getPosition(), 3);
+			List<MapLocation> sightRange = getTilesInRange(unit.getPosition(), unit.getSightRadius());
 			for (MapLocation tile : sightRange) {
 				if (!player.getVisibleTiles().contains(tile)) {
 					player.getVisibleTiles().add(tile);
@@ -75,6 +92,9 @@ public class Strategos implements GameState {
 	public void attack(Unit unit, MapLocation location) {
 		Unit target = getUnitAt(location);
 		if (target == null) {
+			return;
+		}
+		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
 		unit.attack(target);
@@ -158,14 +178,17 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
-		/*for (int i = 0; i < turn.getUnits().size(); i++) {
+		for (int i = 0; i < turn.getUnits().size(); i++) {
 			if (!turn.getUnits().get(i).isAlive()) {
 				turn.getUnits().remove(i);
 			}
-		}*/
+		}
 		for (Unit unit : turn.getUnits()) {
 			// TODO: reset unit action points
 			// TODO: set "moved" to false
+		}
+		for (UnitOwner player : getPlayers()) {
+			calculateVision(player);
 		}
 
 		int turnIndex = players.indexOf(turn);
@@ -176,6 +199,21 @@ public class Strategos implements GameState {
 	@Override
 	public GameCollections getWorld() {
 		return world;
+	}
+
+	@Override
+	public ArrayList<UnitOwner> getPlayers() {
+		return players;
+	}
+
+	@Override
+	public List<SaveInstance> getSaves() {
+		return saves;
+	}
+
+	@Override
+	public UnitOwner getCurrentTurn() {
+		return turn;
 	}
 
 
