@@ -27,7 +27,7 @@ public class Server implements Network {
 
 	public Server(int port) {
 		this.port = port;
-		serverHandler = new NetworkHandler();
+		serverHandler = new NetworkHandler(this);
 	}
 
 	@Override
@@ -61,5 +61,10 @@ public class Server implements Network {
 	@Override
 	public void send(SaveInstance instance) throws InterruptedException {
 		serverHandler.send(instance);
+	}
+
+	@Override
+	public void receive(SaveInstance instance) {
+		System.out.println(instance);
 	}
 }

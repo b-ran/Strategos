@@ -8,9 +8,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SaveInstanceImpl implements SaveInstance, Serializable {
-	private int i = 10;
-	private String s = "This is for testing purposes";
+	int i;
+	String s;
 
+	public SaveInstanceImpl(String s, int i) {
+		this.s = s;
+		this.i = i;
+	}
 	@Override
 	public GameCollections getWorld() {
 		return null;
@@ -41,5 +45,13 @@ public class SaveInstanceImpl implements SaveInstance, Serializable {
 		int result = i;
 		result = 31 * result + (s != null ? s.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "SaveInstanceImpl{" +
+				"i=" + i +
+				", s='" + s + '\'' +
+				'}';
 	}
 }

@@ -20,7 +20,7 @@ public class Client implements Network {
 	public Client(String host, int port) {
 		this.host = host;
 		this.port = port;
-		clientHandler = new NetworkHandler();
+		clientHandler = new NetworkHandler(this);
 	}
 
 	@Override
@@ -51,5 +51,11 @@ public class Client implements Network {
 	@Override
 	public void send(SaveInstance instance) throws InterruptedException {
 		clientHandler.send(instance);
+		Thread.sleep(3000);
+	}
+
+	@Override
+	public void receive(SaveInstance instance) {
+		System.out.println(instance);
 	}
 }

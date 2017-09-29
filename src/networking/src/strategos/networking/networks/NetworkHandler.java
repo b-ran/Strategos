@@ -3,6 +3,7 @@ package strategos.networking.networks;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import strategos.SaveInstance;
+import strategos.networking.Network;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,11 @@ import java.util.List;
 public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	private List<ChannelHandlerContext> connections = new ArrayList<>();
+	private Network network;
+
+	public NetworkHandler(Network network) {
+		this.network = network;
+	}
 
 	@Override
 	public void channelActive(final ChannelHandlerContext ctx) throws Exception {
@@ -35,6 +41,6 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, SaveInstance msg) throws Exception {
-
+		network.receive(msg);
 	}
 }

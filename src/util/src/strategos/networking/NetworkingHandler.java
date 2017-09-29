@@ -22,7 +22,6 @@ public interface NetworkingHandler {
 
 	/**
 	 * Runs the handler
-	 * @throws InterruptedException when the connection is unexpectedly interrupted
 	 */
 	void run() throws InterruptedException;
 
