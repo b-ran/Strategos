@@ -1,5 +1,7 @@
 package strategos.ui;
 
+import strategos.GameState;
+import strategos.MapLocation;
 import strategos.ui.controller.Controller;
 import strategos.ui.view.View;
 import strategos.units.*;
@@ -20,28 +22,28 @@ public class Ui {
     /**
      * Instantiates a new Ui.
      *
-     * @param entities the units on the board
-     * @param terrain  the terrain that makes up board
+     * @param model    the current gameStateModel
      *                 <dt><b>Precondition:</b><dd>
-     *                 entities must not be null<br>
-     *                 terrain must not be null<br>
+     *                 model must not be null<br>
      *                 terrain array lengths must be the same
      */
-    public Ui(List<Unit> entities, Terrain[][] terrain) {
-
-        assert (entities != null);
-        assert (terrain != null);
-        assert (terrain.length == terrain[0].length);
-        for (int y = 1; y < terrain.length; y++) {
-            assert (terrain[0].length == terrain[y].length);
+    public Ui(GameState model) {
+        assert (model != null);
+        MapLocation[][] map = model.getWorld().getMap().getData();
+        for (int y = 1; y < map.length; y++) {
+            assert (map[0].length == map[y].length);
         }
         try {
-            view = new View(entities, terrain);
-            controller = new Controller(entities, terrain, view);
-        } finally {
+            view = new View(model);
+            view.getGridComponent().setEntities(model.getWorld().getAllUnits());
+            view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
+            controller = new Controller(model, view);
+        }
+        finally {
             assert (view != null && controller != null);
         }
     }
+
 
     /**
      * Exit.
