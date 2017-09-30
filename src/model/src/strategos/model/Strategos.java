@@ -42,7 +42,7 @@ public class Strategos implements GameState {
 	public void load(SaveInstance toRestore) {
 
 		this.world = toRestore.getWorld();
-		this.players = (ArrayList<UnitOwner>) toRestore.getPlayers().clone();
+		this.players = toRestore.getPlayers();
 		this.turn = toRestore.getTurn();
 	}
 
