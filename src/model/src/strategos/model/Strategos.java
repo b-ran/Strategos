@@ -7,6 +7,8 @@ import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
@@ -17,6 +19,8 @@ public class Strategos implements GameState {
 	private GameCollections world;
 	private ArrayList<UnitOwner> players = new ArrayList<>();
 	private UnitOwner turn;
+	private List<Observer> observers = new ArrayList<>();
+	private boolean changed = false;
 
 	private List<SaveInstance> saves = new ArrayList<>();
 
@@ -217,4 +221,28 @@ public class Strategos implements GameState {
 	}
 
 
+	@Override
+	public void addObserver(Observer o) {
+		if (!observers.contains(o)) {
+			observers.add(o);
+		}
+	}
+
+	@Override
+	public void setChanged() {
+		changed = true;
+	}
+
+	@Override
+	public boolean hasChanged() {
+		return changed;
+	}
+
+	@Override
+	public void notifyObservers(Object o) {
+		for (Observer observer : observers) {
+			observer.notify();
+		}
+		changed = false;
+	}
 }
