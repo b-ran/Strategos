@@ -1,4 +1,6 @@
+import model.*;
 import org.junit.jupiter.api.Test;
+import strategos.MapLocation;
 import strategos.terrain.Terrain;
 import strategos.ui.Ui;
 import strategos.units.Unit;
@@ -59,7 +61,7 @@ public class Tests extends JComponent {
                 {new MountainTestObj(), new MountainTestObj()}
         };
         setText("You should be able to see a menu");
-        ui = new Ui(entities,terrain);
+        ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         waitToClose();
     }
@@ -71,7 +73,7 @@ public class Tests extends JComponent {
                 {new MountainTestObj()}
         };
         setText("You should be able to see a hexagon");
-        ui = new Ui(entities,terrain);
+        ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
         waitToClose();
@@ -259,7 +261,7 @@ public class Tests extends JComponent {
         entities.add(e);
         entities.add(s);
         setText("Should able to game view with a of grid hexgons and 4 units");
-        ui = new Ui(entities, terrain);
+        ui = new Ui(setupModel(entities,terrain));
         ui.skipMenu();
 
         waitToClose();
@@ -301,10 +303,32 @@ public class Tests extends JComponent {
                 {t}
         };
         setText(text);
-        ui = new Ui(entities, terrain);
+        ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
         waitToClose();
+    }
+
+    private ModelTestObj setupModel(List<Unit> entities, Terrain[][] terrain) {
+        ModelTestObj modelTestObj = new ModelTestObj();
+        GameBoardTestObj gameBoardTestObj = new GameBoardTestObj();
+        GameCollectionTestObj gameCollectionTestObj = new GameCollectionTestObj();
+        MapLocation[][] map = new MapLocation[terrain.length][terrain[0].length];
+
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[0].length; x++) {
+                map[y][x] = new MapLocationTestObj(x, y);
+                map[y][x].setTerrain(terrain[y][x]);
+            }
+        }
+
+        gameBoardTestObj.setData(map);
+        gameCollectionTestObj.setMap(gameBoardTestObj);
+        modelTestObj.setWorld(gameCollectionTestObj);
+
+        gameCollectionTestObj.setAllUnits(entities);
+
+        return  modelTestObj;
     }
 
     private void createAUnit(Unit unit, UnitOwnerTestObj owner, MapLocationTestObj pos, String text) {
@@ -319,7 +343,7 @@ public class Tests extends JComponent {
         unit.setPosition(pos);
         entities.add(unit);
         setText(text);
-        ui = new Ui(entities,terrain);
+        ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
         waitToClose();
@@ -335,7 +359,7 @@ public class Tests extends JComponent {
         unit.setPosition(new MapLocationTestObj(0,0));
         entities.add(unit);
         setText(text);
-        ui = new Ui(entities,terrain);
+        ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
         waitToClose();
@@ -350,7 +374,7 @@ public class Tests extends JComponent {
         unit.setPosition(new MapLocationTestObj(0,0));
         entities.add(unit);
         setText(text);
-        ui = new Ui(entities, terrain);
+        ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
         waitToClose();
