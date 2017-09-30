@@ -23,5 +23,6 @@
     <orderEntry type="module" module-name="model" />
     <orderEntry type="module" module-name="networking" />
     <orderEntry type="module" module-name="ui" />
+    <orderEntry type="module" module-name="util" />
   </component>
 </module>
