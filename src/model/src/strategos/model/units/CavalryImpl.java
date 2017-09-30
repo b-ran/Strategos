@@ -16,4 +16,14 @@ public class CavalryImpl extends UnitImpl implements Cavalry {
 	public CavalryImpl(UnitOwner owner) {
 		super(owner);
 	}
+
+	public CavalryImpl(Behaviour behaviour, UnitOwner owner) {
+		super(behaviour, owner);
+	}
+
+	@Override
+	public Unit copyUnit() {
+		Unit newUnit = new CavalryImpl(getBehaviour().copy(), getOwner());
+		return newUnit;
+	}
 }

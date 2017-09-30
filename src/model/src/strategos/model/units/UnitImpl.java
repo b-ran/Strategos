@@ -28,6 +28,11 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 	}
 
 	@Override
+	public Behaviour getBehaviour() {
+		return behaviour;
+	}
+
+	@Override
 	public MapLocation getPosition() {
 		return behaviour.getPosition();
 	}
@@ -100,5 +105,16 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 	@Override
 	public int getActionPoints() {
 		return behaviour.getActionPoints();
+	}
+
+	@Override
+	public Behaviour copy() {
+		return null;
+	}
+
+	@Override
+	public Unit copyUnit() {
+		Unit newUnit = new UnitImpl(behaviour.copy(), getOwner());
+		return newUnit;
 	}
 }

@@ -35,4 +35,6 @@ public interface Behaviour {
 
     int getActionPoints();
 
+    public Behaviour copy();
+
 }

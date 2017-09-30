@@ -17,4 +17,14 @@ public class ArchersImpl extends UnitImpl implements Archers {
 	public ArchersImpl(UnitOwner owner) {
 		super(owner);
 	}
+
+	public ArchersImpl(Behaviour behaviour, UnitOwner owner) {
+		super(behaviour, owner);
+	}
+
+	@Override
+	public Unit copyUnit() {
+		Unit newUnit = new ArchersImpl(getBehaviour().copy(), getOwner());
+		return newUnit;
+	}
 }

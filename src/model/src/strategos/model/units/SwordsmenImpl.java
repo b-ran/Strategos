@@ -16,4 +16,14 @@ public class SwordsmenImpl extends UnitImpl implements Swordsmen {
 	public SwordsmenImpl(UnitOwner owner) {
 		super(owner);
 	}
+
+	public SwordsmenImpl(Behaviour behaviour, UnitOwner owner) {
+		super(behaviour, owner);
+	}
+
+	@Override
+	public Unit copyUnit() {
+		Unit newUnit = new SwordsmenImpl(getBehaviour().copy(), getOwner());
+		return newUnit;
+	}
 }
