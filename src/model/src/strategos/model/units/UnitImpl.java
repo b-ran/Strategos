@@ -12,7 +12,6 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 
 	private Behaviour behaviour;
 	private final UnitOwner owner;
-	private int actionPoints;
 
 	public UnitImpl(UnitOwner owner) {
 		this.owner = owner;

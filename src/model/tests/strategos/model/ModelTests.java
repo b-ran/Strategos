@@ -533,14 +533,14 @@ public class ModelTests {
 
 		p.getUnits().add(unit);
 		world.getAllUnits().add(unit);
-
+		gameState.save();
+		System.out.println();
+		System.out.println(unit.getPosition());
 		gameState.move(unit, EAST, 1);
 
 		assertTrue(unit.getPosition().getX() == 4);
 
 		unit = gameState.getPlayers().get(0).getUnits().get(0);
-		System.out.println(unit.getPosition());
-		gameState.save();
 
 		SaveInstance save = gameState.getSaves().get(0);
 
@@ -549,7 +549,7 @@ public class ModelTests {
 		unit = gameState.getPlayers().get(0).getUnits().get(0);
 		System.out.println(unit.getPosition());
 
-		//assertTrue(unit.getPosition().getX() == 3);
+		assertTrue(unit.getPosition().getX() == 3);
 
 	}
 

@@ -11,7 +11,7 @@ import strategos.units.Unit;
 
 public class World implements GameCollections {
 	private GameBoard map;
-	private ArrayList<Unit> allUnits = new ArrayList<>();
+	private List<Unit> allUnits = new ArrayList<>();
 	
 	public World(Map map, ArrayList<Unit> units) {
 		this.map = map;
@@ -34,7 +34,7 @@ public class World implements GameCollections {
 	}
 
 	@Override
-	public void setAllUnits(ArrayList<Unit> allUnits) {
+	public void setAllUnits(List<Unit> allUnits) {
 		this.allUnits = allUnits;
 	}
 }
