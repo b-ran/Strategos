@@ -60,6 +60,11 @@ public class View extends JComponent implements Observer {
         gridComponent.requestFocus();
     }
 
+    @Override
+    public void repaint() {
+        frame.repaint();
+    }
+
     /**
      * Sets view as main menu.
      */
