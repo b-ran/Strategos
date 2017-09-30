@@ -26,12 +26,8 @@ public class GameCollectionTestObj implements GameCollections {
     public void setMap(GameBoard map) {
         gameBoard = map;
     }
-
+    
     @Override
-    public void setAllUnits(ArrayList<Unit> allUnits) {
-        this.allUnits = allUnits;
-    }
-
     public void setAllUnits(List<Unit> allUnits) {
         this.allUnits = allUnits;
     }
