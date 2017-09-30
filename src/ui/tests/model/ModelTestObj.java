@@ -1,10 +1,17 @@
+package model;
+
 import strategos.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class ModelTestObj implements GameState {
+public class ModelTestObj extends Observable implements GameState {
+    private GameCollections gameCollections;
+    private  ArrayList<UnitOwner> unitOwners = new ArrayList<>();
+
     @Override
     public void save() {
 
@@ -67,6 +74,31 @@ public class ModelTestObj implements GameState {
 
     @Override
     public GameCollections getWorld() {
+        return gameCollections;
+    }
+
+    @Override
+    public ArrayList<UnitOwner> getPlayers() {
+        return unitOwners;
+    }
+
+    @Override
+    public List<SaveInstance> getSaves() {
         return null;
     }
+
+    @Override
+    public UnitOwner getCurrentTurn() {
+        return null;
+    }
+
+
+    public void setWorld(GameCollections gameCollections) {
+        this.gameCollections = gameCollections;
+    }
+
+    public void setPlayers(ArrayList<UnitOwner> unitOwners) {
+        this.unitOwners = unitOwners;
+    }
+
 }
