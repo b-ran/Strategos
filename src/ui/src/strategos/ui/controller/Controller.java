@@ -1,5 +1,7 @@
 package strategos.ui.controller;
 
+import strategos.GameState;
+import strategos.MapLocation;
 import strategos.terrain.Terrain;
 import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
@@ -14,33 +16,16 @@ import java.util.List;
 public class Controller {
 
     /**
-     * The Entities.
+     * The Model.
      */
-    protected List<Unit> entities;
-    /**
-     * The Terrain.
-     */
-    protected Terrain[][] terrain;
+    protected GameState model;
     /**
      * The View.
      */
     protected View view;
+
     protected Boolean allInput = true;
 
-
-    /**
-     * Instantiates a new Controller.
-     *
-     * @param entities the units on grid
-     * @param terrain  the terrain that makes up grid
-     * @param view     the view
-     */
-    public Controller(List<Unit> entities, Terrain[][] terrain, View view) {
-        this.entities = entities;
-        this.terrain = terrain;
-        this.view = view;
-        setMenuListeners();
-    }
 
     /**
      * Instantiates a new Controller Clone.
@@ -48,10 +33,22 @@ public class Controller {
      * @param controller the controller
      */
     protected Controller(Controller controller) {
-        this.entities = controller.entities;
-        this.terrain = controller.terrain;
+        this.model = controller.model;
         this.view = controller.view;
         this.allInput = controller.allInput;
+    }
+
+    /**
+     * Instantiates a new Controller.
+     *
+     * @param model  the model
+     * @param view   the view
+     */
+    public Controller(GameState model, View view) {
+        this.model = model;
+        this.view = view;
+        setGameListeners();
+        setMenuListeners();
     }
 
     /**
