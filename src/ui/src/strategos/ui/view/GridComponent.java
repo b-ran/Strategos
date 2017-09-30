@@ -16,10 +16,12 @@ import static strategos.ui.config.Config.*;
  */
 public class GridComponent extends JComponent {
 
+
     private MapLocation[][] terrain;
     private MapLocation[][] seenTerrain;
     private List<Unit> entities;
     private DrawEntity drawEntity = new DrawEntity();
+    private MapLocation selectedMapLocation;
 
     /**
      * Instantiates a new Grid component for drawing on.
@@ -46,6 +48,8 @@ public class GridComponent extends JComponent {
         paintBlackTerrain(g, terrain);
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
+        paintSelection((Graphics2D) g, selectedMapLocation);
+
     }
 
     private void paintUnits(Graphics g, List<Unit> entities) {
@@ -88,12 +92,18 @@ public class GridComponent extends JComponent {
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
                 if (y % 2 == 0) {
-                    drawEntity.hexagon(g, drawEntity.getGridX(x), drawEntity.getGridY(y), Color.BLACK);
+                    drawEntity.fillHexagon(g, drawEntity.getGridX(x), drawEntity.getGridY(y), Color.BLACK);
                 } else {
-                    drawEntity.hexagon(g, drawEntity.getGridX(x)+HEX_SIZE/2, drawEntity.getGridY(y), Color.BLACK);
+                    drawEntity.fillHexagon(g, drawEntity.getGridX(x)+HEX_SIZE/2, drawEntity.getGridY(y), Color.BLACK);
                 }
             }
         }
+    }
+
+    private void paintSelection(Graphics2D g, MapLocation selectedMapLocation) {
+        if (selectedMapLocation == null) return;
+        Point p = drawEntity.getTerrainGridPos(selectedMapLocation);
+        drawEntity.fillHexagon(g, p.x, p.y,SELECTION_COLOR);
     }
 
     /**
@@ -114,5 +124,9 @@ public class GridComponent extends JComponent {
         this.terrain = terrain;
         //seenTerrain = new Terrain[terrain.length][terrain[0].length];
         seenTerrain = terrain;
+    }
+
+    public void setSelectedMapLocation(MapLocation selectedMapLocation) {
+        this.selectedMapLocation = selectedMapLocation;
     }
 }
