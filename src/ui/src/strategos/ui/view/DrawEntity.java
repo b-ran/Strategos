@@ -91,7 +91,7 @@ class DrawEntity {
      */
     void draw(Forest forest, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, TERRAIN_FOREST_COLOR);
+        fillHexagon(g, p.x, p.y, TERRAIN_FOREST_COLOR);
     }
 
     /**
@@ -101,7 +101,7 @@ class DrawEntity {
      */
     void draw(Hill hill, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, TERRAIN_HILL_COLOR);
+        fillHexagon(g, p.x, p.y, TERRAIN_HILL_COLOR);
     }
 
     /**
@@ -111,7 +111,7 @@ class DrawEntity {
      */
     void draw(Mountain mountain, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, TERRAIN_MOUNTAIN_COLOR);
+        fillHexagon(g, p.x, p.y, TERRAIN_MOUNTAIN_COLOR);
     }
 
     /**
@@ -121,7 +121,7 @@ class DrawEntity {
      */
     void draw(Plains plains, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, TERRAIN_PLAINS_COLOR);
+        fillHexagon(g, p.x, p.y, TERRAIN_PLAINS_COLOR);
     }
 
     /**
@@ -131,15 +131,24 @@ class DrawEntity {
      */
     void draw(River river, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        hexagon(g, p.x, p.y, TERRAIN_RIVER_COLOR);
+        fillHexagon(g, p.x, p.y, TERRAIN_RIVER_COLOR);
     }
 
 
     private Point getTerrainGridPos (Point p) {
         int y = getGridY(p.y);
         int x = getGridX(p.x);
-        if (p.getY() % 2 != 0) {
+        if (p.y % 2 != 0) {
             x = getGridX(p.x)+HEX_SIZE/2;
+        }
+        return new Point(x,y);
+    }
+
+    public Point getTerrainGridPos (MapLocation m) {
+        int y = getGridY(m.getY());
+        int x = getGridX(m.getX());
+        if (m.getY() % 2 != 0) {
+            x = getGridX(m.getX())+HEX_SIZE/2;
         }
         return new Point(x,y);
     }
@@ -155,7 +164,7 @@ class DrawEntity {
         }
     }
 
-    private Point getUnitGridPos (MapLocation m) {
+    private Point getUnitGridPos(MapLocation m) {
         int y = getGridY(m.getY())+HEX_SIZE/4;
         int x = getGridX(m.getX())+HEX_SIZE/4;
         if (m.getY() % 2 != 0) {
@@ -173,12 +182,23 @@ class DrawEntity {
         return x * HEX_SIZE + HEX_SIZE;
     }
 
-    void hexagon(Graphics g, int x, int y, Color c) {
+    void fillHexagon(Graphics g, int x, int y, Color c) {
         int nPoints = 6;
         int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
         int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};
         g.setColor(c);
         g.fillPolygon(xPoints, yPoints, nPoints);
+    }
+
+    void drawHexagon(Graphics2D g, int x, int y, Color c, int strokeSize) {
+        int nPoints = 6;
+        int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
+        int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};
+        g.setColor(c);
+        g.setStroke(new BasicStroke(strokeSize));
+        g.drawPolygon(xPoints, yPoints, nPoints);
+        System.out.println("draw");
+        g.fillRect(x,y,50,50);
     }
 
 }
