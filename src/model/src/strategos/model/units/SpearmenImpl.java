@@ -16,4 +16,14 @@ public class SpearmenImpl extends UnitImpl implements Spearmen {
 	public SpearmenImpl(UnitOwner owner) {
 		super(owner);
 	}
+
+	public SpearmenImpl(Behaviour behaviour, UnitOwner owner) {
+		super(behaviour, owner);
+	}
+
+	@Override
+	public Unit copyUnit() {
+		Unit newUnit = new SpearmenImpl(getBehaviour().copy(), getOwner());
+		return newUnit;
+	}
 }

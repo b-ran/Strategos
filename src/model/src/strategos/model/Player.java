@@ -12,7 +12,7 @@ public class Player implements UnitOwner{
 
 	private final boolean isNPC;
 	private ArrayList<Unit> units = new ArrayList<>();
-	private ArrayList<MapLocation> visibleTiles = new ArrayList<>();
+	private List<MapLocation> visibleTiles = new ArrayList<>();
 
 	public Player(boolean isNPC) {
 		this.isNPC = isNPC;
@@ -36,5 +36,17 @@ public class Player implements UnitOwner{
 	@Override
 	public void setUnits(List<Unit> newUnits) {
 		units = new ArrayList<>(newUnits);
+	}
+
+	@Override
+	public UnitOwner copy() {
+		UnitOwner newPlayer = new Player(isNPC);
+		List<Unit> newUnits = new ArrayList<>();
+
+		for (int i = 0; i < getUnits().size(); i++) {
+			newUnits.add(getUnits().get(i).copyUnit());
+		}
+		newPlayer.setUnits(newUnits);
+		return newPlayer;
 	}
 }
