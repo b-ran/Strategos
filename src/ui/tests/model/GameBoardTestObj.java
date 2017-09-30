@@ -15,7 +15,7 @@ public class GameBoardTestObj implements GameBoard {
 
     @Override
     public MapLocation get(int x, int y) {
-        return null;
+        return map[y][x];
     }
 
     @Override
