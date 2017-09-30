@@ -13,5 +13,5 @@ public interface GameCollections {
 
 	public void setMap(GameBoard map);
 
-	public void setAllUnits(ArrayList<Unit> allUnits);
+	public void setAllUnits(List<Unit> allUnits);
 }

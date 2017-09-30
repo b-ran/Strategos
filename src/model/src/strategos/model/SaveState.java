@@ -14,7 +14,7 @@ public class SaveState implements SaveInstance {
 
 	public SaveState(GameCollections world, ArrayList<UnitOwner> players, UnitOwner turn) {
 		this.world = new World(
-				new Map(world.getMap().getData(),
+				new Map(world.getMap().getData().clone(),
 				world.getMap().getRadius()),
 				new ArrayList<>(world.getAllUnits()));
 
