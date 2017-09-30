@@ -3,6 +3,7 @@ package units;
 import strategos.Direction;
 import strategos.MapLocation;
 import strategos.UnitOwner;
+import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 
 public class UnitTestObj implements Unit{
@@ -12,6 +13,11 @@ public class UnitTestObj implements Unit{
 
     public UnitTestObj (UnitOwner owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public void setBehaviour(Behaviour behaviour) {
+
     }
 
     @Override
