@@ -35,7 +35,7 @@ public class Config {
 
     public static final Color NPC_COLOR = Color.YELLOW;
 
-    public static final Color NOT_PLAYER_COLOR = Color.RED;
+    public static final Color OTHER_PLAYER_COLOR = Color.RED;
 
     public static final Color PLAYER_COLOR = Color.BLUE;
 
