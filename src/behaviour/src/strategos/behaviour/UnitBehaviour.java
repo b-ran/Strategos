@@ -2,12 +2,15 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.behaviour.config.Config;
 import strategos.exception.*;
 import strategos.terrain.*;
 import strategos.units.*;
 
 
 abstract class UnitBehaviour extends BaseBehaviour {
+
+    //TODO: Where is your javadoc?
 
     private boolean     entrench;
     private MapLocation position;

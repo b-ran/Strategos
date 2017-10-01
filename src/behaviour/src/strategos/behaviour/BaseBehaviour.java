@@ -6,6 +6,8 @@ import strategos.*;
 
 abstract class BaseBehaviour implements Behaviour {
 
+    //TODO: Where is your javadoc?
+
     private final GameState gameState;
 
     BaseBehaviour(GameState gameState) {
