@@ -7,6 +7,7 @@ import strategos.units.*;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static strategos.ui.config.Config.*;
@@ -17,11 +18,14 @@ import static strategos.ui.config.Config.*;
 public class GridComponent extends JComponent {
 
 
+
     private MapLocation[][] terrain;
     private MapLocation[][] seenTerrain;
     private List<Unit> entities;
     private DrawEntity drawEntity = new DrawEntity();
     private MapLocation selectedMapLocation;
+    private List<Unit> selectedUnitsInRange = new ArrayList<>();
+    private List<MapLocation> selectedTilesInRange = new ArrayList<>();
 
     /**
      * Instantiates a new Grid component for drawing on.
@@ -49,7 +53,7 @@ public class GridComponent extends JComponent {
         //TODO: view range UnitOwner.getVisibleTiles()
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
-        paintSelection((Graphics2D) g, selectedMapLocation);
+        paintSelection(g, selectedMapLocation);
 
     }
 
@@ -102,12 +106,20 @@ public class GridComponent extends JComponent {
         }
     }
 
-
-    //TODO: attack/movement selection GameState.getTilesInRange()
-    private void paintSelection(Graphics2D g, MapLocation selectedMapLocation) {
+    private void paintSelection(Graphics g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
-        Point p = drawEntity.getTerrainGridPos(selectedMapLocation);
-        drawEntity.drawHexagon((Graphics2D) g, p.x, p.y,SELECTION_COLOR, SELECTION_STROKE_SIZE);
+        Point p;
+        for (MapLocation m :selectedTilesInRange) {
+            p = drawEntity.getTerrainGridPos(m);
+            drawEntity.drawHexagon(g, p.x, p.y, SELECTION_MOVE_COLOR, SELECTION_STROKE_SIZE);
+        }
+        for (Unit u :selectedUnitsInRange) {
+            MapLocation m = u.getPosition();
+            p = drawEntity.getTerrainGridPos(m);
+            drawEntity.drawHexagon(g, p.x, p.y, SELECTION_ATTACK_COLOR, SELECTION_STROKE_SIZE);
+        }
+        p = drawEntity.getTerrainGridPos(selectedMapLocation);
+        drawEntity.drawHexagon(g, p.x, p.y, SELECTION_COLOR, SELECTION_STROKE_SIZE);
     }
 
     /**
@@ -130,7 +142,15 @@ public class GridComponent extends JComponent {
         seenTerrain = terrain;
     }
 
-    public void setSelectedMapLocation(MapLocation selectedMapLocation) {
+    public void setSelection(MapLocation selectedMapLocation, List<Unit> selectedUnitsInRange, List<MapLocation> selectedTilesInRange) {
         this.selectedMapLocation = selectedMapLocation;
+        this.selectedUnitsInRange = selectedUnitsInRange;
+        this.selectedTilesInRange = selectedTilesInRange;
+    }
+
+    public void setSelection(MapLocation selectedMapLocation) {
+        this.selectedMapLocation = selectedMapLocation;
+        selectedUnitsInRange = new ArrayList<>();
+        selectedTilesInRange = new ArrayList<>();
     }
 }
