@@ -18,6 +18,12 @@ public class MenuComponent extends JComponent {
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
     private JPanel p = new JPanel();
 
+    /*
+    TODO - REVIEW: since setMenu and setEscapeMenu are identical except for the buttons,
+    TODO              could you just have a constructMenuSkeleton method that fills out the layout
+    TODO              and then populate it with buttons? Or does the order of instruction matter too much?
+    */
+
     /**
      * Sets component as a main menu.
      *

@@ -71,6 +71,9 @@ public class Controller {
      * Sets menu listeners based on status of view.
      */
     void setMenuListeners() {
+        /*
+        TODO - REVIEW: Very few of these listeners appear to be implemented, but I assume that's on your list to do.
+         */
         MenuComponent m = view.getMenuComponent();
         MenuComponent e = view.getEscapeMenuComponent();
         m.getNewGameButton().addActionListener(new NewGameListener(this));

@@ -46,6 +46,9 @@ public class GridComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         paintBlackTerrain(g, terrain);
+        /*
+        TODO -REVIEW: Is seenTerrain ever intilialised? It can be by using UnitOwner.getVisibleTiles(), which is updated every move step and every turn
+         */
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
         paintSelection((Graphics2D) g, selectedMapLocation);
@@ -54,6 +57,11 @@ public class GridComponent extends JComponent {
 
     private void paintUnits(Graphics g, List<Unit> entities) {
         for (Unit unit : entities) {
+            /*
+            TODO - REVIEW: This could be made far neater by, when sprites are implemented, to change draw() to
+            TODO            make draw() take an image and call unit.getSprite(). Then there is no need to use
+            TODO            instanceof. This can be similarly neatened with paintTerrain()
+             */
             if (unit instanceof Archers) {
                 drawEntity.draw((Archers)unit, g);
             } else if (unit instanceof Cavalry) {
@@ -91,6 +99,10 @@ public class GridComponent extends JComponent {
         g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
+                /*
+                TODO - REVIEW: This could be neatened with a ternary:
+                TODO    drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
+                 */
                 if (y % 2 == 0) {
                     drawEntity.fillHexagon(g, drawEntity.getGridX(x), drawEntity.getGridY(y), Color.BLACK);
                 } else {
@@ -99,6 +111,11 @@ public class GridComponent extends JComponent {
             }
         }
     }
+
+    /*
+    TODO - REVIEW: Will you also end up drawing the range of attack/movement of a selected unit?
+    TODO            This could be achieved with GameState.getTilesInRange()
+     */
 
     private void paintSelection(Graphics2D g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
