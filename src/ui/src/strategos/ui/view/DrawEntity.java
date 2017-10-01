@@ -197,8 +197,6 @@ class DrawEntity {
         g.setColor(c);
         g.setStroke(new BasicStroke(strokeSize));
         g.drawPolygon(xPoints, yPoints, nPoints);
-        System.out.println("draw");
-        g.fillRect(x,y,50,50);
     }
 
 }

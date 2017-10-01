@@ -103,7 +103,7 @@ public class GridComponent extends JComponent {
     private void paintSelection(Graphics2D g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
         Point p = drawEntity.getTerrainGridPos(selectedMapLocation);
-        drawEntity.fillHexagon(g, p.x, p.y,SELECTION_COLOR);
+        drawEntity.drawHexagon((Graphics2D) g, p.x, p.y,SELECTION_COLOR, SELECTION_STROKE_SIZE);
     }
 
     /**
