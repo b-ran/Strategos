@@ -17,7 +17,7 @@ import java.util.Observer;
  */
 public class Strategos implements GameState {
 	private GameCollections world;
-	private ArrayList<UnitOwner> players = new ArrayList<>();
+	private List<UnitOwner> players = new ArrayList<>();
 	private UnitOwner turn;
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
@@ -75,13 +75,7 @@ public class Strategos implements GameState {
 
 	private boolean canPassUnit(Unit mover, MapLocation location, Direction direction) {
 		Unit u = getUnitAt(location.getNeighbour(direction));
-		// No need for an if here. Use an or
-		//// return u == null ||
-		//// 	(u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
-		if (u != null) {
-			return (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
-		}
-		return true;
+		return u == null || (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
 	}
 
 	private void calculateVision(UnitOwner player) {
@@ -185,21 +179,11 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
-		// These for loops can become streams
-		//// turn.getUnits().removeIf(u -> !u.isAlive());
-		for (int i = 0; i < turn.getUnits().size(); i++) {
-			if (!turn.getUnits().get(i).isAlive()) {
-				turn.getUnits().remove(i);
-			}
-		}
-		//// turn.getUnits().forEach(Unit::turnTick);
-		for (Unit unit : turn.getUnits()) {
-			unit.turnTick();
-		}
-		//// getPlayers().forEach(this::calculateVision);
-		for (UnitOwner player : getPlayers()) {
-			calculateVision(player);
-		}
+		turn.getUnits().removeIf(u -> !u.isAlive());
+
+		turn.getUnits().forEach(Unit::turnTick);
+
+		getPlayers().forEach(this::calculateVision);
 
 		int turnIndex = players.indexOf(turn);
 		turnIndex = (turnIndex + 1) % players.size();
@@ -212,7 +196,7 @@ public class Strategos implements GameState {
 	}
 
 	@Override
-	public ArrayList<UnitOwner> getPlayers() {
+	public List<UnitOwner> getPlayers() {
 		return players;
 	}
 
@@ -246,11 +230,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void notifyObservers(Object o) {
-		// Another potential stream
-		//// observers.forEach(Observer::notify);
-		for (Observer observer : observers) {
-			observer.notify();
-		}
+		observers.forEach(Observer::notify);
 		changed = false;
 	}
 }

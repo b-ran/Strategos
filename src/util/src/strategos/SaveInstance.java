@@ -1,12 +1,12 @@
 package strategos;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface SaveInstance {
 
 	public GameCollections getWorld();
 
-	public ArrayList<UnitOwner> getPlayers();
+	public List<UnitOwner> getPlayers();
 
 	public UnitOwner getTurn();
 

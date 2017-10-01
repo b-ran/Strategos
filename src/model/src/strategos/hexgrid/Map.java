@@ -121,8 +121,7 @@ public class Map implements GameBoard {
 	 * Combines the 2D array into a List format, reading left to right, then dropping a line.
 	 * @return A List of Hexes contained by the Map.
 	 */
-	// Can be package private
-	public List<MapLocation> getMapAsList() {
+	List<MapLocation> getMapAsList() {
 		List<MapLocation> temp = new ArrayList<>();
 		for (int x = 0; x < map.length; x++) {
 			for (int y = 0; y < map.length; y++) {

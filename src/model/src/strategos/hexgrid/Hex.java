@@ -68,11 +68,7 @@ public class Hex implements Graphical, MapLocation {
 	 */
 	@Override
 	public boolean isInPlayArea() {
-		/*if (isPlayable) {
-			// TODO: return if the terrain can be moved over
-			return true;
-		}
-		return false;*/
+		// TODO: return if the terrain can be moved over
 		return isPlayable;
 	}
 
@@ -119,8 +115,7 @@ public class Hex implements Graphical, MapLocation {
 	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
 	 * @param xIndex - the new x-index for the Hex.
 	 */
-	// Can be private access, or package private if needs visibility in tests
-	public void setXIndex(int xIndex) {
+	void setXIndex(int xIndex) {
 		this.xIndex = xIndex;
 	}
 
@@ -129,8 +124,7 @@ public class Hex implements Graphical, MapLocation {
 	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
 	 * @param yIndex - the new y-index for the Hex.
 	 */
-	// Can be private access, or package private if needs visibility in tests
-	public void setYIndex(int yIndex) {
+	void setYIndex(int yIndex) {
 		this.yIndex = yIndex;
 	}
 

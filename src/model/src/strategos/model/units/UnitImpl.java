@@ -108,8 +108,6 @@ public class UnitImpl implements Graphical, Unit {
 
 	@Override
 	public Unit copy() {
-		Unit newUnit = new UnitImpl(getOwner());
-		newUnit.setBehaviour(getBehaviour().copy());
-		return newUnit;
+		return new UnitImpl(getBehaviour().copy(), getOwner());
 	}
 }

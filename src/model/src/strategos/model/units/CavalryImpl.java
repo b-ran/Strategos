@@ -23,8 +23,6 @@ public class CavalryImpl extends UnitImpl implements Cavalry {
 
 	@Override
 	public Unit copy() {
-		// No need to create local variable here
-		Unit newUnit = new CavalryImpl(getBehaviour().copy(), getOwner());
-		return newUnit;
+		return new CavalryImpl(getBehaviour().copy(), getOwner());
 	}
 }

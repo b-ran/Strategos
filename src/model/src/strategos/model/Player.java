@@ -47,13 +47,10 @@ public class Player implements UnitOwner{
 	@Override
 	public UnitOwner copy() {
 		UnitOwner newPlayer = new Player(isNPC);
-		List<Unit> newUnits = new ArrayList<>();
 
 		// Consider using a stream instead of a for loop here
 		//// newUnits = units.stream().map(Unit::copy).collect(Collectors.toList());
-		for (int i = 0; i < getUnits().size(); i++) {
-			newUnits.add(getUnits().get(i).copy());
-		}
+		List<Unit> newUnits = units.stream().map(Unit::copy).collect(Collectors.toList());
 		newPlayer.setUnits(newUnits);
 		return newPlayer;
 	}

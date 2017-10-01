@@ -101,7 +101,7 @@ public interface GameState extends Observable {
 
 	public GameCollections getWorld();
 
-	public ArrayList<UnitOwner> getPlayers();
+	public List<UnitOwner> getPlayers();
 
 	public List<SaveInstance> getSaves();
 
