@@ -37,6 +37,7 @@ public class Controller {
 
     MapLocation selectedMapLocation;
     Boolean allInput = true;
+    boolean menuToggle = false;
 
 
     /**
@@ -132,5 +133,13 @@ public class Controller {
 
     public void skipMenu() {
         view.setGame();
+    }
+
+    void menuToggle() {
+        menuToggle = !menuToggle;
+    }
+
+    boolean getMenuToggle() {
+        return menuToggle;
     }
 }
