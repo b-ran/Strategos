@@ -7,8 +7,9 @@ import strategos.units.Unit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
-public class ModelTestObj extends Observable implements GameState {
+public class ModelTestObj implements GameState {
     private GameCollections gameCollections;
     private  ArrayList<UnitOwner> unitOwners = new ArrayList<>();
 
@@ -101,4 +102,23 @@ public class ModelTestObj extends Observable implements GameState {
         this.unitOwners = unitOwners;
     }
 
+    @Override
+    public void addObserver(Observer o) {
+        
+    }
+
+    @Override
+    public void setChanged() {
+
+    }
+
+    @Override
+    public boolean hasChanged() {
+        return false;
+    }
+
+    @Override
+    public void notifyObservers(Object o) {
+
+    }
 }
