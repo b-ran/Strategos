@@ -323,8 +323,6 @@ public class Tests extends JComponent {
 
         model.setWorld(gameCollectionTestObj);
 
-        ui.repaint();
-
         ui.disableInput();
         ui.skipMenu();
         waitToClose();
