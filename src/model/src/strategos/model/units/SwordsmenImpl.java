@@ -23,6 +23,7 @@ public class SwordsmenImpl extends UnitImpl implements Swordsmen {
 
 	@Override
 	public Unit copy() {
+		// No need to create local variable here
 		Unit newUnit = new SwordsmenImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}

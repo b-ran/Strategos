@@ -26,6 +26,7 @@ public class EliteImpl extends UnitImpl implements Elite {
 
 	@Override
 	public Unit copy() {
+		// No need to create local variable here
 		Unit newUnit = new EliteImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}

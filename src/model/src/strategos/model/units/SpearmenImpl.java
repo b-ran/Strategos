@@ -23,6 +23,7 @@ public class SpearmenImpl extends UnitImpl implements Spearmen {
 
 	@Override
 	public Unit copy() {
+		// No need to create local variable here
 		Unit newUnit = new SpearmenImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}

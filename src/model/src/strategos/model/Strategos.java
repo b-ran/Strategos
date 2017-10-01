@@ -75,6 +75,9 @@ public class Strategos implements GameState {
 
 	private boolean canPassUnit(Unit mover, MapLocation location, Direction direction) {
 		Unit u = getUnitAt(location.getNeighbour(direction));
+		// No need for an if here. Use an or
+		//// return u == null ||
+		//// 	(u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
 		if (u != null) {
 			return (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
 		}
@@ -182,14 +185,18 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
+		// These for loops can become streams
+		//// turn.getUnits().removeIf(u -> !u.isAlive());
 		for (int i = 0; i < turn.getUnits().size(); i++) {
 			if (!turn.getUnits().get(i).isAlive()) {
 				turn.getUnits().remove(i);
 			}
 		}
+		//// turn.getUnits().forEach(Unit::turnTick);
 		for (Unit unit : turn.getUnits()) {
 			unit.turnTick();
 		}
+		//// getPlayers().forEach(this::calculateVision);
 		for (UnitOwner player : getPlayers()) {
 			calculateVision(player);
 		}
@@ -239,6 +246,8 @@ public class Strategos implements GameState {
 
 	@Override
 	public void notifyObservers(Object o) {
+		// Another potential stream
+		//// observers.forEach(Observer::notify);
 		for (Observer observer : observers) {
 			observer.notify();
 		}

@@ -24,6 +24,7 @@ public class ArchersImpl extends UnitImpl implements Archers {
 
 	@Override
 	public Unit copy() {
+		// No need to create local variable here
 		Unit newUnit = new ArchersImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}
