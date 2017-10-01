@@ -7,7 +7,7 @@ class ExitListener extends Controller implements ActionListener {
 
     Controller controller;
 
-    public ExitListener(Controller controller) {
+    ExitListener(Controller controller) {
         super(controller);
         this.controller = controller;
     }

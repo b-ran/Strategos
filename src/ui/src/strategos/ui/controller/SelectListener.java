@@ -10,7 +10,7 @@ class SelectListener extends Controller implements MouseListener {
 
     private Controller controller;
 
-    public SelectListener(Controller controller) {
+    SelectListener(Controller controller) {
         super(controller);
         this.controller = controller;
     }

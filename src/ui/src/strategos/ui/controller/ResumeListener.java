@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 class ResumeListener extends Controller implements ActionListener {
 
-    public ResumeListener(Controller controller) {
+    ResumeListener(Controller controller) {
         super(controller);
     }
 
