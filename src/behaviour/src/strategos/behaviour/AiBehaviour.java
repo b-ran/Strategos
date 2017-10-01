@@ -15,19 +15,17 @@ class AiBehaviour extends BaseBehaviour {
     private Behaviour behaviour;
 
     AiBehaviour(
-            GameState gameState,
-            Unit unit,
-            BiFunction<GameState, Unit, Behaviour> factoryMethod
+            GameState gameState, Function<GameState, Behaviour> factoryMethod
     )
     {
-        super(gameState, unit);
+        super(gameState);
 
         if (factoryMethod == null) {
             throw new NullPointerException(
                     "AiBehaviour constructor requires non-null factoryMethod");
         }
 
-        this.behaviour = factoryMethod.apply(gameState, unit);
+        this.behaviour = factoryMethod.apply(gameState);
 
         if (this.behaviour == null) {
             throw new NullPointerException(
@@ -35,45 +33,41 @@ class AiBehaviour extends BaseBehaviour {
         }
     }
 
-    @Override public MapLocation getPosition() {
-        MapLocation position = behaviour.getPosition();
+    @Override public MapLocation getPosition(Unit unit) {
+        MapLocation position = behaviour.getPosition(unit);
         assert position != null
                 : "Method getPosition() shouldn't be returning null";
         return position;
     }
 
-    @Override public void setPosition(MapLocation position) {
+    @Override public void setPosition(Unit unit, MapLocation position) {
         if (position == null) {
             throw new NullPointerException(
                     "Method setPosition() requires non-null position");
         }
-        behaviour.setPosition(position);
+        behaviour.setPosition(unit, position);
     }
 
-    @Override public void turnTick() {
-        behaviour.turnTick();
+    @Override public void turnTick(Unit unit) {
+        behaviour.turnTick(unit);
 
-        Optional<Unit> nearest =
-                getGameState().getUnitsInRange(getPosition(), getSightRadius())
-                        .stream()
-                        .min((a, b) -> {
-                            double aX = getPosition().getX() -
-                                        a.getPosition().getX();
-                            double aY = getPosition().getY() -
-                                        a.getPosition().getY();
-                            double bX = getPosition().getX() -
-                                        b.getPosition().getX();
-                            double bY = getPosition().getY() -
-                                        b.getPosition().getY();
+        Optional<Unit> nearest = getGameState().getUnitsInRange(
+                getPosition(unit),
+                getSightRadius(unit)
+        ).stream().min((a, b) -> {
+            double aX = getPosition(unit).getX() - a.getPosition().getX();
+            double aY = getPosition(unit).getY() - a.getPosition().getY();
+            double bX = getPosition(unit).getX() - b.getPosition().getX();
+            double bY = getPosition(unit).getY() - b.getPosition().getY();
 
-                            return (int) (hypot(aX, aY) - hypot(bX, bY));
-                        });
+            return (int) (hypot(aX, aY) - hypot(bX, bY));
+        });
 
         if (nearest.isPresent()) {
-            if (getGameState().getUnitsInRange(getPosition(), 1)
+            if (getGameState().getUnitsInRange(getPosition(unit), 1)
                     .contains(nearest.get()))
             {
-                getGameState().attack(getUnit(), nearest.get().getPosition());
+                getGameState().attack(unit, nearest.get().getPosition());
             }
             else {
                 // TODO: Approach unit
@@ -84,59 +78,63 @@ class AiBehaviour extends BaseBehaviour {
         }
     }
 
-    @Override public void wary() {
-        behaviour.wary();
+    @Override public void wary(Unit unit) {
+        behaviour.wary(unit);
     }
 
-    @Override public void entrench() {
-        behaviour.entrench();
+    @Override public void entrench(Unit unit) {
+        behaviour.entrench(unit);
     }
 
-    @Override public void charge() {
-        behaviour.charge();
+    @Override public void charge(Unit unit) {
+        behaviour.charge(unit);
     }
 
-    @Override public boolean move(Direction direction) {
+    @Override public boolean move(Unit unit, Direction direction) {
         if (direction == null) {
             throw new NullPointerException(
                     "Method move() requires a non-null direction");
         }
-        return behaviour.move(direction);
+        return behaviour.move(unit, direction);
     }
 
-    @Override public int attack(Unit enemy) {
+    @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException(
                     "Method attack() requires a non-null enemy");
         }
-        return behaviour.attack(enemy);
+        return behaviour.attack(unit, enemy);
     }
 
-    @Override public int defend(Unit enemy) {
+    @Override public int defend(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException(
                     "Method defend() requires a non-null enemy");
         }
-        return behaviour.defend(enemy);
+        return behaviour.defend(unit, enemy);
     }
 
-    @Override public int getStrength() {
-        return behaviour.getStrength();
+    @Override public int getStrength(Unit unit) {
+        return behaviour.getStrength(unit);
     }
 
-    @Override public int getToughness() {
-        return behaviour.getToughness();
+    @Override public int getToughness(Unit unit) {
+        return behaviour.getToughness(unit);
     }
 
-    @Override public boolean isAlive() {
-        return behaviour.isAlive();
+    @Override public boolean isAlive(Unit unit) {
+        return behaviour.isAlive(unit);
     }
 
-    @Override public int getSightRadius() {
-        return behaviour.getSightRadius();
+    @Override public int getSightRadius(Unit unit) {
+        return behaviour.getSightRadius(unit);
     }
 
-    @Override public int getActionPoints() {
-        return behaviour.getActionPoints();
+    @Override public int getActionPoints(Unit unit) {
+        return behaviour.getActionPoints(unit);
+    }
+
+    @Override public Behaviour copy() {
+        return new AiBehaviour(getGameState(), s -> behaviour.copy());
     }
 }

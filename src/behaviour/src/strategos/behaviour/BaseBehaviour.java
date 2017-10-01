@@ -2,33 +2,31 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.units.*;
 
 
 abstract class BaseBehaviour implements Behaviour {
 
     private final GameState gameState;
-    private final Unit      unit;
 
-    BaseBehaviour(GameState gameState, Unit unit) {
+    BaseBehaviour(GameState gameState) {
         if (gameState == null) {
             throw new NullPointerException(
                     "BaseBehaviour constructor requires non-null gameState");
         }
-        if (unit == null) {
-            throw new NullPointerException(
-                    "BaseBehaviour constructor requires non-null unit");
-        }
 
         this.gameState = gameState;
-        this.unit = unit;
+    }
+
+    BaseBehaviour(BaseBehaviour behaviour) {
+        if (behaviour == null) {
+            throw new NullPointerException(
+                    "BaseBehaviour constructor requires non-null behaviour");
+        }
+
+        gameState = behaviour.gameState;
     }
 
     final GameState getGameState() {
         return gameState;
-    }
-
-    final Unit getUnit() {
-        return unit;
     }
 }

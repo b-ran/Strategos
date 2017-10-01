@@ -2,7 +2,6 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.units.*;
 
 import java.util.function.*;
 
@@ -10,37 +9,30 @@ import java.util.function.*;
 public class BehaviourFactoryImpl implements BehaviourFactory {
 
 
-    @Override
-    public Behaviour createBehaviourArchers(GameState gameState, Unit unit) {
-        return new BehaviourArchers(gameState, unit);
+    @Override public Behaviour createBehaviourArchers(GameState gameState) {
+        return new BehaviourArchers(gameState);
     }
 
-    @Override
-    public Behaviour createBehaviourCavalry(GameState gameState, Unit unit) {
-        return new BehaviourCavalry(gameState, unit);
+    @Override public Behaviour createBehaviourCavalry(GameState gameState) {
+        return new BehaviourCavalry(gameState);
     }
 
-    @Override
-    public Behaviour createBehaviourElite(GameState gameState, Unit unit) {
-        return new BehaviourElite(gameState, unit);
+    @Override public Behaviour createBehaviourElite(GameState gameState) {
+        return new BehaviourElite(gameState);
     }
 
-    @Override
-    public Behaviour createBehaviourSpearmen(GameState gameState, Unit unit) {
-        return new BehaviourSpearmen(gameState, unit);
+    @Override public Behaviour createBehaviourSpearmen(GameState gameState) {
+        return new BehaviourSpearmen(gameState);
     }
 
-    @Override
-    public Behaviour createBehaviourSwordsmen(GameState gameState, Unit unit) {
-        return new BehaviourSwordsmen(gameState, unit);
+    @Override public Behaviour createBehaviourSwordsmen(GameState gameState) {
+        return new BehaviourSwordsmen(gameState);
     }
 
     @Override public Behaviour createAiBehaviour(
-            GameState gameState,
-            Unit unit,
-            BiFunction<GameState, Unit, Behaviour> factoryMethod
+            GameState gameState, Function<GameState, Behaviour> factoryMethod
     )
     {
-        return new AiBehaviour(gameState, unit, factoryMethod);
+        return new AiBehaviour(gameState, factoryMethod);
     }
 }

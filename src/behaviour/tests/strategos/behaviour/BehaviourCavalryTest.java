@@ -3,6 +3,7 @@ package strategos.behaviour;
 
 import org.junit.*;
 import strategos.*;
+import strategos.units.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -10,24 +11,26 @@ import static org.junit.Assert.*;
 
 public class BehaviourCavalryTest {
 
-    private BehaviourCavalry behaviour;
+    private Behaviour behaviour;
+    private Unit      unit;
 
     @Before public void setUp() throws Exception {
-        behaviour = new BehaviourCavalry(TestUtil.getMockGameState(),
-                TestUtil.getMockUnit()
-        );
+        BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
+        behaviour =
+                behaviourFactory.createBehaviourCavalry(TestUtil.getMockGameState());
+        unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
         assertThat("Cavalry strength should be same as in Config",
-                behaviour.getStrength(),
+                behaviour.getStrength(unit),
                 is(Config.CAVALRY_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
         assertThat("Cavalry toughness should be same as in Config",
-                behaviour.getToughness(),
+                behaviour.getToughness(unit),
                 is(Config.CAVALRY_TOUGHNESS)
         );
     }
@@ -41,8 +44,9 @@ public class BehaviourCavalryTest {
     }
 
     @Test public void getActionPoints() throws Exception {
+        behaviour.turnTick(unit);
         assertThat("Cavalry action points should be same as in Config",
-                behaviour.getMaxActionPoints(),
+                behaviour.getActionPoints(unit),
                 is(Config.CAVALRY_ACTION_POINTS)
         );
     }

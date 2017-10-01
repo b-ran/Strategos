@@ -9,14 +9,14 @@ import strategos.units.*;
 
 abstract class UnitBehaviour extends BaseBehaviour {
 
-    private final boolean     entrench;
-    private       MapLocation position;
-    private       int         actionPoints;
-    private       boolean     wary;
-    private       int         hitpoints;
+    private boolean     entrench;
+    private MapLocation position;
+    private int         actionPoints;
+    private boolean     wary;
+    private int         hitpoints;
 
-    UnitBehaviour(GameState gameState, Unit unit) {
-        super(gameState, unit);
+    UnitBehaviour(GameState gameState) {
+        super(gameState);
 
         hitpoints = 100;
         actionPoints = 0;
@@ -25,13 +25,23 @@ abstract class UnitBehaviour extends BaseBehaviour {
         entrench = false;
     }
 
-    @Override final public MapLocation getPosition() {
+    UnitBehaviour(UnitBehaviour behaviour) {
+        super(behaviour);
+
+        entrench = behaviour.entrench;
+        position = behaviour.position;
+        actionPoints = behaviour.actionPoints;
+        wary = behaviour.wary;
+        hitpoints = behaviour.hitpoints;
+    }
+
+    @Override final public MapLocation getPosition(Unit unit) {
         assert position != null
                 : "Method getPosition() shouldn't be returning null";
         return position;
     }
 
-    @Override final public void setPosition(MapLocation position) {
+    @Override final public void setPosition(Unit unit, MapLocation position) {
         if (position == null) {
             throw new NullPointerException(
                     "Method setPosition() requires non-null position");
@@ -39,7 +49,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         this.position = position;
     }
 
-    @Override public void turnTick() {
+    @Override public void turnTick(Unit unit) {
         actionPoints = getMaxActionPoints();
 
         if (wary) {
@@ -47,48 +57,48 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
     }
 
-    @Override public void wary() {
+    @Override public void wary(Unit unit) {
         // TODO: wary
     }
 
-    @Override public void entrench() {
+    @Override public void entrench(Unit unit) {
         // TODO: entrench
     }
 
-    @Override public void charge() {
+    @Override public void charge(Unit unit) {
         // TODO: charge
     }
 
-    @Override final public boolean move(Direction direction) {
+    @Override final public boolean move(Unit unit, Direction direction) {
         if (direction == null) {
             throw new NullPointerException(
                     "Method move() requires a non-null direction");
         }
 
-        if (getActionPoints() <= 0) {
+        if (getActionPoints(unit) <= 0) {
             return false;
         }
         else {
-            setPosition(position.getNeighbour(direction));
-            actionPoints -= terrainMovementCost();
+            setPosition(unit, position.getNeighbour(direction));
+            actionPoints -= terrainMovementCost(unit);
             return true;
         }
     }
 
-    @Override public int attack(Unit enemy) {
+    @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException(
                     "Method attack() requires a non-null enemy");
         }
 
-        if (!isAlive() || !enemy.isAlive()) {
+        if (!isAlive(unit) || !enemy.isAlive()) {
             return 0;
         }
 
         // TODO: HP debuff
         int defence = terrainDamageBonus(enemy, enemy.getToughness(), false);
 
-        enemy.defend(getUnit());
+        enemy.defend(unit);
 
         hitpoints -= defence;
 
@@ -118,8 +128,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
     }
 
-    private int terrainMovementCost() {
-        Terrain terrain = getGameState().getTerrainAt(getPosition());
+    private int terrainMovementCost(Unit unit) {
+        Terrain terrain = getGameState().getTerrainAt(getPosition(unit));
 
         if (terrain instanceof Plains) {
             return -1;
@@ -138,7 +148,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
     }
 
-    @Override public int defend(Unit enemy) {
+    @Override public int defend(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException(
                     "Method defend() requires a non-null enemy");
@@ -151,19 +161,19 @@ abstract class UnitBehaviour extends BaseBehaviour {
         return 0;
     }
 
-    @Override public boolean isAlive() {
+    @Override public boolean isAlive(Unit unit) {
         return hitpoints > 0;
     }
 
-    @Override public int getSightRadius() {
+    @Override public int getSightRadius(Unit unit) {
         return 2;
     }
 
-    @Override public int getActionPoints() {
-        return isAlive() ? actionPoints : 0;
+    @Override public int getActionPoints(Unit unit) {
+        return isAlive(unit) ? actionPoints : 0;
     }
 
-    protected void setActionPoints(int actionPoints) {
+    void setActionPoints(int actionPoints) {
         this.actionPoints = actionPoints;
     }
 

@@ -9,15 +9,15 @@ import java.util.function.*;
 
 public interface BehaviourFactory {
 
-    Behaviour createBehaviourArchers(GameState gameState, Unit unit);
+    Behaviour createBehaviourArchers(GameState gameState);
 
-    Behaviour createBehaviourCavalry(GameState gameState, Unit unit);
+    Behaviour createBehaviourCavalry(GameState gameState);
 
-    Behaviour createBehaviourElite(GameState gameState, Unit unit);
+    Behaviour createBehaviourElite(GameState gameState);
 
-    Behaviour createBehaviourSpearmen(GameState gameState, Unit unit);
+    Behaviour createBehaviourSpearmen(GameState gameState);
 
-    Behaviour createBehaviourSwordsmen(GameState gameState, Unit unit);
+    Behaviour createBehaviourSwordsmen(GameState gameState);
 
-    Behaviour createAiBehaviour(GameState gameState, Unit unit, BiFunction<GameState, Unit, Behaviour> factoryMethod);
+    Behaviour createAiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod);
 }

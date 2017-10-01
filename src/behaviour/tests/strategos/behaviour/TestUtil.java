@@ -12,6 +12,14 @@ public class TestUtil {
 
     static Unit getMockUnit() {
     return new Unit() {
+        @Override public void setBehaviour(Behaviour behaviour) {
+
+        }
+
+        @Override public Behaviour getBehaviour() {
+            return null;
+        }
+
         @Override public MapLocation getPosition() {
             return null;
         }
@@ -71,16 +79,36 @@ public class TestUtil {
         @Override public int getActionPoints() {
             return 0;
         }
+
+        @Override public Unit copyUnit() {
+            return null;
+        }
     };
 }
 
     static GameState getMockGameState() {
     return new GameState() {
+        @Override public void addObserver(Observer o) {
+
+        }
+
+        @Override public void setChanged() {
+
+        }
+
+        @Override public boolean hasChanged() {
+            return false;
+        }
+
+        @Override public void notifyObservers(Object o) {
+
+        }
+
         @Override public void save() {
 
         }
 
-        @Override public void load(int saveIndex) {
+        @Override public void load(SaveInstance toRestore) {
 
         }
 
@@ -129,6 +157,22 @@ public class TestUtil {
 
         @Override public void nextTurn() {
 
+        }
+
+        @Override public GameCollections getWorld() {
+            return null;
+        }
+
+        @Override public ArrayList<UnitOwner> getPlayers() {
+            return null;
+        }
+
+        @Override public List<SaveInstance> getSaves() {
+            return null;
+        }
+
+        @Override public UnitOwner getCurrentTurn() {
+            return null;
         }
     };
 }
