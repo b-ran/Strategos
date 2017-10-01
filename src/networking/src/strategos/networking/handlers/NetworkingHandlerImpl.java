@@ -3,11 +3,8 @@ package strategos.networking.handlers;
 import strategos.SaveInstance;
 import strategos.networking.Network;
 import strategos.networking.NetworkingHandler;
-import strategos.networking.SaveInstanceImpl;
 import strategos.networking.networks.Client;
 import strategos.networking.networks.Server;
-
-import java.util.Scanner;
 
 public class NetworkingHandlerImpl implements NetworkingHandler {
 	private Network type;
@@ -39,4 +36,5 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 		type.send(instance);
 		Thread.sleep(3000);
 	}
+    //TODO: add java docs
 }

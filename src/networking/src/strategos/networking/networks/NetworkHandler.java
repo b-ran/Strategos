@@ -8,6 +8,7 @@ import strategos.networking.Network;
 import java.util.ArrayList;
 import java.util.List;
 
+//Either rename or move to handlers
 public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	private List<ChannelHandlerContext> connections = new ArrayList<>();
@@ -22,6 +23,7 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 		super.channelActive(ctx);
 		connections.add(ctx);
 	}
+
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		super.channelInactive(ctx);
@@ -41,6 +43,8 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, SaveInstance msg) throws Exception {
-		network.receive(msg);
+        //Doesn't use ctx?
+        network.receive(msg);
 	}
+    //TODO: add java docs
 }
