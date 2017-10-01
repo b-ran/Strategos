@@ -14,27 +14,7 @@ import java.util.List;
 public class FreeRunTest {
     public static void main(String[] args) {
         List<Unit> entities = new ArrayList<>();
-        Terrain[][] terrain = {
-                {new MountainTestObj(), new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),   new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
-                {new MountainTestObj(), new MountainTestObj(), new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),     new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
-                {new MountainTestObj(), new MountainTestObj(), new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),     new ForestTestObj(),    new MountainTestObj(),  new MountainTestObj()},
-                {new MountainTestObj(), new HillTestObj(),     new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new RiverTestObj(),      new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
-                {new MountainTestObj(), new HillTestObj(),     new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new HillTestObj(),       new HillTestObj(),      new HillTestObj(),      new MountainTestObj()},
-                {new MountainTestObj(), new RiverTestObj(),    new RiverTestObj(),     new HillTestObj(),      new RiverTestObj(),      new HillTestObj(),      new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
-                {new MountainTestObj(), new MountainTestObj(), new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new HillTestObj(),       new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
-                {new MountainTestObj(), new MountainTestObj(), new PlainsTestObj(),    new PlainsTestObj(),    new PlainsTestObj(),    new PlainsTestObj(),     new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
-                {new MountainTestObj(), new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),   new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
-        };
-
-
-        MapLocation[][] map = new MapLocation[terrain.length][terrain[0].length];
-
-        for (int y = 0; y < map.length; y++) {
-            for (int x = 0; x < map[0].length; x++) {
-                map[y][x] = new MapLocationTestObj(x, y);
-                map[y][x].setTerrain(terrain[y][x]);
-            }
-        }
+        MapLocation[][] map = setupMap();
 
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
 
@@ -73,7 +53,48 @@ public class FreeRunTest {
 
         model.setPlayers(unitOwnerTestObjs);
 
+        ArrayList<Unit> attackRange = new ArrayList<>();
+        attackRange.add(a);
+        attackRange.add(c);
+        attackRange.add(e);
+        attackRange.add(s);
+        model.setAttackRange(attackRange);
+
+        ArrayList<MapLocation> moveRange = new ArrayList<>();
+
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[0].length; x++) {
+                moveRange.add(map[y][x]);
+            }
+        }
+
+        model.setMoveRange(moveRange);
 
         Ui ui = new Ui(model);
+    }
+
+    private static MapLocation[][] setupMap() {
+        Terrain[][] terrain = {
+                {new MountainTestObj(), new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),   new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),     new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),     new ForestTestObj(),    new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new HillTestObj(),     new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new RiverTestObj(),      new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new HillTestObj(),     new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new HillTestObj(),       new HillTestObj(),      new HillTestObj(),      new MountainTestObj()},
+                {new MountainTestObj(), new RiverTestObj(),    new RiverTestObj(),     new HillTestObj(),      new RiverTestObj(),      new HillTestObj(),      new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new HillTestObj(),      new HillTestObj(),      new HillTestObj(),      new HillTestObj(),       new HillTestObj(),      new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new PlainsTestObj(),    new PlainsTestObj(),    new PlainsTestObj(),    new PlainsTestObj(),     new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
+                {new MountainTestObj(), new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),   new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
+        };
+
+        MapLocation[][] map = new MapLocation[terrain.length][terrain[0].length];
+
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[0].length; x++) {
+                map[y][x] = new MapLocationTestObj(x, y);
+                map[y][x].setTerrain(terrain[y][x]);
+            }
+        }
+
+        return map;
     }
 }
