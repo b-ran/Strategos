@@ -62,7 +62,6 @@ public class Controller {
         this.model = model;
         this.view = view;
         board = model.getWorld().getMap();
-        System.out.println(board);
         setGameListeners();
         setMenuListeners();
     }
