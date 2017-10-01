@@ -7,38 +7,46 @@ import strategos.units.*;
 
 class BehaviourArchers extends UnitBehaviour {
 
-    BehaviourArchers(GameState gameState, Unit unit) {
-        super(gameState, unit);
+    BehaviourArchers(GameState gameState) {
+        super(gameState);
     }
 
-    @Override public int getStrength() {
+    private BehaviourArchers(BehaviourArchers behaviourArchers) {
+        super(behaviourArchers);
+    }
+
+    @Override public int getStrength(Unit unit) {
         return Config.ARCHERS_STRENGTH;
     }
 
-    @Override public int getToughness() {
+    @Override public int getToughness(Unit unit) {
         return Config.ARCHERS_TOUGHNESS;
     }
 
-    @Override public void charge() {
+    @Override public Behaviour copy() {
+        return new BehaviourArchers(this);
+    }
+
+    @Override public void charge(Unit unit) {
         // Archers cannot charge
     }
 
-    @Override public int attack(Unit enemy) {
+    @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException(
                     "Method attack() requires a non-null enemy");
         }
 
-        if (!isAlive() || !enemy.isAlive()) {
+        if (!isAlive(unit) || !enemy.isAlive()) {
             return 0;
         }
 
-        if (getActionPoints() <= 0) {
+        if (getActionPoints(unit) <= 0) {
             return 0;
         }
 
-        setActionPoints(getActionPoints() - 1);
-        enemy.defend(getUnit());
+        setActionPoints(getActionPoints(unit) - 1);
+        enemy.defend(unit);
 
         return 0;
     }

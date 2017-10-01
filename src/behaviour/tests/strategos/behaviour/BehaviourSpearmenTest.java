@@ -3,6 +3,7 @@ package strategos.behaviour;
 
 import org.junit.*;
 import strategos.*;
+import strategos.units.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -10,24 +11,28 @@ import static org.junit.Assert.*;
 
 public class BehaviourSpearmenTest {
 
-    private BehaviourSpearmen behaviour;
+    private Behaviour behaviour;
+    private Unit      unit;
 
     @Before public void setUp() throws Exception {
-        behaviour = new BehaviourSpearmen(TestUtil.getMockGameState(),
-                TestUtil.getMockUnit()
-        );
+        BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
+        behaviour =
+                behaviourFactory.createBehaviourSpearmen(TestUtil.getMockGameState());
+        unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
-        assertThat("Spearmen strength should be same as in Config",
-                behaviour.getStrength(),
+        assertThat(
+                "Spearmen strength should be same as in Config",
+                behaviour.getStrength(unit),
                 is(Config.SPEARMEN_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
-        assertThat("Spearmen toughness should be same as in Config",
-                behaviour.getToughness(),
+        assertThat(
+                "Spearmen toughness should be same as in Config",
+                behaviour.getToughness(unit),
                 is(Config.SPEARMEN_TOUGHNESS)
         );
     }
@@ -41,8 +46,10 @@ public class BehaviourSpearmenTest {
     }
 
     @Test public void getActionPoints() throws Exception {
-        assertThat("Spearmen action points should be same as in Config",
-                behaviour.getMaxActionPoints(),
+        behaviour.turnTick(unit);
+        assertThat(
+                "Spearmen action points should be same as in Config",
+                behaviour.getActionPoints(unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );
     }

@@ -1,131 +1,99 @@
 package strategos.behaviour;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.units.Unit;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.junit.*;
+import org.junit.rules.*;
+import strategos.*;
+import strategos.units.*;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 
 public class BaseBehaviourTest {
-    @Rule
-    public final ExpectedException nullException = ExpectedException.none();
-    private GameState gameState;
-    private Unit      unit;
 
-    private static BaseBehaviour makeBaseBehaviour(GameState gameState, Unit unit) {
-        return new BaseBehaviour(gameState, unit) {
-            @Override
-            public MapLocation getPosition() {
+    @Rule public final ExpectedException nullException =
+            ExpectedException.none();
+    private GameState gameState;
+
+    @Before public void setUp() throws Exception {
+        gameState = TestUtil.getMockGameState();
+    }
+
+    @Test public void BaseBehaviour_nullState() throws Exception {
+        nullException.expect(NullPointerException.class);
+        makeBaseBehaviour(null);
+    }
+
+    private static BaseBehaviour makeBaseBehaviour(GameState gameState) {
+        return new BaseBehaviour(gameState) {
+            @Override public MapLocation getPosition(Unit unit) {
                 return null;
             }
 
-            @Override
-            public void setPosition(MapLocation position) {
+            @Override public void setPosition(Unit unit, MapLocation position) {
 
             }
 
-            @Override
-            public void turnTick() {
+            @Override public void turnTick(Unit unit) {
 
             }
 
-            @Override
-            public void wary() {
+            @Override public void wary(Unit unit) {
 
             }
 
-            @Override
-            public void entrench() {
+            @Override public void entrench(Unit unit) {
 
             }
 
-            @Override
-            public void charge() {
+            @Override public void charge(Unit unit) {
 
             }
 
-            @Override
-            public boolean move(Direction direction) {
+            @Override public boolean move(Unit unit, Direction direction) {
                 return false;
             }
 
-            @Override
-            public int attack(Unit enemy) {
+            @Override public int attack(Unit unit, Unit enemy) {
                 return 0;
             }
 
-            @Override
-            public int defend(Unit enemy) {
+            @Override public int defend(Unit unit, Unit enemy) {
                 return 0;
             }
 
-            @Override
-            public int getStrength() {
+            @Override public int getStrength(Unit unit) {
                 return 0;
             }
 
-            @Override
-            public int getToughness() {
+            @Override public int getToughness(Unit unit) {
                 return 0;
             }
 
-            @Override
-            public boolean isAlive() {
+            @Override public boolean isAlive(Unit unit) {
                 return false;
             }
 
-            @Override
-            public int getSightRadius() {
+            @Override public int getSightRadius(Unit unit) {
                 return 0;
             }
 
-            @Override
-            public int getActionPoints() {
+            @Override public int getActionPoints(Unit unit) {
                 return 0;
+            }
+
+            @Override public Behaviour copy() {
+                return null;
             }
         };
     }
 
-    @Before
-    public void setUp() throws Exception {
-        gameState = TestUtil.getMockGameState();
-        unit = TestUtil.getMockUnit();
-    }
-
-    @Test
-    public void BaseBehaviour_nullState() throws Exception {
-        nullException.expect(NullPointerException.class);
-        makeBaseBehaviour(null, unit);
-    }
-
-    @Test
-    public void BaseBehaviour_nullUnit() throws Exception {
-        nullException.expect(NullPointerException.class);
-        makeBaseBehaviour(gameState, null);
-    }
-
-    @Test
-    public void getGameState() throws Exception {
+    @Test public void getGameState() throws Exception {
         assertThat(
                 "Provided GameState instance must be returned",
-                makeBaseBehaviour(gameState, unit).getGameState(),
+                makeBaseBehaviour(gameState).getGameState(),
                 is(gameState)
         );
     }
-
-    @Test
-    public void getUnit() throws Exception {
-        assertThat(
-                "Provided Unit instance must be returned",
-                makeBaseBehaviour(gameState, unit).getUnit(),
-                is(unit)
-        );
-    }
-
 }
