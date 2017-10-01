@@ -46,9 +46,7 @@ public class GridComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         paintBlackTerrain(g, terrain);
-        /*
-        TODO -REVIEW: Is seenTerrain ever intilialised? It can be by using UnitOwner.getVisibleTiles(), which is updated every move step and every turn
-         */
+        //TODO: view range UnitOwner.getVisibleTiles()
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
         paintSelection((Graphics2D) g, selectedMapLocation);
@@ -99,24 +97,13 @@ public class GridComponent extends JComponent {
         g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                /*
-                TODO - REVIEW: This could be neatened with a ternary:
-                TODO    drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
-                 */
-                if (y % 2 == 0) {
-                    drawEntity.fillHexagon(g, drawEntity.getGridX(x), drawEntity.getGridY(y), Color.BLACK);
-                } else {
-                    drawEntity.fillHexagon(g, drawEntity.getGridX(x)+HEX_SIZE/2, drawEntity.getGridY(y), Color.BLACK);
-                }
+                drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
             }
         }
     }
 
-    /*
-    TODO - REVIEW: Will you also end up drawing the range of attack/movement of a selected unit?
-    TODO            This could be achieved with GameState.getTilesInRange()
-     */
 
+    //TODO: attack/movement selection GameState.getTilesInRange()
     private void paintSelection(Graphics2D g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
         Point p = drawEntity.getTerrainGridPos(selectedMapLocation);
