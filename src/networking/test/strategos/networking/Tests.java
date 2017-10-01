@@ -23,6 +23,9 @@ public class Tests {
 		assertTrue(out.equals(msg));
 	}
 
+	/**
+	 * This test requires the user to check the output manually
+	 */
 	@Test
 	public void testSendFromServer() throws InterruptedException {
 		NetworkingHandler server = new NetworkingHandlerImpl();

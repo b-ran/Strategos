@@ -39,24 +39,4 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 		type.send(instance);
 		Thread.sleep(3000);
 	}
-
-	public static void main(String[] args) throws Exception {
-		NetworkingHandlerImpl handler = new NetworkingHandlerImpl();
-		if(args.length == 2) {
-			handler.initialise(args[0], Integer.parseInt(args[1]));
-		} else if (args.length == 1) {
-			handler.initialise(Integer.parseInt(args[0]));
-		} else {
-			throw new IllegalArgumentException();
-		}
-		SaveInstanceImpl instance = new SaveInstanceImpl("Testing123", 456);
-		System.out.print("Type anything to continue: ");
-		Scanner sc = new Scanner(System.in);
-		while(!sc.hasNext()) {}
-		System.out.println(sc.next());
-		handler.run();
-		if(args.length == 2) {
-			handler.send(instance);
-		}
-	}
 }
