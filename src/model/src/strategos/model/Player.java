@@ -44,7 +44,7 @@ public class Player implements UnitOwner{
 		List<Unit> newUnits = new ArrayList<>();
 
 		for (int i = 0; i < getUnits().size(); i++) {
-			newUnits.add(getUnits().get(i).copyUnit());
+			newUnits.add(getUnits().get(i).copy());
 		}
 		newPlayer.setUnits(newUnits);
 		return newPlayer;

@@ -8,7 +8,7 @@ import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 import strategos.units.Unit;
 
-public class UnitImpl implements Graphical, Unit, Behaviour {
+public class UnitImpl implements Graphical, Unit {
 
 	private Behaviour behaviour;
 	private final UnitOwner owner;
@@ -108,13 +108,9 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 	}
 
 	@Override
-	public Behaviour copy() {
-		return null;
-	}
-
-	@Override
-	public Unit copyUnit() {
-		Unit newUnit = new UnitImpl(behaviour.copy(), getOwner());
+	public Unit copy() {
+		Unit newUnit = new UnitImpl(getOwner());
+		newUnit.setBehaviour(getBehaviour().copy());
 		return newUnit;
 	}
 }

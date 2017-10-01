@@ -41,5 +41,5 @@ public interface Unit {
 
     int getActionPoints();
 
-    public Unit copyUnit();
+    public Unit copy();
 }
