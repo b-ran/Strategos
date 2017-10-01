@@ -30,17 +30,8 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
         return new BehaviourSwordsmen(gameState);
     }
 
-    //TODO: too much indentation make harder to read
-    /*
-    @Override public Behaviour createAiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
-        return new AiBehaviour(gameState, factoryMethod);
-    }
-     */
-
-    @Override public Behaviour createAiBehaviour(
-            GameState gameState, Function<GameState, Behaviour> factoryMethod
-    )
-    {
+    @Override
+    public Behaviour createAiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
         return new AiBehaviour(gameState, factoryMethod);
     }
 }

@@ -2,6 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.behaviour.config.Config;
 import strategos.units.*;
 
 
@@ -19,22 +20,22 @@ class BehaviourArchers extends UnitBehaviour {
 
     @Override public int getStrength(Unit unit) {
         return Config.ARCHERS_STRENGTH;
-    } //TODO: Maybe have your own config in your library
+    }
 
     @Override public int getToughness(Unit unit) {
         return Config.ARCHERS_TOUGHNESS;
-    } //TODO: Maybe have your own config in your library
+    }
 
     @Override public Behaviour copy() {
         return new BehaviourArchers(this);
     }
 
-    @Override public void charge(Unit unit) { //TODO: remove they method if they cannot charge
-        // Archers cannot charge
+    @Override public void charge(Unit unit) {
+        // Archers cannot charge, so this blank method overrides the default
+        // behaviour
     }
 
-    @Override public int attack(Unit unit, Unit enemy) { //TODO: is there a reason why is attack here and not it the other units?
-        //TODO: assert enemy != null : "Method attack() requires a non-null enemy"
+    @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException(
                     "Method attack() requires a non-null enemy");

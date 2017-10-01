@@ -11,7 +11,6 @@ abstract class BaseBehaviour implements Behaviour {
     private final GameState gameState;
 
     BaseBehaviour(GameState gameState) {
-        //TODO: assert gameState != null : "BaseBehaviour constructor requires non-null gameState";
         if (gameState == null) {
             throw new NullPointerException(
                     "BaseBehaviour constructor requires non-null gameState");
@@ -21,7 +20,6 @@ abstract class BaseBehaviour implements Behaviour {
     }
 
     BaseBehaviour(BaseBehaviour behaviour) {
-        //TODO: assert gameState != null : "BaseBehaviour constructor requires non-null gameState";
         if (behaviour == null) {
             throw new NullPointerException(
                     "BaseBehaviour constructor requires non-null behaviour");

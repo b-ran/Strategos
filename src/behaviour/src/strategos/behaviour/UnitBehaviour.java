@@ -2,6 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.behaviour.config.Config;
 import strategos.exception.*;
 import strategos.terrain.*;
 import strategos.units.*;
@@ -12,7 +13,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     //TODO: Where is your javadoc?
 
     private boolean     entrench;
-    private MapLocation position; //TODO: private MapLocation mapLocation;
+    private MapLocation position;
     private int         actionPoints;
     private boolean     wary;
     private int         hitpoints;
@@ -31,30 +32,23 @@ abstract class UnitBehaviour extends BaseBehaviour {
         super(behaviour);
 
         entrench = behaviour.entrench;
-        //TODO:  mapLocation = behaviour.mapLocation;
         position = behaviour.position;
         actionPoints = behaviour.actionPoints;
         wary = behaviour.wary;
         hitpoints = behaviour.hitpoints;
     }
 
-    //TODO: @Override final public MapLocation getMapLocation(Unit unit) {
     @Override final public MapLocation getPosition(Unit unit) {
         assert position != null
-                //TODO: : "Method getMapLocation() shouldn't be returning null";
                 : "Method getPosition() shouldn't be returning null";
-        //TODO: return mapLocation;
         return position;
     }
 
-    //TODO: @Override final public void setMapLocation(Unit unit, MapLocation mapLocation) {
     @Override final public void setPosition(Unit unit, MapLocation position) {
-        //TODO: assert position != null : "Method setPosition() requires non-null position";
         if (position == null) {
             throw new NullPointerException(
                     "Method setPosition() requires non-null position");
         }
-        //TODO: this.mapLocation = mapLocation;
         this.position = position;
     }
 
@@ -94,10 +88,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
     }
 
-    //TODO: @Override final public boolean move(Unit unit, MapLocation mapLocation) { plz make ui life easier :(
-
-    @Override public int attack(Unit unit, Unit enemy) { //TODO: why does attack return 0?????
-        //TODO: assert enemy != null : "Method attack() requires a non-null enemy";
+    @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException(
                     "Method attack() requires a non-null enemy");
@@ -121,8 +112,6 @@ abstract class UnitBehaviour extends BaseBehaviour {
         assert unit != null
                 : "Method terrainDamageBonus() shouldn't be receiving a null unit";
 
-
-        //TODO: Terrain terrain = getGameState().getTerrainAt(unit.getMapLocation());
         Terrain terrain = getGameState().getTerrainAt(unit.getPosition());
 
         if (terrain instanceof Plains) {
@@ -143,7 +132,6 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     private int terrainMovementCost(Unit unit) {
-        //TODO: Terrain terrain = getGameState().getTerrainAt(unit.getMapLocation());
         Terrain terrain = getGameState().getTerrainAt(getPosition(unit));
 
         if (terrain instanceof Plains) {
@@ -164,7 +152,6 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
-        //TODO: assert enemy != null : "Method defend() requires a non-null enemy";
         if (enemy == null) {
             throw new NullPointerException(
                     "Method defend() requires a non-null enemy");
@@ -193,7 +180,6 @@ abstract class UnitBehaviour extends BaseBehaviour {
         this.actionPoints = actionPoints;
     }
 
-    //TODO: Maybe have your own config in your library
     int getMaxActionPoints() {
         return Config.INFANTRY_ACTION_POINTS;
     }
