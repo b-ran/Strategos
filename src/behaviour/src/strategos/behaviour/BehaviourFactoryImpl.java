@@ -8,6 +8,7 @@ import java.util.function.*;
 
 public class BehaviourFactoryImpl implements BehaviourFactory {
 
+    //TODO: where is your javadoc?
 
     @Override public Behaviour createBehaviourArchers(GameState gameState) {
         return new BehaviourArchers(gameState);
@@ -28,6 +29,13 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
     @Override public Behaviour createBehaviourSwordsmen(GameState gameState) {
         return new BehaviourSwordsmen(gameState);
     }
+
+    //TODO: too much indentation make harder to read
+    /*
+    @Override public Behaviour createAiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
+        return new AiBehaviour(gameState, factoryMethod);
+    }
+     */
 
     @Override public Behaviour createAiBehaviour(
             GameState gameState, Function<GameState, Behaviour> factoryMethod
