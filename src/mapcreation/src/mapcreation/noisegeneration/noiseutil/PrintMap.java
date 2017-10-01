@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class PrintMap {
+    //TODO This class is not commented.
     public static void greyImage(double[][] imageData) {
         BufferedImage image = new BufferedImage(imageData.length, imageData[0].length, BufferedImage.TYPE_INT_RGB);
         float colorValue;
