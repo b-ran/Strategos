@@ -78,6 +78,23 @@ public interface GameState extends Observable {
 	public List<Unit> getUnitsInRange(MapLocation location, int range);
 
 	/**
+	 * Find all Units within a attack range of a Unit.
+	 *
+	 * @param unit
+	 * @return a List of Units within attack range.
+	 */
+	public List<Unit> getUnitsInAttackRange(Unit unit);
+
+	/**
+	 * Find all Tiles within a within move range of a Unit.
+	 *
+	 * @param unit
+	 * @return a List of Units within move range.
+	 */
+	public List<MapLocation> getTilesInMoveRange(Unit unit);
+
+
+	/**
 	 * Gets the Terrain at a given location. If the MapLocation is not inside the play area, the Terrain is expected to
 	 * 		be a Mountain.
 	 * @param location
