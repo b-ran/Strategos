@@ -166,10 +166,7 @@ class DrawEntity {
         } else if (owner.getUnits().contains(unit)) {
             g.setColor(PLAYER_COLOR);
         } else {
-            /*
-            TODO - REVIEW: Not a very good name, since NPC means Not Player Controlled. OTHER_PLAYER might be better
-             */
-            g.setColor(NOT_PLAYER_COLOR);
+            g.setColor(OTHER_PLAYER_COLOR);
         }
     }
 
