@@ -91,6 +91,7 @@ public class View extends JComponent implements Observer {
         setGame();
     }
 
+    // TODO - REVIEW: could this be established using a for-i loop over getComponents?
     private void removeAllComponents() {
         gridPanel.remove(escapeMenuPanel);
         gridPanel.remove(gridComponent);

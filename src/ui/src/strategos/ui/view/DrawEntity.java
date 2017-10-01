@@ -14,6 +14,12 @@ import static strategos.ui.config.Config.*;
  */
 class DrawEntity {
 
+    /*
+    TODO - REVIEW: This has a lot of duplicated code (which makes sense at this level of development) but it would be
+    TODO            better to use polymorphism and just draw the sprite stored within Unit (or within the Graphical interface
+    TODO            which Unit implements). Graphical could also store the letter and colour, and apply to Terrain as well
+     */
+
     /**
      * Draws Archers.
      *
@@ -160,6 +166,9 @@ class DrawEntity {
         } else if (owner.getUnits().contains(unit)) {
             g.setColor(PLAYER_COLOR);
         } else {
+            /*
+            TODO - REVIEW: Not a very good name, since NPC means Not Player Controlled. OTHER_PLAYER might be better
+             */
             g.setColor(NOT_PLAYER_COLOR);
         }
     }
