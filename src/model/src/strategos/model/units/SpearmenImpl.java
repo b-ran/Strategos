@@ -22,7 +22,7 @@ public class SpearmenImpl extends UnitImpl implements Spearmen {
 	}
 
 	@Override
-	public Unit copyUnit() {
+	public Unit copy() {
 		Unit newUnit = new SpearmenImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}

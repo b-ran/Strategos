@@ -22,7 +22,7 @@ public class SwordsmenImpl extends UnitImpl implements Swordsmen {
 	}
 
 	@Override
-	public Unit copyUnit() {
+	public Unit copy() {
 		Unit newUnit = new SwordsmenImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}

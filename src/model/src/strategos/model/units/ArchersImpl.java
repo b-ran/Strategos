@@ -23,7 +23,7 @@ public class ArchersImpl extends UnitImpl implements Archers {
 	}
 
 	@Override
-	public Unit copyUnit() {
+	public Unit copy() {
 		Unit newUnit = new ArchersImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}

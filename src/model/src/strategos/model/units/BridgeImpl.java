@@ -15,7 +15,7 @@ public class BridgeImpl extends UnitImpl implements Bridge {
 	}
 
 	@Override
-	public Unit copyUnit() {
+	public Unit copy() {
 		Unit newUnit = new BridgeImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}

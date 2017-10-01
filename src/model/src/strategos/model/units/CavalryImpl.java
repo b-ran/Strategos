@@ -22,7 +22,7 @@ public class CavalryImpl extends UnitImpl implements Cavalry {
 	}
 
 	@Override
-	public Unit copyUnit() {
+	public Unit copy() {
 		Unit newUnit = new CavalryImpl(getBehaviour().copy(), getOwner());
 		return newUnit;
 	}
