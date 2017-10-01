@@ -77,7 +77,7 @@ public class TerrainGeneration {
         int seed = rand.nextInt();
         //Map must be min of 15 in size, square
         if (hexMap.length != hexMap[0].length || hexMap.length < 15) {
-            throw new RuntimeException("Map to small");
+            throw new RuntimeException("Map too small");
         }
         //Dimensions for noise map
         int width = hexMap[0].length, height = hexMap.length;
