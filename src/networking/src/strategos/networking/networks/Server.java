@@ -18,12 +18,11 @@ import strategos.networking.handlers.DataHandler;
  */
 public class Server implements Network {
 	private int port;
+    private NetworkHandler serverHandler;
 
 	public NetworkHandler getServerHandler() {
 		return serverHandler;
 	}
-
-	private NetworkHandler serverHandler;
 
 	public Server(int port) {
 		this.port = port;
@@ -63,8 +62,10 @@ public class Server implements Network {
 		serverHandler.send(instance);
 	}
 
-	@Override
-	public void receive(SaveInstance instance) {
-		System.out.println(instance);
-	}
+    //Is this done?
+    @Override
+    public void receive(SaveInstance instance) {
+        System.out.println(instance);
+    }
+    //TODO: add java docs
 }
