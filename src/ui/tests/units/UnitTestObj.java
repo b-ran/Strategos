@@ -21,6 +21,11 @@ public class UnitTestObj implements Unit{
     }
 
     @Override
+    public Behaviour getBehaviour() {
+        return null;
+    }
+
+    @Override
     public MapLocation getPosition() {
         return mapLocation;
     }
@@ -93,5 +98,10 @@ public class UnitTestObj implements Unit{
     @Override
     public int getActionPoints() {
         return 0;
+    }
+
+    @Override
+    public Unit copyUnit() {
+        return null;
     }
 }

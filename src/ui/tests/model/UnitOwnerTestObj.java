@@ -39,6 +39,11 @@ public class UnitOwnerTestObj implements UnitOwner {
 
     }
 
+    @Override
+    public UnitOwner copy() {
+        return null;
+    }
+
     public void setAsNpc() {
         npc = true;
     }
