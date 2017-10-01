@@ -12,14 +12,20 @@ import static java.lang.Math.*;
 
 class AiBehaviour extends BaseBehaviour {
 
+    //TODO: Where is your javadoc?
+
     private Behaviour behaviour;
 
+    //TODO: change to AiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
+    //TODO: change precondition to assertion (up to you though it thinks better with how others have done precondition)
     AiBehaviour(
             GameState gameState, Function<GameState, Behaviour> factoryMethod
     )
     {
+        //TODO: maybe want to assert gameState even if it's internal
         super(gameState);
 
+        //TODO: assert factoryMethod != null : "AiBehaviour constructor requires non-null factoryMethod";
         if (factoryMethod == null) {
             throw new NullPointerException(
                     "AiBehaviour constructor requires non-null factoryMethod");
@@ -27,24 +33,32 @@ class AiBehaviour extends BaseBehaviour {
 
         this.behaviour = factoryMethod.apply(gameState);
 
+        //TODO: assert this.behaviour != null : "Behaviour factory method should not return null"; ";
         if (this.behaviour == null) {
             throw new NullPointerException(
                     "Behaviour factory method should not return null");
         }
     }
 
+    //TODO: @Override public MapLocation getMapLocation(Unit unit) {
     @Override public MapLocation getPosition(Unit unit) {
+        //TODO: MapLocation mapLocation = behaviour.getPosition(unit);
         MapLocation position = behaviour.getPosition(unit);
         assert position != null
+                //TODO: : "Method getMapLocation() shouldn't be returning null";
                 : "Method getPosition() shouldn't be returning null";
+        //TODO: return mapLocation;
         return position;
     }
 
+    //TODO: @Override public void setMapLocation(Unit unit, MapLocation mapLocation) {
     @Override public void setPosition(Unit unit, MapLocation position) {
+        //TODO: assert mapLocation != null : "Method setMapLocation() requires non-null mapLocation"
         if (position == null) {
             throw new NullPointerException(
                     "Method setPosition() requires non-null position");
         }
+        //TODO: behaviour.setMapLocation(unit, mapLocation);
         behaviour.setPosition(unit, position);
     }
 
@@ -55,6 +69,10 @@ class AiBehaviour extends BaseBehaviour {
                 getPosition(unit),
                 getSightRadius(unit)
         ).stream().min((a, b) -> {
+            //TODO: double aX = getMapLocation(unit).getX() - a.getMapLocation().getX();
+            //TODO: double aY = getMapLocation(unit).getY() - a.getMapLocation().getY();
+            //TODO: double bX = getMapLocation(unit).getX() - b.getMapLocation().getX();
+            //TODO: double bY = getMapLocation(unit).getY() - b.getMapLocation().getY();
             double aX = getPosition(unit).getX() - a.getPosition().getX();
             double aY = getPosition(unit).getY() - a.getPosition().getY();
             double bX = getPosition(unit).getX() - b.getPosition().getX();
@@ -62,6 +80,19 @@ class AiBehaviour extends BaseBehaviour {
 
             return (int) (hypot(aX, aY) - hypot(bX, bY));
         });
+
+        //TODO: too much indentation
+        /*
+            if (nearest.isPresent()) {
+                if (getGameState().getUnitsInRange(getPosition(unit), 1).contains(nearest.get())) {
+                    getGameState().attack(unit, nearest.get().getPosition());
+                } else {
+                   // TODO: Approach unit
+                }
+            } else {
+            // TODO: Explore
+            }
+         */
 
         if (nearest.isPresent()) {
             if (getGameState().getUnitsInRange(getPosition(unit), 1)
@@ -91,6 +122,7 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override public boolean move(Unit unit, Direction direction) {
+        //TODO: assert direction != null : "Method move() requires a non-null direction";
         if (direction == null) {
             throw new NullPointerException(
                     "Method move() requires a non-null direction");
@@ -99,6 +131,7 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
+        //TODO: assert enemy != null : "Method attack() requires a non-null enemy";
         if (enemy == null) {
             throw new NullPointerException(
                     "Method attack() requires a non-null enemy");
@@ -107,6 +140,7 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
+        //TODO: assert enemy != null : "Method attack() requires a non-null enemy";
         if (enemy == null) {
             throw new NullPointerException(
                     "Method defend() requires a non-null enemy");
