@@ -1,4 +1,4 @@
-package strategos.networking.networks;
+package strategos.networking.handlers;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -8,7 +8,9 @@ import strategos.networking.Network;
 import java.util.ArrayList;
 import java.util.List;
 
-//Either rename or move to handlers
+/**
+ * Handles the top level Networking
+ */
 public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	private List<ChannelHandlerContext> connections = new ArrayList<>();
@@ -37,14 +39,16 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 	}
 
 
+	/**
+	 * Sends the provided SaveInstance to each connection
+	 * @param instance The SaveInstance to send
+	 */
 	public void send(SaveInstance instance) {
 		connections.forEach(conn-> conn.writeAndFlush(instance));
 	}
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, SaveInstance msg) throws Exception {
-        //Doesn't use ctx?
         network.receive(msg);
 	}
-    //TODO: add java docs
 }

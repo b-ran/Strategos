@@ -11,7 +11,11 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import strategos.SaveInstance;
 import strategos.networking.Network;
 import strategos.networking.handlers.DataHandler;
+import strategos.networking.handlers.NetworkHandler;
 
+/**
+ * Stores the IP of the server to connect to, the port te server is running on, and handles sending and receiving
+ */
 public class Client implements Network {
 	private String host;
 	private int port;
@@ -27,7 +31,6 @@ public class Client implements Network {
 	public void run() throws InterruptedException {
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
-            //rename
             Bootstrap b = new Bootstrap();
 			b.group(workerGroup);
 			b.channel(NioSocketChannel.class);
@@ -38,7 +41,6 @@ public class Client implements Network {
 					ch.pipeline().addLast(new DataHandler(), clientHandler);
 				}
 			});
-            //Single letter names are poor practice
             // Start the client.
 			ChannelFuture f = b.connect(host, port).sync();
 
@@ -55,10 +57,9 @@ public class Client implements Network {
 		Thread.sleep(3000);
 	}
 
-    //is this done?
+    //TODO finish this method.
     @Override
     public void receive(SaveInstance instance) {
         System.out.println(instance);
     }
-    //TODO: add java docs
 }

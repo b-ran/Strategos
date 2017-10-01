@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class Tests {
 	@Test
 	public void testPacketSerialization() throws IOException, ClassNotFoundException {
-		SaveInstance msg = new SaveInstanceImpl("This is for testing purposes", 15);
+		SaveInstance msg = new TestSaveInstance("This is for testing purposes", 15);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(bos);
 		oos.writeObject(msg);
@@ -34,7 +34,7 @@ public class Tests {
 		client.initialise("127.0.0.1", 8080);
 		server.run();
 		client.run();
-		SaveInstanceImpl instance = new SaveInstanceImpl("Testing123", 456);
+		TestSaveInstance instance = new TestSaveInstance("Testing123", 456);
 		System.out.println("Should be " + instance.s + " and " + instance.i);
 		server.send(instance);
 	}

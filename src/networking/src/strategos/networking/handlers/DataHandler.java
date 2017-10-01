@@ -11,8 +11,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
+/**
+ * This class handles decoding all the incoming data, and encoding all the outgoing data.
+ */
 public class DataHandler extends ByteToMessageCodec<SaveInstance> {
-
     @Override
     protected void encode(ChannelHandlerContext ctx, SaveInstance msg, ByteBuf out) throws Exception {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -28,5 +30,4 @@ public class DataHandler extends ByteToMessageCodec<SaveInstance> {
         out.add(ois.readObject());
         ois.close();
     }
-    //TODO: add java docs
 }

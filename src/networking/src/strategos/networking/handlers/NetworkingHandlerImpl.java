@@ -6,6 +6,9 @@ import strategos.networking.NetworkingHandler;
 import strategos.networking.networks.Client;
 import strategos.networking.networks.Server;
 
+/**
+ * Handles initialising, running, and sending data from a client or server.
+ */
 public class NetworkingHandlerImpl implements NetworkingHandler {
 	private Network type;
 
@@ -36,5 +39,4 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 		type.send(instance);
 		Thread.sleep(3000);
 	}
-    //TODO: add java docs
 }

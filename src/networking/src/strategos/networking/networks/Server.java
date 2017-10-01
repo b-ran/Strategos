@@ -12,17 +12,14 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import strategos.SaveInstance;
 import strategos.networking.Network;
 import strategos.networking.handlers.DataHandler;
+import strategos.networking.handlers.NetworkHandler;
 
 /**
- * The server used for transmitting objects
+ * Used to host the server so clients can send objects to here, and here send messages to clients
  */
 public class Server implements Network {
 	private int port;
     private NetworkHandler serverHandler;
-
-	public NetworkHandler getServerHandler() {
-		return serverHandler;
-	}
 
 	public Server(int port) {
 		this.port = port;
@@ -62,10 +59,9 @@ public class Server implements Network {
 		serverHandler.send(instance);
 	}
 
-    //Is this done?
+    //TODO Finish this method.
     @Override
     public void receive(SaveInstance instance) {
         System.out.println(instance);
     }
-    //TODO: add java docs
 }
