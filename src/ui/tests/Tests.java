@@ -297,6 +297,39 @@ public class Tests extends JComponent {
         createATerrainTile(t, "Should able to see river terrain tile");
     }
 
+    @Test
+    public void test24_display_model_change() {
+        Terrain[][] terrain = {
+                {new PlainsTestObj()}
+        };
+        List<Unit> entities = new ArrayList<>();
+        setText("Should be able to see river terrain tile");
+        ModelTestObj model = setupModel(entities,terrain);
+        ui = new Ui(model);
+
+        MapLocation[][] map = new MapLocation[terrain.length][terrain[0].length];
+
+
+        MapLocationTestObj m = new MapLocationTestObj(0,0);
+        m.setTerrain(new RiverTestObj());
+        map[0][0] = m;
+
+        GameBoardTestObj gameBoardTestObj = new GameBoardTestObj();
+        GameCollectionTestObj gameCollectionTestObj = new GameCollectionTestObj();
+
+        gameBoardTestObj.setData(map);
+        gameCollectionTestObj.setMap(gameBoardTestObj);
+        gameCollectionTestObj.setAllUnits(entities);
+
+        model.setWorld(gameCollectionTestObj);
+
+        ui.repaint();
+
+        ui.disableInput();
+        ui.skipMenu();
+        waitToClose();
+    }
+
     private void createATerrainTile(Terrain t, String text) {
         List<Unit> entities = new ArrayList<>();
         Terrain[][] terrain = {
