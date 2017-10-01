@@ -3,6 +3,7 @@ package strategos.behaviour;
 
 import org.junit.*;
 import strategos.*;
+import strategos.units.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -10,24 +11,28 @@ import static org.junit.Assert.*;
 
 public class BehaviourArchersTest {
 
-    private BehaviourArchers behaviour;
+    private Behaviour behaviour;
+    private Unit      unit;
 
     @Before public void setUp() throws Exception {
-        behaviour = new BehaviourArchers(TestUtil.getMockGameState(),
-                TestUtil.getMockUnit()
-        );
+        BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
+        behaviour =
+                behaviourFactory.createBehaviourArchers(TestUtil.getMockGameState());
+        unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
-        assertThat("Archer strength should be same as in Config",
-                behaviour.getStrength(),
+        assertThat(
+                "Archer strength should be same as in Config",
+                behaviour.getStrength(unit),
                 is(Config.ARCHERS_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
-        assertThat("Archer toughness should be same as in Config",
-                behaviour.getToughness(),
+        assertThat(
+                "Archer toughness should be same as in Config",
+                behaviour.getToughness(unit),
                 is(Config.ARCHERS_TOUGHNESS)
         );
     }
@@ -41,8 +46,10 @@ public class BehaviourArchersTest {
     }
 
     @Test public void getActionPoints() throws Exception {
-        assertThat("Archer action points should be same as in Config",
-                behaviour.getMaxActionPoints(),
+        behaviour.turnTick(unit);
+        assertThat(
+                "Archer action points should be same as in Config",
+                behaviour.getActionPoints(unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );
     }

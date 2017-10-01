@@ -3,6 +3,7 @@ package strategos.behaviour;
 
 import org.junit.*;
 import strategos.*;
+import strategos.units.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -10,24 +11,28 @@ import static org.junit.Assert.*;
 
 public class BehaviourSwordsmenTest {
 
-    private BehaviourSwordsmen behaviour;
+    private Behaviour behaviour;
+    private Unit      unit;
 
     @Before public void setUp() throws Exception {
-        behaviour = new BehaviourSwordsmen(TestUtil.getMockGameState(),
-                TestUtil.getMockUnit()
-        );
+        BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
+        behaviour =
+                behaviourFactory.createBehaviourSwordsmen(TestUtil.getMockGameState());
+        unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
-        assertThat("Swordsmen strength should be same as in Config",
-                behaviour.getStrength(),
+        assertThat(
+                "Swordsmen strength should be same as in Config",
+                behaviour.getStrength(unit),
                 is(Config.SWORDSMEN_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
-        assertThat("Swordsmen toughness should be same as in Config",
-                behaviour.getToughness(),
+        assertThat(
+                "Swordsmen toughness should be same as in Config",
+                behaviour.getToughness(unit),
                 is(Config.SWORDSMEN_TOUGHNESS)
         );
     }
@@ -41,8 +46,10 @@ public class BehaviourSwordsmenTest {
     }
 
     @Test public void getActionPoints() throws Exception {
-        assertThat("Swordsmen action points should be same as in Config",
-                behaviour.getMaxActionPoints(),
+        behaviour.turnTick(unit);
+        assertThat(
+                "Swordsmen action points should be same as in Config",
+                behaviour.getActionPoints(unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );
     }

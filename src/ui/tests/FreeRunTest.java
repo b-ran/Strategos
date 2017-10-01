@@ -1,3 +1,6 @@
+import model.*;
+import strategos.GameCollections;
+import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.terrain.Terrain;
 import strategos.ui.Ui;
@@ -23,6 +26,16 @@ public class FreeRunTest {
                 {new MountainTestObj(), new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),   new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
         };
 
+
+        MapLocation[][] map = new MapLocation[terrain.length][terrain[0].length];
+
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[0].length; x++) {
+                map[y][x] = new MapLocationTestObj(x, y);
+                map[y][x].setTerrain(terrain[y][x]);
+            }
+        }
+
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
 
         ArchersTestObj a = new ArchersTestObj(owner);
@@ -40,12 +53,27 @@ public class FreeRunTest {
         e.setPosition(new MapLocationTestObj(2,2));
         s.setPosition(new MapLocationTestObj(3,3));
 
-
         entities.add(a);
         entities.add(c);
         entities.add(e);
         entities.add(s);
 
-        Ui ui = new Ui(entities,terrain);
+        ModelTestObj model = new ModelTestObj();
+
+        GameBoardTestObj gameBoardTestObj = new GameBoardTestObj();
+        GameCollectionTestObj gameCollectionTestObj = new GameCollectionTestObj();
+
+        gameBoardTestObj.setData(map);
+        gameCollectionTestObj.setMap(gameBoardTestObj);
+        model.setWorld(gameCollectionTestObj);
+
+        ArrayList<UnitOwner> unitOwnerTestObjs = new ArrayList<>();
+        unitOwnerTestObjs.add(owner);
+        gameCollectionTestObj.setAllUnits(owner.getUnits());
+
+        model.setPlayers(unitOwnerTestObjs);
+
+
+        Ui ui = new Ui(model);
     }
 }

@@ -7,34 +7,33 @@ import strategos.units.*;
 
 public interface Behaviour {
 
-    MapLocation getPosition();
+    MapLocation getPosition(Unit unit);
 
-    void setPosition(MapLocation position);
+    void setPosition(Unit unit, MapLocation position);
 
-    void turnTick();
+    void turnTick(Unit unit);
 
-    void wary();
+    void wary(Unit unit);
 
-    void entrench();
+    void entrench(Unit unit);
 
-    void charge();
+    void charge(Unit unit);
 
-    boolean move(Direction direction);
+    boolean move(Unit unit, Direction direction);
 
-    int attack(Unit enemy);
+    int attack(Unit unit, Unit enemy);
 
-    int defend(Unit enemy);
+    int defend(Unit unit, Unit enemy);
 
-    int getStrength();
+    int getStrength(Unit unit);
 
-    int getToughness();
+    int getToughness(Unit unit);
 
-    boolean isAlive();
+    boolean isAlive(Unit unit);
 
-    int getSightRadius();
+    int getSightRadius(Unit unit);
 
-    int getActionPoints();
+    int getActionPoints(Unit unit);
 
-    public Behaviour copy();
-
+    Behaviour copy();
 }

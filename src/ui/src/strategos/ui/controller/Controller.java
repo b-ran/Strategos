@@ -1,12 +1,18 @@
 package strategos.ui.controller;
 
+import strategos.GameBoard;
+import strategos.GameState;
+import strategos.MapLocation;
 import strategos.terrain.Terrain;
-import strategos.ui.view.*;
+import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
+import strategos.ui.view.View;
 import strategos.units.Unit;
 
 import java.awt.*;
 import java.util.List;
+
+import static strategos.ui.config.Config.HEX_SIZE;
 
 /**
  * The type Controller.
@@ -14,33 +20,24 @@ import java.util.List;
 public class Controller {
 
     /**
-     * The Entities.
+     * The Model.
      */
-    protected List<Unit> entities;
+    protected GameState model;
+
     /**
-     * The Terrain.
+     * The Board.
      */
-    protected Terrain[][] terrain;
+    protected GameBoard board;
+    /**
+
     /**
      * The View.
      */
     protected View view;
+
+    protected MapLocation selectedMapLocation;
     protected Boolean allInput = true;
 
-
-    /**
-     * Instantiates a new Controller.
-     *
-     * @param entities the units on grid
-     * @param terrain  the terrain that makes up grid
-     * @param view     the view
-     */
-    public Controller(List<Unit> entities, Terrain[][] terrain, View view) {
-        this.entities = entities;
-        this.terrain = terrain;
-        this.view = view;
-        setMenuListeners();
-    }
 
     /**
      * Instantiates a new Controller Clone.
@@ -48,10 +45,26 @@ public class Controller {
      * @param controller the controller
      */
     protected Controller(Controller controller) {
-        this.entities = controller.entities;
-        this.terrain = controller.terrain;
+        this.model = controller.model;
         this.view = controller.view;
+        this.board = controller.board;
+        this.selectedMapLocation = controller.selectedMapLocation;
         this.allInput = controller.allInput;
+    }
+
+    /**
+     * Instantiates a new Controller.
+     *
+     * @param model  the model
+     * @param view   the view
+     */
+    public Controller(GameState model, View view) {
+        this.model = model;
+        this.view = view;
+        board = model.getWorld().getMap();
+        System.out.println(board);
+        setGameListeners();
+        setMenuListeners();
     }
 
     /**
@@ -60,19 +73,16 @@ public class Controller {
     void setMenuListeners() {
         MenuComponent m = view.getMenuComponent();
         MenuComponent e = view.getEscapeMenuComponent();
-        if (view.status() == false) {
-            m.getNewGameButton().addActionListener(new NewGameListener(this));
-            m.getLoadButton().addActionListener(new LoadListener(this));
-            m.getConnectButton().addActionListener(new ConnectListener(this));
-            m.getHostButton().addActionListener(new HostListener(this));
-            m.getExitButton().addActionListener(new ExitListener(this));
-        } else {
-            e.getResumeButton().addActionListener(new ResumeListener(this));
-            e.getNewGameButton().addActionListener(new NewGameListener(this));
-            e.getSaveButton().addActionListener(new SaveListener(this));
-            e.getLoadButton().addActionListener(new LoadListener(this));
-            e.getExitButton().addActionListener(new ExitListener(this));
-        }
+        m.getNewGameButton().addActionListener(new NewGameListener(this));
+        m.getLoadButton().addActionListener(new LoadListener(this));
+        m.getConnectButton().addActionListener(new ConnectListener(this));
+        m.getHostButton().addActionListener(new HostListener(this));
+        m.getExitButton().addActionListener(new ExitListener(this));
+        e.getResumeButton().addActionListener(new ResumeListener(this));
+        e.getNewGameButton().addActionListener(new NewGameListener(this));
+        e.getSaveButton().addActionListener(new SaveListener(this));
+        e.getLoadButton().addActionListener(new LoadListener(this));
+        e.getExitButton().addActionListener(new ExitListener(this));
     }
 
     /**
@@ -81,7 +91,39 @@ public class Controller {
     void setGameListeners() {
         GridComponent g = view.getGridComponent();
         g.addKeyListener(new MenuListener(this));
+        g.addMouseListener(new SelectListener(this));
     }
+
+    protected Point getHexPos(int x, int y) {
+        Point p = new Point();
+        p.y = getHexY(y);
+        if (p.y % 2 != 0) {
+            x-=HEX_SIZE/2;
+        }
+        p.x = getHexX(x);
+        if (p.x > board.getData()[0].length-1) {
+            p.x = board.getData()[0].length-1;
+        } else if (p.x < 0) {
+            p.x = 0;
+        }
+        if (p.y > board.getData().length-1) {
+            p.y = board.getData().length-1;
+        }  else if (p.y < 0) {
+            p.y = 0;
+        }
+        return p;
+    }
+
+
+    protected int getHexX(int x) {
+        return x / (HEX_SIZE) - 1;
+    }
+
+    protected int getHexY(int y) {
+        Double d = (1.3 * y) / (HEX_SIZE);
+        return d.intValue();
+    }
+
 
     public void disableAllInput() {
         allInput = false;

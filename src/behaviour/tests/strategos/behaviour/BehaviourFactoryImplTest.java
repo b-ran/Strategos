@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
 
 public class BehaviourFactoryImplTest {
 
-    private BehaviourFactoryImpl factory;
-    private GameState            gameState;
-    private Unit                 unit;
+    private BehaviourFactory factory;
+    private GameState        gameState;
+    private Unit             unit;
 
     @Before public void setUp() throws Exception {
         factory = new BehaviourFactoryImpl();
@@ -24,7 +24,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourArchers() throws Exception {
         assertThat(
                 "Method createBehaviourArchers() should create an instance of BehaviourArchers",
-                factory.createBehaviourArchers(gameState, unit),
+                factory.createBehaviourArchers(gameState),
                 instanceOf(BehaviourArchers.class)
         );
     }
@@ -32,7 +32,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourCavalry() throws Exception {
         assertThat(
                 "Method createBehaviourCavalry() should create an instance of BehaviourCavalry",
-                factory.createBehaviourCavalry(gameState, unit),
+                factory.createBehaviourCavalry(gameState),
                 instanceOf(BehaviourCavalry.class)
         );
     }
@@ -40,7 +40,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourElite() throws Exception {
         assertThat(
                 "Method createBehaviourElite() should create an instance of BehaviourElite",
-                factory.createBehaviourElite(gameState, unit),
+                factory.createBehaviourElite(gameState),
                 instanceOf(BehaviourElite.class)
         );
     }
@@ -48,7 +48,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourSpearmen() throws Exception {
         assertThat(
                 "Method createBehaviourSpearmen() should create an instance of BehaviourSpearmen",
-                factory.createBehaviourSpearmen(gameState, unit),
+                factory.createBehaviourSpearmen(gameState),
                 instanceOf(BehaviourSpearmen.class)
         );
     }
@@ -56,7 +56,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourSwordsmen() throws Exception {
         assertThat(
                 "Method createBehaviourSwordsmen() should create an instance of BehaviourSwordsmen",
-                factory.createBehaviourSwordsmen(gameState, unit),
+                factory.createBehaviourSwordsmen(gameState),
                 instanceOf(BehaviourSwordsmen.class)
         );
     }
@@ -65,8 +65,7 @@ public class BehaviourFactoryImplTest {
         assertThat(
                 "Method createAiBehaviour() should create an instance of AiBehaviour",
                 factory.createAiBehaviour(gameState,
-                        unit,
-                        BehaviourArchers::new
+                        factory::createBehaviourArchers
                 ),
                 instanceOf(AiBehaviour.class)
         );

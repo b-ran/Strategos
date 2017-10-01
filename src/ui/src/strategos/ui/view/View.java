@@ -1,6 +1,8 @@
 package strategos.ui.view;
 
 
+import strategos.GameState;
+import strategos.MapLocation;
 import strategos.terrain.Terrain;
 import strategos.ui.config.Config;
 import strategos.units.Unit;
@@ -17,16 +19,9 @@ import java.util.Observer;
 public class View extends JComponent implements Observer {
 
 
-    private JFrame frame; //Overall Frame
-    /**
-     * The units on the grid.
-     */
-    protected List<Unit> entities;
 
-    /**
-     * The terrain that makes up the grid.
-     */
-    protected Terrain[][] terrain;
+    private JFrame frame; //Overall Frame
+    private GameState model;
 
     private MenuComponent menuComponent = new MenuComponent();
     private MenuComponent escapeMenuComponent = new MenuComponent();
@@ -45,21 +40,17 @@ public class View extends JComponent implements Observer {
      * False if game not running
      * True if game is running
      */
-    protected boolean game = false;
+    private boolean game = false;
 
     /**
      * Instantiates a new View.
      *
-     * @param entities the untis on the grid
-     * @param terrain  the terrain that makes up the grid
+     * @param model the model
      */
-    public View(List<Unit> entities, Terrain[][] terrain) {
-        this.entities = entities;
-        this.terrain = terrain;
+    public View(GameState model) {
+        this.model = model;
         frame = new JFrame(Config.WINDOW_NAME);
         setMenu();
-        gridComponent.setEntities(entities);
-        gridComponent.setTerrain(terrain);
     }
 
     @Override
@@ -67,6 +58,11 @@ public class View extends JComponent implements Observer {
         frame.repaint();
         gridComponent.setFocusable(true);
         gridComponent.requestFocus();
+    }
+
+    @Override
+    public void repaint() {
+        frame.repaint();
     }
 
     /**
@@ -94,7 +90,6 @@ public class View extends JComponent implements Observer {
         removeAllComponents();
         setGame();
     }
-
 
     private void removeAllComponents() {
         gridPanel.remove(escapeMenuPanel);
