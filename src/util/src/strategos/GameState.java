@@ -6,7 +6,7 @@ import strategos.units.Unit;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface GameState {
+public interface GameState extends Observable {
 
 	public void save();
 

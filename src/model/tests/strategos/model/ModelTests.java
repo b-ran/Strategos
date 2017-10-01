@@ -8,6 +8,7 @@ import strategos.hexgrid.Map;
 import strategos.model.Player;
 import strategos.model.Strategos;
 import strategos.model.World;
+import strategos.model.units.BridgeImpl;
 import util.TestBehaviour;
 import strategos.model.units.SwordsmenImpl;
 import strategos.model.units.UnitImpl;
@@ -354,6 +355,72 @@ public class ModelTests {
 		p.getUnits().add(unit2);
 		world.getAllUnits().add(unit);
 		world.getAllUnits().add(unit2);
+
+		gameState.move(unit, EAST, 1);
+
+		assertFalse(unit.getPosition().getX() == 4);
+	}
+
+	/**
+	 * Tests that ordering a unit to move through an owned bridge succeeds
+	 */
+	@Test
+	public void moveTest_4() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+
+		GameCollections world = gameState.getWorld();
+
+		SwordsmenImpl unit = new SwordsmenImpl(p);
+		BridgeImpl bridge = new BridgeImpl(p);
+		TestBehaviour b = new TestBehaviour(gameState, unit);
+
+		unit.setBehaviour(b);
+		b = new TestBehaviour(gameState, bridge);
+		bridge.setBehaviour(b);
+
+		unit.setPosition(world.getMap().get(3, 3));
+		bridge.setPosition(unit.getPosition().getNeighbour(EAST));
+
+		p.getUnits().add(unit);
+		p.getUnits().add(bridge);
+		world.getAllUnits().add(unit);
+		world.getAllUnits().add(bridge);
+
+		gameState.move(unit, EAST, 1);
+
+		assertTrue(unit.getPosition().getX() == 4);
+	}
+
+	/**
+	 * Tests that ordering a unit to move through a non-owned bridge fails
+	 */
+	@Test
+	public void moveTest_5() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+
+		GameCollections world = gameState.getWorld();
+
+		SwordsmenImpl unit = new SwordsmenImpl(p);
+		BridgeImpl bridge = new BridgeImpl(p2);
+		TestBehaviour b = new TestBehaviour(gameState, unit);
+
+		unit.setBehaviour(b);
+		b = new TestBehaviour(gameState, bridge);
+		bridge.setBehaviour(b);
+
+		unit.setPosition(world.getMap().get(3, 3));
+		bridge.setPosition(unit.getPosition().getNeighbour(EAST));
+
+		p.getUnits().add(unit);
+		p2.getUnits().add(bridge);
+		world.getAllUnits().add(unit);
+		world.getAllUnits().add(bridge);
 
 		gameState.move(unit, EAST, 1);
 

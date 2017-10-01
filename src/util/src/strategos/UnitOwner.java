@@ -13,4 +13,6 @@ public interface UnitOwner {
 	public boolean isNPC();
 
 	public void setUnits(List<Unit> newUnits);
+
+	public UnitOwner copy();
 }

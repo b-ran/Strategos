@@ -9,6 +9,8 @@ public interface Unit {
 
     void setBehaviour(Behaviour behaviour);
 
+    public Behaviour getBehaviour();
+
     MapLocation getPosition();
 
     void setPosition(MapLocation position);
@@ -38,4 +40,6 @@ public interface Unit {
     int getSightRadius();
 
     int getActionPoints();
+
+    public Unit copyUnit();
 }

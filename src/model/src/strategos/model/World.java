@@ -13,7 +13,7 @@ public class World implements GameCollections {
 	private GameBoard map;
 	private List<Unit> allUnits = new ArrayList<>();
 	
-	public World(Map map, ArrayList<Unit> units) {
+	public World(Map map, List<Unit> units) {
 		this.map = map;
 		this.allUnits = units;
 	}

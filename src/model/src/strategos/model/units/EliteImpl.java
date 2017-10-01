@@ -19,4 +19,14 @@ public class EliteImpl extends UnitImpl implements Elite {
 	public EliteImpl(UnitOwner owner) {
 		super(owner);
 	}
+
+	public EliteImpl(Behaviour behaviour, UnitOwner owner) {
+		super(behaviour, owner);
+	}
+
+	@Override
+	public Unit copyUnit() {
+		Unit newUnit = new EliteImpl(getBehaviour().copy(), getOwner());
+		return newUnit;
+	}
 }

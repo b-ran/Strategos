@@ -91,4 +91,9 @@ public class TestBehaviour implements Behaviour {
 	public int getActionPoints() {
 		return 2;
 	}
+
+	@Override
+	public Behaviour copy() {
+		return null;
+	}
 }
