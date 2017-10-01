@@ -2,10 +2,13 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.behaviour.config.Config;
 import strategos.units.*;
 
 
 class BehaviourSpearmen extends UnitBehaviour {
+
+    //TODO: Where is your javadoc?
 
     BehaviourSpearmen(GameState gameState) {
         super(gameState);

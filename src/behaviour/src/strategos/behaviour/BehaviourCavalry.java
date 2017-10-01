@@ -2,10 +2,13 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.behaviour.config.Config;
 import strategos.units.*;
 
 
 class BehaviourCavalry extends UnitBehaviour {
+
+    //TODO: Where is your javadoc?
 
     BehaviourCavalry(GameState gameState) {
         super(gameState);

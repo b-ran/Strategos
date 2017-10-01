@@ -12,12 +12,11 @@ import static java.lang.Math.*;
 
 class AiBehaviour extends BaseBehaviour {
 
+    //TODO: Where is your javadoc?
+
     private Behaviour behaviour;
 
-    AiBehaviour(
-            GameState gameState, Function<GameState, Behaviour> factoryMethod
-    )
-    {
+    AiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
         super(gameState);
 
         if (factoryMethod == null) {
@@ -63,18 +62,23 @@ class AiBehaviour extends BaseBehaviour {
             return (int) (hypot(aX, aY) - hypot(bX, bY));
         });
 
+        //TODO: too much indentation
         if (nearest.isPresent()) {
-            if (getGameState().getUnitsInRange(getPosition(unit), 1)
-                    .contains(nearest.get()))
-            {
-                getGameState().attack(unit, nearest.get().getPosition());
-            }
-            else {
-                // TODO: Approach unit
-            }
+            pursueUnit(unit, nearest.get());
         }
         else {
             // TODO: Explore
+        }
+    }
+
+    private void pursueUnit(Unit unit, Unit nearest) {
+        List<Unit> adjacentUnits =
+                getGameState().getUnitsInRange(getPosition(unit), 1);
+        if (adjacentUnits.contains(nearest)) {
+            getGameState().attack(unit, nearest.getPosition());
+        }
+        else {
+            // TODO: Approach unit
         }
     }
 
