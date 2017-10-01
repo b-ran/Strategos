@@ -15,7 +15,8 @@ class NewGameListener extends Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!controller.allInput) return;
-        setGameListeners();
         view.setGame();
+        view.getGridComponent().setEntities(model.getWorld().getAllUnits());
+        view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
     }
 }

@@ -1,3 +1,5 @@
+package model;
+
 import strategos.Direction;
 import strategos.MapLocation;
 import strategos.terrain.Terrain;
@@ -8,6 +10,7 @@ public class MapLocationTestObj implements MapLocation{
 
     private int y;
     private int x;
+    private Terrain terrain;
 
     public MapLocationTestObj(int x, int y) {
         this.x = x;
@@ -36,17 +39,17 @@ public class MapLocationTestObj implements MapLocation{
 
     @Override
     public boolean isInPlayArea() {
-        return false;
+        return true;
     }
 
     @Override
     public Terrain getTerrain() {
-        return null;
+        return terrain;
     }
 
     @Override
     public void setTerrain(Terrain terrain) {
-
+        this.terrain = terrain;
     }
 
     @Override

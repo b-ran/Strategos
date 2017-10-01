@@ -1,3 +1,5 @@
+package model;
+
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.units.Unit;
@@ -30,6 +32,16 @@ public class UnitOwnerTestObj implements UnitOwner {
     @Override
     public boolean isNPC() {
         return npc;
+    }
+
+    @Override
+    public void setUnits(List<Unit> newUnits) {
+
+    }
+
+    @Override
+    public UnitOwner copy() {
+        return null;
     }
 
     public void setAsNpc() {
