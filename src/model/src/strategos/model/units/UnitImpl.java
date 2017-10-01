@@ -5,7 +5,6 @@ import strategos.Graphical;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
 import strategos.units.Unit;
 
 public class UnitImpl implements Graphical, Unit {

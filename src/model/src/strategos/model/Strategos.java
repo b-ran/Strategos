@@ -188,8 +188,7 @@ public class Strategos implements GameState {
 			}
 		}
 		for (Unit unit : turn.getUnits()) {
-			// TODO: reset unit action points
-			// TODO: set "moved" to false
+			unit.turnTick();
 		}
 		for (UnitOwner player : getPlayers()) {
 			calculateVision(player);
