@@ -27,7 +27,6 @@ class MenuListener extends Controller implements KeyListener {
             view.removeEscapeMenu();
             toggle = false;
         }
-        setMenuListeners();
     }
 
     @Override
