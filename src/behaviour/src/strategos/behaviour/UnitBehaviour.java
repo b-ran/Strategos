@@ -20,7 +20,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     UnitBehaviour(GameState gameState) {
         super(gameState);
 
-        hitpoints = 100;
+        hitpoints = BehaviourConfig.UNIT_HITPOINTS;
         actionPoints = 0;
 
         wary = false;
@@ -88,6 +88,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
         enemy.defend(unit);
 
         hitpoints -= defence;
+
+        if (enemy instanceof HealthPotion) {
+            hitpoints = BehaviourConfig.UNIT_HITPOINTS;
+        }
 
         return 0;
     }
