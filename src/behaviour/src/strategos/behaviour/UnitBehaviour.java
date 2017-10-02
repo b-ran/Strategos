@@ -13,7 +13,6 @@ abstract class UnitBehaviour extends BaseBehaviour {
     //TODO: Where is your javadoc?
 
     private boolean     entrench;
-    private MapLocation position;
     private int         actionPoints;
     private boolean     wary;
     private int         hitpoints;
@@ -32,24 +31,9 @@ abstract class UnitBehaviour extends BaseBehaviour {
         super(behaviour);
 
         entrench = behaviour.entrench;
-        position = behaviour.position;
         actionPoints = behaviour.actionPoints;
         wary = behaviour.wary;
         hitpoints = behaviour.hitpoints;
-    }
-
-    @Override final public MapLocation getPosition(Unit unit) {
-        assert position != null
-                : "Method getPosition() shouldn't be returning null";
-        return position;
-    }
-
-    @Override final public void setPosition(Unit unit, MapLocation position) {
-        if (position == null) {
-            throw new NullPointerException(
-                    "Method setPosition() requires non-null position");
-        }
-        this.position = position;
     }
 
     @Override public void turnTick(Unit unit) {
@@ -82,7 +66,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
             return false;
         }
         else {
-            setPosition(unit, position.getNeighbour(direction));
+            setPosition(unit, getPosition(unit).getNeighbour(direction));
             actionPoints -= terrainMovementCost(unit);
             return true;
         }
