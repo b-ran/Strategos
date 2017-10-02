@@ -149,7 +149,7 @@ public class ModelTests {
 		GameCollections world = gameState.getWorld();
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		unit.setBehaviour(new TestBehaviour(gameState, unit));
+		unit.setBehaviour(new TestBehaviour(gameState));
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
 
@@ -171,7 +171,7 @@ public class ModelTests {
 		GameCollections world = gameState.getWorld();
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		unit.setBehaviour(new TestBehaviour(gameState, unit));
+		unit.setBehaviour(new TestBehaviour(gameState));
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
 
@@ -197,7 +197,7 @@ public class ModelTests {
 		GameCollections world = gameState.getWorld();
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		unit.setBehaviour(new TestBehaviour(gameState, unit));
+		unit.setBehaviour(new TestBehaviour(gameState));
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
 
@@ -221,7 +221,7 @@ public class ModelTests {
 		GameCollections world = gameState.getWorld();
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		unit.setBehaviour(new TestBehaviour(gameState, unit));
+		unit.setBehaviour(new TestBehaviour(gameState));
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
 		world.getAllUnits().add(unit);
@@ -246,10 +246,10 @@ public class ModelTests {
 		SwordsmenImpl unit3 = new SwordsmenImpl(p);
 		SwordsmenImpl unit4 = new SwordsmenImpl(p);
 
-		unit.setBehaviour(new TestBehaviour(gameState, unit));
-		unit2.setBehaviour(new TestBehaviour(gameState, unit2));
-		unit3.setBehaviour(new TestBehaviour(gameState, unit3));
-		unit4.setBehaviour(new TestBehaviour(gameState, unit4));
+		unit.setBehaviour(new TestBehaviour(gameState));
+		unit2.setBehaviour(new TestBehaviour(gameState));
+		unit3.setBehaviour(new TestBehaviour(gameState));
+		unit4.setBehaviour(new TestBehaviour(gameState));
 
 		unit.setPosition(world.getMap().get(3, 3));
 		unit2.setPosition(world.getMap().get(4, 3));
@@ -289,7 +289,7 @@ public class ModelTests {
 		GameCollections world = gameState.getWorld();
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 		unit.setBehaviour(b);
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
@@ -312,7 +312,7 @@ public class ModelTests {
 		GameCollections world = gameState.getWorld();
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 		unit.setBehaviour(b);
 		unit.setPosition(world.getMap().get(3, 3));
 		MapLocation location2 = unit.getPosition().getNeighbour(EAST);
@@ -342,10 +342,10 @@ public class ModelTests {
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		SwordsmenImpl unit2 = new SwordsmenImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
-		b = new TestBehaviour(gameState, unit2);
+		b = new TestBehaviour(gameState);
 		unit2.setBehaviour(b);
 
 		unit.setPosition(world.getMap().get(3, 3));
@@ -375,10 +375,10 @@ public class ModelTests {
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		BridgeImpl bridge = new BridgeImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
-		b = new TestBehaviour(gameState, bridge);
+		b = new TestBehaviour(gameState);
 		bridge.setBehaviour(b);
 
 		unit.setPosition(world.getMap().get(3, 3));
@@ -408,10 +408,10 @@ public class ModelTests {
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		BridgeImpl bridge = new BridgeImpl(p2);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
-		b = new TestBehaviour(gameState, bridge);
+		b = new TestBehaviour(gameState);
 		bridge.setBehaviour(b);
 
 		unit.setPosition(world.getMap().get(3, 3));
@@ -441,10 +441,10 @@ public class ModelTests {
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		SwordsmenImpl unit2 = new SwordsmenImpl(p2);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
-		TestBehaviour b2 = new TestBehaviour(gameState, unit2);
+		TestBehaviour b2 = new TestBehaviour(gameState);
 		unit2.setBehaviour(b2);
 
 		unit.setPosition(world.getMap().get(3, 3));
@@ -471,10 +471,10 @@ public class ModelTests {
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
 		SwordsmenImpl unit2 = new SwordsmenImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
-		TestBehaviour b2 = new TestBehaviour(gameState, unit2);
+		TestBehaviour b2 = new TestBehaviour(gameState);
 		unit2.setBehaviour(b2);
 
 		unit.setPosition(world.getMap().get(3, 3));
@@ -505,7 +505,7 @@ public class ModelTests {
 		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
 
@@ -534,7 +534,7 @@ public class ModelTests {
 		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
 
@@ -563,7 +563,7 @@ public class ModelTests {
 		gameState.getPlayers().add(p);
 
 		SwordsmenImpl unit = new SwordsmenImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
 
@@ -578,7 +578,7 @@ public class ModelTests {
 	}
 
 	/**
-	 * Tests that saving and loading works correctly (incomplete)
+	 * Tests that saving and loading works correctly
 	 */
 	@Test
 	public void saveTest_1() {
@@ -592,7 +592,7 @@ public class ModelTests {
 		gameState.getPlayers().add(p);
 
 		Unit unit = new SwordsmenImpl(p);
-		TestBehaviour b = new TestBehaviour(gameState, unit);
+		TestBehaviour b = new TestBehaviour(gameState);
 
 		unit.setBehaviour(b);
 
@@ -614,9 +614,10 @@ public class ModelTests {
 		gameState.load(save);
 
 		unit = gameState.getPlayers().get(0).getUnits().get(0);
-		System.out.println(unit.getPosition());
 
 		assertTrue(unit.getPosition().getX() == 3);
+	}
+
 
 	}
 
