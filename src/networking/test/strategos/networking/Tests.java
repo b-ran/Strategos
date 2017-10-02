@@ -30,8 +30,8 @@ public class Tests {
 	public void testSendFromServer() throws InterruptedException {
 		NetworkingHandler server = new NetworkingHandlerImpl();
 		NetworkingHandler client = new NetworkingHandlerImpl();
-		server.initialise(8080);
-		client.initialise("127.0.0.1", 8080);
+		server.initialise(new TestGameState(), 8080);
+		client.initialise(new TestGameState(), "127.0.0.1", 8080);
 		server.run();
 		client.run();
 		TestSaveInstance instance = new TestSaveInstance("Testing123", 456);

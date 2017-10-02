@@ -8,8 +8,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import strategos.GameState;
 import strategos.SaveInstance;
 import strategos.networking.Network;
+import strategos.networking.NetworkingHandler;
 import strategos.networking.handlers.DataHandler;
 import strategos.networking.handlers.NetworkHandler;
 
@@ -17,11 +19,13 @@ import strategos.networking.handlers.NetworkHandler;
  * Stores the IP of the server to connect to, the port te server is running on, and handles sending and receiving
  */
 public class Client implements Network {
+	private GameState state;
 	private String host;
 	private int port;
 	private NetworkHandler clientHandler;
 
-	public Client(String host, int port) {
+	public Client(String host, int port, GameState state) {
+		this.state = state;
 		this.host = host;
 		this.port = port;
 		clientHandler = new NetworkHandler(this);
@@ -57,9 +61,8 @@ public class Client implements Network {
 		Thread.sleep(3000);
 	}
 
-    //TODO finish this method.
     @Override
     public void receive(SaveInstance instance) {
-        System.out.println(instance);
+		state.load(instance);
     }
 }

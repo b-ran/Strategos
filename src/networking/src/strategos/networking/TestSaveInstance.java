@@ -4,22 +4,21 @@ import strategos.GameCollections;
 import strategos.SaveInstance;
 import strategos.UnitOwner;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * An implementation of SaveInstance used only for testing.
  */
-public class TestSaveInstance implements SaveInstance, Serializable {
+public class TestSaveInstance implements SaveInstance {
 	int i;
 	String s;
 
-	TestSaveInstance(String s, int i) {
+	public TestSaveInstance(String s, int i) {
 		this.s = s;
 		this.i = i;
 	}
 
-	//All methods from SaveInstance can return null as they are not used
+	//All methods from SaveInstance can return null as they are not used in this implementation
 
 	@Override
 	public GameCollections getWorld() {

@@ -1,5 +1,6 @@
 package strategos.networking;
 
+import strategos.GameState;
 import strategos.SaveInstance;
 
 /**
@@ -11,14 +12,14 @@ public interface NetworkingHandler {
 	 * Initialises the handler as a server
 	 * @param port The port to open the server on
 	 */
-	void initialise(int port);
+	void initialise(GameState state, int port);
 
 	/**
 	 * Initialises the handler as a client
 	 * @param host The IP of the server
 	 * @param port The port the server was opened on
 	 */
-	void initialise(String host, int port);
+	void initialise(GameState state, String host, int port);
 
 	/**
 	 * Runs the handler

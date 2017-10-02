@@ -45,8 +45,6 @@ public class Server implements Network {
 			ChannelFuture f = b.bind(port).sync();
 
 			// Wait until the server socket is closed.
-			// In this example, this does not happen, but you can do that to gracefully
-			// shut down your server.
 			f.channel().closeFuture().sync();
 		} finally {
 			workerGroup.shutdownGracefully();
