@@ -4,7 +4,7 @@ package strategos.behaviour;
 import strategos.*;
 
 
-public class BehaviourHealthPotion extends StaticBehaviour {
+class BehaviourHealthPotion extends StaticBehaviour {
 
     BehaviourHealthPotion(GameState gameState) {
         super(gameState);
