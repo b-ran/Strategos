@@ -131,8 +131,16 @@ class AiBehaviour extends BaseBehaviour {
         behaviour.wary(unit);
     }
 
+    @Override public boolean getWary(Unit unit) {
+        return behaviour.getWary(unit);
+    }
+
     @Override public void entrench(Unit unit) {
         behaviour.entrench(unit);
+    }
+
+    @Override public boolean getEntrench(Unit unit) {
+        return behaviour.getEntrench(unit);
     }
 
     @Override public void charge(Unit unit) {
@@ -166,6 +174,10 @@ class AiBehaviour extends BaseBehaviour {
 
     @Override public int getToughness(Unit unit) {
         return behaviour.getToughness(unit);
+    }
+
+    @Override public int getHitpoints(Unit unit) {
+        return behaviour.getHitpoints(unit);
     }
 
     @Override public boolean isAlive(Unit unit) {

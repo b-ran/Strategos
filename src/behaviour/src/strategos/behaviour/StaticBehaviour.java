@@ -9,6 +9,18 @@ abstract class StaticBehaviour extends BaseBehaviour {
 
     private boolean isAlive;
 
+    @Override public boolean getWary(Unit unit) {
+        return false;
+    }
+
+    @Override public boolean getEntrench(Unit unit) {
+        return false;
+    }
+
+    @Override public int getHitpoints(Unit unit) {
+        return 1;
+    }
+
     StaticBehaviour(GameState gameState) {
         super(gameState);
 

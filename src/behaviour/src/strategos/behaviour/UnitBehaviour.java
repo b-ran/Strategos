@@ -49,9 +49,17 @@ abstract class UnitBehaviour extends BaseBehaviour {
         entrench = false;
     }
 
+    @Override public boolean getWary(Unit unit) {
+        return wary;
+    }
+
     @Override public void entrench(Unit unit) {
         entrench = !entrench;
         wary = false;
+    }
+
+    @Override public boolean getEntrench(Unit unit) {
+        return entrench;
     }
 
     @Override public void charge(Unit unit) {
@@ -135,6 +143,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
         hitpoints -= attack;
 
         return 0;
+    }
+
+    @Override public int getHitpoints(Unit unit) {
+        return hitpoints;
     }
 
     @Override public boolean isAlive(Unit unit) {
