@@ -2,6 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.exception.*;
 import strategos.units.*;
 
 import java.util.*;
@@ -14,7 +15,9 @@ class AiBehaviour extends BaseBehaviour {
 
     //TODO: Where is your javadoc?
 
+    private static final Random random = new Random();
     private Behaviour behaviour;
+    private int       directionIndex;
 
     AiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
         super(gameState);
@@ -28,28 +31,60 @@ class AiBehaviour extends BaseBehaviour {
         if (this.behaviour == null) {
             throw new NullPointerException("Behaviour factory method should not return null");
         }
+
+        directionIndex = random.nextInt(Direction.values().length);
+    }
+
+    private AiBehaviour(AiBehaviour aiBehaviour) {
+        super(aiBehaviour);
+
+        behaviour = aiBehaviour.copy();
+        directionIndex = aiBehaviour.directionIndex;
     }
 
     @Override public void turnTick(Unit unit) {
         behaviour.turnTick(unit);
 
-        Optional<Unit> nearest =
-                getGameState().getUnitsInRange(getPosition(unit), getSightRadius(unit)).stream().min((a, b) -> {
-                    double aX = getPosition(unit).getX() - a.getPosition().getX();
-                    double aY = getPosition(unit).getY() - a.getPosition().getY();
-                    double bX = getPosition(unit).getX() - b.getPosition().getX();
-                    double bY = getPosition(unit).getY() - b.getPosition().getY();
+        Optional<Unit> nearest = getNearestUnit(unit);
 
-                    return (int) (hypot(aX, aY) - hypot(bX, bY));
-                });
+        while (getActionPoints(unit) > 0) {
+            if (nearest.isPresent()) {
+                pursueOrAttackUnit(unit, nearest.get());
+            }
+            else {
+                explore(unit);
+            }
+        }
+    }
 
-        //TODO: too much indentation
-        if (nearest.isPresent()) {
-            pursueUnit(unit, nearest.get());
+    private Optional<Unit> getNearestUnit(Unit unit) {
+        UnitOwner owner = getGameState().getPlayers()
+                .stream()
+                .filter(p -> p.getUnits().contains(unit))
+                .findAny()
+                .orElseThrow(() -> new RuleViolationException("Unowned unit"));
+
+        return getGameState().getUnitsInRange(getPosition(unit), getSightRadius(unit))
+                .stream()
+                .filter(u -> owner.getUnits().contains(u))
+                .min((a, b) -> compareUnitDistance(unit, a, b));
+    }
+
+    private void pursueOrAttackUnit(Unit unit, Unit nearest) {
+        List<Unit> adjacentUnits = getGameState().getUnitsInRange(getPosition(unit), 1);
+        if (adjacentUnits.contains(nearest)) {
+            getGameState().attack(unit, nearest.getPosition());
         }
         else {
-            // TODO: Explore
+            pursueUnit(unit, nearest);
         }
+    }
+
+    private void explore(Unit unit) {
+        Direction[] values = Direction.values();
+        directionIndex = (directionIndex + random.nextInt(2) - 1) % values.length;
+        Direction direction = values[directionIndex];
+        move(unit, direction);
     }
 
     @Override public MapLocation getPosition(Unit unit) {
@@ -58,21 +93,38 @@ class AiBehaviour extends BaseBehaviour {
         return position;
     }
 
+    private int compareUnitDistance(Unit unit, Unit a, Unit b) {
+        double aX = getPosition(unit).getX() - a.getPosition().getX();
+        double aY = getPosition(unit).getY() - a.getPosition().getY();
+        double bX = getPosition(unit).getX() - b.getPosition().getX();
+        double bY = getPosition(unit).getY() - b.getPosition().getY();
+
+        return (int) (hypot(aX, aY) - hypot(bX, bY));
+    }
+
+    private void pursueUnit(Unit unit, Unit nearest) {
+        int dx = nearest.getPosition().getX() - unit.getPosition().getX();
+        int dy = nearest.getPosition().getY() - unit.getPosition().getY();
+
+        if (dx < 0) {
+            move(unit, Direction.WEST);
+        }
+        else if (dx > 0) {
+            move(unit, Direction.EAST);
+        }
+        else if (dy < 0) {
+            move(unit, Direction.NORTH_EAST);
+        }
+        else if (dy > 0) {
+            move(unit, Direction.SOUTH_WEST);
+        }
+    }
+
     @Override public void setPosition(Unit unit, MapLocation position) {
         if (position == null) {
             throw new NullPointerException("Method setPosition() requires non-null position");
         }
         behaviour.setPosition(unit, position);
-    }
-
-    private void pursueUnit(Unit unit, Unit nearest) {
-        List<Unit> adjacentUnits = getGameState().getUnitsInRange(getPosition(unit), 1);
-        if (adjacentUnits.contains(nearest)) {
-            getGameState().attack(unit, nearest.getPosition());
-        }
-        else {
-            // TODO: Approach unit
-        }
     }
 
     @Override public void wary(Unit unit) {
@@ -129,6 +181,6 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override public Behaviour copy() {
-        return new AiBehaviour(getGameState(), s -> behaviour.copy());
+        return new AiBehaviour(this);
     }
 }
