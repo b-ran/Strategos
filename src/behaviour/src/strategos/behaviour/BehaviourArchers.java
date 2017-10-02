@@ -2,10 +2,13 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.behaviour.config.Config;
 import strategos.units.*;
 
 
 class BehaviourArchers extends UnitBehaviour {
+
+    //TODO: Where is your javadoc?
 
     BehaviourArchers(GameState gameState) {
         super(gameState);
@@ -28,7 +31,8 @@ class BehaviourArchers extends UnitBehaviour {
     }
 
     @Override public void charge(Unit unit) {
-        // Archers cannot charge
+        // Archers cannot charge, so this blank method overrides the default
+        // behaviour
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
