@@ -601,8 +601,6 @@ public class ModelTests {
 		p.getUnits().add(unit);
 		world.getAllUnits().add(unit);
 		gameState.save();
-		System.out.println();
-		System.out.println(unit.getPosition());
 		gameState.move(unit, EAST, 1);
 
 		assertTrue(unit.getPosition().getX() == 4);
@@ -642,13 +640,9 @@ public class ModelTests {
 		p.getUnits().add(unit);
 		world.getAllUnits().add(unit);
 		gameState.save();
-		System.out.println();
-		System.out.println(unit.getPosition());
 		gameState.move(unit, EAST, 1);
 
 		assertTrue(unit.getPosition().getX() == 4);
-
-		unit = gameState.getPlayers().get(0).getUnits().get(0);
 
 		SaveInstance save = gameState.getSaves().get(0);
 
@@ -660,7 +654,65 @@ public class ModelTests {
 
 		unit = gameState.getPlayers().get(0).getUnits().get(0);
 
-		assertTrue(unit.getPosition().getX() == 3);
+		assertTrue(gameState.getPlayers().get(0).getUnits().contains(unit));
+	}
+
+	/**
+	 * Tests that saving and loading works correctly
+	 */
+	@Test
+	public void saveTest_3() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+
+		GameCollections world = gameState.getWorld();
+
+		gameState.getPlayers().add(p);
+
+		Unit unit = new SwordsmenImpl(p);
+		TestBehaviour b = new TestBehaviour(gameState);
+
+		unit.setBehaviour(b);
+
+		unit.setPosition(world.getMap().get(3, 3));
+
+		p.getUnits().add(unit);
+		world.getAllUnits().add(unit);
+
+		gameState.save();
+		gameState.move(unit, EAST, 2);
+		SaveInstance save = gameState.getSaves().get(0);
+
+		gameState.load(save);
+
+		unit = gameState.getPlayers().get(0).getUnits().get(0);
+		assertTrue(unit.getActionPoints() == 2);
+	}
+
+	/**
+	 * Tests that saving and loading works correctly
+	 */
+	@Test
+	public void saveTest_4() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+
+		GameCollections world = gameState.getWorld();
+
+		gameState.save();
+
+		gameState.getWorld().setMap(new Map(5));
+
+		assertTrue(gameState.getWorld().getMap().getDiameter() == 5);
+
+		SaveInstance save = gameState.getSaves().get(0);
+		gameState.load(save);
+
+		assertTrue(gameState.getWorld().getMap().getDiameter() == 7);
 	}
 
 }
