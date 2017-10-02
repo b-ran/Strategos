@@ -90,8 +90,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
             return 0;
         }
 
-        // TODO: HP debuff
-        int defence = terrainDamageBonus(enemy, enemy.getToughness(), false);
+        int defence = enemy.getToughness();
+        defence += enemy.getWary() ? 1 : 0;
+        defence += enemy.getEntrench() ? 2 : 0;
+        defence *= (100 - enemy.getHitpoints()) * -0.2;
+        defence = terrainDamageBonus(enemy, defence, false);
 
         enemy.defend(unit);
 
@@ -131,14 +134,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }
 
-        int attack = terrainDamageBonus(enemy, enemy.getStrength(), true);
-
-        if (wary) {
-            attack -= 1;
-        }
-        else if (entrench) {
-            attack -= 2;
-        }
+        int attack = enemy.getStrength();
+        attack -= getWary(unit) ? 1 : 0;
+        attack -= getEntrench(unit) ? 2 : 0;
+        attack *= (100 - enemy.getHitpoints()) * -0.2;
+        attack = terrainDamageBonus(enemy, attack, true);
 
         hitpoints -= attack;
 
