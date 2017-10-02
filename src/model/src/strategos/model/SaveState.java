@@ -27,7 +27,7 @@ public class SaveState implements SaveInstance {
 
 		this.world = new World(
 				new Map(world.getMap().getData().clone(),
-						world.getMap().getRadius()),
+						world.getMap().getDiameter()),
 				allUnits);
 	}
 

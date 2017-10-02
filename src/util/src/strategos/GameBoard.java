@@ -10,7 +10,7 @@ public interface GameBoard {
 
 	public void set(int x, int y, MapLocation location);
 
-	public int getRadius();
+	public int getDiameter();
 
 	public Terrain getTerrainAt(MapLocation location);
 }

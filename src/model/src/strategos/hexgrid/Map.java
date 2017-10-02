@@ -20,20 +20,20 @@ import java.util.List;
 public class Map implements GameBoard {
 	
 	private MapLocation[][] map;
-	private final int radius;
+	private final int diameter;
 	
 	/**
 	 * Creates a new Map object with the specified diameter.
 	 * @param diameter - The maximum size of a row of Hexes.
 	 */
 	public Map(int diameter) {
+		this.diameter = diameter;
 		map = constructMap(diameter);
-		this.radius = diameter / 2;
 	}
 
-	public Map(MapLocation[][] newMap, int radius) {
+	public Map(MapLocation[][] newMap, int diameter) {
+		this.diameter = diameter;
 		map = newMap.clone();
-		this.radius = radius;
 	}
 
 	private Hex[][] constructMap(int diameter) {
@@ -131,8 +131,8 @@ public class Map implements GameBoard {
 		return temp;
 	}
 
-	public int getRadius() {
-		return radius;
+	public int getDiameter() {
+		return diameter;
 	}
 
 	@Override
