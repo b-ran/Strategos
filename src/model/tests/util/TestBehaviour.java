@@ -10,9 +10,9 @@ public class TestBehaviour implements Behaviour {
 
 	public boolean     entrenched;
 	private MapLocation position;
-	private int         actionPoints;
+	public int         actionPoints = 2;
 	public boolean     wary;
-	private int         hitpoints;
+	public int         hitpoints;
 	public boolean charging;
 	public boolean moved;
 	public boolean attacking;
@@ -21,7 +21,6 @@ public class TestBehaviour implements Behaviour {
 	public TestBehaviour(GameState gameState) {
 		this.gameState = gameState;
 		hitpoints = 100;
-		actionPoints = 0;
 
 		wary = false;
 		entrenched = false;
@@ -61,6 +60,7 @@ public class TestBehaviour implements Behaviour {
 	public boolean move(Unit unit, Direction direction) {
 		moved = true;
 		setPosition(unit, getPosition(unit).getNeighbour(direction));
+		actionPoints--;
 		return true;
 	}
 
@@ -101,7 +101,7 @@ public class TestBehaviour implements Behaviour {
 
 	@Override
 	public int getActionPoints(Unit unit) {
-		return 2;
+		return actionPoints;
 	}
 
 	@Override
@@ -114,6 +114,7 @@ public class TestBehaviour implements Behaviour {
 		behaviour.wary = wary;
 		behaviour.moved = moved;
 		behaviour.charging = charging;
+		behaviour.actionPoints = actionPoints;
 
 		return behaviour;
 	}
