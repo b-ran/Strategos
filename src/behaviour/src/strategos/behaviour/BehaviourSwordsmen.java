@@ -2,7 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.BehaviourConfig;
+import strategos.behaviour.config.*;
 import strategos.units.*;
 
 

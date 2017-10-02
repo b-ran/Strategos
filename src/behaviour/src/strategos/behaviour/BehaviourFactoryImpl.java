@@ -34,13 +34,11 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
         return new BehaviourBridge(gameState);
     }
 
-    @Override
-    public Behaviour createBehaviourHealthPotion(GameState gameState) {
+    @Override public Behaviour createBehaviourHealthPotion(GameState gameState) {
         return new BehaviourHealthPotion(gameState);
     }
 
-    @Override
-    public Behaviour createAiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
+    @Override public Behaviour createAiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
         return new AiBehaviour(gameState, factoryMethod);
     }
 }

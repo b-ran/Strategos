@@ -2,7 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.BehaviourConfig;
+import strategos.behaviour.config.*;
 import strategos.exception.*;
 import strategos.terrain.*;
 import strategos.units.*;
@@ -12,10 +12,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     //TODO: Where is your javadoc?
 
-    private boolean     entrench;
-    private int         actionPoints;
-    private boolean     wary;
-    private int         hitpoints;
+    private boolean entrench;
+    private int     actionPoints;
+    private boolean wary;
+    private int     hitpoints;
 
     UnitBehaviour(GameState gameState) {
         super(gameState);
@@ -58,8 +58,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     @Override final public boolean move(Unit unit, Direction direction) {
         if (direction == null) {
-            throw new NullPointerException(
-                    "Method move() requires a non-null direction");
+            throw new NullPointerException("Method move() requires a non-null direction");
         }
 
         if (getActionPoints(unit) <= 0) {
@@ -74,8 +73,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
-            throw new NullPointerException(
-                    "Method attack() requires a non-null enemy");
+            throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
         if (!isAlive(unit) || !enemy.isAlive()) {
@@ -97,8 +95,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     private int terrainDamageBonus(Unit unit, int damage, boolean attacking) {
-        assert unit != null
-                : "Method terrainDamageBonus() shouldn't be receiving a null unit";
+        assert unit != null : "Method terrainDamageBonus() shouldn't be receiving a null unit";
 
         Terrain terrain = getGameState().getTerrainAt(unit.getPosition());
 
@@ -117,6 +114,30 @@ abstract class UnitBehaviour extends BaseBehaviour {
         else {
             throw new RuleViolationException("Unit must be on valid Terrain");
         }
+    }
+
+    @Override public int defend(Unit unit, Unit enemy) {
+        if (enemy == null) {
+            throw new NullPointerException("Method defend() requires a non-null enemy");
+        }
+
+        int attack = terrainDamageBonus(enemy, enemy.getStrength(), true);
+
+        hitpoints -= attack;
+
+        return 0;
+    }
+
+    @Override public boolean isAlive(Unit unit) {
+        return hitpoints > 0;
+    }
+
+    @Override public int getSightRadius(Unit unit) {
+        return 2;
+    }
+
+    @Override public int getActionPoints(Unit unit) {
+        return isAlive(unit) ? actionPoints : 0;
     }
 
     private int terrainMovementCost(Unit unit) {
@@ -139,36 +160,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
     }
 
-    @Override public int defend(Unit unit, Unit enemy) {
-        if (enemy == null) {
-            throw new NullPointerException(
-                    "Method defend() requires a non-null enemy");
-        }
-
-        int attack = terrainDamageBonus(enemy, enemy.getStrength(), true);
-
-        hitpoints -= attack;
-
-        return 0;
-    }
-
-    @Override public boolean isAlive(Unit unit) {
-        return hitpoints > 0;
-    }
-
-    @Override public int getSightRadius(Unit unit) {
-        return 2;
-    }
-
-    @Override public int getActionPoints(Unit unit) {
-        return isAlive(unit) ? actionPoints : 0;
+    int getMaxActionPoints() {
+        return BehaviourConfig.INFANTRY_ACTION_POINTS;
     }
 
     void setActionPoints(int actionPoints) {
         this.actionPoints = actionPoints;
-    }
-
-    int getMaxActionPoints() {
-        return BehaviourConfig.INFANTRY_ACTION_POINTS;
     }
 }

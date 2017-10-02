@@ -2,7 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.BehaviourConfig;
+import strategos.behaviour.config.*;
 import strategos.units.*;
 
 
@@ -37,8 +37,7 @@ class BehaviourArchers extends UnitBehaviour {
 
     @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
-            throw new NullPointerException(
-                    "Method attack() requires a non-null enemy");
+            throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
         if (!isAlive(unit) || !enemy.isAlive()) {

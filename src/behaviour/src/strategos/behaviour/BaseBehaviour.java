@@ -9,13 +9,12 @@ abstract class BaseBehaviour implements Behaviour {
 
     //TODO: Where is your javadoc?
 
-    private final GameState gameState;
-    private MapLocation position;
+    private final GameState   gameState;
+    private       MapLocation position;
 
     BaseBehaviour(GameState gameState) {
         if (gameState == null) {
-            throw new NullPointerException(
-                    "BaseBehaviour constructor requires non-null gameState");
+            throw new NullPointerException("BaseBehaviour constructor requires non-null gameState");
         }
 
         this.gameState = gameState;
@@ -23,8 +22,7 @@ abstract class BaseBehaviour implements Behaviour {
 
     BaseBehaviour(BaseBehaviour behaviour) {
         if (behaviour == null) {
-            throw new NullPointerException(
-                    "BaseBehaviour constructor requires non-null behaviour");
+            throw new NullPointerException("BaseBehaviour constructor requires non-null behaviour");
         }
 
         gameState = behaviour.gameState;
@@ -32,15 +30,13 @@ abstract class BaseBehaviour implements Behaviour {
     }
 
     @Override public MapLocation getPosition(Unit unit) {
-        assert position != null
-                : "Method getPosition() shouldn't be returning null";
+        assert position != null : "Method getPosition() shouldn't be returning null";
         return position;
     }
 
     @Override public void setPosition(Unit unit, MapLocation position) {
         if (position == null) {
-            throw new NullPointerException(
-                    "Method setPosition() requires non-null position");
+            throw new NullPointerException("Method setPosition() requires non-null position");
         }
         this.position = position;
     }

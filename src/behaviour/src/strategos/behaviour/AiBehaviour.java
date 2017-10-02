@@ -20,47 +20,28 @@ class AiBehaviour extends BaseBehaviour {
         super(gameState);
 
         if (factoryMethod == null) {
-            throw new NullPointerException(
-                    "AiBehaviour constructor requires non-null factoryMethod");
+            throw new NullPointerException("AiBehaviour constructor requires non-null factoryMethod");
         }
 
         this.behaviour = factoryMethod.apply(gameState);
 
         if (this.behaviour == null) {
-            throw new NullPointerException(
-                    "Behaviour factory method should not return null");
+            throw new NullPointerException("Behaviour factory method should not return null");
         }
-    }
-
-    @Override public MapLocation getPosition(Unit unit) {
-        MapLocation position = behaviour.getPosition(unit);
-        assert position != null
-                : "Method getPosition() shouldn't be returning null";
-        return position;
-    }
-
-    @Override public void setPosition(Unit unit, MapLocation position) {
-        if (position == null) {
-            throw new NullPointerException(
-                    "Method setPosition() requires non-null position");
-        }
-        behaviour.setPosition(unit, position);
     }
 
     @Override public void turnTick(Unit unit) {
         behaviour.turnTick(unit);
 
-        Optional<Unit> nearest = getGameState().getUnitsInRange(
-                getPosition(unit),
-                getSightRadius(unit)
-        ).stream().min((a, b) -> {
-            double aX = getPosition(unit).getX() - a.getPosition().getX();
-            double aY = getPosition(unit).getY() - a.getPosition().getY();
-            double bX = getPosition(unit).getX() - b.getPosition().getX();
-            double bY = getPosition(unit).getY() - b.getPosition().getY();
+        Optional<Unit> nearest =
+                getGameState().getUnitsInRange(getPosition(unit), getSightRadius(unit)).stream().min((a, b) -> {
+                    double aX = getPosition(unit).getX() - a.getPosition().getX();
+                    double aY = getPosition(unit).getY() - a.getPosition().getY();
+                    double bX = getPosition(unit).getX() - b.getPosition().getX();
+                    double bY = getPosition(unit).getY() - b.getPosition().getY();
 
-            return (int) (hypot(aX, aY) - hypot(bX, bY));
-        });
+                    return (int) (hypot(aX, aY) - hypot(bX, bY));
+                });
 
         //TODO: too much indentation
         if (nearest.isPresent()) {
@@ -71,9 +52,21 @@ class AiBehaviour extends BaseBehaviour {
         }
     }
 
+    @Override public MapLocation getPosition(Unit unit) {
+        MapLocation position = behaviour.getPosition(unit);
+        assert position != null : "Method getPosition() shouldn't be returning null";
+        return position;
+    }
+
+    @Override public void setPosition(Unit unit, MapLocation position) {
+        if (position == null) {
+            throw new NullPointerException("Method setPosition() requires non-null position");
+        }
+        behaviour.setPosition(unit, position);
+    }
+
     private void pursueUnit(Unit unit, Unit nearest) {
-        List<Unit> adjacentUnits =
-                getGameState().getUnitsInRange(getPosition(unit), 1);
+        List<Unit> adjacentUnits = getGameState().getUnitsInRange(getPosition(unit), 1);
         if (adjacentUnits.contains(nearest)) {
             getGameState().attack(unit, nearest.getPosition());
         }
@@ -96,24 +89,21 @@ class AiBehaviour extends BaseBehaviour {
 
     @Override public boolean move(Unit unit, Direction direction) {
         if (direction == null) {
-            throw new NullPointerException(
-                    "Method move() requires a non-null direction");
+            throw new NullPointerException("Method move() requires a non-null direction");
         }
         return behaviour.move(unit, direction);
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
-            throw new NullPointerException(
-                    "Method attack() requires a non-null enemy");
+            throw new NullPointerException("Method attack() requires a non-null enemy");
         }
         return behaviour.attack(unit, enemy);
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
         if (enemy == null) {
-            throw new NullPointerException(
-                    "Method defend() requires a non-null enemy");
+            throw new NullPointerException("Method defend() requires a non-null enemy");
         }
         return behaviour.defend(unit, enemy);
     }

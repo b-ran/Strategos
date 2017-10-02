@@ -6,6 +6,7 @@ import strategos.units.*;
 
 
 abstract class StaticBehaviour extends BaseBehaviour {
+
     private boolean isAlive;
 
     StaticBehaviour(GameState gameState) {
@@ -46,8 +47,7 @@ abstract class StaticBehaviour extends BaseBehaviour {
 
     @Override public int defend(Unit unit, Unit enemy) {
         if (enemy == null) {
-            throw new NullPointerException(
-                    "Method defend() requires a non-null enemy");
+            throw new NullPointerException("Method defend() requires a non-null enemy");
         }
 
         isAlive = false;
