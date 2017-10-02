@@ -45,11 +45,13 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void wary(Unit unit) {
-        // TODO: wary
+        wary = !wary;
+        entrench = false;
     }
 
     @Override public void entrench(Unit unit) {
-        // TODO: entrench
+        entrench = !entrench;
+        wary = false;
     }
 
     @Override public void charge(Unit unit) {
@@ -122,6 +124,13 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
 
         int attack = terrainDamageBonus(enemy, enemy.getStrength(), true);
+
+        if (wary) {
+            attack -= 1;
+        }
+        else if (entrench) {
+            attack -= 2;
+        }
 
         hitpoints -= attack;
 
