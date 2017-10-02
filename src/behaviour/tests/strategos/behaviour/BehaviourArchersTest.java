@@ -23,7 +23,7 @@ public class BehaviourArchersTest {
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Archer strength should be same as in Config",
+                "Archer strength should be same as in BehaviourConfig",
                 behaviour.getStrength(unit),
                 is(Config.ARCHERS_STRENGTH)
         );
@@ -31,7 +31,7 @@ public class BehaviourArchersTest {
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Archer toughness should be same as in Config",
+                "Archer toughness should be same as in BehaviourConfig",
                 behaviour.getToughness(unit),
                 is(Config.ARCHERS_TOUGHNESS)
         );
@@ -48,7 +48,7 @@ public class BehaviourArchersTest {
     @Test public void getActionPoints() throws Exception {
         behaviour.turnTick(unit);
         assertThat(
-                "Archer action points should be same as in Config",
+                "Archer action points should be same as in BehaviourConfig",
                 behaviour.getActionPoints(unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );

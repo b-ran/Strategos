@@ -23,7 +23,7 @@ public class BehaviourSwordsmenTest {
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Swordsmen strength should be same as in Config",
+                "Swordsmen strength should be same as in BehaviourConfig",
                 behaviour.getStrength(unit),
                 is(Config.SWORDSMEN_STRENGTH)
         );
@@ -31,7 +31,7 @@ public class BehaviourSwordsmenTest {
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Swordsmen toughness should be same as in Config",
+                "Swordsmen toughness should be same as in BehaviourConfig",
                 behaviour.getToughness(unit),
                 is(Config.SWORDSMEN_TOUGHNESS)
         );
@@ -48,7 +48,7 @@ public class BehaviourSwordsmenTest {
     @Test public void getActionPoints() throws Exception {
         behaviour.turnTick(unit);
         assertThat(
-                "Swordsmen action points should be same as in Config",
+                "Swordsmen action points should be same as in BehaviourConfig",
                 behaviour.getActionPoints(unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );

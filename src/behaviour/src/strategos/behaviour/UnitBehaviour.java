@@ -2,7 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.Config;
+import strategos.behaviour.config.BehaviourConfig;
 import strategos.exception.*;
 import strategos.terrain.*;
 import strategos.units.*;
@@ -165,6 +165,6 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     int getMaxActionPoints() {
-        return Config.INFANTRY_ACTION_POINTS;
+        return BehaviourConfig.INFANTRY_ACTION_POINTS;
     }
 }

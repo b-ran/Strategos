@@ -2,7 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.Config;
+import strategos.behaviour.config.BehaviourConfig;
 import strategos.units.*;
 
 
@@ -19,11 +19,11 @@ class BehaviourSpearmen extends UnitBehaviour {
     }
 
     @Override public int getStrength(Unit unit) {
-        return Config.SPEARMEN_STRENGTH;
+        return BehaviourConfig.SPEARMEN_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return Config.SPEARMEN_TOUGHNESS;
+        return BehaviourConfig.SPEARMEN_TOUGHNESS;
     }
 
     @Override public Behaviour copy() {

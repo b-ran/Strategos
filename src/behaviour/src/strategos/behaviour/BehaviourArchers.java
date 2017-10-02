@@ -2,7 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.Config;
+import strategos.behaviour.config.BehaviourConfig;
 import strategos.units.*;
 
 
@@ -19,11 +19,11 @@ class BehaviourArchers extends UnitBehaviour {
     }
 
     @Override public int getStrength(Unit unit) {
-        return Config.ARCHERS_STRENGTH;
+        return BehaviourConfig.ARCHERS_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return Config.ARCHERS_TOUGHNESS;
+        return BehaviourConfig.ARCHERS_TOUGHNESS;
     }
 
     @Override public Behaviour copy() {
