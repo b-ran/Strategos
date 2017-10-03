@@ -5,6 +5,7 @@ import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
 import java.util.List;
+import java.util.Observer;
 
 
 /**
@@ -63,6 +64,16 @@ public class TestGameState implements GameState {
 	}
 
 	@Override
+	public List<Unit> getUnitsInAttackRange(Unit unit) {
+		return null;
+	}
+
+	@Override
+	public List<MapLocation> getTilesInMoveRange(Unit unit) {
+		return null;
+	}
+
+	@Override
 	public Terrain getTerrainAt(MapLocation location) {
 		return null;
 	}
@@ -80,5 +91,40 @@ public class TestGameState implements GameState {
 	@Override
 	public GameCollections getWorld() {
 		return null;
+	}
+
+	@Override
+	public List<UnitOwner> getPlayers() {
+		return null;
+	}
+
+	@Override
+	public List<SaveInstance> getSaves() {
+		return null;
+	}
+
+	@Override
+	public UnitOwner getCurrentTurn() {
+		return null;
+	}
+
+	@Override
+	public void addObserver(Observer o) {
+
+	}
+
+	@Override
+	public void setChanged() {
+
+	}
+
+	@Override
+	public boolean hasChanged() {
+		return false;
+	}
+
+	@Override
+	public void notifyObservers(Object o) {
+
 	}
 }
