@@ -41,7 +41,7 @@ public class GameRunner {
 		}
 		World world = new World(map, allUnits);
 		gameState = new Strategos(world, players.get(0), players.get(1), players.get(2));
-		ui = new Ui(allUnits, /*map.getData()*/null);
+		ui = new Ui(gameState);
 	}
 
 	public static List<UnitOwner> constructPlayers() {

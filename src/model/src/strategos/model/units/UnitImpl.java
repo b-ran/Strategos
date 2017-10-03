@@ -5,13 +5,12 @@ import strategos.Graphical;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
 import strategos.units.Unit;
 
-public class UnitImpl implements Graphical, Unit, Behaviour {
+public class UnitImpl implements Graphical, Unit {
 
 	private Behaviour behaviour;
-	private final UnitOwner owner;
+	private UnitOwner owner;
 
 	public UnitImpl(UnitOwner owner) {
 		this.owner = owner;
@@ -34,57 +33,67 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 
 	@Override
 	public MapLocation getPosition() {
-		return behaviour.getPosition();
+		return behaviour.getPosition(this);
 	}
 
 	@Override
 	public void setPosition(MapLocation position) {
-		behaviour.setPosition(position);
+		behaviour.setPosition(this, position);
 	}
 
 	@Override
 	public void turnTick() {
-		behaviour.turnTick();
+		behaviour.turnTick(this);
 	}
 
 	@Override
 	public void wary() {
-		behaviour.wary();
+		behaviour.wary(this);
+	}
+
+	@Override
+	public boolean getWary() {
+		return behaviour.getWary(this);
 	}
 
 	@Override
 	public void entrench() {
-		behaviour.entrench();
+		behaviour.entrench(this);
+	}
+
+	@Override
+	public boolean getEntrench() {
+		return behaviour.getEntrench(this);
 	}
 
 	@Override
 	public void charge() {
-		behaviour.charge();
+		behaviour.charge(this);
 	}
 
 	@Override
 	public boolean move(Direction direction) {
-		return behaviour.move(direction);
+		return behaviour.move(this, direction);
 	}
 
 	@Override
 	public int attack(Unit enemy) {
-		return behaviour.attack(enemy);
+		return behaviour.attack(this, enemy);
 	}
 
 	@Override
 	public int defend(Unit enemy) {
-		return behaviour.defend(enemy);
+		return behaviour.defend(this, enemy);
 	}
 
 	@Override
 	public int getStrength() {
-		return behaviour.getStrength();
+		return behaviour.getStrength(this);
 	}
 
 	@Override
 	public int getToughness() {
-		return behaviour.getToughness();
+		return behaviour.getToughness(this);
 	}
 
 	@Override
@@ -93,28 +102,27 @@ public class UnitImpl implements Graphical, Unit, Behaviour {
 	}
 
 	@Override
+	public int getHitpoints() {
+		return behaviour.getHitpoints(this);
+	}
+
+	@Override
 	public boolean isAlive() {
-		return behaviour.isAlive();
+		return behaviour.isAlive(this);
 	}
 
 	@Override
 	public int getSightRadius() {
-		return behaviour.getSightRadius();
+		return behaviour.getSightRadius(this);
 	}
 
 	@Override
 	public int getActionPoints() {
-		return behaviour.getActionPoints();
+		return behaviour.getActionPoints(this);
 	}
 
 	@Override
-	public Behaviour copy() {
-		return null;
-	}
-
-	@Override
-	public Unit copyUnit() {
-		Unit newUnit = new UnitImpl(behaviour.copy(), getOwner());
-		return newUnit;
+	public Unit copy() {
+		return new UnitImpl(getBehaviour().copy(), getOwner());
 	}
 }

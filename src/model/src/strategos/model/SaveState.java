@@ -8,30 +8,26 @@ import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.*;
+
 
 public class SaveState implements SaveInstance {
 	private final GameCollections world;
-	private final ArrayList<UnitOwner> players;
+	private final List<UnitOwner> players;
 	private final UnitOwner turn;
 
-	public SaveState(GameCollections world, ArrayList<UnitOwner> oldPlayers, UnitOwner turn) {
+	public SaveState(GameCollections world, List<UnitOwner> oldPlayers, UnitOwner turn) {
 
-		this.players = new ArrayList<>();
 		List<Unit> allUnits = new ArrayList<>();
 
-		for (int i = 0; i < oldPlayers.size(); i++) {
-			this.players.add(oldPlayers.get(i).copy());
-			allUnits.addAll(this.players.get(i).getUnits());
-		}
+		players = oldPlayers.stream().map(UnitOwner::copy).collect(Collectors.toList());
+		players.stream().map(UnitOwner::getUnits).forEach(allUnits::addAll);
 
-		this.turn = this.players.get(oldPlayers.indexOf(turn));
+		this.turn = players.get(oldPlayers.indexOf(turn));
 
-		for (UnitOwner u : this.players) {
-			allUnits.addAll(u.getUnits());
-		}
 		this.world = new World(
 				new Map(world.getMap().getData().clone(),
-						world.getMap().getRadius()),
+						world.getMap().getDiameter()),
 				allUnits);
 	}
 
@@ -39,7 +35,7 @@ public class SaveState implements SaveInstance {
 		return world;
 	}
 
-	public ArrayList<UnitOwner> getPlayers() {
+	public List<UnitOwner> getPlayers() {
 		return players;
 	}
 

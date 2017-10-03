@@ -25,8 +25,7 @@ public class EliteImpl extends UnitImpl implements Elite {
 	}
 
 	@Override
-	public Unit copyUnit() {
-		Unit newUnit = new EliteImpl(getBehaviour().copy(), getOwner());
-		return newUnit;
+	public Unit copy() {
+		return new EliteImpl(getBehaviour().copy(), getOwner());
 	}
 }

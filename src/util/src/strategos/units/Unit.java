@@ -47,5 +47,7 @@ public interface Unit {
 
     int getActionPoints();
 
-    public Unit copyUnit();
+    int getAttackRange();
+
+    public Unit copy();
 }
