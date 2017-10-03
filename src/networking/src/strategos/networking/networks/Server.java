@@ -9,25 +9,24 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import strategos.GameState;
 import strategos.SaveInstance;
 import strategos.networking.Network;
 import strategos.networking.handlers.DataHandler;
+import strategos.networking.handlers.NetworkHandler;
 
 /**
- * The server used for transmitting objects
+ * Used to host the server so clients can send objects to here, and here send messages to clients
  */
 public class Server implements Network {
 	private int port;
+    private NetworkHandler serverHandler;
+    private GameState state;
 
-	public NetworkHandler getServerHandler() {
-		return serverHandler;
-	}
-
-	private NetworkHandler serverHandler;
-
-	public Server(int port) {
+	public Server(int port, GameState state) {
 		this.port = port;
-		serverHandler = new NetworkHandler();
+		this.state = state;
+		serverHandler = new NetworkHandler(this);
 	}
 
 	@Override
@@ -49,8 +48,6 @@ public class Server implements Network {
 			ChannelFuture f = b.bind(port).sync();
 
 			// Wait until the server socket is closed.
-			// In this example, this does not happen, but you can do that to gracefully
-			// shut down your server.
 			f.channel().closeFuture().sync();
 		} finally {
 			workerGroup.shutdownGracefully();
@@ -62,4 +59,9 @@ public class Server implements Network {
 	public void send(SaveInstance instance) throws InterruptedException {
 		serverHandler.send(instance);
 	}
+	
+    @Override
+    public void receive(SaveInstance instance) {
+        state.load(instance);
+    }
 }

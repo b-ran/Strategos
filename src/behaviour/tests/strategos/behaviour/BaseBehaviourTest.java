@@ -43,8 +43,16 @@ public class BaseBehaviourTest {
 
             }
 
+            @Override public boolean getWary(Unit unit) {
+                return false;
+            }
+
             @Override public void entrench(Unit unit) {
 
+            }
+
+            @Override public boolean getEntrench(Unit unit) {
+                return false;
             }
 
             @Override public void charge(Unit unit) {
@@ -68,6 +76,10 @@ public class BaseBehaviourTest {
             }
 
             @Override public int getToughness(Unit unit) {
+                return 0;
+            }
+
+            @Override public int getHitpoints(Unit unit) {
                 return 0;
             }
 

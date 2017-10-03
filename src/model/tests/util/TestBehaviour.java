@@ -47,8 +47,18 @@ public class TestBehaviour implements Behaviour {
 	}
 
 	@Override
+	public boolean getWary(Unit unit) {
+		return false;
+	}
+
+	@Override
 	public void entrench(Unit unit) {
 		entrenched = true;
+	}
+
+	@Override
+	public boolean getEntrench(Unit unit) {
+		return false;
 	}
 
 	@Override
@@ -86,6 +96,11 @@ public class TestBehaviour implements Behaviour {
 
 	@Override
 	public int getToughness(Unit unit) {
+		return 0;
+	}
+
+	@Override
+	public int getHitpoints(Unit unit) {
 		return 0;
 	}
 

@@ -22,14 +22,14 @@ public class BehaviourCavalryTest {
     }
 
     @Test public void getStrength() throws Exception {
-        assertThat("Cavalry strength should be same as in Config",
+        assertThat("Cavalry strength should be same as in BehaviourConfig",
                 behaviour.getStrength(unit),
                 is(Config.CAVALRY_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
-        assertThat("Cavalry toughness should be same as in Config",
+        assertThat("Cavalry toughness should be same as in BehaviourConfig",
                 behaviour.getToughness(unit),
                 is(Config.CAVALRY_TOUGHNESS)
         );
@@ -45,7 +45,7 @@ public class BehaviourCavalryTest {
 
     @Test public void getActionPoints() throws Exception {
         behaviour.turnTick(unit);
-        assertThat("Cavalry action points should be same as in Config",
+        assertThat("Cavalry action points should be same as in BehaviourConfig",
                 behaviour.getActionPoints(unit),
                 is(Config.CAVALRY_ACTION_POINTS)
         );

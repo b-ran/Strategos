@@ -103,6 +103,8 @@ public interface GameState extends Observable {
 
 	public List<UnitOwner> getPlayers();
 
+	public List<MapLocation> getMovableTiles(Unit unit);
+
 	public List<SaveInstance> getSaves();
 
 	/**
