@@ -1,2 +1,2 @@
 # Strategos
-Stratgy game for 222
+Strategy game for 222
