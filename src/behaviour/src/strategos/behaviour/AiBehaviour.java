@@ -195,4 +195,9 @@ class AiBehaviour extends BaseBehaviour {
     @Override public Behaviour copy() {
         return new AiBehaviour(this);
     }
+
+    @Override
+    public int getAttackRange() {
+        return behaviour.getAttackRange();
+    }
 }

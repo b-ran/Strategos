@@ -26,4 +26,7 @@ public class BehaviourConfig {
 
     public static final int ELITE_STRENGTH  = 20;
     public static final int ELITE_TOUGHNESS = 35;
+
+    public static final int MELEE_RANGE = 1;
+    public static final int ARCHER_RANGE = 2;
 }

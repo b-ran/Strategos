@@ -36,8 +36,18 @@ public class TestUtil {
 
         }
 
+        @Override
+        public boolean getWary() {
+            return false;
+        }
+
         @Override public void entrench() {
 
+        }
+
+        @Override
+        public boolean getEntrench() {
+            return false;
         }
 
         @Override public void charge() {
@@ -68,6 +78,11 @@ public class TestUtil {
             return null;
         }
 
+        @Override
+        public int getHitpoints() {
+            return 0;
+        }
+
         @Override public boolean isAlive() {
             return false;
         }
@@ -80,7 +95,13 @@ public class TestUtil {
             return 0;
         }
 
-        @Override public Unit copyUnit() {
+        @Override
+        public int getAttackRange() {
+            return 0;
+        }
+
+        @Override
+        public Unit copy() {
             return null;
         }
     };
@@ -139,6 +160,16 @@ public class TestUtil {
 
         @Override
         public List<Unit> getUnitsInRange(MapLocation location, int range) {
+            return null;
+        }
+
+        @Override
+        public List<Unit> getUnitsInAttackRange(Unit unit) {
+            return null;
+        }
+
+        @Override
+        public List<MapLocation> getTilesInMoveRange(Unit unit) {
             return null;
         }
 

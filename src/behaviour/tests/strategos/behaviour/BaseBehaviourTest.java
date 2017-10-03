@@ -98,6 +98,11 @@ public class BaseBehaviourTest {
             @Override public Behaviour copy() {
                 return null;
             }
+
+            @Override
+            public int getAttackRange() {
+                return 0;
+            }
         };
     }
 
