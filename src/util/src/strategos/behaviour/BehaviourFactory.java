@@ -19,5 +19,9 @@ public interface BehaviourFactory {
 
     Behaviour createBehaviourSwordsmen(GameState gameState);
 
+    Behaviour createBehaviourBridge(GameState gameState);
+
+    Behaviour createBehaviourHealthPotion(GameState gameState);
+
     Behaviour createAiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod);
 }

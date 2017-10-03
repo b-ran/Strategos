@@ -2,7 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.Config;
+import strategos.behaviour.config.*;
 import strategos.units.*;
 
 
@@ -19,11 +19,11 @@ class BehaviourElite extends UnitBehaviour {
     }
 
     @Override public int getStrength(Unit unit) {
-        return Config.ELITE_STRENGTH;
+        return BehaviourConfig.ELITE_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return Config.ELITE_TOUGHNESS;
+        return BehaviourConfig.ELITE_TOUGHNESS;
     }
 
     @Override public Behaviour copy() {
