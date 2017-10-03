@@ -143,4 +143,12 @@ public class Controller {
     boolean getMenuToggle() {
         return menuToggle;
     }
+
+    MapLocation getSelectedMapLocation() {
+        return selectedMapLocation;
+    }
+
+    void setSelectedMapLocation(MapLocation selectedMapLocation) {
+        this.selectedMapLocation = selectedMapLocation;
+    }
 }

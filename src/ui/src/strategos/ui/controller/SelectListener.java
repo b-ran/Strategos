@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 class SelectListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
+    private boolean toggle;
 
     SelectListener(Controller controller) {
         super(controller);
@@ -24,7 +25,16 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
 
     @Override
     public void mousePressed(MouseEvent e) {
-        drawSelection(e);
+        if (!controller.allInput) return;
+        Point p = getHexPos(e.getX(),e.getY());
+        toggle = !toggle;
+        if (!toggle) {
+            view.getGridComponent().setSelection(null);
+            view.repaint();
+            return;
+        }
+        controller.setSelectedMapLocation(board.get(p.x, p.y));
+        select();
     }
 
     @Override
@@ -41,7 +51,14 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        drawSelection(e);
+
+        if (!controller.allInput || controller.getSelectedMapLocation() == null) return;
+        Point p = getHexPos(e.getX(),e.getY());
+        if (controller.getSelectedMapLocation().equals(board.get(p.x, p.y))) {
+            return;
+        }
+        controller.setSelectedMapLocation(board.get(p.x, p.y));
+        select();
     }
 
     @Override
@@ -49,24 +66,12 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
 
     }
 
-    private void drawSelection(MouseEvent e) {
-        if (!controller.allInput) return;
-
-        Point p = getHexPos(e.getX(),e.getY());
-        selectedMapLocation = selectedMapLocation == null ? board.get(p.x, p.y) : null;
-        if (selectedMapLocation != null) {
-            if (selectedMapLocation.equals(board.get(p.x, p.y))) return;
-        }
-        if (selectedMapLocation == null) {
-            view.getGridComponent().setSelection(null);
-            view.repaint();
-            return;
-        }
-        Unit selectedUnit = model.getUnitAt(selectedMapLocation);
+    private void select() {
+        Unit selectedUnit = model.getUnitAt(controller.getSelectedMapLocation());
         if (selectedUnit == null) {
-            view.getGridComponent().setSelection(selectedMapLocation);
+            view.getGridComponent().setSelection(controller.getSelectedMapLocation());
         } else {
-            view.getGridComponent().setSelection(selectedMapLocation, model.getUnitsInAttackRange(selectedUnit),  model.getTilesInMoveRange(selectedUnit));
+            view.getGridComponent().setSelection(controller.getSelectedMapLocation(), model.getUnitsInAttackRange(selectedUnit),  model.getTilesInMoveRange(selectedUnit));
         }
         view.repaint();
     }
