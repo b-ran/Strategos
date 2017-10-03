@@ -73,8 +73,8 @@ public class Strategos implements GameState {
 		}
 	}
 
-	private boolean canPassUnit(Unit mover, MapLocation location, Direction direction) {
-		Unit u = getUnitAt(location.getNeighbour(direction));
+	private boolean canPassUnit(Unit mover, MapLocation moveTo) {
+		Unit u = getUnitAt(moveTo);
 		return u == null || (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
 	}
 
@@ -198,6 +198,20 @@ public class Strategos implements GameState {
 	@Override
 	public List<UnitOwner> getPlayers() {
 		return players;
+	}
+
+	@Override
+	public List<MapLocation> getMovableTiles(Unit unit) {
+		List<MapLocation> potentialTiles = getTilesInRange(unit.getPosition(), 1);
+		List<MapLocation> actualTiles = new ArrayList<>();
+
+		for (MapLocation tile : potentialTiles) {
+			if (tile.isInPlayArea() && canPassUnit(unit, tile)) {
+				actualTiles.add(tile);
+			}
+		}
+
+		return actualTiles;
 	}
 
 	@Override
