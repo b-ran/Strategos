@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 class WaryListener extends Controller implements MouseListener, KeyListener {
 
-    public WaryListener(Controller controller) {
+    WaryListener(Controller controller) {
         super(controller);
     }
 

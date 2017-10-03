@@ -35,7 +35,7 @@ public class Config {
 
     public static final Color NPC_COLOR = Color.YELLOW;
 
-    public static final Color NOT_PLAYER_COLOR = Color.RED;
+    public static final Color OTHER_PLAYER_COLOR = Color.RED;
 
     public static final Color PLAYER_COLOR = Color.BLUE;
 
@@ -61,7 +61,11 @@ public class Config {
 
     public static final Color TERRAIN_RIVER_COLOR = Color.CYAN;
 
-    public static final Color SELECTION_COLOR = new Color(154, 208, 255);;
+    public static final Color SELECTION_COLOR = new Color(154, 208, 255);
+
+    public static final Color SELECTION_MOVE_COLOR =  new Color(255, 245, 199);
+
+    public static final Color SELECTION_ATTACK_COLOR =  new Color(255, 0, 0);
 
     public static final int SELECTION_STROKE_SIZE = 2;
 

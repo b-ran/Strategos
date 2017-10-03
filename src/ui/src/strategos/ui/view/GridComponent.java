@@ -7,6 +7,7 @@ import strategos.units.*;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static strategos.ui.config.Config.*;
@@ -17,11 +18,14 @@ import static strategos.ui.config.Config.*;
 public class GridComponent extends JComponent {
 
 
+
     private MapLocation[][] terrain;
     private MapLocation[][] seenTerrain;
     private List<Unit> entities;
     private DrawEntity drawEntity = new DrawEntity();
     private MapLocation selectedMapLocation;
+    private List<Unit> selectedUnitsInRange = new ArrayList<>();
+    private List<MapLocation> selectedTilesInRange = new ArrayList<>();
 
     /**
      * Instantiates a new Grid component for drawing on.
@@ -46,14 +50,20 @@ public class GridComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         paintBlackTerrain(g, terrain);
+        //TODO: view range UnitOwner.getVisibleTiles()
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
-        paintSelection((Graphics2D) g, selectedMapLocation);
+        paintSelection(g, selectedMapLocation);
 
     }
 
     private void paintUnits(Graphics g, List<Unit> entities) {
         for (Unit unit : entities) {
+            /*
+            TODO - REVIEW: This could be made far neater by, when sprites are implemented, to change draw() to
+            TODO            make draw() take an image and call unit.getSprite(). Then there is no need to use
+            TODO            instanceof. This can be similarly neatened with paintTerrain()
+             */
             if (unit instanceof Archers) {
                 drawEntity.draw((Archers)unit, g);
             } else if (unit instanceof Cavalry) {
@@ -91,19 +101,25 @@ public class GridComponent extends JComponent {
         g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                if (y % 2 == 0) {
-                    drawEntity.fillHexagon(g, drawEntity.getGridX(x), drawEntity.getGridY(y), Color.BLACK);
-                } else {
-                    drawEntity.fillHexagon(g, drawEntity.getGridX(x)+HEX_SIZE/2, drawEntity.getGridY(y), Color.BLACK);
-                }
+                drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
             }
         }
     }
 
-    private void paintSelection(Graphics2D g, MapLocation selectedMapLocation) {
+    private void paintSelection(Graphics g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
-        Point p = drawEntity.getTerrainGridPos(selectedMapLocation);
-        drawEntity.drawHexagon((Graphics2D) g, p.x, p.y,SELECTION_COLOR, SELECTION_STROKE_SIZE);
+        Point p;
+        for (MapLocation m :selectedTilesInRange) {
+            p = drawEntity.getTerrainGridPos(m);
+            drawEntity.drawHexagon(g, p.x, p.y, SELECTION_MOVE_COLOR, SELECTION_STROKE_SIZE);
+        }
+        for (Unit u :selectedUnitsInRange) {
+            MapLocation m = u.getPosition();
+            p = drawEntity.getTerrainGridPos(m);
+            drawEntity.drawHexagon(g, p.x, p.y, SELECTION_ATTACK_COLOR, SELECTION_STROKE_SIZE);
+        }
+        p = drawEntity.getTerrainGridPos(selectedMapLocation);
+        drawEntity.drawHexagon(g, p.x, p.y, SELECTION_COLOR, SELECTION_STROKE_SIZE);
     }
 
     /**
@@ -126,7 +142,15 @@ public class GridComponent extends JComponent {
         seenTerrain = terrain;
     }
 
-    public void setSelectedMapLocation(MapLocation selectedMapLocation) {
+    public void setSelection(MapLocation selectedMapLocation, List<Unit> selectedUnitsInRange, List<MapLocation> selectedTilesInRange) {
         this.selectedMapLocation = selectedMapLocation;
+        this.selectedUnitsInRange = selectedUnitsInRange;
+        this.selectedTilesInRange = selectedTilesInRange;
+    }
+
+    public void setSelection(MapLocation selectedMapLocation) {
+        this.selectedMapLocation = selectedMapLocation;
+        selectedUnitsInRange = new ArrayList<>();
+        selectedTilesInRange = new ArrayList<>();
     }
 }

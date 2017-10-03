@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 class ConnectListener extends Controller implements ActionListener{
 
-    public ConnectListener(Controller controller) {
+    ConnectListener(Controller controller) {
         super(controller);
     }
 

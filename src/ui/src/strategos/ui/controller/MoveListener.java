@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 class MoveListener extends Controller implements MouseListener, KeyListener {
 
-    public MoveListener(Controller controller) {
+    MoveListener(Controller controller) {
         super(controller);
     }
 

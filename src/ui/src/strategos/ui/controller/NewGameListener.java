@@ -7,7 +7,7 @@ class NewGameListener extends Controller implements ActionListener {
 
     Controller controller;
 
-    public NewGameListener(Controller controller) {
+    NewGameListener(Controller controller) {
         super(controller);
         this.controller = controller;
     }

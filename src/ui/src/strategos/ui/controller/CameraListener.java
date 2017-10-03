@@ -5,7 +5,7 @@ import java.awt.event.MouseMotionListener;
 
 class CameraListener extends Controller implements MouseMotionListener{
 
-    public CameraListener(Controller controller) {
+    CameraListener(Controller controller) {
         super(controller);
     }
 

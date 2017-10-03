@@ -14,6 +14,12 @@ import static strategos.ui.config.Config.*;
  */
 class DrawEntity {
 
+    /*
+    TODO - REVIEW: This has a lot of duplicated code (which makes sense at this level of development) but it would be
+    TODO            better to use polymorphism and just draw the sprite stored within Unit (or within the Graphical interface
+    TODO            which Unit implements). Graphical could also store the letter and colour, and apply to Terrain as well
+     */
+
     /**
      * Draws Archers.
      *
@@ -160,7 +166,7 @@ class DrawEntity {
         } else if (owner.getUnits().contains(unit)) {
             g.setColor(PLAYER_COLOR);
         } else {
-            g.setColor(NOT_PLAYER_COLOR);
+            g.setColor(OTHER_PLAYER_COLOR);
         }
     }
 
@@ -190,13 +196,14 @@ class DrawEntity {
         g.fillPolygon(xPoints, yPoints, nPoints);
     }
 
-    void drawHexagon(Graphics2D g, int x, int y, Color c, int strokeSize) {
+    void drawHexagon(Graphics g, int x, int y, Color c, int strokeSize) {
+        Graphics2D g2d = (Graphics2D) g;
         int nPoints = 6;
         int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
         int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};
-        g.setColor(c);
-        g.setStroke(new BasicStroke(strokeSize));
-        g.drawPolygon(xPoints, yPoints, nPoints);
+        g2d.setColor(c);
+        g2d.setStroke(new BasicStroke(strokeSize));
+        g2d.drawPolygon(xPoints, yPoints, nPoints);
     }
 
 }
