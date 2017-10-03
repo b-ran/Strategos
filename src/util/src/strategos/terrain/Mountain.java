@@ -1,4 +1,4 @@
 package strategos.terrain;
 
-public interface Mountain {
+public interface Mountain extends Terrain {
 }

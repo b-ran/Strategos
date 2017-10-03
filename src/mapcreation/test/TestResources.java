@@ -60,7 +60,7 @@ class TestResources {
     };
 
     /**
-     * for filling TestResources.testMap
+     * For filling TestResources.testMap
      */
     @Test
     public void fillTestMap() {
@@ -76,6 +76,7 @@ class TestResources {
             System.out.println("},");
         }
     }
+
 
     static boolean[][] testForest = {{false, false, true, true, false, true, false, true, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, false, true, false, false},
             {false, false, true, true, true, false, true, false, false, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, true, false, false, false, false, false, false, false, false, false, true, true, false, false, true, false, false},

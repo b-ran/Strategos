@@ -1,4 +1,4 @@
 package strategos.terrain;
 
-public interface Forest {
+public interface Forest extends Terrain {
 }
