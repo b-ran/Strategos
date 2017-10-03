@@ -46,8 +46,18 @@ public class UnitTestObj implements Unit{
     }
 
     @Override
+    public boolean getWary() {
+        return false;
+    }
+
+    @Override
     public void entrench() {
 
+    }
+
+    @Override
+    public boolean getEntrench() {
+        return false;
     }
 
     @Override
@@ -83,6 +93,11 @@ public class UnitTestObj implements Unit{
     @Override
     public UnitOwner getOwner() {
         return owner;
+    }
+
+    @Override
+    public int getHitpoints() {
+        return 0;
     }
 
     @Override
