@@ -116,7 +116,13 @@ public class UnitTestObj implements Unit{
     }
 
     @Override
-    public Unit copyUnit() {
+    public int getAttackRange() {
+        return 0;
+    }
+
+    @Override
+    public Unit copy() {
         return null;
     }
+
 }
