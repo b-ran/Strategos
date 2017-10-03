@@ -23,7 +23,7 @@ public class BehaviourSpearmenTest {
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Spearmen strength should be same as in Config",
+                "Spearmen strength should be same as in BehaviourConfig",
                 behaviour.getStrength(unit),
                 is(Config.SPEARMEN_STRENGTH)
         );
@@ -31,7 +31,7 @@ public class BehaviourSpearmenTest {
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Spearmen toughness should be same as in Config",
+                "Spearmen toughness should be same as in BehaviourConfig",
                 behaviour.getToughness(unit),
                 is(Config.SPEARMEN_TOUGHNESS)
         );
@@ -48,7 +48,7 @@ public class BehaviourSpearmenTest {
     @Test public void getActionPoints() throws Exception {
         behaviour.turnTick(unit);
         assertThat(
-                "Spearmen action points should be same as in Config",
+                "Spearmen action points should be same as in BehaviourConfig",
                 behaviour.getActionPoints(unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );

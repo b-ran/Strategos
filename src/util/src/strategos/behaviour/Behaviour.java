@@ -15,7 +15,11 @@ public interface Behaviour {
 
     void wary(Unit unit);
 
+    boolean getWary(Unit unit);
+
     void entrench(Unit unit);
+
+    boolean getEntrench(Unit unit);
 
     void charge(Unit unit);
 
@@ -28,6 +32,8 @@ public interface Behaviour {
     int getStrength(Unit unit);
 
     int getToughness(Unit unit);
+
+    int getHitpoints(Unit unit);
 
     boolean isAlive(Unit unit);
 
