@@ -42,4 +42,6 @@ public interface Behaviour {
     int getActionPoints(Unit unit);
 
     Behaviour copy();
+
+    int getAttackRange();
 }
