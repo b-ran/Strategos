@@ -9,6 +9,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import strategos.GameState;
 import strategos.SaveInstance;
 import strategos.networking.Network;
 import strategos.networking.handlers.DataHandler;
@@ -20,9 +21,11 @@ import strategos.networking.handlers.NetworkHandler;
 public class Server implements Network {
 	private int port;
     private NetworkHandler serverHandler;
+    private GameState state;
 
-	public Server(int port) {
+	public Server(int port, GameState state) {
 		this.port = port;
+		this.state = state;
 		serverHandler = new NetworkHandler(this);
 	}
 
@@ -56,10 +59,9 @@ public class Server implements Network {
 	public void send(SaveInstance instance) throws InterruptedException {
 		serverHandler.send(instance);
 	}
-
-    //TODO Finish this method.
+	
     @Override
     public void receive(SaveInstance instance) {
-        System.out.println(instance);
+        state.load(instance);
     }
 }
