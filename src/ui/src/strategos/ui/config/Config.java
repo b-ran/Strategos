@@ -78,6 +78,9 @@ public class Config {
 
     public static final Dimension SIDEPANEL_BUTTON_SIZE = new Dimension(80,100);
 
+    public static final Point SELECTION_LOCATION = new Point(20,20);
+
+
     //Text
     public static final String WARY_BUTTON_NAME = "Wary";
 
