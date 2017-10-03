@@ -16,6 +16,10 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 	private List<ChannelHandlerContext> connections = new ArrayList<>();
 	private Network network;
 
+	/**
+	 * Creates a new network handler with the provided {@code Network}
+	 * @param network The network to construct the handler with
+	 */
 	public NetworkHandler(Network network) {
 		this.network = network;
 	}

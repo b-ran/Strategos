@@ -1,16 +1,16 @@
 package strategos.networking;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import strategos.SaveInstance;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 
 import java.io.*;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Tests {
+class Tests {
 	@Test
-	public void testPacketSerialization() throws IOException, ClassNotFoundException {
+	void testPacketSerialization() throws IOException, ClassNotFoundException {
 		SaveInstance msg = new TestSaveInstance("This is for testing purposes", 15);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(bos);
@@ -27,7 +27,7 @@ public class Tests {
 	 * This test requires the user to check the output manually
 	 */
 	@Test
-	public void testSendFromServer() throws InterruptedException {
+	void testSendFromServer() throws InterruptedException {
 		NetworkingHandler server = new NetworkingHandlerImpl();
 		NetworkingHandler client = new NetworkingHandlerImpl();
 		server.initialise(new TestGameState(), 8080);

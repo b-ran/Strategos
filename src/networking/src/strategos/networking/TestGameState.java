@@ -12,11 +12,6 @@ import java.util.Observer;
  * This class is used for testing purposes only
  */
 public class TestGameState implements GameState {
-	public static TestGameState instance;
-
-	static {
-		instance = new TestGameState();
-	}
 
 	@Override
 	public void save() {
@@ -25,7 +20,7 @@ public class TestGameState implements GameState {
 
 	@Override
 	public void load(SaveInstance toRestore) {
-
+		System.out.println(toRestore);
 	}
 
 	@Override
