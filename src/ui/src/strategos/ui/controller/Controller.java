@@ -94,6 +94,7 @@ public class Controller {
         GridComponent g = view.getGridComponent();
         g.addKeyListener(new MenuListener(this));
         g.addMouseListener(new SelectListener(this));
+        g.addMouseMotionListener(new SelectListener(this));
     }
 
     Point getHexPos(int x, int y) {
