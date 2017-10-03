@@ -16,17 +16,14 @@ import java.util.Scanner;
  */
 public class NetworkingHandlerImpl implements NetworkingHandler {
 	private Network type;
-	private GameState state;
 
 	@Override
 	public void initialise(GameState state, int port) {
-		this.state = state;
 		type = new Server(port);
 	}
 
 	@Override
 	public void initialise(GameState state, String host, int port) {
-		this.state = state;
 		type = new Client(host, port, state);
 	}
 
@@ -48,6 +45,9 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 		Thread.sleep(3000);
 	}
 
+	/**
+	 * Main method used for manual testing.
+	 */
 	public static void main(String[] args) throws Exception {
 		NetworkingHandlerImpl handler = new NetworkingHandlerImpl();
 		if (args.length == 2) {
