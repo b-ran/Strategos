@@ -52,8 +52,18 @@ public class UnitImpl implements Graphical, Unit {
 	}
 
 	@Override
+	public boolean getWary() {
+		return behaviour.getWary(this);
+	}
+
+	@Override
 	public void entrench() {
 		behaviour.entrench(this);
+	}
+
+	@Override
+	public boolean getEntrench() {
+		return behaviour.getEntrench(this);
 	}
 
 	@Override
@@ -89,6 +99,11 @@ public class UnitImpl implements Graphical, Unit {
 	@Override
 	public UnitOwner getOwner() {
 		return owner;
+	}
+
+	@Override
+	public int getHitpoints() {
+		return behaviour.getHitpoints(this);
 	}
 
 	@Override
