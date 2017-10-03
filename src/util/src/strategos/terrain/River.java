@@ -1,4 +1,4 @@
 package strategos.terrain;
 
-public interface River {
+public interface River extends Terrain {
 }

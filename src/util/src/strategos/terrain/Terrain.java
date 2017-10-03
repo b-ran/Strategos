@@ -5,5 +5,5 @@ package strategos.terrain;
  * for Strategos
  */
 public interface Terrain {
-
+    String toString();
 }

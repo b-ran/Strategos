@@ -18,4 +18,10 @@ public interface Network {
 	 * @throws InterruptedException if the connection is interrupted
 	 */
 	void send(SaveInstance instance) throws InterruptedException;
+
+	/**
+	 * Gets called when a SaveInstance is received
+	 * @param instance The received instance
+	 */
+	void receive(SaveInstance instance);
 }

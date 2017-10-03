@@ -36,6 +36,9 @@ public class TerrainGeneration {
      */
     private int forested = 90;
 
+    private int octaves = 512;
+    private double persistence = 0.01;
+
     /**
      * Frequency of different terrain types
      * Highest value it occurs at
@@ -74,7 +77,7 @@ public class TerrainGeneration {
         int seed = rand.nextInt();
         //Map must be min of 15 in size, square
         if (hexMap.length != hexMap[0].length || hexMap.length < 15) {
-            throw new RuntimeException("Map to small");
+            throw new RuntimeException("Map too small");
         }
         //Dimensions for noise map
         int width = hexMap[0].length, height = hexMap.length;
@@ -95,7 +98,7 @@ public class TerrainGeneration {
      */
     private double[][] fillMap(int width, int height, int seed) {
         //Calls the noise generation class to produce a field of noise
-        NoiseGenerator generatedNoise = new NoiseGenerator(512, 0.01, seed);
+        NoiseGenerator generatedNoise = new NoiseGenerator(octaves, persistence, seed);
         //Create a topology map to fill
         double[][] mapTopology = new double[width * xRes][height * yRes];
         double noise;
@@ -106,8 +109,6 @@ public class TerrainGeneration {
                 noise = (noise + 10) / 20;
                 //Shifts the values of map
                 noise = (noise / 100) * flatness;
-                if ((noise < -10 && seed % 2 == 0 && seed < 11) || (noise > 10 && seed % 2 == 0 && seed < 11))
-                    System.out.println(noise + "\n" + seed);
                 mapTopology[x][y] = noise;
             }
         }
@@ -133,11 +134,11 @@ public class TerrainGeneration {
      * @return If the tile is forested or not
      */
     private boolean[][] fillForest(int width, int height, int seed) {
-        //Calls the noise generation class to produce a field of noiseutil(seed incremented to provide some deviation from the topologyMap)
+        //Calls the noise generation class to produce a field of noise(seed incremented to provide some deviation from the topologyMap)
         NoiseGenerator generatedNoise = new NoiseGenerator(512, 0.01, seed + 1);
         boolean[][] forestMap = new boolean[width * xRes][height * yRes];
         double noise;
-        //Fill forestMap with noiseutil
+        //Fill forestMap with noise
         for (int x = 0; x < forestMap.length; x++) {
             for (int y = 0; y < forestMap[0].length; y++) {
                 noise = generatedNoise.getNoise(x, y);
@@ -177,7 +178,7 @@ public class TerrainGeneration {
                 if (hexMap[x][y].isInPlayArea()) {
                     hexMap[x][y].setTerrain(getTerrain(mapTopology[x][y], forestMap[x][y]));
                 } else {
-                    hexMap[x][y].setTerrain(new Mountain());
+                    hexMap[x][y].setTerrain(new MountainTile());
                 }
             }
         }
@@ -189,19 +190,15 @@ public class TerrainGeneration {
      * Samples the generated topology and sets the terrain of the paintable object
      *
      * @param value Noise at that point
-     * @return Terrain specific to that hex
+     * @return TerrainTile specific to that hex
      */
     private Terrain getTerrain(double value, boolean forest) {
         if (value < plainsFreq) {
-            if (forest) {
-                return new Forest();
-            } else {
-                return new Plains();
-            }
+            return forest ? new ForestTile() : new PlainsTile();
         } else if (value < hillFreq) {
-            return new Hill();
+            return new HillTile();
         } else {
-            return new Mountain();
+            return new MountainTile();
         }
     }
 
@@ -217,7 +214,7 @@ public class TerrainGeneration {
         for (int i = 0; i < width + height - 2; i++) {
             if (i % 2 == 0) x++;
             else y++;
-            hexMap[x][y].setTerrain(new River());
+            hexMap[x][y].setTerrain(new RiverTile());
         }
         return hexMap;
     }
