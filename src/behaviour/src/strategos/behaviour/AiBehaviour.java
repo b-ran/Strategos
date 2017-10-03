@@ -79,7 +79,8 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     private boolean pursueOrAttackUnit(Unit unit, Unit nearest) {
-        List<Unit> adjacentUnits = getGameState().getUnitsInRange(getPosition(unit), 1);
+        int range = unit.getAttackRange();
+        List<Unit> adjacentUnits = getGameState().getUnitsInRange(getPosition(unit), range);
         if (adjacentUnits.contains(nearest)) {
             getGameState().attack(unit, nearest.getPosition());
             return true;
