@@ -16,9 +16,10 @@ public interface Paintable {
 
     /**
      * Gets the terrain contained by this Paintable.
+     *
      * @return a Terrain object at this Paintable
      */
-    public Terrain getTerrain();
+    Terrain getTerrain();
 
-    public void setTerrain(Terrain terrain);
+    void setTerrain(Terrain terrain);
 }
