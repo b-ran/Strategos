@@ -27,7 +27,7 @@ public class Controller {
     /**
      * The Board.
      */
-    protected GameBoard board;
+    GameBoard board;
     /**
 
     /**
@@ -35,8 +35,9 @@ public class Controller {
      */
     protected View view;
 
-    protected MapLocation selectedMapLocation;
-    protected Boolean allInput = true;
+    MapLocation selectedMapLocation;
+    Boolean allInput = true;
+    boolean menuToggle = false;
 
 
     /**
@@ -62,7 +63,6 @@ public class Controller {
         this.model = model;
         this.view = view;
         board = model.getWorld().getMap();
-        System.out.println(board);
         setGameListeners();
         setMenuListeners();
     }
@@ -70,14 +70,16 @@ public class Controller {
     /**
      * Sets menu listeners based on status of view.
      */
-    void setMenuListeners() {
+    private void setMenuListeners() {
         MenuComponent m = view.getMenuComponent();
         MenuComponent e = view.getEscapeMenuComponent();
+
         m.getNewGameButton().addActionListener(new NewGameListener(this));
         m.getLoadButton().addActionListener(new LoadListener(this));
         m.getConnectButton().addActionListener(new ConnectListener(this));
         m.getHostButton().addActionListener(new HostListener(this));
         m.getExitButton().addActionListener(new ExitListener(this));
+
         e.getResumeButton().addActionListener(new ResumeListener(this));
         e.getNewGameButton().addActionListener(new NewGameListener(this));
         e.getSaveButton().addActionListener(new SaveListener(this));
@@ -88,13 +90,14 @@ public class Controller {
     /**
      * Sets game listeners based on status of view.
      */
-    void setGameListeners() {
+    private void setGameListeners() {
         GridComponent g = view.getGridComponent();
         g.addKeyListener(new MenuListener(this));
         g.addMouseListener(new SelectListener(this));
+        g.addMouseMotionListener(new SelectListener(this));
     }
 
-    protected Point getHexPos(int x, int y) {
+    Point getHexPos(int x, int y) {
         Point p = new Point();
         p.y = getHexY(y);
         if (p.y % 2 != 0) {
@@ -115,11 +118,11 @@ public class Controller {
     }
 
 
-    protected int getHexX(int x) {
+    private int getHexX(int x) {
         return x / (HEX_SIZE) - 1;
     }
 
-    protected int getHexY(int y) {
+    private int getHexY(int y) {
         Double d = (1.3 * y) / (HEX_SIZE);
         return d.intValue();
     }
@@ -131,5 +134,21 @@ public class Controller {
 
     public void skipMenu() {
         view.setGame();
+    }
+
+    void menuToggle() {
+        menuToggle = !menuToggle;
+    }
+
+    boolean getMenuToggle() {
+        return menuToggle;
+    }
+
+    MapLocation getSelectedMapLocation() {
+        return selectedMapLocation;
+    }
+
+    void setSelectedMapLocation(MapLocation selectedMapLocation) {
+        this.selectedMapLocation = selectedMapLocation;
     }
 }

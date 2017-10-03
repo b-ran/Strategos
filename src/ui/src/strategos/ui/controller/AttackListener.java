@@ -8,7 +8,8 @@ import java.awt.event.MouseListener;
 
 
 class AttackListener extends Controller implements MouseListener, KeyListener {
-    public AttackListener(Controller controller) {
+
+    AttackListener(Controller controller) {
         super(controller);
     }
 

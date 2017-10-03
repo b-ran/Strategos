@@ -12,19 +12,35 @@ import java.util.Observer;
 public class ModelTestObj implements GameState {
     private GameCollections gameCollections;
     private  ArrayList<UnitOwner> unitOwners = new ArrayList<>();
+    private  ArrayList<Unit> attackRange = new ArrayList<>();
+    private  ArrayList<MapLocation> moveRange = new ArrayList<>();
 
     @Override
     public void save() {
 
     }
 
+    public void setAttackRange(ArrayList<Unit> attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    public void setMoveRange(ArrayList<MapLocation> moveRange) {
+        this.moveRange = moveRange;
+    }
+
     @Override
     public void load(SaveInstance toRestore) {
+
 
     }
 
     @Override
     public Unit getUnitAt(MapLocation location) {
+        for (Unit u : gameCollections.getAllUnits()) {
+            if (u.getPosition().getX() == location.getX() && u.getPosition().getY() == location.getY()) {
+                return u;
+            }
+        }
         return null;
     }
 
@@ -56,6 +72,16 @@ public class ModelTestObj implements GameState {
     @Override
     public List<Unit> getUnitsInRange(MapLocation location, int range) {
         return null;
+    }
+
+    @Override
+    public List<Unit> getUnitsInAttackRange(Unit unit) {
+        return attackRange;
+    }
+
+    @Override
+    public List<MapLocation> getTilesInMoveRange(Unit unit) {
+        return moveRange;
     }
 
     @Override

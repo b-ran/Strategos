@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HostListener extends Controller implements ActionListener {
-    public HostListener(Controller controller) {
+
+    HostListener(Controller controller) {
         super(controller);
     }
 

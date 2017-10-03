@@ -18,15 +18,21 @@ public class MenuComponent extends JComponent {
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
     private JPanel p = new JPanel();
 
+    private JPanel constructMenuSkeleton() {
+        p = new JPanel();
+        setupButtons();
+        p.setPreferredSize(MENU_COMPONENT_SIZE);
+        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        return p;
+    }
+
     /**
      * Sets component as a main menu.
      *
      * @return the menu
      */
-    protected JPanel setMenu() {
-        p = new JPanel();
-        setupButtons();
-        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+     JPanel setMenu() {
+        p = constructMenuSkeleton();
         p.add(newGameButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(loadButton);
@@ -36,7 +42,6 @@ public class MenuComponent extends JComponent {
         p.add(hostButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
-        p.setPreferredSize(MENU_COMPONENT_SIZE);
         return p;
     }
 
@@ -46,10 +51,8 @@ public class MenuComponent extends JComponent {
      *
      * @return the escape menu
      */
-    protected JPanel setEscapeMenu(){
-        p = new JPanel();
-        setupButtons();
-        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+     JPanel setEscapeMenu(){
+        p = constructMenuSkeleton();
         p.add(resumeButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(newGameButton);
@@ -59,7 +62,6 @@ public class MenuComponent extends JComponent {
         p.add(loadButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
-        p.setPreferredSize(MENU_COMPONENT_SIZE);
         return p;
     }
 

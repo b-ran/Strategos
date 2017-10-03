@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 class SaveListener extends Controller implements ActionListener {
 
-    public SaveListener(Controller controller) {
+    SaveListener(Controller controller) {
         super(controller);
     }
 
