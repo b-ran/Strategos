@@ -147,6 +147,26 @@ public class Strategos implements GameState {
 		return units;
 	}
 
+	@Override
+	public List<Unit> getUnitsInAttackRange(Unit unit) {
+		// TODO - change 1 to unit.getAttackRange()
+		return getUnitsInRange(unit.getPosition(), 1);
+	}
+
+	@Override
+	public List<MapLocation> getTilesInMoveRange(Unit unit) {
+		List<MapLocation> potentialTiles = getTilesInRange(unit.getPosition(), 1);
+		List<MapLocation> actualTiles = new ArrayList<>();
+
+		for (MapLocation tile : potentialTiles) {
+			if (tile.isInPlayArea() && canPassUnit(unit, tile)) {
+				actualTiles.add(tile);
+			}
+		}
+
+		return actualTiles;
+	}
+
 	public List<MapLocation> getTilesInRange(MapLocation location, int range) {
 
 		List<MapLocation> tiles = new ArrayList<>();
@@ -198,20 +218,6 @@ public class Strategos implements GameState {
 	@Override
 	public List<UnitOwner> getPlayers() {
 		return players;
-	}
-
-	@Override
-	public List<MapLocation> getMovableTiles(Unit unit) {
-		List<MapLocation> potentialTiles = getTilesInRange(unit.getPosition(), 1);
-		List<MapLocation> actualTiles = new ArrayList<>();
-
-		for (MapLocation tile : potentialTiles) {
-			if (tile.isInPlayArea() && canPassUnit(unit, tile)) {
-				actualTiles.add(tile);
-			}
-		}
-
-		return actualTiles;
 	}
 
 	@Override
