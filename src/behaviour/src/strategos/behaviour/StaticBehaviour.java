@@ -107,6 +107,13 @@ abstract class StaticBehaviour extends BaseBehaviour {
     }
 
     @Override
+    public String toString() {
+        return "StaticBehaviour{" +
+                "isAlive=" + isAlive +
+                "} " + super.toString();
+    }
+
+    @Override
     public int getAttackRange() {
         return 0;
     }

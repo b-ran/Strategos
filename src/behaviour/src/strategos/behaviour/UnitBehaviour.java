@@ -18,6 +18,17 @@ abstract class UnitBehaviour extends BaseBehaviour {
     private int     hitpoints;
     private boolean hasAttacked;
 
+    @Override
+    public String toString() {
+        return "UnitBehaviour{" +
+                "entrench=" + entrench +
+                ", actionPoints=" + actionPoints +
+                ", wary=" + wary +
+                ", hitpoints=" + hitpoints +
+                ", hasAttacked=" + hasAttacked +
+                "} " + super.toString();
+    }
+
     UnitBehaviour(GameState gameState) {
         super(gameState);
 

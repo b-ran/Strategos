@@ -63,4 +63,11 @@ abstract class BaseBehaviour implements Behaviour {
     final GameState getGameState() {
         return gameState;
     }
+
+    @Override
+    public String toString() {
+        return "BaseBehaviour{" +
+                "position=" + position +
+                '}';
+    }
 }
