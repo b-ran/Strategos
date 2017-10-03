@@ -174,4 +174,7 @@ public class View extends JComponent implements Observer {
         return escapeMenuComponent;
     }
 
+    public SideComponent getSideComponent() {
+        return sideComponent;
+    }
 }
