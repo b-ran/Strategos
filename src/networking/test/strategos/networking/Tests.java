@@ -35,7 +35,7 @@ class Tests {
 		server.run();
 		client.run();
 		TestSaveInstance instance = new TestSaveInstance("Testing123", 456);
-		System.out.println("Should be " + instance.s + " and " + instance.i);
+		System.out.println("Should be " + instance.i + " and " + instance.s);
 		server.send(instance);
 	}
 }
