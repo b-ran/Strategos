@@ -19,7 +19,11 @@ public interface Unit {
 
     void wary();
 
+    boolean getWary();
+
     void entrench();
+
+    boolean getEntrench();
 
     void charge();
 
@@ -34,6 +38,8 @@ public interface Unit {
     int getToughness();
 
     UnitOwner getOwner();
+
+    int getHitpoints();
 
     boolean isAlive();
 

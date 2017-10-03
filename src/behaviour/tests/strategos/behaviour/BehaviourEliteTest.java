@@ -23,7 +23,7 @@ public class BehaviourEliteTest {
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Elite strength should be same as in Config",
+                "Elite strength should be same as in BehaviourConfig",
                 behaviour.getStrength(unit),
                 is(Config.ELITE_STRENGTH)
         );
@@ -31,7 +31,7 @@ public class BehaviourEliteTest {
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Elite toughness should be same as in Config",
+                "Elite toughness should be same as in BehaviourConfig",
                 behaviour.getToughness(unit),
                 is(Config.ELITE_TOUGHNESS)
         );
@@ -48,7 +48,7 @@ public class BehaviourEliteTest {
     @Test public void getActionPoints() throws Exception {
         behaviour.turnTick(unit);
         assertThat(
-                "Elite action points should be same as in Config",
+                "Elite action points should be same as in BehaviourConfig",
                 behaviour.getActionPoints(unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );

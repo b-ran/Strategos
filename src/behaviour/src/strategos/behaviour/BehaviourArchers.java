@@ -2,10 +2,13 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.behaviour.config.*;
 import strategos.units.*;
 
 
 class BehaviourArchers extends UnitBehaviour {
+
+    //TODO: Where is your javadoc?
 
     BehaviourArchers(GameState gameState) {
         super(gameState);
@@ -16,11 +19,11 @@ class BehaviourArchers extends UnitBehaviour {
     }
 
     @Override public int getStrength(Unit unit) {
-        return Config.ARCHERS_STRENGTH;
+        return BehaviourConfig.ARCHERS_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return Config.ARCHERS_TOUGHNESS;
+        return BehaviourConfig.ARCHERS_TOUGHNESS;
     }
 
     @Override public Behaviour copy() {
@@ -28,13 +31,13 @@ class BehaviourArchers extends UnitBehaviour {
     }
 
     @Override public void charge(Unit unit) {
-        // Archers cannot charge
+        // Archers cannot charge, so this blank method overrides the default
+        // behaviour
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
-            throw new NullPointerException(
-                    "Method attack() requires a non-null enemy");
+            throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
         if (!isAlive(unit) || !enemy.isAlive()) {
