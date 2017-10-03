@@ -24,7 +24,7 @@ public class GameBoardTestObj implements GameBoard {
     }
 
     @Override
-    public int getRadius() {
+    public int getDiameter() {
         return 0;
     }
 
