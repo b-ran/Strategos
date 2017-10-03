@@ -19,7 +19,7 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 
 	@Override
 	public void initialise(GameState state, int port) {
-		type = new Server(port);
+		type = new Server(port, state);
 	}
 
 	@Override
