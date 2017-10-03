@@ -224,6 +224,27 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        AiBehaviour that = (AiBehaviour) o;
+
+        if (directionIndex != that.directionIndex) return false;
+        return behaviour.equals(that.behaviour);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + behaviour.hashCode();
+        result = 31 * result + directionIndex;
+        return result;
+    }
+
+    @Override
     public int getAttackRange() {
         return behaviour.getAttackRange();
     }

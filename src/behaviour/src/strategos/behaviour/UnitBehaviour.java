@@ -170,6 +170,33 @@ abstract class UnitBehaviour extends BaseBehaviour {
         return BehaviourConfig.MELEE_RANGE;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        UnitBehaviour that = (UnitBehaviour) o;
+
+        if (entrench != that.entrench) return false;
+        if (actionPoints != that.actionPoints) return false;
+        if (wary != that.wary) return false;
+        if (hitpoints != that.hitpoints) return false;
+        return hasAttacked == that.hasAttacked;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (entrench ? 1 : 0);
+        result = 31 * result + actionPoints;
+        result = 31 * result + (wary ? 1 : 0);
+        result = 31 * result + hitpoints;
+        result = 31 * result + (hasAttacked ? 1 : 0);
+        return result;
+    }
+
     private int terrainMovementCost(Unit unit) {
         Terrain terrain = getGameState().getTerrainAt(getPosition(unit));
 
