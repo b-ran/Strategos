@@ -6,7 +6,7 @@ import strategos.terrain.Terrain;
 
 public class GameBoardTestObj implements GameBoard {
 
-    MapLocation[][] map;
+    private MapLocation[][] map;
 
     @Override
     public MapLocation[][] getData() {
