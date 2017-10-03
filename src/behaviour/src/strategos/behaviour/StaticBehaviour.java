@@ -86,4 +86,9 @@ abstract class StaticBehaviour extends BaseBehaviour {
     @Override public int getActionPoints(Unit unit) {
         return 0;
     }
+
+    @Override
+    public int getAttackRange() {
+        return 0;
+    }
 }

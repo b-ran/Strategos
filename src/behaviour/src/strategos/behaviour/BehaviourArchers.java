@@ -53,4 +53,9 @@ class BehaviourArchers extends UnitBehaviour {
 
         return 0;
     }
+
+    @Override
+    public int getAttackRange() {
+        return BehaviourConfig.ARCHER_RANGE;
+    }
 }

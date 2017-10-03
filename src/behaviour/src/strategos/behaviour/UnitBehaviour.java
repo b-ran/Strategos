@@ -161,6 +161,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
         return isAlive(unit) ? actionPoints : 0;
     }
 
+    @Override
+    public int getAttackRange() {
+        return BehaviourConfig.MELEE_RANGE;
+    }
+
     private int terrainMovementCost(Unit unit) {
         Terrain terrain = getGameState().getTerrainAt(getPosition(unit));
 
