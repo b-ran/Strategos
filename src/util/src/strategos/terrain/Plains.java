@@ -1,4 +1,4 @@
 package strategos.terrain;
 
-public interface Plains {
+public interface Plains extends Terrain {
 }

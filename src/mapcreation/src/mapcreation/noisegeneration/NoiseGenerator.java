@@ -8,9 +8,13 @@ import java.util.Random;
  * 28/08/2017.
  */
 public class NoiseGenerator {
-
+    /**
+     * Array of octaves
+     */
     private Octave[] octaves;
-    private double[] frequencies, amplitudes;
+    private double[] frequencies
+//            , amplitudes
+            ;
 
     /**
      * Produces and collates A number of octaves of noise into a map
@@ -23,12 +27,12 @@ public class NoiseGenerator {
         Random random = new Random(seed);
         octaves = new Octave[numOctaves];
         frequencies = new double[numOctaves];
-        amplitudes = new double[numOctaves];
+//        amplitudes = new double[numOctaves];
 
         for (int i = 0; i < numOctaves; i++) {
             octaves[i] = new Octave(random.nextInt());
             frequencies[i] = Math.pow(2, i);
-            amplitudes[i] = Math.pow(persistence, numOctaves - i);
+//            amplitudes[i] = Math.pow(persistence, octaves.length - i);
         }
     }
 
@@ -42,7 +46,9 @@ public class NoiseGenerator {
     public double getNoise(int x, int y) {
         double result = 0;
         for (int i = 0; i < octaves.length; i++) {
-            result += octaves[i].noise(x / frequencies[i], y / frequencies[i]);
+            result += octaves[i].noise(x / frequencies[i], y / frequencies[i])
+//                    * amplitudes[i]
+            ;
         }
         return result;
     }

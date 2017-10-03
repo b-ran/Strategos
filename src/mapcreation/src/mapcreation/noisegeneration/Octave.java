@@ -88,6 +88,7 @@ class Octave {
         } else {
             j1 = 1;
         }
+
         double[] x = {
                 x0,
                 x0 - i1 + G2,
@@ -130,8 +131,8 @@ class Octave {
      * //TODO: comment
      *
      * @param point Corner started from
-     * @param x X position to to sample
-     * @param y Y position to sample
+     * @param x     X position to to sample
+     * @param y     Y position to sample
      * @return //TODO
      */
     private double dot(Point point, double x, double y) {
