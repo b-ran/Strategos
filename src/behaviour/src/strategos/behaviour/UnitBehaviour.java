@@ -16,6 +16,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     private int     actionPoints;
     private boolean wary;
     private int     hitpoints;
+    private boolean hasAttacked;
 
     UnitBehaviour(GameState gameState) {
         super(gameState);
@@ -25,6 +26,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
         wary = false;
         entrench = false;
+
+        hasAttacked = true;
     }
 
     UnitBehaviour(UnitBehaviour behaviour) {
@@ -38,6 +41,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     @Override public void turnTick(Unit unit) {
         actionPoints = getMaxActionPoints();
+        hasAttacked = false;
 
         if (wary) {
             actionPoints--;
@@ -86,7 +90,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
-        if (!isAlive(unit) || !enemy.isAlive()) {
+        if (!isAlive(unit) || !enemy.isAlive() || hasAttacked) {
             return 0;
         }
 
