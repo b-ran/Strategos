@@ -50,6 +50,11 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
+    public void move(Unit unit, MapLocation mapLocation) {
+        unit.setPosition(mapLocation);
+    }
+
+    @Override
     public void attack(Unit unit, int targetX, int targetY) {
 
     }
