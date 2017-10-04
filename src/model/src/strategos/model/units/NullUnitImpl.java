@@ -7,7 +7,12 @@ import strategos.hexgrid.Hex;
 import strategos.units.Unit;
 
 public class NullUnitImpl extends UnitImpl implements Unit {
-	public NullUnitImpl(UnitOwner owner) {
-		super(owner);
+
+	public NullUnitImpl(UnitOwner owner, MapLocation startLocation) {
+		super(owner, startLocation);
+	}
+
+	public NullUnitImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		super(behaviour, owner, startLocation);
 	}
 }

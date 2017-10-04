@@ -149,8 +149,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public List<Unit> getUnitsInAttackRange(Unit unit) {
-		// TODO - change 1 to unit.getAttackRange()
-		return getUnitsInRange(unit.getPosition(), 1);
+		return getUnitsInRange(unit.getPosition(), unit.getAttackRange());
 	}
 
 	@Override

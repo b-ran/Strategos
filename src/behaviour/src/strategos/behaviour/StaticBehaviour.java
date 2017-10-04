@@ -18,7 +18,7 @@ abstract class StaticBehaviour extends BaseBehaviour {
     }
 
     @Override public int getHitpoints(Unit unit) {
-        return 1;
+        return isAlive ? 100 : 0;
     }
 
     StaticBehaviour(GameState gameState) {

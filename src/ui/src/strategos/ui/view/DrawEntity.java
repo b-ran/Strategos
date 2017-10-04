@@ -169,19 +169,13 @@ class DrawEntity {
 
     private Point getTerrainGridPos (Point p) {
         int y = getGridY(p.y);
-        int x = getGridX(p.x);
-        if (p.y % 2 != 0) {
-            x = getGridX(p.x)+HEX_SIZE/2;
-        }
+        int x = getGridX(p.x, p.y);
         return new Point(x,y);
     }
 
     Point getTerrainGridPos (MapLocation m) {
         int y = getGridY(m.getY());
-        int x = getGridX(m.getX());
-        if (m.getY() % 2 != 0) {
-            x = getGridX(m.getX())+HEX_SIZE/2;
-        }
+        int x = getGridX(m.getX(), m.getY());
         return new Point(x,y);
     }
 
@@ -198,35 +192,69 @@ class DrawEntity {
 
     private Point getUnitGridPos(MapLocation m) {
         int y = getGridY(m.getY())+HEX_SIZE/4;
-        int x = getGridX(m.getX())+HEX_SIZE/4;
-        if (m.getY() % 2 != 0) {
-            x = getGridX(m.getX())+HEX_SIZE/4*3;
-        }
+        int x = getGridX(m.getX(), m.getY())+HEX_SIZE/4;
         return new Point(x,y);
     }
 
     //Credit: https://www.redblobgames.com/grids/hexagons/#hex-to-pixel for logic of hex to pixels
-    int getGridY(int y) {
-        return HEX_SIZE/2 * 3/2 * y;
+    int getGridY(int r) {
+        int size = HEX_SIZE / 2;
+        return (int) Math.floor(size * (3.0 / 2.0) * r);
     }
 
-    int getGridX(int x) {
-        return x * HEX_SIZE + HEX_SIZE;
+    int getGridX(int q, int r) {
+        int    size   = HEX_SIZE / 2;
+        double offset = r % 2 == 0 ? 0 : size - HEX_SIZE / 14;
+        return (int) Math.floor(size * Math.sqrt(3) * (q + r / 2) + offset);
     }
 
     void fillHexagon(Graphics g, int x, int y, Color c) {
         int nPoints = 6;
-        int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
-        int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};
+        int[] xPoints = getHexXPoints(x);
+        int[] yPoints = getHexYPoints(y);
         g.setColor(c);
         g.fillPolygon(xPoints, yPoints, nPoints);
+    }
+
+    private int[] getHexYPoints(int y) {
+        return new int[] {
+                y,
+                y + HEX_SIZE / 4,
+                y + 3 * (HEX_SIZE / 4),
+                y + HEX_SIZE,
+                y + 3 * (HEX_SIZE / 4),
+                y + HEX_SIZE / 4,
+                };
+    }
+
+    private int[] getHexXPoints(int x) {
+        return new int[] {
+                x + HEX_SIZE / 2,
+                x + HEX_SIZE - HEX_SIZE / 14,
+                x + HEX_SIZE - HEX_SIZE / 14,
+                x + HEX_SIZE / 2,
+                x + HEX_SIZE / 14,
+                x + HEX_SIZE / 14
+        };
+    }
+
+    private int getHexXPoint(int left, int i) {
+        int size = HEX_SIZE / 2;
+        double angle = Math.PI / 180 * (60 * i + 30);
+        return (int) Math.floor(left + size * Math.cos(angle)) + size;
+    }
+
+    private int getHexYPoint(int top, int i) {
+        int size = HEX_SIZE / 2;
+        double angle = Math.PI / 180 * (60 * i + 30);
+        return (int) Math.floor(top + size * Math.sin(angle)) + size;
     }
 
     void drawHexagon(Graphics g, int x, int y, Color c, int strokeSize) {
         Graphics2D g2d = (Graphics2D) g;
         int nPoints = 6;
-        int[] xPoints = {x, x+HEX_SIZE/2, x+HEX_SIZE, x+HEX_SIZE, x+HEX_SIZE/2, x, x};
-        int[] yPoints = {y+HEX_SIZE/4, y, y+HEX_SIZE/4, y+HEX_SIZE/4*3, y+HEX_SIZE, y+HEX_SIZE/4*3, y+HEX_SIZE/4};
+        int[] xPoints = getHexXPoints(x);
+        int[] yPoints = getHexYPoints(y);
         g2d.setColor(c);
         g2d.setStroke(new BasicStroke(strokeSize));
         g2d.drawPolygon(xPoints, yPoints, nPoints);

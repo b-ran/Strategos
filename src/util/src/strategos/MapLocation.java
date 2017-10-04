@@ -27,4 +27,13 @@ public interface MapLocation extends Paintable{
     public boolean isInPlayArea();
 
     public Map<Direction, MapLocation> getNeighbours();
+
+    double getGraphicalX();
+
+    double getGraphicalY();
+
+    void setGraphicalX(double gX);
+
+    void setGraphicalY(double gY);
+
 }
