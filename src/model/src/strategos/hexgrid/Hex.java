@@ -23,6 +23,9 @@ public class Hex implements Graphical, MapLocation {
 	private int xIndex;
 	private int yIndex;
 
+	private double gX;
+	private double gY;
+
 	private Terrain terrain;
 	private final boolean isPlayable;
 
@@ -100,6 +103,26 @@ public class Hex implements Graphical, MapLocation {
 	 */
 	public Map<Direction, MapLocation> getNeighbours() {
 		return neighbours;
+	}
+
+	@Override
+	public double getGraphicalX() {
+		return gX;
+	}
+
+	@Override
+	public double getGraphicalY() {
+		return gY;
+	}
+
+	@Override
+	public void setGraphicalX(double gX) {
+		this.gX = gX;
+	}
+
+	@Override
+	public void setGraphicalY(double gY) {
+		this.gY = gY;
 	}
 
 	@Override
