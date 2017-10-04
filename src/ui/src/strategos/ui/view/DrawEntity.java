@@ -20,8 +20,6 @@ class DrawEntity {
     TODO            which Unit implements). Graphical could also store the letter and colour, and apply to Terrain as well
      */
 
-
-
     private void draw(Archers archers, int x, int y, Graphics g) {
         setUnitColor(archers, g);
         g.fillOval(x, y , HEX_SIZE/2, HEX_SIZE/2);
@@ -179,10 +177,8 @@ class DrawEntity {
     Point getTerrainGridPos (MapLocation m) {
         int y = getGridY(m.getY());
         int x = getGridX(m.getX());
-        System.out.println(y);
         if (y != 0) {
-            System.out.println("hi");
-            x = getGridX(m.getX())+y*HEX_SIZE/2;
+            x = getGridX(m.getX())+(m.getY()*HEX_SIZE/2);
         }
         return new Point(x,y);
     }
