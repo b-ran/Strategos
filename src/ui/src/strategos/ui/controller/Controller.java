@@ -30,7 +30,7 @@ public class Controller {
     GameBoard board;
     /**
 
-    /**
+     /**
      * The View.
      */
     protected View view;

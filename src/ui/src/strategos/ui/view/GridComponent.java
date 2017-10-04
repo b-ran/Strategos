@@ -30,7 +30,7 @@ public class GridComponent extends JComponent {
     /**
      * Instantiates a new Grid component for drawing on.
      */
-     GridComponent() {
+    GridComponent() {
         setLayout(new BorderLayout());
         setPreferredSize(GRID_COMPONENT_SIZE);
     }
@@ -40,7 +40,7 @@ public class GridComponent extends JComponent {
      *
      * @return the grid
      */
-     JLayeredPane getGrid() {
+    JLayeredPane getGrid() {
         JLayeredPane p = new JLayeredPane();
         p.setLayout(new BorderLayout());
         p.setPreferredSize(GRID_COMPONENT_SIZE);
@@ -49,7 +49,7 @@ public class GridComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        paintBlackTerrain(g, terrain);
+        //paintBlackTerrain(g, terrain);
         //TODO: view range UnitOwner.getVisibleTiles()
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
@@ -65,13 +65,13 @@ public class GridComponent extends JComponent {
             TODO            instanceof. This can be similarly neatened with paintTerrain()
              */
             drawEntity.draw(unit, g);
-         }
+        }
     }
 
     private void paintTerrain(Graphics g, MapLocation[][] mapLocations) {
         for (int y = 0; y < mapLocations.length; y++) {
             for (int x = 0; x < mapLocations[0].length; x++) {
-                drawEntity.draw(mapLocations[y][x], mapLocations[y][x].getX(), mapLocations[y][x].getY(), g);
+                drawEntity.draw(mapLocations[y][x], x, y, g);
             }
         }
     }
@@ -80,7 +80,7 @@ public class GridComponent extends JComponent {
         g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                drawEntity.fillHexagon(g, drawEntity.getGridX(x, y)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
+                //drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
             }
         }
     }
