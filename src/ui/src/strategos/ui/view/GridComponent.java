@@ -71,7 +71,7 @@ public class GridComponent extends JComponent {
     private void paintTerrain(Graphics g, MapLocation[][] mapLocations) {
         for (int y = 0; y < mapLocations.length; y++) {
             for (int x = 0; x < mapLocations[0].length; x++) {
-                drawEntity.draw(mapLocations[y][x], x, y, g);
+                drawEntity.draw(mapLocations[y][x], mapLocations[y][x].getX(), mapLocations[y][x].getY(), g);
             }
         }
     }
