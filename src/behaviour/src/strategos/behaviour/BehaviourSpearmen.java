@@ -29,4 +29,9 @@ class BehaviourSpearmen extends UnitBehaviour {
     @Override public Behaviour copy() {
         return new BehaviourSpearmen(this);
     }
+
+    @Override
+    public String toString() {
+        return "BehaviourSpearmen{} " + super.toString();
+    }
 }

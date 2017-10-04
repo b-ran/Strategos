@@ -17,4 +17,9 @@ class BehaviourHealthPotion extends StaticBehaviour {
     @Override public Behaviour copy() {
         return new BehaviourHealthPotion(this);
     }
+
+    @Override
+    public String toString() {
+        return "BehaviourHealthPotion{} " + super.toString();
+    }
 }

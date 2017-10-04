@@ -1,5 +1,6 @@
 package mapgenerationtests;
 
+import mapcreation.mapgeneration.TerrainGeneration;
 import mapcreation.mapgeneration.terrain.*;
 import org.junit.Test;
 
@@ -12,16 +13,16 @@ public class MapTester {
         TestHex hex = new TestHex(true);
         assert (hex.isInPlayArea());
         hex.setTerrain(new ForestTile());
-        assertEquals("ForestTile", hex.getTerrain());
+        assertEquals("ForestTile", hex.getTerrainName());
     }
 
     @Test
     public void testSetTerrain_2() {
         TestHex hex = new TestHex(true);
         hex.setTerrain(new ForestTile());
-        assertEquals("ForestTile", hex.getTerrain());
+        assertEquals("ForestTile", hex.getTerrainName());
         hex.setTerrain(new RiverTile());
-        assertEquals("ForestTile", hex.getTerrain());
+        assertEquals("ForestTile", hex.getTerrainName());
     }
 
     @Test
@@ -46,7 +47,7 @@ public class MapTester {
 
         names[0] = "";
         for (int i = 1; i < hexes.length - 1; i++) {
-            names[i] = hexes[i].getTerrain();
+            names[i] = hexes[i].getTerrainName();
         }
         names[names.length - 1] = "";
 
@@ -56,14 +57,15 @@ public class MapTester {
         hexes[1].setTerrain(new HillTile());
         hexes[5].setTerrain(new ForestTile());
         for (int i = 0; i < names.length; i++) {
-            assert (names[i].equals(hexes[i].getTerrain()));
+            assert (names[i].equals(hexes[i].getTerrainName()));
         }
 
     }
 
     @Test
     public void testSetTerrain_4() {
-
+        TerrainGeneration terrainGeneration = new TerrainGeneration();
+//        terrainGeneration.populateMap();
     }
 
     /**

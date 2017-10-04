@@ -17,7 +17,12 @@ public class TestHex implements Paintable {
         return isInPlayArea;
     }
 
-    String getTerrain() {
+    @Override
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    String getTerrainName() {
         return isInPlayArea ? terrain.toString() : "";
     }
 
