@@ -31,7 +31,7 @@ public class Config {
 
     public static final Dimension GRID_COMPONENT_SIZE = new Dimension(980, 600);
 
-    public static final Integer HEX_SIZE = 80;
+    public static final Integer HEX_SIZE = 40;
 
     public static final Color NPC_COLOR = Color.YELLOW;
 
