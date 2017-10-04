@@ -66,6 +66,17 @@ public class HexGridTests {
 		assertTrue(hex.getX() == 3 && hex.getY() == 3);
 	}
 
+	@Test
+	public void MapConstructionTest_4() {
+		Map map = new Map(7);
+		for (int i = 0; i < map.getDiameter(); i++) {
+			for (int y = 0; y < map.getDiameter(); y++) {
+				System.out.print(map.get(i, y));
+			}
+			System.out.println();
+		}
+	}
+
 	/**
 	 * Tests that converting a Map into a list works as expected
 	 */
