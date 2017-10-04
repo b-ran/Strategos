@@ -60,6 +60,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void wary(Unit unit) {
+        if (actionPoints < BehaviourConfig.WARY_COST) {
+            return;
+        }
+        actionPoints -= BehaviourConfig.WARY_COST;
         wary = !wary;
         entrench = false;
     }
@@ -69,6 +73,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void entrench(Unit unit) {
+        if (actionPoints < BehaviourConfig.ENTRENCH_COST) {
+            return;
+        }
+        actionPoints -= BehaviourConfig.ENTRENCH_COST;
         entrench = !entrench;
         wary = false;
     }
