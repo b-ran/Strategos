@@ -30,7 +30,7 @@ public class Controller {
     GameBoard board;
     /**
 
-    /**
+     /**
      * The View.
      */
     protected View view;
@@ -100,10 +100,7 @@ public class Controller {
     Point getHexPos(int x, int y) {
         Point p = new Point();
         p.y = getHexY(y);
-        if (p.y % 2 != 0) {
-            x-=HEX_SIZE/2;
-        }
-        p.x = getHexX(x);
+        p.x = getHexX(x)-p.y/2;
         if (p.x > board.getData()[0].length-1) {
             p.x = board.getData()[0].length-1;
         } else if (p.x < 0) {
