@@ -14,16 +14,17 @@ import strategos.units.Unit;
  */
 public class ArchersImpl extends UnitImpl implements Archers {
 
-	public ArchersImpl(UnitOwner owner) {
-		super(owner);
+
+	public ArchersImpl(UnitOwner owner, MapLocation startLocation) {
+		super(owner, startLocation);
 	}
 
-	public ArchersImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public ArchersImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		super(behaviour, owner, startLocation);
 	}
 
 	@Override
 	public Unit copy() {
-		return new ArchersImpl(getBehaviour().copy(), getOwner());
+		return new ArchersImpl(getBehaviour().copy(), getOwner(), getPosition());
 	}
 }

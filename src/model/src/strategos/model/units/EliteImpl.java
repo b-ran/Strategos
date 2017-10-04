@@ -16,16 +16,17 @@ import java.awt.*;
 public class EliteImpl extends UnitImpl implements Elite {
 	private static final Image sprite = null;
 
-	public EliteImpl(UnitOwner owner) {
-		super(owner);
+	public EliteImpl(UnitOwner owner, MapLocation startLocation) {
+		super(owner, startLocation);
 	}
 
-	public EliteImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public EliteImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		super(behaviour, owner, startLocation);
 	}
+
 
 	@Override
 	public Unit copy() {
-		return new EliteImpl(getBehaviour().copy(), getOwner());
+		return new EliteImpl(getBehaviour().copy(), getOwner(), getPosition());
 	}
 }
