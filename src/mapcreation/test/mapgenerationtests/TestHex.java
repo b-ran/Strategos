@@ -22,6 +22,11 @@ public class TestHex implements Paintable {
         return terrain;
     }
 
+    @Override
+    public void setTerrain(Terrain t) {
+
+    }
+
     String getTerrainName() {
         return isInPlayArea ? terrain.toString() : "";
     }
@@ -30,10 +35,5 @@ public class TestHex implements Paintable {
         if (isInPlayArea && this.terrain == null) {
             this.terrain = terrain;
         }
-    }
-
-    @Override
-    public void setTerrain(Terrain t) {
-
     }
 }
