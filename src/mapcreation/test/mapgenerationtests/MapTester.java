@@ -65,7 +65,9 @@ public class MapTester {
     @Test
     public void testSetTerrain_4() {
         TerrainGeneration terrainGeneration = new TerrainGeneration();
-//        terrainGeneration.populateMap();
+        TestMap testMap = new TestMap();
+        terrainGeneration.populateMap(testMap.constructMap(20));
+
     }
 
     /**
