@@ -34,11 +34,4 @@ public class ExternalTests {
 		Unit unit = new UnitImpl(null ,start);
 		strategos.move(unit, outOfBounds);
 	}
-
-	@Test
-	public void test() {
-
-	}
-
-
 }
