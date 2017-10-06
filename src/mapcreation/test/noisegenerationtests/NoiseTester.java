@@ -13,8 +13,8 @@ public class NoiseTester {
      * finding it took running intensive tests like this. this was because of the
      * likely hood of the errors occurring being low as the values that caused
      * them where at the max and min points in the noise generation.
-     * RUN ONLY IF YOU HAVE A BIT OF TIME AND REALLY WANT TO CHECK MY NOISE VALUES
-     * ARE PERFECT.
+     * RUN ONLY IF YOU HAVE A BIT(read a lot) OF TIME AND REALLY WANT TO CHECK MY NOISE VALUES
+     * ARE 99.999% PERFECT.
      */
 //    @Test
 //    public void testNoiseGeneration_0() {
@@ -46,6 +46,8 @@ public class NoiseTester {
 //        assert (min > -0.02);
 //
 //    }
+
+
     @Test
     public void testNoiseGeneration_1() {
         int width = 200, height = 200;
