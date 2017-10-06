@@ -5,10 +5,8 @@ import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * An implementation of GameState that handles the core running of the game. Does not interact with any of the other

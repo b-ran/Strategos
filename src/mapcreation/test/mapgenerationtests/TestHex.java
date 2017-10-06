@@ -26,7 +26,7 @@ public class TestHex implements Paintable {
         return isInPlayArea ? terrain.toString() : "";
     }
 
-    public void setTerrain(TerrainTile terrain) {
+    void setTerrain(TerrainTile terrain) {
         if (isInPlayArea && this.terrain == null) {
             this.terrain = terrain;
         }
