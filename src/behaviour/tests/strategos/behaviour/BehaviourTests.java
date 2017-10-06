@@ -2,7 +2,10 @@ package strategos.behaviour;
 
 import org.junit.Before;
 import org.junit.Test;
+import strategos.behaviour.config.BehaviourConfig;
 import strategos.units.Unit;
+
+import static org.mockito.Mockito.*;
 
 public class BehaviourTests {
 
@@ -13,28 +16,17 @@ public class BehaviourTests {
     public void setUp() throws Exception {
         BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
         behaviour = behaviourFactory.createBehaviourArchers(TestUtil.getMockGameState());
-        unit = TestUtil.getMockUnit();
+        unit = mock(Unit.class);
     }
 
     @Test
-    public void ranged_attack_1() {
-
+    public void dmg_1() {
+        Unit attacker = mock(Unit.class);
+        when(attacker.getStrength()).thenReturn(10);
+        when(unit.getHitpoints()).thenReturn(BehaviourConfig.UNIT_HITPOINTS);
+        behaviour.defend(unit, attacker);
+        verify(attacker).getStrength();
+        verify(unit).getToughness();
     }
-
-    @Test
-    public void test_behaviour_creation(){
-
-    }
-
-    @Test
-    public void move_1() {
-
-    }
-
-    @Test
-    public void move_2() {
-
-    }
-
 
 }
