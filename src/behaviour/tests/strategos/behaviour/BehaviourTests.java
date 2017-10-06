@@ -17,6 +17,16 @@ public class BehaviourTests {
     }
 
     @Test
+    public void ranged_attack_1() {
+
+    }
+
+    @Test
+    public void test_behaviour_creation(){
+
+    }
+
+    @Test
     public void move_1() {
 
     }
@@ -26,8 +36,5 @@ public class BehaviourTests {
 
     }
 
-    @Test
-    public void ranged_attack_1() {
 
-    }
 }
