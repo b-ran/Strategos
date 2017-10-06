@@ -90,6 +90,11 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
+    public SaveInstance export() {
+        return null;
+    }
+
+    @Override
     public Terrain getTerrainAt(MapLocation location) {
         return null;
     }

@@ -98,7 +98,7 @@ public class TerrainGeneration {
      */
     private double[][] fillMap(int width, int height, int seed) {
         //Calls the noise generation class to produce a field of noise
-        NoiseGenerator generatedNoise = new NoiseGenerator(octaves, persistence, seed);
+        NoiseGenerator generatedNoise = new NoiseGenerator(octaves, seed);
         //Create a topology map to fill
         double[][] mapTopology = new double[width * xRes][height * yRes];
         double noise;
@@ -135,7 +135,7 @@ public class TerrainGeneration {
      */
     private boolean[][] fillForest(int width, int height, int seed) {
         //Calls the noise generation class to produce a field of noise(seed incremented to provide some deviation from the topologyMap)
-        NoiseGenerator generatedNoise = new NoiseGenerator(512, 0.01, seed + 1);
+        NoiseGenerator generatedNoise = new NoiseGenerator(512, seed + 1);
         boolean[][] forestMap = new boolean[width * xRes][height * yRes];
         double noise;
         //Fill forestMap with noise
@@ -170,7 +170,6 @@ public class TerrainGeneration {
      * @return hexMap with terrain filled in
      */
     private Paintable[][] setTerrain(double[][] mapTopology, boolean[][] forestMap, Paintable[][] hexMap) {
-        //TODO check if this will work as the hexes are off by a margin
         if (mapTopology.length != hexMap.length || mapTopology[0].length != hexMap[0].length)
             throw new RuntimeException("mapTopology resolution is incorrect.");
         for (int x = 0; x < hexMap.length; x++) {

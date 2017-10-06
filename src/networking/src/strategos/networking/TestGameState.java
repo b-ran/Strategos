@@ -12,11 +12,8 @@ import java.util.Observer;
  * This class is used for testing purposes only
  */
 public class TestGameState implements GameState {
-	public static TestGameState instance;
-
-	static {
-		instance = new TestGameState();
-	}
+	SaveInstance instance;
+	private boolean changed = false;
 
 	@Override
 	public void save() {
@@ -25,7 +22,8 @@ public class TestGameState implements GameState {
 
 	@Override
 	public void load(SaveInstance toRestore) {
-
+		instance = toRestore;
+		setChanged();
 	}
 
 	@Override
@@ -35,6 +33,11 @@ public class TestGameState implements GameState {
 
 	@Override
 	public void move(Unit unit, Direction direction, int amount) {
+
+	}
+
+	@Override
+	public void move(Unit unit, MapLocation mapLocation) {
 
 	}
 
@@ -70,6 +73,11 @@ public class TestGameState implements GameState {
 
 	@Override
 	public List<MapLocation> getTilesInMoveRange(Unit unit) {
+		return null;
+	}
+
+	@Override
+	public SaveInstance export() {
 		return null;
 	}
 
@@ -115,12 +123,12 @@ public class TestGameState implements GameState {
 
 	@Override
 	public void setChanged() {
-
+		changed = true;
 	}
 
 	@Override
 	public boolean hasChanged() {
-		return false;
+		return changed;
 	}
 
 	@Override

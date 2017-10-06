@@ -56,24 +56,5 @@ public class MapLocationTestObj implements MapLocation{
     public Map<Direction, MapLocation> getNeighbours() {
         return null;
     }
-
-    @Override
-    public double getGraphicalX() {
-        return 0;
-    }
-
-    @Override
-    public double getGraphicalY() {
-        return 0;
-    }
-
-    @Override
-    public void setGraphicalX(double gX) {
-
-    }
-
-    @Override
-    public void setGraphicalY(double gY) {
-
-    }
+    
 }
