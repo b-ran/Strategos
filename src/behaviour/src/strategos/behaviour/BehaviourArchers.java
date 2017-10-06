@@ -1,9 +1,9 @@
 package strategos.behaviour;
 
 
-import strategos.*;
-import strategos.behaviour.config.*;
-import strategos.units.*;
+import strategos.GameState;
+import strategos.behaviour.config.BehaviourConfig;
+import strategos.units.Unit;
 
 
 class BehaviourArchers extends UnitBehaviour {
@@ -18,24 +18,29 @@ class BehaviourArchers extends UnitBehaviour {
         super(behaviourArchers);
     }
 
-    @Override public int getStrength(Unit unit) {
+    @Override
+    public int getStrength(Unit unit) {
         return BehaviourConfig.ARCHERS_STRENGTH;
     }
 
-    @Override public int getToughness(Unit unit) {
+    @Override
+    public int getToughness(Unit unit) {
         return BehaviourConfig.ARCHERS_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
+    @Override
+    public Behaviour copy() {
         return new BehaviourArchers(this);
     }
 
-    @Override public void charge(Unit unit) {
+    @Override
+    public void charge(Unit unit) {
         // Archers cannot charge, so this blank method overrides the default
         // behaviour
     }
 
-    @Override public int attack(Unit unit, Unit enemy) {
+    @Override
+    public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }

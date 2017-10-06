@@ -1,11 +1,13 @@
 package strategos.behaviour;
 
 
-import strategos.*;
-import strategos.behaviour.config.*;
-import strategos.exception.*;
+import strategos.Direction;
+import strategos.GameState;
+import strategos.behaviour.config.BehaviourConfig;
+import strategos.exception.RuleViolationException;
 import strategos.terrain.*;
-import strategos.units.*;
+import strategos.units.HealthPotion;
+import strategos.units.Unit;
 
 
 abstract class UnitBehaviour extends BaseBehaviour {
@@ -13,9 +15,9 @@ abstract class UnitBehaviour extends BaseBehaviour {
     //TODO: Where is your javadoc?
 
     private boolean entrench;
-    private int     actionPoints;
+    private int actionPoints;
     private boolean wary;
-    private int     hitpoints;
+    private int hitpoints;
     private boolean hasAttacked;
 
     @Override
@@ -50,7 +52,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
         hitpoints = behaviour.hitpoints;
     }
 
-    @Override public void turnTick(Unit unit) {
+    @Override
+    public void turnTick(Unit unit) {
         actionPoints = getMaxActionPoints();
         hasAttacked = false;
 
@@ -59,7 +62,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
     }
 
-    @Override public void wary(Unit unit) {
+    @Override
+    public void wary(Unit unit) {
         if (actionPoints < BehaviourConfig.WARY_COST) {
             return;
         }
@@ -68,11 +72,13 @@ abstract class UnitBehaviour extends BaseBehaviour {
         entrench = false;
     }
 
-    @Override public boolean getWary(Unit unit) {
+    @Override
+    public boolean getWary(Unit unit) {
         return wary;
     }
 
-    @Override public void entrench(Unit unit) {
+    @Override
+    public void entrench(Unit unit) {
         if (actionPoints < BehaviourConfig.ENTRENCH_COST) {
             return;
         }
@@ -81,30 +87,33 @@ abstract class UnitBehaviour extends BaseBehaviour {
         wary = false;
     }
 
-    @Override public boolean getEntrench(Unit unit) {
+    @Override
+    public boolean getEntrench(Unit unit) {
         return entrench;
     }
 
-    @Override public void charge(Unit unit) {
+    @Override
+    public void charge(Unit unit) {
         // TODO: charge
     }
 
-    @Override final public boolean move(Unit unit, Direction direction) {
+    @Override
+    final public boolean move(Unit unit, Direction direction) {
         if (direction == null) {
             throw new NullPointerException("Method move() requires a non-null direction");
         }
 
         if (getActionPoints(unit) <= 0) {
             return false;
-        }
-        else {
+        } else {
             setPosition(unit, getPosition(unit).getNeighbour(direction));
             actionPoints -= terrainMovementCost(unit);
             return true;
         }
     }
 
-    @Override public int attack(Unit unit, Unit enemy) {
+    @Override
+    public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
@@ -137,22 +146,19 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
         if (terrain instanceof Plains) {
             return damage;
-        }
-        else if (terrain instanceof Forest) {
+        } else if (terrain instanceof Forest) {
             return attacking ? (int) (damage * 0.85) : (int) (damage * 1.15);
-        }
-        else if (terrain instanceof Hill) {
+        } else if (terrain instanceof Hill) {
             return attacking ? (int) (damage * 1.1) : (int) (damage * 1.25);
-        }
-        else if (terrain instanceof River) {
+        } else if (terrain instanceof River) {
             return attacking ? (int) (damage * 0.9) : damage;
-        }
-        else {
+        } else {
             throw new RuleViolationException("Unit must be on valid Terrain");
         }
     }
 
-    @Override public int defend(Unit unit, Unit enemy) {
+    @Override
+    public int defend(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }
@@ -168,19 +174,23 @@ abstract class UnitBehaviour extends BaseBehaviour {
         return 0;
     }
 
-    @Override public int getHitpoints(Unit unit) {
+    @Override
+    public int getHitpoints(Unit unit) {
         return hitpoints;
     }
 
-    @Override public boolean isAlive(Unit unit) {
+    @Override
+    public boolean isAlive(Unit unit) {
         return hitpoints > 0;
     }
 
-    @Override public int getSightRadius(Unit unit) {
+    @Override
+    public int getSightRadius(Unit unit) {
         return 2;
     }
 
-    @Override public int getActionPoints(Unit unit) {
+    @Override
+    public int getActionPoints(Unit unit) {
         return isAlive(unit) ? actionPoints : 0;
     }
 
@@ -221,17 +231,13 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
         if (terrain instanceof Plains) {
             return 1;
-        }
-        else if (terrain instanceof Forest) {
+        } else if (terrain instanceof Forest) {
             return 2;
-        }
-        else if (terrain instanceof Hill) {
+        } else if (terrain instanceof Hill) {
             return 2;
-        }
-        else if (terrain instanceof River) {
+        } else if (terrain instanceof River) {
             return 2;
-        }
-        else {
+        } else {
             throw new RuleViolationException("Unit must be on valid Terrain");
         }
     }

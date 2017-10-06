@@ -1,23 +1,27 @@
 package strategos.behaviour;
 
 
-import strategos.*;
-import strategos.units.*;
+import strategos.Direction;
+import strategos.GameState;
+import strategos.units.Unit;
 
 
 abstract class StaticBehaviour extends BaseBehaviour {
 
     private boolean isAlive;
 
-    @Override public boolean getWary(Unit unit) {
+    @Override
+    public boolean getWary(Unit unit) {
         return false;
     }
 
-    @Override public boolean getEntrench(Unit unit) {
+    @Override
+    public boolean getEntrench(Unit unit) {
         return false;
     }
 
-    @Override public int getHitpoints(Unit unit) {
+    @Override
+    public int getHitpoints(Unit unit) {
         return isAlive ? 100 : 0;
     }
 
@@ -33,31 +37,38 @@ abstract class StaticBehaviour extends BaseBehaviour {
         this.isAlive = behaviour.isAlive;
     }
 
-    @Override public void turnTick(Unit unit) {
+    @Override
+    public void turnTick(Unit unit) {
 
     }
 
-    @Override public void wary(Unit unit) {
+    @Override
+    public void wary(Unit unit) {
 
     }
 
-    @Override public void entrench(Unit unit) {
+    @Override
+    public void entrench(Unit unit) {
 
     }
 
-    @Override public void charge(Unit unit) {
+    @Override
+    public void charge(Unit unit) {
 
     }
 
-    @Override public boolean move(Unit unit, Direction direction) {
+    @Override
+    public boolean move(Unit unit, Direction direction) {
         return false;
     }
 
-    @Override public int attack(Unit unit, Unit enemy) {
+    @Override
+    public int attack(Unit unit, Unit enemy) {
         return 0;
     }
 
-    @Override public int defend(Unit unit, Unit enemy) {
+    @Override
+    public int defend(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }
@@ -67,11 +78,13 @@ abstract class StaticBehaviour extends BaseBehaviour {
         return 0;
     }
 
-    @Override public int getStrength(Unit unit) {
+    @Override
+    public int getStrength(Unit unit) {
         return 0;
     }
 
-    @Override public int getToughness(Unit unit) {
+    @Override
+    public int getToughness(Unit unit) {
         return 0;
     }
 
@@ -94,15 +107,18 @@ abstract class StaticBehaviour extends BaseBehaviour {
         return result;
     }
 
-    @Override public boolean isAlive(Unit unit) {
+    @Override
+    public boolean isAlive(Unit unit) {
         return isAlive;
     }
 
-    @Override public int getSightRadius(Unit unit) {
+    @Override
+    public int getSightRadius(Unit unit) {
         return 0;
     }
 
-    @Override public int getActionPoints(Unit unit) {
+    @Override
+    public int getActionPoints(Unit unit) {
         return 0;
     }
 

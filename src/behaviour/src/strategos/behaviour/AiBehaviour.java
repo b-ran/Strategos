@@ -14,7 +14,6 @@ import java.util.Random;
 import java.util.function.Function;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.hypot;
 
 
 class AiBehaviour extends BaseBehaviour {
@@ -23,7 +22,7 @@ class AiBehaviour extends BaseBehaviour {
 
     private static final Random random = new Random();
     private Behaviour behaviour;
-    private int       directionIndex;
+    private int directionIndex;
 
     AiBehaviour(GameState gameState, Function<GameState, Behaviour> factoryMethod) {
         super(gameState);
@@ -59,8 +58,7 @@ class AiBehaviour extends BaseBehaviour {
                 if (pursueOrAttackUnit(unit, nearest.get())) {
                     break;
                 }
-            }
-            else {
+            } else {
                 explore(unit);
             }
         }
@@ -85,8 +83,7 @@ class AiBehaviour extends BaseBehaviour {
         if (adjacentUnits.contains(nearest)) {
             getGameState().attack(unit, nearest.getPosition());
             return true;
-        }
-        else {
+        } else {
             pursueUnit(unit, nearest);
             return false;
         }
@@ -127,14 +124,11 @@ class AiBehaviour extends BaseBehaviour {
 
         if (dx < 0) {
             move(unit, Direction.WEST);
-        }
-        else if (dx > 0) {
+        } else if (dx > 0) {
             move(unit, Direction.EAST);
-        }
-        else if (dy < 0) {
+        } else if (dy < 0) {
             move(unit, Direction.NORTH_EAST);
-        }
-        else if (dy > 0) {
+        } else if (dy > 0) {
             move(unit, Direction.SOUTH_WEST);
         }
     }

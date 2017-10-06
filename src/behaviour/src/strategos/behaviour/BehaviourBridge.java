@@ -1,7 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.*;
+import strategos.GameState;
 
 
 class BehaviourBridge extends StaticBehaviour {
@@ -14,7 +14,8 @@ class BehaviourBridge extends StaticBehaviour {
         super(behaviour);
     }
 
-    @Override public Behaviour copy() {
+    @Override
+    public Behaviour copy() {
         return new BehaviourBridge(this);
     }
 

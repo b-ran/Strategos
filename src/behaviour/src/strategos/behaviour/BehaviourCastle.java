@@ -18,24 +18,29 @@ class BehaviourCastle extends UnitBehaviour {
         super(behaviourCastle);
     }
 
-    @Override public int getStrength(Unit unit) {
+    @Override
+    public int getStrength(Unit unit) {
         return BehaviourConfig.CASTLE_STRENGTH;
     }
 
-    @Override public int getToughness(Unit unit) {
+    @Override
+    public int getToughness(Unit unit) {
         return BehaviourConfig.CASTLE_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
+    @Override
+    public Behaviour copy() {
         return new BehaviourCastle(this);
     }
 
-    @Override public void charge(Unit unit) {
+    @Override
+    public void charge(Unit unit) {
         // Archers cannot charge, so this blank method overrides the default
         // behaviour
     }
 
-    @Override public int attack(Unit unit, Unit enemy) {
+    @Override
+    public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }

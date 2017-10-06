@@ -1,16 +1,17 @@
 package strategos.behaviour;
 
 
-import strategos.*;
-import strategos.units.*;
+import strategos.GameState;
+import strategos.MapLocation;
+import strategos.units.Unit;
 
 
 abstract class BaseBehaviour implements Behaviour {
 
     //TODO: Where is your javadoc?
 
-    private final GameState   gameState;
-    private       MapLocation position;
+    private final GameState gameState;
+    private MapLocation position;
 
     BaseBehaviour(GameState gameState) {
         if (gameState == null) {
@@ -29,12 +30,14 @@ abstract class BaseBehaviour implements Behaviour {
         position = behaviour.position;
     }
 
-    @Override public MapLocation getPosition(Unit unit) {
+    @Override
+    public MapLocation getPosition(Unit unit) {
         assert position != null : "Method getPosition() shouldn't be returning null";
         return position;
     }
 
-    @Override public void setPosition(Unit unit, MapLocation position) {
+    @Override
+    public void setPosition(Unit unit, MapLocation position) {
         if (position == null) {
             throw new NullPointerException("Method setPosition() requires non-null position");
         }

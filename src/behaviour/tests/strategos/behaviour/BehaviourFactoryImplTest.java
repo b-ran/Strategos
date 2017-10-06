@@ -1,27 +1,31 @@
 package strategos.behaviour;
 
 
-import org.junit.*;
-import strategos.*;
-import strategos.units.*;
+import org.junit.Before;
+import org.junit.Test;
+import strategos.GameState;
+import strategos.units.Unit;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 
 public class BehaviourFactoryImplTest {
 
     private BehaviourFactory factory;
-    private GameState        gameState;
-    private Unit             unit;
+    private GameState gameState;
+    private Unit unit;
 
-    @Before public void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         factory = new BehaviourFactoryImpl();
         gameState = TestUtil.getMockGameState();
         unit = TestUtil.getMockUnit();
     }
 
-    @Test public void createBehaviourArchers() throws Exception {
+    @Test
+    public void createBehaviourArchers() throws Exception {
         assertThat(
                 "Method createBehaviourArchers() should create an instance of BehaviourArchers",
                 factory.createBehaviourArchers(gameState),
@@ -29,7 +33,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void createBehaviourCavalry() throws Exception {
+    @Test
+    public void createBehaviourCavalry() throws Exception {
         assertThat(
                 "Method createBehaviourCavalry() should create an instance of BehaviourCavalry",
                 factory.createBehaviourCavalry(gameState),
@@ -37,7 +42,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void createBehaviourElite() throws Exception {
+    @Test
+    public void createBehaviourElite() throws Exception {
         assertThat(
                 "Method createBehaviourElite() should create an instance of BehaviourElite",
                 factory.createBehaviourElite(gameState),
@@ -45,7 +51,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void createBehaviourSpearmen() throws Exception {
+    @Test
+    public void createBehaviourSpearmen() throws Exception {
         assertThat(
                 "Method createBehaviourSpearmen() should create an instance of BehaviourSpearmen",
                 factory.createBehaviourSpearmen(gameState),
@@ -53,7 +60,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void createBehaviourSwordsmen() throws Exception {
+    @Test
+    public void createBehaviourSwordsmen() throws Exception {
         assertThat(
                 "Method createBehaviourSwordsmen() should create an instance of BehaviourSwordsmen",
                 factory.createBehaviourSwordsmen(gameState),
@@ -61,7 +69,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void createAiBehaviour() throws Exception {
+    @Test
+    public void createAiBehaviour() throws Exception {
         assertThat(
                 "Method createAiBehaviour() should create an instance of AiBehaviour",
                 factory.createAiBehaviour(gameState, factory::createBehaviourArchers),
@@ -69,7 +78,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void globalStatePreservedArchers() throws Exception {
+    @Test
+    public void globalStatePreservedArchers() throws Exception {
         assertThat(
                 "Method createBehaviourArchers() should create identical instances each call",
                 factory.createBehaviourArchers(gameState),
@@ -77,7 +87,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void globalStatePreservedBridge() throws Exception {
+    @Test
+    public void globalStatePreservedBridge() throws Exception {
         assertThat(
                 "Method createBehaviourBridge() should create identical instances each call",
                 factory.createBehaviourBridge(gameState),
@@ -85,7 +96,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void globalStatePreservedCavalry() throws Exception {
+    @Test
+    public void globalStatePreservedCavalry() throws Exception {
         assertThat(
                 "Method createBehaviourCavalry() should create identical instances each call",
                 factory.createBehaviourCavalry(gameState),
@@ -93,7 +105,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void globalStatePreservedElite() throws Exception {
+    @Test
+    public void globalStatePreservedElite() throws Exception {
         assertThat(
                 "Method createBehaviourElite() should create identical instances each call",
                 factory.createBehaviourElite(gameState),
@@ -101,7 +114,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void globalStatePreservedHealthPotion() throws Exception {
+    @Test
+    public void globalStatePreservedHealthPotion() throws Exception {
         assertThat(
                 "Method createBehaviourHealthPotion() should create identical instances each call",
                 factory.createBehaviourHealthPotion(gameState),
@@ -109,7 +123,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void globalStatePreservedSpearmen() throws Exception {
+    @Test
+    public void globalStatePreservedSpearmen() throws Exception {
         assertThat(
                 "Method createBehaviourSpearmen() should create identical instances each call",
                 factory.createBehaviourSpearmen(gameState),
@@ -117,7 +132,8 @@ public class BehaviourFactoryImplTest {
         );
     }
 
-    @Test public void globalStatePreservedSwordsmen() throws Exception {
+    @Test
+    public void globalStatePreservedSwordsmen() throws Exception {
         assertThat(
                 "Method createBehaviourSwordsmen() should create identical instances each call",
                 factory.createBehaviourSwordsmen(gameState),

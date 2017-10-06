@@ -1,7 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.*;
+import strategos.GameState;
 
 
 class BehaviourHealthPotion extends StaticBehaviour {
@@ -14,7 +14,8 @@ class BehaviourHealthPotion extends StaticBehaviour {
         super(behaviourHealthPotion);
     }
 
-    @Override public Behaviour copy() {
+    @Override
+    public Behaviour copy() {
         return new BehaviourHealthPotion(this);
     }
 
