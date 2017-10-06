@@ -142,6 +142,11 @@ public class TestUtil {
 
         }
 
+        @Override
+        public void move(Unit unit, MapLocation mapLocation) {
+            
+        }
+
         @Override public void attack(Unit unit, int targetX, int targetY) {
 
         }
@@ -170,6 +175,11 @@ public class TestUtil {
 
         @Override
         public List<MapLocation> getTilesInMoveRange(Unit unit) {
+            return null;
+        }
+
+        @Override
+        public SaveInstance export() {
             return null;
         }
 
