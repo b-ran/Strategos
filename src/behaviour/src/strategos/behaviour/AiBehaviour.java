@@ -96,7 +96,7 @@ class AiBehaviour extends BaseBehaviour {
         Direction[] values = Direction.values();
         directionIndex = (directionIndex + random.nextInt(2) - 1) % values.length;
         Direction direction = values[directionIndex];
-        move(unit, direction);
+        getGameState().move(unit, direction, 1);
     }
 
     @Override
