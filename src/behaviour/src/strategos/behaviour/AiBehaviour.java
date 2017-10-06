@@ -74,7 +74,7 @@ class AiBehaviour extends BaseBehaviour {
 
         return getGameState().getUnitsInRange(getPosition(unit), getSightRadius(unit))
                 .stream()
-                .filter(u -> owner.getUnits().contains(u))
+                .filter(u -> !owner.getUnits().contains(u))
                 .min((a, b) -> compareUnitDistance(unit, a, b));
     }
 
