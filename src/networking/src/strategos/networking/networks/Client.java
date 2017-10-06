@@ -10,8 +10,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import strategos.GameState;
 import strategos.SaveInstance;
-import strategos.networking.Network;
-import strategos.networking.NetworkingHandler;
 import strategos.networking.handlers.DataHandler;
 import strategos.networking.handlers.NetworkHandler;
 
@@ -24,6 +22,8 @@ public class Client implements Network {
 	private int port;
 	private NetworkHandler clientHandler;
 
+	private EventLoopGroup workerGroup;
+
 	public Client(String host, int port, GameState state) {
 		this.state = state;
 		this.host = host;
@@ -32,37 +32,46 @@ public class Client implements Network {
 	}
 
 	@Override
-	public void run() throws InterruptedException {
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
-		try {
-            Bootstrap b = new Bootstrap();
-			b.group(workerGroup);
-			b.channel(NioSocketChannel.class);
-			b.option(ChannelOption.SO_KEEPALIVE, true);
-			b.handler(new ChannelInitializer<SocketChannel>() {
-				@Override
-				public void initChannel(SocketChannel ch) throws InterruptedException {
-					ch.pipeline().addLast(new DataHandler(), clientHandler);
-				}
-			});
-            // Start the client.
-			ChannelFuture f = b.connect(host, port).sync();
+	public void run() {
+		new Thread(() -> {
+			workerGroup = new NioEventLoopGroup();
+			try {
+				Bootstrap b = new Bootstrap();
+				b.group(workerGroup);
+				b.channel(NioSocketChannel.class);
+				b.option(ChannelOption.SO_KEEPALIVE, true);
+				b.handler(new ChannelInitializer<SocketChannel>() {
+					@Override
+					public void initChannel(SocketChannel ch) throws InterruptedException {
+						ch.pipeline().addLast(new DataHandler(), clientHandler);
+					}
+				});
+				// Start the client.
+				ChannelFuture f = b.connect(host, port).sync();
 
-			// Wait until the connection is closed.
-			f.channel().closeFuture().sync();
-		} finally {
-			workerGroup.shutdownGracefully();
-		}
+				// Wait until the connection is closed.
+				f.channel().closeFuture().sync();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} finally {
+				stop();
+			}
+		}).start();
 	}
 
 	@Override
-	public void send(SaveInstance instance) throws InterruptedException {
+	public void send(SaveInstance instance) {
 		clientHandler.send(instance);
-		Thread.sleep(3000);
 	}
 
-    @Override
-    public void receive(SaveInstance instance) {
+	@Override
+	public void receive(SaveInstance instance) {
+		System.out.println("recieved");
 		state.load(instance);
-    }
+	}
+
+	@Override
+	public void stop() {
+		workerGroup.shutdownGracefully();
+	}
 }

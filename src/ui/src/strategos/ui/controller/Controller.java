@@ -95,6 +95,8 @@ public class Controller {
         g.addKeyListener(new MenuListener(this));
         g.addMouseListener(new SelectListener(this));
         g.addMouseMotionListener(new SelectListener(this));
+        g.addMouseListener(new MoveListener(this));
+        g.addMouseListener(new AttackListener(this));
     }
 
     Point getHexPos(int x, int y) {
