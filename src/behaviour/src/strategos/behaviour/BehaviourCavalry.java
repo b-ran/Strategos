@@ -33,4 +33,9 @@ class BehaviourCavalry extends UnitBehaviour {
     @Override public Behaviour copy() {
         return new BehaviourCavalry(this);
     }
+
+    @Override
+    public String toString() {
+        return "BehaviourCavalry{} " + super.toString();
+    }
 }

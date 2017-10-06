@@ -23,6 +23,9 @@ public class Hex implements Graphical, MapLocation {
 	private int xIndex;
 	private int yIndex;
 
+	private double gX;
+	private double gY;
+
 	private Terrain terrain;
 	private final boolean isPlayable;
 
@@ -68,11 +71,7 @@ public class Hex implements Graphical, MapLocation {
 	 */
 	@Override
 	public boolean isInPlayArea() {
-		/*if (isPlayable) {
-			// TODO: return if the terrain can be moved over
-			return true;
-		}
-		return false;*/
+		// TODO: return if the terrain can be moved over
 		return isPlayable;
 	}
 
@@ -107,6 +106,26 @@ public class Hex implements Graphical, MapLocation {
 	}
 
 	@Override
+	public double getGraphicalX() {
+		return gX;
+	}
+
+	@Override
+	public double getGraphicalY() {
+		return gY;
+	}
+
+	@Override
+	public void setGraphicalX(double gX) {
+		this.gX = gX;
+	}
+
+	@Override
+	public void setGraphicalY(double gY) {
+		this.gY = gY;
+	}
+
+	@Override
 	public String toString() {
 		if (isInPlayArea()) {
 			return "[" + getX() + "," + getY() + "]";
@@ -119,7 +138,7 @@ public class Hex implements Graphical, MapLocation {
 	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
 	 * @param xIndex - the new x-index for the Hex.
 	 */
-	public void setXIndex(int xIndex) {
+	void setXIndex(int xIndex) {
 		this.xIndex = xIndex;
 	}
 
@@ -128,7 +147,7 @@ public class Hex implements Graphical, MapLocation {
 	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
 	 * @param yIndex - the new y-index for the Hex.
 	 */
-	public void setYIndex(int yIndex) {
+	void setYIndex(int yIndex) {
 		this.yIndex = yIndex;
 	}
 

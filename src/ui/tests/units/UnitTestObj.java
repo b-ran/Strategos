@@ -46,8 +46,18 @@ public class UnitTestObj implements Unit{
     }
 
     @Override
+    public boolean getWary() {
+        return false;
+    }
+
+    @Override
     public void entrench() {
 
+    }
+
+    @Override
+    public boolean getEntrench() {
+        return false;
     }
 
     @Override
@@ -86,6 +96,11 @@ public class UnitTestObj implements Unit{
     }
 
     @Override
+    public int getHitpoints() {
+        return 0;
+    }
+
+    @Override
     public boolean isAlive() {
         return false;
     }
@@ -101,7 +116,13 @@ public class UnitTestObj implements Unit{
     }
 
     @Override
-    public Unit copyUnit() {
+    public int getAttackRange() {
+        return 0;
+    }
+
+    @Override
+    public Unit copy() {
         return null;
     }
+
 }

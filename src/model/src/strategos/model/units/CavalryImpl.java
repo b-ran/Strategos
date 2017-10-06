@@ -13,17 +13,17 @@ import strategos.units.Unit;
  */
 public class CavalryImpl extends UnitImpl implements Cavalry {
 
-	public CavalryImpl(UnitOwner owner) {
-		super(owner);
+
+	public CavalryImpl(UnitOwner owner, MapLocation startLocation) {
+		super(owner, startLocation);
 	}
 
-	public CavalryImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public CavalryImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		super(behaviour, owner, startLocation);
 	}
 
 	@Override
-	public Unit copyUnit() {
-		Unit newUnit = new CavalryImpl(getBehaviour().copy(), getOwner());
-		return newUnit;
+	public Unit copy() {
+		return new CavalryImpl(getBehaviour().copy(), getOwner(), getPosition());
 	}
 }

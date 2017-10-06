@@ -13,17 +13,17 @@ import strategos.units.Unit;
  */
 public class SpearmenImpl extends UnitImpl implements Spearmen {
 
-	public SpearmenImpl(UnitOwner owner) {
-		super(owner);
+
+	public SpearmenImpl(UnitOwner owner, MapLocation startLocation) {
+		super(owner, startLocation);
 	}
 
-	public SpearmenImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public SpearmenImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		super(behaviour, owner, startLocation);
 	}
 
 	@Override
-	public Unit copyUnit() {
-		Unit newUnit = new SpearmenImpl(getBehaviour().copy(), getOwner());
-		return newUnit;
+	public Unit copy() {
+		return new SpearmenImpl(getBehaviour().copy(), getOwner(), getPosition());
 	}
 }

@@ -16,6 +16,18 @@ abstract class UnitBehaviour extends BaseBehaviour {
     private int     actionPoints;
     private boolean wary;
     private int     hitpoints;
+    private boolean hasAttacked;
+
+    @Override
+    public String toString() {
+        return "UnitBehaviour{" +
+                "entrench=" + entrench +
+                ", actionPoints=" + actionPoints +
+                ", wary=" + wary +
+                ", hitpoints=" + hitpoints +
+                ", hasAttacked=" + hasAttacked +
+                "} " + super.toString();
+    }
 
     UnitBehaviour(GameState gameState) {
         super(gameState);
@@ -25,6 +37,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
         wary = false;
         entrench = false;
+
+        hasAttacked = true;
     }
 
     UnitBehaviour(UnitBehaviour behaviour) {
@@ -38,6 +52,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     @Override public void turnTick(Unit unit) {
         actionPoints = getMaxActionPoints();
+        hasAttacked = false;
 
         if (wary) {
             actionPoints--;
@@ -45,6 +60,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void wary(Unit unit) {
+        if (actionPoints < BehaviourConfig.WARY_COST) {
+            return;
+        }
+        actionPoints -= BehaviourConfig.WARY_COST;
         wary = !wary;
         entrench = false;
     }
@@ -54,6 +73,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void entrench(Unit unit) {
+        if (actionPoints < BehaviourConfig.ENTRENCH_COST) {
+            return;
+        }
+        actionPoints -= BehaviourConfig.ENTRENCH_COST;
         entrench = !entrench;
         wary = false;
     }
@@ -86,7 +109,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
-        if (!isAlive(unit) || !enemy.isAlive()) {
+        if (!isAlive(unit) || !enemy.isAlive() || hasAttacked) {
             return 0;
         }
 
@@ -159,6 +182,38 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     @Override public int getActionPoints(Unit unit) {
         return isAlive(unit) ? actionPoints : 0;
+    }
+
+    @Override
+    public int getAttackRange() {
+        return BehaviourConfig.MELEE_RANGE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        UnitBehaviour that = (UnitBehaviour) o;
+
+        if (entrench != that.entrench) return false;
+        if (actionPoints != that.actionPoints) return false;
+        if (wary != that.wary) return false;
+        if (hitpoints != that.hitpoints) return false;
+        return hasAttacked == that.hasAttacked;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (entrench ? 1 : 0);
+        result = 31 * result + actionPoints;
+        result = 31 * result + (wary ? 1 : 0);
+        result = 31 * result + hitpoints;
+        result = 31 * result + (hasAttacked ? 1 : 0);
+        return result;
     }
 
     private int terrainMovementCost(Unit unit) {

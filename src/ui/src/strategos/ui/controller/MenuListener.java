@@ -5,10 +5,10 @@ import java.awt.event.KeyListener;
 
 class MenuListener extends Controller implements KeyListener {
 
-    private boolean toggle = false;
+
     private Controller controller;
 
-    public MenuListener(Controller controller) {
+    MenuListener(Controller controller) {
         super(controller);
         this.controller = controller;
     }
@@ -20,12 +20,12 @@ class MenuListener extends Controller implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (!controller.allInput) return;
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE && toggle == false) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE && !controller.getMenuToggle()) {
             view.addEscapeMenu();
-            toggle = true;
+            controller.menuToggle();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE){ ;
             view.removeEscapeMenu();
-            toggle = false;
+            menuToggle();
         }
     }
 

@@ -29,4 +29,9 @@ class BehaviourElite extends UnitBehaviour {
     @Override public Behaviour copy() {
         return new BehaviourElite(this);
     }
+
+    @Override
+    public String toString() {
+        return "BehaviourElite{} " + super.toString();
+    }
 }
