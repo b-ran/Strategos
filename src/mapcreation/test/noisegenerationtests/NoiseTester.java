@@ -6,7 +6,6 @@ import mapcreation.noisegeneration.NoiseGenerator;
 import mapcreation.noisegeneration.noiseutil.PrintMap;
 import org.junit.Test;
 
-
 public class NoiseTester {
     /**
      * There was a point during testing where a pretty obscure bug came up
@@ -58,7 +57,7 @@ public class NoiseTester {
 
         for (int i = 0; i < 100; i++) {
             seed = (int) (Math.random() * 255);
-            NoiseGenerator generatedNoise = new NoiseGenerator(64, 0.01, seed);
+            NoiseGenerator generatedNoise = new NoiseGenerator(64, seed);
             mapTopology = new double[width][height];
             for (int x = 0; x < mapTopology.length; x++) {
                 for (int y = 0; y < mapTopology[0].length; y++) {
