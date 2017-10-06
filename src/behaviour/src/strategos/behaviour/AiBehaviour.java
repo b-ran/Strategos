@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.function.Function;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.hypot;
 
 
@@ -106,12 +107,18 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     private int compareUnitDistance(Unit unit, Unit a, Unit b) {
-        double aX = getPosition(unit).getX() - a.getPosition().getX();
-        double aY = getPosition(unit).getY() - a.getPosition().getY();
-        double bX = getPosition(unit).getX() - b.getPosition().getX();
-        double bY = getPosition(unit).getY() - b.getPosition().getY();
+        int x = getPosition(unit).getX();
+        int y = getPosition(unit).getY();
 
-        return (int) (hypot(aX, aY) - hypot(bX, bY));
+        int aX = a.getPosition().getX();
+        int aY = a.getPosition().getY();
+        int aD = abs(x - aX) + abs(x + y - aX - aY) + abs(x - aX);
+
+        int bX = b.getPosition().getX();
+        int bY = b.getPosition().getY();
+        int bD = abs(x - bX) + abs(x + y - bX - bY) + abs(x - bX);
+
+        return aD - bD;
     }
 
     private void pursueUnit(Unit unit, Unit nearest) {
