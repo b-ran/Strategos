@@ -32,4 +32,9 @@ public interface NetworkingHandler {
 	 * @throws InterruptedException when the connection is interrupted
 	 */
 	void send(SaveInstance instance) throws InterruptedException;
+
+	/**
+	 * Shuts down the connection
+	 */
+	void stop() throws InterruptedException;
 }

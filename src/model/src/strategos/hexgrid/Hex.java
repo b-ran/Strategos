@@ -106,26 +106,6 @@ public class Hex implements Graphical, MapLocation {
 	}
 
 	@Override
-	public double getGraphicalX() {
-		return gX;
-	}
-
-	@Override
-	public double getGraphicalY() {
-		return gY;
-	}
-
-	@Override
-	public void setGraphicalX(double gX) {
-		this.gX = gX;
-	}
-
-	@Override
-	public void setGraphicalY(double gY) {
-		this.gY = gY;
-	}
-
-	@Override
 	public String toString() {
 		if (isInPlayArea()) {
 			return "[" + getX() + "," + getY() + "]";

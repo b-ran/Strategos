@@ -220,16 +220,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
         Terrain terrain = getGameState().getTerrainAt(getPosition(unit));
 
         if (terrain instanceof Plains) {
-            return -1;
+            return 1;
         }
         else if (terrain instanceof Forest) {
-            return -2;
+            return 2;
         }
         else if (terrain instanceof Hill) {
-            return -2;
+            return 2;
         }
         else if (terrain instanceof River) {
-            return -2;
+            return 2;
         }
         else {
             throw new RuleViolationException("Unit must be on valid Terrain");

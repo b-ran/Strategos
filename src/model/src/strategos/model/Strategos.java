@@ -5,10 +5,8 @@ import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
@@ -37,6 +35,11 @@ public class Strategos implements GameState {
 			return;
 		}
 		saves.add(new SaveState(world, players, turn));
+	}
+
+	@Override
+	public SaveInstance export() {
+		return new SaveState(world, players, turn);
 	}
 
 	public void load(SaveInstance toRestore) {
@@ -71,6 +74,32 @@ public class Strategos implements GameState {
 			amount--;
 			calculateVision(unit.getOwner());
 		}
+	}
+
+	/**
+	 * Send a move command to the given Unit. Fail the command if the tile is impassable, already contains a Unit, or
+	 * if the Unit does not have enough movement points to satisfy the amount commanded. If the amount is greater
+	 * than the number of points, move the Unit its maximum  number of points. Assume that Units may only move in
+	 * straight lines.
+	 *
+	 * @param unit        the unit to be moved. If this Unit is null, fail the command.
+	 * @param mapLocation the map location to move too.
+	 */
+	@Override
+	public void move(Unit unit, MapLocation mapLocation) {
+		if (getTilesInMoveRange(unit).contains(mapLocation)) {
+			unit.move(directionFromNeighbour(unit.getPosition(), mapLocation));
+			calculateVision(unit.getOwner());
+		}
+	}
+
+	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
+		for (Map.Entry<Direction, MapLocation> entry : origin.getNeighbours().entrySet()) {
+			if (entry.getValue().equals(neighbour)) {
+				return entry.getKey();
+			}
+		}
+		return null;
 	}
 
 	private boolean canPassUnit(Unit mover, MapLocation moveTo) {

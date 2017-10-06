@@ -11,7 +11,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import strategos.GameState;
 import strategos.SaveInstance;
-import strategos.networking.Network;
 import strategos.networking.handlers.DataHandler;
 import strategos.networking.handlers.NetworkHandler;
 
@@ -20,8 +19,11 @@ import strategos.networking.handlers.NetworkHandler;
  */
 public class Server implements Network {
 	private int port;
-    private NetworkHandler serverHandler;
-    private GameState state;
+	private NetworkHandler serverHandler;
+	private GameState state;
+
+	private EventLoopGroup workerGroup;
+	private EventLoopGroup bossGroup;
 
 	public Server(int port, GameState state) {
 		this.port = port;
@@ -30,38 +32,45 @@ public class Server implements Network {
 	}
 
 	@Override
-	public void run() throws InterruptedException {
-		EventLoopGroup bossGroup = new NioEventLoopGroup();
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
-		try {
-			ServerBootstrap b = new ServerBootstrap();
-			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
-					.childHandler(new ChannelInitializer<SocketChannel>() {
-						@Override
-						public void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new DataHandler(), serverHandler);
-						}
-					})
-					.option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);
-
-			// Bind and start to accept incoming connections.
-			ChannelFuture f = b.bind(port).sync();
-
-			// Wait until the server socket is closed.
-			f.channel().closeFuture().sync();
-		} finally {
-			workerGroup.shutdownGracefully();
-			bossGroup.shutdownGracefully();
-		}
+	public void run() {
+		new Thread(() -> {
+			bossGroup = new NioEventLoopGroup();
+			workerGroup = new NioEventLoopGroup();
+			try {
+				ServerBootstrap b = new ServerBootstrap();
+				b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+						.childHandler(new ChannelInitializer<SocketChannel>() {
+							@Override
+							public void initChannel(SocketChannel ch) throws Exception {
+								ch.pipeline().addLast(new DataHandler(), serverHandler);
+							}
+						})
+						.option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);
+				// Bind and start to accept incoming connections.
+				ChannelFuture f = b.bind(port).sync();
+				// Wait until the server socket is closed.
+				f.channel().closeFuture().sync();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} finally {
+				stop();
+			}
+		}).start();
 	}
 
 	@Override
-	public void send(SaveInstance instance) throws InterruptedException {
+	public void send(SaveInstance instance) {
 		serverHandler.send(instance);
 	}
-	
-    @Override
-    public void receive(SaveInstance instance) {
-        state.load(instance);
-    }
+
+	@Override
+	public void receive(SaveInstance instance) {
+		state.load(instance);
+	}
+
+	@Override
+	public void stop() {
+		workerGroup.shutdownGracefully();
+		bossGroup.shutdownGracefully();
+	}
 }
