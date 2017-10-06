@@ -10,8 +10,8 @@ import java.util.ArrayList;
  * An implementation of SaveInstance used only for testing.
  */
 public class TestSaveInstance implements SaveInstance {
-	int i;
-	String s;
+	private int i;
+	private String s;
 
 	public TestSaveInstance(String s, int i) {
 		this.s = s;

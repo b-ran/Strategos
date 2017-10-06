@@ -1,4 +1,4 @@
-package strategos.networking;
+package strategos.networking.networks;
 
 import strategos.SaveInstance;
 
@@ -8,20 +8,25 @@ import strategos.SaveInstance;
 public interface Network {
 	/**
 	 * Creates the Network
-	 * @throws InterruptedException if the connection is interrupted
 	 */
-	void run() throws InterruptedException;
+	void run();
 
 	/**
 	 * Sends a save state through the Network
+	 *
 	 * @param instance The state to send
-	 * @throws InterruptedException if the connection is interrupted
 	 */
-	void send(SaveInstance instance) throws InterruptedException;
+	void send(SaveInstance instance);
 
 	/**
 	 * Gets called when a SaveInstance is received
+	 *
 	 * @param instance The received instance
 	 */
 	void receive(SaveInstance instance);
+
+	/**
+	 * Shuts down the connection
+	 */
+	void stop();
 }
