@@ -73,6 +73,32 @@ public class Strategos implements GameState {
 		}
 	}
 
+	/**
+	 * Send a move command to the given Unit. Fail the command if the tile is impassable, already contains a Unit, or
+	 * if the Unit does not have enough movement points to satisfy the amount commanded. If the amount is greater
+	 * than the number of points, move the Unit its maximum  number of points. Assume that Units may only move in
+	 * straight lines.
+	 *
+	 * @param unit        the unit to be moved. If this Unit is null, fail the command.
+	 * @param mapLocation the map location to move too.
+	 */
+	@Override
+	public void move(Unit unit, MapLocation mapLocation) {
+		if (getTilesInMoveRange(unit).contains(mapLocation)) {
+			unit.move(directionFromNeighbour(unit.getPosition(), mapLocation));
+			calculateVision(unit.getOwner());
+		}
+	}
+
+	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
+		for (Map.Entry<Direction, MapLocation> entry : origin.getNeighbours().entrySet()) {
+			if (entry.getValue().equals(neighbour)) {
+				return entry.getKey();
+			}
+		}
+		return null;
+	}
+
 	private boolean canPassUnit(Unit mover, MapLocation moveTo) {
 		Unit u = getUnitAt(moveTo);
 		return u == null || (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
