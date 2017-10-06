@@ -106,6 +106,13 @@ public interface GameState extends Observable {
 	 */
 	public List<MapLocation> getTilesInMoveRange(Unit unit);
 
+	/**
+	 * Packages the GameState's current information into a SaveInstance and returns it.
+	 * The exported SaveInstance contains the World, the Players, and the current Player whose turn it is.
+	 *
+	 * @return a SaveInstance containing the data structures of the GameState.
+	 */
+	public SaveInstance export();
 
 	/**
 	 * Gets the Terrain at a given location. If the MapLocation is not inside the play area, the Terrain is expected to
