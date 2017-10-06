@@ -12,6 +12,8 @@ import java.util.Observer;
  * This class is used for testing purposes only
  */
 public class TestGameState implements GameState {
+	SaveInstance instance;
+	private boolean changed = false;
 
 	@Override
 	public void save() {
@@ -20,7 +22,8 @@ public class TestGameState implements GameState {
 
 	@Override
 	public void load(SaveInstance toRestore) {
-		System.out.println(toRestore);
+		instance = toRestore;
+		setChanged();
 	}
 
 	@Override
@@ -110,12 +113,12 @@ public class TestGameState implements GameState {
 
 	@Override
 	public void setChanged() {
-
+		changed = true;
 	}
 
 	@Override
 	public boolean hasChanged() {
-		return false;
+		return changed;
 	}
 
 	@Override

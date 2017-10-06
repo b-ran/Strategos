@@ -2,7 +2,7 @@ package strategos.networking.handlers;
 
 import strategos.GameState;
 import strategos.SaveInstance;
-import strategos.networking.Network;
+import strategos.networking.networks.Network;
 import strategos.networking.NetworkingHandler;
 import strategos.networking.TestGameState;
 import strategos.networking.TestSaveInstance;
@@ -29,13 +29,7 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 
 	@Override
 	public void run() throws InterruptedException {
-		new Thread(() -> {
-			try {
-				type.run();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}).start();
+		type.run();
 		Thread.sleep(1000);
 	}
 
@@ -43,6 +37,11 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 	public void send(SaveInstance instance) throws InterruptedException {
 		type.send(instance);
 		Thread.sleep(3000);
+	}
+
+	@Override
+	public void stop() throws InterruptedException {
+		type.stop();
 	}
 
 	/**
@@ -60,7 +59,8 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 		TestSaveInstance instance = new TestSaveInstance("Testing123", 456);
 		System.out.print("Type anything to continue: ");
 		Scanner sc = new Scanner(System.in);
-		while (!sc.hasNext()) {
+		while (true) {
+			if (sc.hasNext()) break;
 		}
 		System.out.println(sc.next());
 		handler.run();

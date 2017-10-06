@@ -22,5 +22,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="netty-all-5.0.0.Alpha3-20151217.120754-459" level="project" />
   </component>
 </module>

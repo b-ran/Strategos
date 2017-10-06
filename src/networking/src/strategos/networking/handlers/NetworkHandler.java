@@ -3,7 +3,7 @@ package strategos.networking.handlers;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import strategos.SaveInstance;
-import strategos.networking.Network;
+import strategos.networking.networks.Network;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Handles the top level Networking
  */
+
 public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	private List<ChannelHandlerContext> connections = new ArrayList<>();
@@ -18,6 +19,7 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	/**
 	 * Creates a new network handler with the provided {@code Network}
+	 *
 	 * @param network The network to construct the handler with
 	 */
 	public NetworkHandler(Network network) {
@@ -45,14 +47,15 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 
 	/**
 	 * Sends the provided SaveInstance to each connection
+	 *
 	 * @param instance The SaveInstance to send
 	 */
 	public void send(SaveInstance instance) {
-		connections.forEach(conn-> conn.writeAndFlush(instance));
+		connections.forEach(conn -> conn.writeAndFlush(instance));
 	}
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, SaveInstance msg) throws Exception {
-        network.receive(msg);
+		network.receive(msg);
 	}
 }

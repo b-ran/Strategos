@@ -1,41 +1,56 @@
 package strategos.networking;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import strategos.GameState;
 import strategos.SaveInstance;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 
-import java.io.*;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Tests {
-	@Test
-	void testPacketSerialization() throws IOException, ClassNotFoundException {
-		SaveInstance msg = new TestSaveInstance("This is for testing purposes", 15);
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(bos);
-		oos.writeObject(msg);
-		oos.close();
-		SaveInstance out;
-		ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
-		out = (SaveInstance) ois.readObject();
-		ois.close();
-		assertTrue(out.equals(msg));
+	private SaveInstance testSaveInstance;
+	private TestGameState serverState;
+	private TestGameState clientState;
+	private NetworkingHandler server;
+	private NetworkingHandler client;
+
+	@BeforeEach
+	void setupNetworks() throws InterruptedException {
+		testSaveInstance = new TestSaveInstance("This is for testing purposes", 15);
+		serverState = new TestGameState();
+		clientState = new TestGameState();
+		server = setupHandler(false, serverState);
+		client = setupHandler(true, clientState);
 	}
 
-	/**
-	 * This test requires the user to check the output manually
-	 */
+	@AfterEach
+	void stopNetworks() throws InterruptedException {
+		server.stop();
+		client.stop();
+	}
+
 	@Test
 	void testSendFromServer() throws InterruptedException {
-		NetworkingHandler server = new NetworkingHandlerImpl();
-		NetworkingHandler client = new NetworkingHandlerImpl();
-		server.initialise(new TestGameState(), 8080);
-		client.initialise(new TestGameState(), "127.0.0.1", 8080);
-		server.run();
-		client.run();
-		TestSaveInstance instance = new TestSaveInstance("Testing123", 456);
-		System.out.println("Should be " + instance.i + " and " + instance.s);
-		server.send(instance);
+		server.send(testSaveInstance);
+		assertEquals(testSaveInstance, clientState.instance);
+	}
+
+	@Test
+	void testReceiveFromServer() throws InterruptedException {
+		client.send(testSaveInstance);
+		assertEquals(testSaveInstance, serverState.instance);
+	}
+
+	private NetworkingHandler setupHandler(boolean client, GameState state) throws InterruptedException {
+		NetworkingHandler handler = new NetworkingHandlerImpl();
+		if (client) {
+			handler.initialise(state, 8080);
+		} else {
+			handler.initialise(state, "127.0.0.1", 8080);
+		}
+		handler.run();
+		return handler;
 	}
 }
