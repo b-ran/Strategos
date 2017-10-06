@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 class LoadListener extends Controller implements ActionListener {
 
-    public LoadListener(Controller controller) {
+    LoadListener(Controller controller) {
         super(controller);
     }
 

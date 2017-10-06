@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 class NextTurnListener extends Controller implements ActionListener {
 
-    public NextTurnListener(Controller controller) {
+    NextTurnListener(Controller controller) {
         super(controller);
     }
 

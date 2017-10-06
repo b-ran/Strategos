@@ -30,6 +30,11 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
         return new BehaviourSwordsmen(gameState);
     }
 
+    @Override
+    public Behaviour createBehaviourCastle(GameState gameState) {
+        return new BehaviourBridge(gameState);
+    }
+
     @Override public Behaviour createBehaviourBridge(GameState gameState) {
         return new BehaviourBridge(gameState);
     }

@@ -29,4 +29,9 @@ class BehaviourSwordsmen extends UnitBehaviour {
     @Override public Behaviour copy() {
         return new BehaviourSwordsmen(this);
     }
+
+    @Override
+    public String toString() {
+        return "BehaviourSwordsmen{} " + super.toString();
+    }
 }

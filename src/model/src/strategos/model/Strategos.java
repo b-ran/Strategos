@@ -17,7 +17,7 @@ import java.util.Observer;
  */
 public class Strategos implements GameState {
 	private GameCollections world;
-	private ArrayList<UnitOwner> players = new ArrayList<>();
+	private List<UnitOwner> players = new ArrayList<>();
 	private UnitOwner turn;
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
@@ -61,7 +61,7 @@ public class Strategos implements GameState {
 		amount = Math.min(amount, unit.getActionPoints());
 		MapLocation currentPosition = unit.getPosition();
 		while (amount != 0) {
-			if (!currentPosition.getNeighbour(direction).isInPlayArea() || !canPassUnit(unit, currentPosition, direction)) {
+			if (!currentPosition.getNeighbour(direction).isInPlayArea() || !canPassUnit(unit, currentPosition.getNeighbour(direction))) {
 				break;
 			}
 			currentPosition = currentPosition.getNeighbour(direction);
@@ -73,12 +73,9 @@ public class Strategos implements GameState {
 		}
 	}
 
-	private boolean canPassUnit(Unit mover, MapLocation location, Direction direction) {
-		Unit u = getUnitAt(location.getNeighbour(direction));
-		if (u != null) {
-			return (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
-		}
-		return true;
+	private boolean canPassUnit(Unit mover, MapLocation moveTo) {
+		Unit u = getUnitAt(moveTo);
+		return u == null || (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
 	}
 
 	private void calculateVision(UnitOwner player) {
@@ -150,6 +147,25 @@ public class Strategos implements GameState {
 		return units;
 	}
 
+	@Override
+	public List<Unit> getUnitsInAttackRange(Unit unit) {
+		return getUnitsInRange(unit.getPosition(), unit.getAttackRange());
+	}
+
+	@Override
+	public List<MapLocation> getTilesInMoveRange(Unit unit) {
+		List<MapLocation> potentialTiles = getTilesInRange(unit.getPosition(), 1);
+		List<MapLocation> actualTiles = new ArrayList<>();
+
+		for (MapLocation tile : potentialTiles) {
+			if (tile.isInPlayArea() && canPassUnit(unit, tile)) {
+				actualTiles.add(tile);
+			}
+		}
+
+		return actualTiles;
+	}
+
 	public List<MapLocation> getTilesInRange(MapLocation location, int range) {
 
 		List<MapLocation> tiles = new ArrayList<>();
@@ -182,18 +198,11 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
-		for (int i = 0; i < turn.getUnits().size(); i++) {
-			if (!turn.getUnits().get(i).isAlive()) {
-				turn.getUnits().remove(i);
-			}
-		}
-		for (Unit unit : turn.getUnits()) {
-			// TODO: reset unit action points
-			// TODO: set "moved" to false
-		}
-		for (UnitOwner player : getPlayers()) {
-			calculateVision(player);
-		}
+		turn.getUnits().removeIf(u -> !u.isAlive());
+
+		turn.getUnits().forEach(Unit::turnTick);
+
+		getPlayers().forEach(this::calculateVision);
 
 		int turnIndex = players.indexOf(turn);
 		turnIndex = (turnIndex + 1) % players.size();
@@ -206,7 +215,7 @@ public class Strategos implements GameState {
 	}
 
 	@Override
-	public ArrayList<UnitOwner> getPlayers() {
+	public List<UnitOwner> getPlayers() {
 		return players;
 	}
 
@@ -240,9 +249,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void notifyObservers(Object o) {
-		for (Observer observer : observers) {
-			observer.notify();
-		}
+		observers.forEach(Observer::notify);
 		changed = false;
 	}
 }

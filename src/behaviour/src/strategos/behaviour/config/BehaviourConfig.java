@@ -2,6 +2,8 @@ package strategos.behaviour.config;
 
 
 public class BehaviourConfig {
+    public static final int ENTRENCH_COST = 2;
+    public static final int WARY_COST     = 1;
 
     public static final double ENTRENCH_MODIFIER = 1.3;
     public static final double WARY_MODIFIER     = 1.15;
@@ -26,4 +28,11 @@ public class BehaviourConfig {
 
     public static final int ELITE_STRENGTH  = 20;
     public static final int ELITE_TOUGHNESS = 35;
+
+    public static final int CASTLE_STRENGTH = 20;
+    public static final int CASTLE_TOUGHNESS = 40;
+
+    public static final int MELEE_RANGE  = 1;
+    public static final int ARCHER_RANGE = 2;
+    public static final int CASTLE_RANGE = 2;
 }

@@ -6,7 +6,7 @@ import strategos.terrain.Terrain;
 
 public class GameBoardTestObj implements GameBoard {
 
-    MapLocation[][] map;
+    private MapLocation[][] map;
 
     @Override
     public MapLocation[][] getData() {
@@ -24,7 +24,7 @@ public class GameBoardTestObj implements GameBoard {
     }
 
     @Override
-    public int getRadius() {
+    public int getDiameter() {
         return 0;
     }
 

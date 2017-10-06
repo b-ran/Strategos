@@ -5,6 +5,7 @@ import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface GameState extends Observable {
 
@@ -32,6 +33,18 @@ public interface GameState extends Observable {
 	 * @param amount the magnitude to move by, or the maximum number of action points left.
 	 */
 	public void move(Unit unit, Direction direction, int amount);
+
+
+	/**
+	 * Send a move command to the given Unit. Fail the command if the tile is impassable, already contains a Unit, or
+	 * 		if the Unit does not have enough movement points to satisfy the amount commanded. If the amount is greater
+	 * 		than the number of points, move the Unit its maximum  number of points. Assume that Units may only move in
+	 * 		straight lines.
+	 *
+	 * @param unit the unit to be moved. If this Unit is null, fail the command.
+	 * @param mapLocation the map location to move too.
+	 */
+	public void move(Unit unit, MapLocation mapLocation);
 
 	/**
 	 * Send an attack command to the given Unit, attacking the specified position. Delegate the attack to the Unit
@@ -78,6 +91,23 @@ public interface GameState extends Observable {
 	public List<Unit> getUnitsInRange(MapLocation location, int range);
 
 	/**
+	 * Find all Units within a attack range of a Unit.
+	 *
+	 * @param unit
+	 * @return a List of Units within attack range.
+	 */
+	public List<Unit> getUnitsInAttackRange(Unit unit);
+
+	/**
+	 * Find all Tiles within a within move range of a Unit.
+	 *
+	 * @param unit
+	 * @return a List of Units within move range.
+	 */
+	public List<MapLocation> getTilesInMoveRange(Unit unit);
+
+
+	/**
 	 * Gets the Terrain at a given location. If the MapLocation is not inside the play area, the Terrain is expected to
 	 * 		be a Mountain.
 	 * @param location
@@ -101,7 +131,7 @@ public interface GameState extends Observable {
 
 	public GameCollections getWorld();
 
-	public ArrayList<UnitOwner> getPlayers();
+	public List<UnitOwner> getPlayers();
 
 	public List<SaveInstance> getSaves();
 

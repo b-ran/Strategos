@@ -1,29 +1,23 @@
 package strategos.ui.controller;
 
+import strategos.MapLocation;
+import strategos.units.Unit;
+
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
-class MoveListener extends Controller implements MouseListener, KeyListener {
+class MoveListener extends Controller implements MouseListener {
 
-    public MoveListener(Controller controller) {
+    private Controller controller;
+
+    MoveListener(Controller controller) {
         super(controller);
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+        this.controller = controller;
     }
 
     @Override
@@ -33,6 +27,15 @@ class MoveListener extends Controller implements MouseListener, KeyListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        Point p = getHexPos(e.getX(),e.getY());
+        Unit selectedUnit = model.getUnitAt(controller.getSelectedMapLocation());
+        if (selectedUnit == null) return;
+        List<MapLocation> mapLocations = model.getTilesInMoveRange(selectedUnit);
+        for (MapLocation maplocation : mapLocations) {
+            if (maplocation.getX() == p.x && maplocation.getY() == p.y) {
+                model.move(selectedUnit, maplocation);
+            }
+        }
 
     }
 

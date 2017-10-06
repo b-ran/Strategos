@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 class EntrenchListener extends Controller implements MouseListener, KeyListener {
 
-    public EntrenchListener(Controller controller) {
+    EntrenchListener(Controller controller) {
         super(controller);
     }
 
