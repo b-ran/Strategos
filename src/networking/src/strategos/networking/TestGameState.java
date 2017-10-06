@@ -37,6 +37,11 @@ public class TestGameState implements GameState {
 	}
 
 	@Override
+	public void move(Unit unit, MapLocation mapLocation) {
+
+	}
+
+	@Override
 	public void attack(Unit unit, int targetX, int targetY) {
 
 	}
