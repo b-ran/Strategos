@@ -14,5 +14,15 @@
     <orderEntry type="module" module-name="util" />
     <orderEntry type="library" name="netty-all-5.0.0.Alpha3-20151217.120754-459" level="project" />
     <orderEntry type="library" scope="TEST" name="junit-jupiter-api-5.0.0-M5" level="project" />
+    <orderEntry type="module-library" scope="TEST">
+      <library name="JUnit5">
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/plugins/junit/lib/junit-jupiter-api-5.0.0.jar!/" />
+          <root url="jar://$APPLICATION_HOME_DIR$/plugins/junit/lib/opentest4j-1.0.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
