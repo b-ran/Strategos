@@ -2,7 +2,9 @@ package strategos;
 
 import strategos.terrain.Terrain;
 
-public interface GameBoard {
+import java.io.Serializable;
+
+public interface GameBoard extends Serializable {
 
 	public MapLocation[][] getData();
 

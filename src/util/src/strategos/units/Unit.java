@@ -4,8 +4,10 @@ package strategos.units;
 import strategos.*;
 import strategos.behaviour.Behaviour;
 
+import java.io.Serializable;
 
-public interface Unit {
+
+public interface Unit extends Serializable {
 
     void setBehaviour(Behaviour behaviour);
 
