@@ -18,7 +18,7 @@ abstract class StaticBehaviour extends BaseBehaviour {
     }
 
     @Override public int getHitpoints(Unit unit) {
-        return 1;
+        return isAlive ? 100 : 0;
     }
 
     StaticBehaviour(GameState gameState) {
@@ -75,6 +75,25 @@ abstract class StaticBehaviour extends BaseBehaviour {
         return 0;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        StaticBehaviour that = (StaticBehaviour) o;
+
+        return isAlive == that.isAlive;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (isAlive ? 1 : 0);
+        return result;
+    }
+
     @Override public boolean isAlive(Unit unit) {
         return isAlive;
     }
@@ -84,6 +103,18 @@ abstract class StaticBehaviour extends BaseBehaviour {
     }
 
     @Override public int getActionPoints(Unit unit) {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "StaticBehaviour{" +
+                "isAlive=" + isAlive +
+                "} " + super.toString();
+    }
+
+    @Override
+    public int getAttackRange() {
         return 0;
     }
 }

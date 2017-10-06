@@ -30,7 +30,7 @@ public class GridComponent extends JComponent {
     /**
      * Instantiates a new Grid component for drawing on.
      */
-     GridComponent() {
+    GridComponent() {
         setLayout(new BorderLayout());
         setPreferredSize(GRID_COMPONENT_SIZE);
     }
@@ -40,7 +40,7 @@ public class GridComponent extends JComponent {
      *
      * @return the grid
      */
-     JLayeredPane getGrid() {
+    JLayeredPane getGrid() {
         JLayeredPane p = new JLayeredPane();
         p.setLayout(new BorderLayout());
         p.setPreferredSize(GRID_COMPONENT_SIZE);
@@ -49,7 +49,7 @@ public class GridComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        paintBlackTerrain(g, terrain);
+        //paintBlackTerrain(g, terrain);
         //TODO: view range UnitOwner.getVisibleTiles()
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
@@ -64,35 +64,14 @@ public class GridComponent extends JComponent {
             TODO            make draw() take an image and call unit.getSprite(). Then there is no need to use
             TODO            instanceof. This can be similarly neatened with paintTerrain()
              */
-            if (unit instanceof Archers) {
-                drawEntity.draw((Archers)unit, g);
-            } else if (unit instanceof Cavalry) {
-                drawEntity.draw((Cavalry)unit, g);
-            } else if (unit instanceof Elite) {
-                drawEntity.draw((Elite)unit, g);
-            } else if (unit instanceof Spearmen) {
-                drawEntity.draw((Spearmen)unit, g);
-            } else if (unit instanceof Swordsmen) {
-                drawEntity.draw((Swordsmen)unit, g);
-            }
-         }
+            drawEntity.draw(unit, g);
+        }
     }
 
-    private void paintTerrain(Graphics g, MapLocation[][] terrain) {
-        for (int y = 0; y < terrain.length; y++) {
-            for (int x = 0; x < terrain[0].length; x++) {
-                Terrain t = terrain[y][x].getTerrain();
-                if (t instanceof Forest) {
-                    drawEntity.draw((Forest)t, g, x, y);
-                } else if (t instanceof Hill) {
-                    drawEntity.draw((Hill)t, g, x, y);
-                } else if (t instanceof Mountain) {
-                    drawEntity.draw((Mountain)t, g, x, y);
-                } else if (t instanceof Plains) {
-                    drawEntity.draw((Plains)t, g, x, y);
-                } else if (t instanceof River) {
-                    drawEntity.draw((River)t, g, x, y);
-                }
+    private void paintTerrain(Graphics g, MapLocation[][] mapLocations) {
+        for (int y = 0; y < mapLocations.length; y++) {
+            for (int x = 0; x < mapLocations[0].length; x++) {
+                drawEntity.draw(mapLocations[y][x], x, y, g);
             }
         }
     }
@@ -101,7 +80,7 @@ public class GridComponent extends JComponent {
         g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
+                //drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
             }
         }
     }

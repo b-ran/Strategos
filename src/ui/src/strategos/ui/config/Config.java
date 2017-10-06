@@ -31,7 +31,7 @@ public class Config {
 
     public static final Dimension GRID_COMPONENT_SIZE = new Dimension(980, 600);
 
-    public static final Integer HEX_SIZE = 80;
+    public static final Integer HEX_SIZE = 40;
 
     public static final Color NPC_COLOR = Color.YELLOW;
 
@@ -77,6 +77,9 @@ public class Config {
     public static final Dimension SIDE_PANEL_SIZE = new Dimension(400, 40);
 
     public static final Dimension SIDEPANEL_BUTTON_SIZE = new Dimension(80,100);
+
+    public static final Point SELECTION_LOCATION = new Point(20,20);
+
 
     //Text
     public static final String WARY_BUTTON_NAME = "Wary";

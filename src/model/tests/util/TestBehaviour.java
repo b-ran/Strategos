@@ -133,4 +133,9 @@ public class TestBehaviour implements Behaviour {
 
 		return behaviour;
 	}
+
+	@Override
+	public int getAttackRange() {
+		return 1;
+	}
 }

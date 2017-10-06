@@ -5,6 +5,7 @@ import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface GameState extends Observable {
 
@@ -32,6 +33,18 @@ public interface GameState extends Observable {
 	 * @param amount the magnitude to move by, or the maximum number of action points left.
 	 */
 	public void move(Unit unit, Direction direction, int amount);
+
+
+	/**
+	 * Send a move command to the given Unit. Fail the command if the tile is impassable, already contains a Unit, or
+	 * 		if the Unit does not have enough movement points to satisfy the amount commanded. If the amount is greater
+	 * 		than the number of points, move the Unit its maximum  number of points. Assume that Units may only move in
+	 * 		straight lines.
+	 *
+	 * @param unit the unit to be moved. If this Unit is null, fail the command.
+	 * @param mapLocation the map location to move too.
+	 */
+	public void move(Unit unit, MapLocation mapLocation);
 
 	/**
 	 * Send an attack command to the given Unit, attacking the specified position. Delegate the attack to the Unit

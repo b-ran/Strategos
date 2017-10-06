@@ -1,5 +1,8 @@
 package strategos.ui.view;
 
+import strategos.MapLocation;
+import strategos.units.Unit;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,29 +11,31 @@ import static strategos.ui.config.Config.*;
 /**
  * The type Side component.
  */
-class SideComponent extends JComponent {
-
+public class SideComponent extends JComponent {
 
     private JButton waryButton = new JButton(WARY_BUTTON_NAME);
     private JButton chargeButton = new JButton(CHARGE_BUTTON_NAME);
     private JButton attackButton = new JButton(ATTACK_BUTTON_NAME);
     private JButton nextTurnButton = new JButton(NEXT_TURN_BUTTON_NAME);
+    private DrawEntity drawEntity = new DrawEntity();
+    private MapLocation selectedMapLocation;
+    private Unit selectedUnit;
 
     /**
      * Instantiates a new Side component for drawing on.
      */
-    protected SideComponent() {
+    SideComponent() {
         setLayout(new BorderLayout());
         setPreferredSize(SIDE_COMPONENT_SIZE);
     }
 
-
     /**
+     *
      * Gets side panel for buttons.
      *
      * @return the side panel
      */
-    public JPanel getSidePanel() {
+    JPanel getSidePanel() {
         JPanel p = new JPanel();
         p.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
@@ -49,4 +54,26 @@ class SideComponent extends JComponent {
         return p;
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        paintSelection(g);
+    }
+
+    private void paintSelection(Graphics g) {
+        if (selectedMapLocation == null) return;
+        if (selectedUnit != null) {
+            drawEntity.drawUnitPos(selectedUnit, SELECTION_LOCATION.x, SELECTION_LOCATION.y, g);
+            return;
+        }
+        drawEntity.draw(selectedMapLocation,SELECTION_LOCATION.x, SELECTION_LOCATION.y, g);
+    }
+
+    private void paintHealth(Graphics g) {
+
+    }
+
+    public void setSelection(MapLocation selectedMapLocation, Unit selectedUnit) {
+        this.selectedMapLocation = selectedMapLocation;
+        this.selectedUnit = selectedUnit;
+    }
 }

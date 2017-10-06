@@ -1,6 +1,6 @@
 package strategos.ui.controller;
 
-import strategos.terrain.Plains;
+
 import strategos.units.Unit;
 
 import java.awt.*;
@@ -70,8 +70,10 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
         Unit selectedUnit = model.getUnitAt(controller.getSelectedMapLocation());
         if (selectedUnit == null) {
             view.getGridComponent().setSelection(controller.getSelectedMapLocation());
+            view.getSideComponent().setSelection(controller.getSelectedMapLocation(), null);
         } else {
             view.getGridComponent().setSelection(controller.getSelectedMapLocation(), model.getUnitsInAttackRange(selectedUnit),  model.getTilesInMoveRange(selectedUnit));
+            view.getSideComponent().setSelection(controller.getSelectedMapLocation(), selectedUnit);
         }
         view.repaint();
     }

@@ -1,33 +1,33 @@
 package strategos.behaviour;
 
 
-import strategos.*;
-import strategos.behaviour.config.*;
-import strategos.units.*;
+import strategos.GameState;
+import strategos.behaviour.config.BehaviourConfig;
+import strategos.units.Unit;
 
 
-class BehaviourArchers extends UnitBehaviour {
+class BehaviourCastle extends UnitBehaviour {
 
     //TODO: Where is your javadoc?
 
-    BehaviourArchers(GameState gameState) {
+    BehaviourCastle(GameState gameState) {
         super(gameState);
     }
 
-    private BehaviourArchers(BehaviourArchers behaviourArchers) {
-        super(behaviourArchers);
+    private BehaviourCastle(BehaviourCastle behaviourCastle) {
+        super(behaviourCastle);
     }
 
     @Override public int getStrength(Unit unit) {
-        return BehaviourConfig.ARCHERS_STRENGTH;
+        return BehaviourConfig.CASTLE_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return BehaviourConfig.ARCHERS_TOUGHNESS;
+        return BehaviourConfig.CASTLE_TOUGHNESS;
     }
 
     @Override public Behaviour copy() {
-        return new BehaviourArchers(this);
+        return new BehaviourCastle(this);
     }
 
     @Override public void charge(Unit unit) {
@@ -55,8 +55,13 @@ class BehaviourArchers extends UnitBehaviour {
     }
 
     @Override
+    int getMaxActionPoints() {
+        return 0;
+    }
+
+    @Override
     public int getAttackRange() {
-        return BehaviourConfig.ARCHER_RANGE;
+        return BehaviourConfig.CASTLE_RANGE;
     }
 
     @Override

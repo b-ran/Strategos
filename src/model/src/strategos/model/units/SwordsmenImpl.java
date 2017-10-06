@@ -13,16 +13,17 @@ import strategos.units.Unit;
  */
 public class SwordsmenImpl extends UnitImpl implements Swordsmen {
 
-	public SwordsmenImpl(UnitOwner owner) {
-		super(owner);
+
+	public SwordsmenImpl(UnitOwner owner, MapLocation startLocation) {
+		super(owner, startLocation);
 	}
 
-	public SwordsmenImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+	public SwordsmenImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		super(behaviour, owner, startLocation);
 	}
 
 	@Override
 	public Unit copy() {
-		return new SwordsmenImpl(getBehaviour().copy(), getOwner());
+		return new SwordsmenImpl(getBehaviour().copy(), getOwner(), getPosition());
 	}
 }

@@ -39,10 +39,10 @@ public class Map implements GameBoard {
 	private Hex[][] constructMap(int diameter) {
 		Hex[][] map = new Hex[diameter][diameter];
 
-			for (int r = 0; r < diameter; r++) {
-					for (int q = 0; q < diameter; q++) {
-						map[q][r] = new Hex(q, r, false);
-					}
+		for (int r = 0; r < diameter; r++) {
+			for (int q = 0; q < diameter; q++) {
+				map[q][r] = new Hex(q, r, false);
+			}
 		}
 		boolean left = true;
 		int offset = diameter / 2;
@@ -62,7 +62,6 @@ public class Map implements GameBoard {
 			if (offset == 0) {
 				left = !left;
 			}
-
 		}
 
 		for (int r = 0; r < map.length; r++) {

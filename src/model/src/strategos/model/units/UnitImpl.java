@@ -12,12 +12,13 @@ public class UnitImpl implements Graphical, Unit {
 	private Behaviour behaviour;
 	private UnitOwner owner;
 
-	public UnitImpl(UnitOwner owner) {
+	public UnitImpl(UnitOwner owner, MapLocation startLocation) {
 		this.owner = owner;
 	}
 
-	public UnitImpl(Behaviour behaviour, UnitOwner owner) {
+	public UnitImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
 		setBehaviour(behaviour);
+		setPosition(startLocation);
 		this.owner = owner;
 	}
 
@@ -122,7 +123,12 @@ public class UnitImpl implements Graphical, Unit {
 	}
 
 	@Override
+	public int getAttackRange() {
+		return behaviour.getAttackRange();
+	}
+
+	@Override
 	public Unit copy() {
-		return new UnitImpl(getBehaviour().copy(), getOwner());
+		return new UnitImpl(getBehaviour().copy(), getOwner(), getPosition());
 	}
 }
