@@ -1,3 +1,6 @@
+package noisegenerationtests;
+
+
 import mapcreation.mapgeneration.TerrainGeneration;
 import mapcreation.noisegeneration.noiseutil.PrintMap;
 import org.junit.Test;
@@ -57,7 +60,7 @@ class TestResources {
     };
 
     /**
-     * For filling TestResources.TestMap
+     * For filling TestResources.testMap
      */
     @Test
     public void fillTestMap() {
