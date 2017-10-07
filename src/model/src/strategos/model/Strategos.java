@@ -10,9 +10,6 @@ import strategos.units.Unit;
 import java.util.*;
 import java.util.Observable;
 
-import static strategos.Config.MAP_DIAMETER;
-import static strategos.Config.NUM_SWORDSMEN;
-
 /**
  * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
  * 		libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
@@ -24,6 +21,7 @@ public class Strategos implements GameState {
 	private UnitOwner turn;
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
+	private UnitOwner thisInstancePlayer;
 
 	private List<SaveInstance> saves = new ArrayList<>();
 
@@ -33,6 +31,16 @@ public class Strategos implements GameState {
 		players.add(playerTwo);
 		players.add(barbarians);
 		turn = playerOne;
+	}
+
+	@Override
+	public UnitOwner getThisInstancePlayer() {
+		return thisInstancePlayer;
+	}
+
+	@Override
+	public void setThisInstancePlayer(UnitOwner thisInstancePlayer) {
+		this.thisInstancePlayer = thisInstancePlayer;
 	}
 
 	public void save() {
