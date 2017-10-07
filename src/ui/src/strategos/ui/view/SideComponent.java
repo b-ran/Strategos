@@ -18,7 +18,7 @@ public class SideComponent extends JComponent {
     private JButton entrenchButton = new JButton(ENTRENCH_BUTTON_NAME);
     private JButton attackButton = new JButton(ATTACK_BUTTON_NAME);
     private JButton nextTurnButton = new JButton(NEXT_TURN_BUTTON_NAME);
-    private DrawEntity drawEntity = new DrawEntity();
+    private DrawEntity drawEntity;
     private MapLocation selectedMapLocation;
     private Unit selectedUnit;
     private String playerText = PLAYER_NAME;
@@ -26,9 +26,10 @@ public class SideComponent extends JComponent {
     /**
      * Instantiates a new Side component for drawing on.
      */
-    SideComponent() {
+    SideComponent(View view) {
         setLayout(new BorderLayout());
         setPreferredSize(SIDE_COMPONENT_SIZE);
+        drawEntity = new DrawEntity(view);
     }
 
     /**
@@ -84,9 +85,6 @@ public class SideComponent extends JComponent {
         this.selectedUnit = selectedUnit;
     }
 
-    public void togglePlayer() {
-
-    }
 
     public void setPlayerText(String playerText) {
         this.playerText = playerText;
