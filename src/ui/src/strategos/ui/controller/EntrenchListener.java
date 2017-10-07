@@ -15,7 +15,9 @@ class EntrenchListener extends Controller implements ActionListener {
     }
 
     @Override public void actionPerformed(ActionEvent e) {
-        Unit unit = controller.model.getUnitAt(getSelectedMapLocation());
-        controller.model.entrench(unit);
+        Unit unit = controller.model.getUnitAt(controller.getSelectedMapLocation());
+        if (unit != null) {
+            controller.model.entrench(unit);
+        }
     }
 }

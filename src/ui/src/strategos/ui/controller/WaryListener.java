@@ -15,7 +15,9 @@ class WaryListener extends Controller implements ActionListener {
     }
 
     @Override public void actionPerformed(ActionEvent e) {
-        Unit unit = controller.model.getUnitAt(getSelectedMapLocation());
-        controller.model.wary(unit);
+        Unit unit = controller.model.getUnitAt(controller.getSelectedMapLocation());
+        if (unit != null) {
+            controller.model.wary(unit);
+        }
     }
 }
