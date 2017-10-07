@@ -14,7 +14,7 @@ import static strategos.ui.config.Config.*;
 public class SideComponent extends JComponent {
 
     private JButton waryButton = new JButton(WARY_BUTTON_NAME);
-    private JButton chargeButton = new JButton(CHARGE_BUTTON_NAME);
+    private JButton entrenchButton = new JButton(ENTRENCH_BUTTON_NAME);
     private JButton attackButton = new JButton(ATTACK_BUTTON_NAME);
     private JButton nextTurnButton = new JButton(NEXT_TURN_BUTTON_NAME);
     private DrawEntity drawEntity = new DrawEntity();
@@ -40,12 +40,12 @@ public class SideComponent extends JComponent {
         p.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         waryButton.setMaximumSize(SIDEPANEL_BUTTON_SIZE);
-        chargeButton.setMaximumSize(SIDEPANEL_BUTTON_SIZE);
+        entrenchButton.setMaximumSize(SIDEPANEL_BUTTON_SIZE);
         attackButton.setMaximumSize(SIDEPANEL_BUTTON_SIZE);
         nextTurnButton.setMaximumSize(SIDEPANEL_BUTTON_SIZE);
 
         p.add(waryButton);
-        p.add(chargeButton);
+        p.add(entrenchButton);
         p.add(attackButton);
         p.add(nextTurnButton);
 

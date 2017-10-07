@@ -84,7 +84,7 @@ public class Config {
     //Text
     public static final String WARY_BUTTON_NAME = "Wary";
 
-    public static final String CHARGE_BUTTON_NAME = "Charge";
+    public static final String ENTRENCH_BUTTON_NAME = "Entrench";
 
     public static final String ATTACK_BUTTON_NAME = "Attack";
 
