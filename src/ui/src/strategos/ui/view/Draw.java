@@ -99,6 +99,7 @@ public class Draw implements GraphicalVisitor{
 
     }
 
+    //Credit for solution drawing inside a hexagon https://stackoverflow.com/questions/21632411/texture-background-image-for-polygon
     private BufferedImage getTexturedImage(BufferedImage image, Shape hex, Point p) {
         Rectangle bounds = hex.getBounds();
         BufferedImage texture = new BufferedImage(bounds.width+2, bounds.height+2, BufferedImage.TYPE_INT_ARGB);
