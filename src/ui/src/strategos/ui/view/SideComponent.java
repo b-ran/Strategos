@@ -76,4 +76,12 @@ public class SideComponent extends JComponent {
         this.selectedMapLocation = selectedMapLocation;
         this.selectedUnit = selectedUnit;
     }
+
+    public JButton getWaryButton() {
+        return waryButton;
+    }
+
+    public JButton getEntrenchButton() {
+        return entrenchButton;
+    }
 }
