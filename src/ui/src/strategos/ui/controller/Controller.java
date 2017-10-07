@@ -73,12 +73,18 @@ public class Controller {
     private void setMenuListeners() {
         MenuComponent m = view.getMenuComponent();
         MenuComponent e = view.getEscapeMenuComponent();
+        MenuComponent l = view.getLoadMenuComponent();
 
         m.getNewGameButton().addActionListener(new NewGameListener(this));
         m.getLoadButton().addActionListener(new LoadListener(this));
         m.getConnectButton().addActionListener(new ConnectListener(this));
         m.getHostButton().addActionListener(new HostListener(this));
         m.getExitButton().addActionListener(new ExitListener(this));
+
+        for (int i = 1; i <= 3; i++) {
+            l.getSaveSlot(i).addActionListener(new LoadSlotListener(this, i));
+        }
+        l.getExitButton().addActionListener(new BackListener(this));
 
         e.getResumeButton().addActionListener(new ResumeListener(this));
         e.getNewGameButton().addActionListener(new NewGameListener(this));
