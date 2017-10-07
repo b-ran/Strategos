@@ -60,6 +60,7 @@ public class SideComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         paintSelection(g);
         paintPlayerText(g);
+        paintLabels(g);
     }
 
     private void paintPlayerText(Graphics g) {
@@ -76,9 +77,16 @@ public class SideComponent extends JComponent {
         drawEntity.draw(selectedMapLocation,SELECTION_LOCATION.x, SELECTION_LOCATION.y, g);
     }
 
-    private void paintHealth(Graphics g) {
+    private void paintLabels(Graphics g) {
+        if (selectedUnit == null) return;
+        g.setColor(Color.BLACK);
+        g.drawString(HEALTH_LABEL_NAME + " " + selectedUnit.getHitpoints(), HEALTH_LABEL_LOCATION.x, HEALTH_LABEL_LOCATION.y);
+        g.drawString(ACTIONPOINT_LABEL_NAME + " " + selectedUnit.getActionPoints(), ACTIONPOINT_LABEL_LOCATION.x, ACTIONPOINT_LABEL_LOCATION.y);
+        g.drawString(ENTRENCH_LABEL_NAME + " " + selectedUnit.getEntrench(), ENTRENCH_LABEL_LOCATION.x, ENTRENCH_LABEL_LOCATION.y);
+        g.drawString(WARY_LABEL_NAME + " " + selectedUnit.getWary(), WARY_LABEL_LOCATION.x, WARY_LABEL_LOCATION.y);
 
     }
+
 
     public void setSelection(MapLocation selectedMapLocation, Unit selectedUnit) {
         this.selectedMapLocation = selectedMapLocation;
