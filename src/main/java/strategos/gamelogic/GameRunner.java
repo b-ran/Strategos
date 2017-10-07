@@ -26,44 +26,24 @@ public class GameRunner {
 
 	private Ui ui;
 	private GameState gameState;
-	private BehaviourFactory factory;
+	private static BehaviourFactory factory;
 
 	public GameRunner() {
 		TerrainGeneration generator = new TerrainGeneration();
 		factory = new BehaviourFactoryImpl();
-		Map map = new Map(MAP_DIAMETER);
-		Paintable[][] terrainMap = generator.populateMap(map.getData());
 
-		for (int x = 0; x < terrainMap.length; x++) {
-			for (int y = 0; y < terrainMap.length; y++) {
-				map.getData()[x][y].setTerrain(terrainMap[x][y].getTerrain());
-			}
-		}
+		gameState = createNewState(generator);
 
-		List<UnitOwner> players = constructPlayers();
-
-		World world = new World(map, new ArrayList<>());
-		gameState = new Strategos(world, players.get(0), players.get(1), players.get(2));
-
-		populateUnits(gameState.getPlayers());
+		/*populateUnits(gameState.getPlayers());
 
 		List<Unit> allUnits = new ArrayList<>();
 		for (UnitOwner player : players) {
 			allUnits.addAll(player.getUnits());
-		}
+		}*/
 
-		world.setAllUnits(allUnits);
+//		world.setAllUnits(allUnits);
 
 		ui = new Ui(gameState);
-	}
-
-	public List<UnitOwner> constructPlayers() {
-		List<UnitOwner> unitOwners = new ArrayList<>();
-		unitOwners.add(new Player(false));
-		unitOwners.add(new Player(false));
-		unitOwners.add(new Player(true));
-
-		return unitOwners;
 	}
 
 	public void populateUnits(List<UnitOwner> unitOwners) {
@@ -109,6 +89,63 @@ public class GameRunner {
 		units.add(new SpearmenImpl(factory.createAiBehaviour(gameState, factory::createBehaviourSpearmen), player));*/
 
 		return units;
+	}
+
+	public static GameState createNewState(TerrainGeneration generator) {
+
+		Map map = new Map(MAP_DIAMETER);
+		Paintable[][] terrainMap = generator.populateMap(map.getData());
+
+		for (int x = 0; x < terrainMap.length; x++) {
+			for (int y = 0; y < terrainMap.length; y++) {
+				map.getData()[x][y].setTerrain(terrainMap[x][y].getTerrain());
+			}
+		}
+
+		UnitOwner playerOne = new Player(false);
+		UnitOwner playerTwo = new Player(false);
+		UnitOwner barbarians = new Player(true);
+		GameState newState = new Strategos(new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
+
+		for (UnitOwner player : newState.getPlayers()) {
+			if (player.isNPC()) {
+				continue;
+			}
+			List<Unit> units = new ArrayList<>();
+			MapLocation startLocation = newState.getWorld().getMap().get(MAP_DIAMETER / 2, 0);
+			int direction = 1;
+
+			if (newState.getPlayers().indexOf(player) == 0) {
+				startLocation = newState.getWorld().getMap().get(MAP_DIAMETER / 2, MAP_DIAMETER - 1);
+				direction = -1;
+			}
+
+			for (int i = 0; i < NUM_SWORDSMEN; i++) {
+				Behaviour behaviour = factory.createBehaviourSwordsmen(newState);
+				units.add(new SwordsmenImpl(behaviour, player, newState.getWorld().getMap().get(startLocation.getX() + (i + 4) * direction, startLocation.getY() + (i * direction))));
+			}
+			for (int i = 0; i < NUM_SPEARMEN; i++) {
+				Behaviour behaviour = factory.createBehaviourSpearmen(newState);
+				units.add(new SpearmenImpl(behaviour, player, newState.getWorld().getMap().get(startLocation.getX() + (i + 3) * direction, startLocation.getY() + (i * direction))));
+			}
+			for (int i = 0; i < NUM_ARCHERS; i++) {
+				Behaviour behaviour = factory.createBehaviourArchers(newState);
+				units.add(new ArchersImpl(behaviour, player, newState.getWorld().getMap().get(startLocation.getX() + (i + 2) * direction, startLocation.getY() + (i * direction))));
+			}
+			for (int i = 0; i < NUM_CAVALRY; i++) {
+				Behaviour behaviour = factory.createBehaviourCavalry(newState);
+				units.add(new CavalryImpl(behaviour, player, newState.getWorld().getMap().get(startLocation.getX() + (i + 1) * direction, startLocation.getY() + (i * direction))));
+			}
+			for (int i = 0; i < NUM_ELITES; i++) {
+				Behaviour behaviour = factory.createBehaviourElite(newState);
+				units.add(new EliteImpl(behaviour, player, newState.getWorld().getMap().get(startLocation.getX(), startLocation.getY() + (i * direction))));
+			}
+
+			player.setUnits(units);
+			newState.getWorld().getAllUnits().addAll(units);
+		}
+
+		return newState;
 	}
 
 	public void run() {
