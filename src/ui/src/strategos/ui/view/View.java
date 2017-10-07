@@ -2,14 +2,11 @@ package strategos.ui.view;
 
 
 import strategos.GameState;
-import strategos.MapLocation;
-import strategos.terrain.Terrain;
+import strategos.UnitOwner;
 import strategos.ui.config.Config;
-import strategos.units.Unit;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,6 +19,7 @@ public class View extends JComponent implements Observer {
 
     private JFrame frame; //Overall Frame
     private GameState model;
+    private UnitOwner uiOwner;
 
     private MenuComponent menuComponent = new MenuComponent();
     private MenuComponent escapeMenuComponent = new MenuComponent();
@@ -46,9 +44,11 @@ public class View extends JComponent implements Observer {
      * Instantiates a new View.
      *
      * @param model the model
+     * @param uiOwner
      */
-    public View(GameState model) {
+    public View(GameState model, UnitOwner uiOwner) {
         this.model = model;
+        this.uiOwner = uiOwner;
         frame = new JFrame(Config.WINDOW_NAME);
         setMenu();
     }
@@ -176,5 +176,9 @@ public class View extends JComponent implements Observer {
 
     public SideComponent getSideComponent() {
         return sideComponent;
+    }
+
+    public UnitOwner getUiOwner() {
+        return uiOwner;
     }
 }
