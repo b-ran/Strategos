@@ -22,7 +22,7 @@ public class GridComponent extends JComponent {
     private MapLocation[][] terrain;
     private MapLocation[][] seenTerrain;
     private List<Unit> entities;
-    private DrawEntity drawEntity = new DrawEntity();
+    private DrawEntity drawEntity;
     private MapLocation selectedMapLocation;
     private List<Unit> selectedUnitsInRange = new ArrayList<>();
     private List<MapLocation> selectedTilesInRange = new ArrayList<>();
@@ -30,9 +30,10 @@ public class GridComponent extends JComponent {
     /**
      * Instantiates a new Grid component for drawing on.
      */
-    GridComponent() {
+    GridComponent(View view) {
         setLayout(new BorderLayout());
         setPreferredSize(GRID_COMPONENT_SIZE);
+        drawEntity = new DrawEntity(view);
     }
 
     /**

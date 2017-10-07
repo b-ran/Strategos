@@ -2,14 +2,11 @@ package strategos.ui.view;
 
 
 import strategos.GameState;
-import strategos.MapLocation;
-import strategos.terrain.Terrain;
+import strategos.UnitOwner;
 import strategos.ui.config.Config;
-import strategos.units.Unit;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,12 +19,13 @@ public class View extends JComponent implements Observer {
 
     private JFrame frame; //Overall Frame
     private GameState model;
+    private UnitOwner uiOwner;
 
     private MenuComponent menuComponent = new MenuComponent();
     private MenuComponent escapeMenuComponent = new MenuComponent();
-    private MenuComponent loadComponent = new MenuComponent();
-    private GridComponent gridComponent = new GridComponent();
-    private SideComponent sideComponent = new SideComponent();
+    private MenuComponent loadComponent = new MenuComponent(this);
+    private GridComponent gridComponent = new GridComponent(this);
+    private SideComponent sideComponent = new SideComponent(this);
 
     private JPanel menuPanel = menuComponent.setMenu();
     private JPanel escapeMenuPanel = escapeMenuComponent.setEscapeMenu();
@@ -51,7 +49,9 @@ public class View extends JComponent implements Observer {
      */
     public View(GameState model) {
         this.model = model;
+        this.uiOwner = model.getCurrentTurn();
         frame = new JFrame(Config.WINDOW_NAME);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMenu();
     }
 
@@ -190,8 +190,12 @@ public class View extends JComponent implements Observer {
     public SideComponent getSideComponent() {
         return sideComponent;
     }
-
+    
     public MenuComponent getLoadMenuComponent() {
         return loadComponent;
+    }
+    
+    public UnitOwner getUiOwner() {
+        return uiOwner;
     }
 }

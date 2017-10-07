@@ -1,25 +1,41 @@
 package strategos.ui.view;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.IOException;
+import java.io.InputStream;
 
+import strategos.GameState;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.units.*;
 import strategos.terrain.*;
+
+import javax.imageio.ImageIO;
 
 import static strategos.ui.config.Config.*;
 
 /**
  * The type Entity image.
  */
-class DrawEntity {
+class DrawEntity{
 
-    /*
-    TODO - REVIEW: This has a lot of duplicated code (which makes sense at this level of development) but it would be
-    TODO            better to use polymorphism and just draw the sprite stored within Unit (or within the Graphical interface
-    TODO            which Unit implements). Graphical could also store the letter and colour, and apply to Terrain as well
-     */
 
+    private View view;
+    private BufferedImage plainsImage = null;
+
+    DrawEntity(View view) {
+        this.view = view;
+
+        InputStream stream = this.getClass().getClassLoader().getResourceAsStream("strategos/ui/view/resources/tempPlains.png");
+        try {
+            plainsImage = ImageIO.read(stream);
+        } catch (IOException e) {
+            System.out.println(stream.toString());
+        }
+    }
+    
     private void draw(Archers archers, int x, int y, Graphics g) {
         setUnitColor(archers, g);
         g.fillOval(x, y , HEX_SIZE/2, HEX_SIZE/2);
@@ -151,7 +167,9 @@ class DrawEntity {
      */
     void draw(Plains plains, Graphics g, int x, int y) {
         Point p = getTerrainGridPos(new Point(x,y));
-        fillHexagon(g, p.x, p.y, TERRAIN_PLAINS_COLOR);
+
+        g.drawImage(plainsImage, p.x, p.y, HEX_SIZE, HEX_SIZE, null);
+        //fillHexagon(g, p.x, p.y, TERRAIN_PLAINS_COLOR);
     }
 
     /**
@@ -187,7 +205,7 @@ class DrawEntity {
         UnitOwner owner = unit.getOwner();
         if (owner.isNPC()) {
             g.setColor(NPC_COLOR);
-        } else if (owner.getUnits().contains(unit)) {
+        } else if (view.getUiOwner().getUnits().contains(unit)) {
             g.setColor(PLAYER_COLOR);
         } else {
             g.setColor(OTHER_PLAYER_COLOR);
