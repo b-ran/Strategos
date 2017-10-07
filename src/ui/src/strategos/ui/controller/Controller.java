@@ -38,10 +38,14 @@ public class Controller {
     protected View view;
 
     private MapLocation selectedMapLocation;
+    private Unit selectedUnit;
+    private List<MapLocation> tilesInMoveRange;
+    private List<Unit> unitsInAttackRange;
+    private boolean selectionToggle = true;
+
     Boolean allInput = true;
     private boolean menuToggle = false;
     UnitOwner uiOwner;
-
 
     /**
      * Instantiates a new Controller Clone.
@@ -158,5 +162,50 @@ public class Controller {
 
     void setSelectedMapLocation(MapLocation selectedMapLocation) {
         this.selectedMapLocation = selectedMapLocation;
+        if (selectedMapLocation == null) {
+            selectionHelper();
+            return;
+        }
+        selectedUnit = model.getUnitAt(selectedMapLocation);
+        if (selectedUnit == null) {
+            selectionToggle = false;
+            view.getGridComponent().setSelection(selectedMapLocation);
+            view.getSideComponent().setSelection(selectedMapLocation, null);
+        } else {
+            selectionToggle = true;
+            unitsInAttackRange = model.getUnitsInAttackRange(selectedUnit);
+            tilesInMoveRange = model.getTilesInMoveRange(selectedUnit);
+            view.getGridComponent().setSelection(selectedMapLocation, unitsInAttackRange,  tilesInMoveRange);
+            view.getSideComponent().setSelection(selectedMapLocation, selectedUnit);
+        }
+        view.repaint();
+    }
+
+    private void selectionHelper() {
+        selectionToggle = true;
+        selectedUnit = null;
+        view.getGridComponent().setSelection(null);
+        view.getSideComponent().setSelection(null, null);
+        view.repaint();
+    }
+
+    boolean getSelectionToggle() {
+        return selectionToggle;
+    }
+
+    Unit getSelectedUnit() {
+        return selectedUnit;
+    }
+
+    List<MapLocation> getTilesInMoveRange() {
+        return tilesInMoveRange;
+    }
+
+    List<Unit> getUnitsInAttackRange() {
+        return unitsInAttackRange;
+    }
+
+    void setSelectionToggle(boolean selectionToggle) {
+        this.selectionToggle = selectionToggle;
     }
 }
