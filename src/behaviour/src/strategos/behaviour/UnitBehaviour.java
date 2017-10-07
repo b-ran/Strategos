@@ -60,12 +60,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void wary(Unit unit) {
-        if (actionPoints < BehaviourConfig.WARY_COST) {
-            return;
+        if (wary) {
+            wary = false;
         }
-        actionPoints -= BehaviourConfig.WARY_COST;
-        wary = !wary;
-        entrench = false;
+        else if (actionPoints >= BehaviourConfig.WARY_COST) {
+            actionPoints -= BehaviourConfig.WARY_COST;
+            wary = true;
+            if (entrench) {
+                entrench = false;
+            }
+        }
     }
 
     @Override public boolean getWary(Unit unit) {
@@ -73,12 +77,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void entrench(Unit unit) {
-        if (actionPoints < BehaviourConfig.ENTRENCH_COST) {
-            return;
+        if (entrench) {
+            entrench = false;
         }
-        actionPoints -= BehaviourConfig.ENTRENCH_COST;
-        entrench = !entrench;
-        wary = false;
+        else if (actionPoints >= BehaviourConfig.WARY_COST) {
+            actionPoints -= BehaviourConfig.WARY_COST;
+            entrench = true;
+            if (wary) {
+                wary = false;
+            }
+        }
     }
 
     @Override public boolean getEntrench(Unit unit) {
