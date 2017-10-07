@@ -92,11 +92,16 @@ public class Controller {
      */
     private void setGameListeners() {
         GridComponent g = view.getGridComponent();
+        SideComponent s = view.getSideComponent();
+
         g.addKeyListener(new MenuListener(this));
         g.addMouseListener(new SelectListener(this));
         g.addMouseMotionListener(new SelectListener(this));
         g.addMouseListener(new MoveListener(this));
         g.addMouseListener(new AttackListener(this));
+
+        s.getEntrenchButton().addActionListener(new EntrenchListener(this));
+        s.getWaryButton().addActionListener(new WaryListener(this));
     }
 
     Point getHexPos(int x, int y) {
