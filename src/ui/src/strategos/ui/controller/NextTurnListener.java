@@ -28,5 +28,9 @@ class NextTurnListener extends Controller implements ActionListener {
         } else {
             view.getSideComponent().setPlayerText(PLAYER_NAME);
         }
+        controller.setSelectedMapLocation(null);
+        view.getGridComponent().setSelection(null);
+        view.getSideComponent().setSelection(null, null);
+        view.repaint();
     }
 }
