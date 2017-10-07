@@ -23,8 +23,8 @@ public class View extends JComponent implements Observer {
 
     private MenuComponent menuComponent = new MenuComponent();
     private MenuComponent escapeMenuComponent = new MenuComponent();
-    private GridComponent gridComponent = new GridComponent();
-    private SideComponent sideComponent = new SideComponent();
+    private GridComponent gridComponent = new GridComponent(this);
+    private SideComponent sideComponent = new SideComponent(this);
 
     private JPanel menuPanel = menuComponent.setMenu();
     private JPanel escapeMenuPanel = escapeMenuComponent.setEscapeMenu();
@@ -44,11 +44,10 @@ public class View extends JComponent implements Observer {
      * Instantiates a new View.
      *
      * @param model the model
-     * @param uiOwner
      */
-    public View(GameState model, UnitOwner uiOwner) {
+    public View(GameState model) {
         this.model = model;
-        this.uiOwner = uiOwner;
+        this.uiOwner = model.getCurrentTurn();
         frame = new JFrame(Config.WINDOW_NAME);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMenu();
