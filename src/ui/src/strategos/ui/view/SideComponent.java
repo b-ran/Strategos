@@ -18,7 +18,7 @@ public class SideComponent extends JComponent {
     private JButton entrenchButton = new JButton(ENTRENCH_BUTTON_NAME);
     private JButton attackButton = new JButton(ATTACK_BUTTON_NAME);
     private JButton nextTurnButton = new JButton(NEXT_TURN_BUTTON_NAME);
-    private DrawEntity drawEntity;
+    private Draw draw;
     private MapLocation selectedMapLocation;
     private Unit selectedUnit;
     private String playerText = PLAYER_NAME;
@@ -29,7 +29,7 @@ public class SideComponent extends JComponent {
     SideComponent(View view) {
         setLayout(new BorderLayout());
         setPreferredSize(SIDE_COMPONENT_SIZE);
-        drawEntity = new DrawEntity(view);
+        draw = new Draw(view);
     }
 
     /**
@@ -71,10 +71,10 @@ public class SideComponent extends JComponent {
     private void paintSelection(Graphics g) {
         if (selectedMapLocation == null) return;
         if (selectedUnit != null) {
-            drawEntity.drawUnitPos(selectedUnit, SELECTION_LOCATION.x, SELECTION_LOCATION.y, g);
+            draw.drawUnitNonGrid(selectedUnit, SELECTION_LOCATION, g);
             return;
         }
-        drawEntity.draw(selectedMapLocation,SELECTION_LOCATION.x, SELECTION_LOCATION.y, g);
+        draw.drawTerrainNonGrid(selectedMapLocation.getTerrain(), SELECTION_LOCATION, g);
     }
 
     private void paintLabels(Graphics g) {
