@@ -2,14 +2,11 @@ package strategos.ui.view;
 
 
 import strategos.GameState;
-import strategos.MapLocation;
-import strategos.terrain.Terrain;
+import strategos.UnitOwner;
 import strategos.ui.config.Config;
-import strategos.units.Unit;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,14 +19,17 @@ public class View extends JComponent implements Observer {
 
     private JFrame frame; //Overall Frame
     private GameState model;
+    private UnitOwner uiOwner;
 
     private MenuComponent menuComponent = new MenuComponent();
     private MenuComponent escapeMenuComponent = new MenuComponent();
-    private GridComponent gridComponent = new GridComponent();
-    private SideComponent sideComponent = new SideComponent();
+    private MenuComponent loadComponent = new MenuComponent();
+    private GridComponent gridComponent = new GridComponent(this);
+    private SideComponent sideComponent = new SideComponent(this);
 
     private JPanel menuPanel = menuComponent.setMenu();
     private JPanel escapeMenuPanel = escapeMenuComponent.setEscapeMenu();
+    private JPanel loadMenuPanel = loadComponent.setLoadMenu();
     private JLayeredPane gridPanel = gridComponent.getGrid();
     private JPanel sidePanel = sideComponent.getSidePanel();
 
@@ -49,7 +49,9 @@ public class View extends JComponent implements Observer {
      */
     public View(GameState model) {
         this.model = model;
+        this.uiOwner = model.getCurrentTurn();
         frame = new JFrame(Config.WINDOW_NAME);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMenu();
     }
 
@@ -71,6 +73,16 @@ public class View extends JComponent implements Observer {
     public void setMenu() {
         removeAllComponents();
         frame.add(menuPanel);
+        repack();
+        game = false;
+    }
+
+    /**
+     * Sets view as load menu.
+     */
+    public void setLoad() {
+        removeAllComponents();
+        frame.add(loadMenuPanel);
         repack();
         game = false;
     }
@@ -99,6 +111,7 @@ public class View extends JComponent implements Observer {
         gamePane.remove(sidePane);
         frame.remove(gamePane);
         frame.remove(menuPanel);
+        frame.remove(loadMenuPanel);
     }
 
     /**
@@ -176,5 +189,13 @@ public class View extends JComponent implements Observer {
 
     public SideComponent getSideComponent() {
         return sideComponent;
+    }
+    
+    public MenuComponent getLoadMenuComponent() {
+        return loadComponent;
+    }
+    
+    public UnitOwner getUiOwner() {
+        return uiOwner;
     }
 }

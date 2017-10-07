@@ -17,12 +17,10 @@ import static strategos.ui.config.Config.*;
  */
 public class GridComponent extends JComponent {
 
-
-
     private MapLocation[][] terrain;
     private MapLocation[][] seenTerrain;
     private List<Unit> entities;
-    private DrawEntity drawEntity = new DrawEntity();
+    private Draw draw;
     private MapLocation selectedMapLocation;
     private List<Unit> selectedUnitsInRange = new ArrayList<>();
     private List<MapLocation> selectedTilesInRange = new ArrayList<>();
@@ -30,9 +28,10 @@ public class GridComponent extends JComponent {
     /**
      * Instantiates a new Grid component for drawing on.
      */
-    GridComponent() {
+    GridComponent(View view) {
         setLayout(new BorderLayout());
         setPreferredSize(GRID_COMPONENT_SIZE);
+        draw = new Draw(view);
     }
 
     /**
@@ -59,19 +58,21 @@ public class GridComponent extends JComponent {
 
     private void paintUnits(Graphics g, List<Unit> entities) {
         for (Unit unit : entities) {
-            /*
-            TODO - REVIEW: This could be made far neater by, when sprites are implemented, to change draw() to
-            TODO            make draw() take an image and call unit.getSprite(). Then there is no need to use
-            TODO            instanceof. This can be similarly neatened with paintTerrain()
-             */
-            drawEntity.draw(unit, g);
+            Point p = new Point();
+            p.x = unit.getPosition().getX();
+            p.y = unit.getPosition().getY();
+            draw.drawUnit(unit, p, g);
         }
     }
 
     private void paintTerrain(Graphics g, MapLocation[][] mapLocations) {
         for (int y = 0; y < mapLocations.length; y++) {
             for (int x = 0; x < mapLocations[0].length; x++) {
-                drawEntity.draw(mapLocations[y][x], x, y, g);
+                MapLocation m = mapLocations[y][x];
+                Point p = new Point();
+                p.x = m.getX();
+                p.y = m.getY();
+                draw.drawTerrain(m.getTerrain(), p, g);
             }
         }
     }
@@ -87,18 +88,26 @@ public class GridComponent extends JComponent {
 
     private void paintSelection(Graphics g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
-        Point p;
+        Point p = new Point();
         for (MapLocation m :selectedTilesInRange) {
-            p = drawEntity.getTerrainGridPos(m);
-            drawEntity.drawHexagon(g, p.x, p.y, SELECTION_MOVE_COLOR, SELECTION_STROKE_SIZE);
+            p.x = m.getX();
+            p.y = m.getY();
+
+            draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_MOVE_COLOR,  SELECTION_STROKE_SIZE, g);
         }
         for (Unit u :selectedUnitsInRange) {
             MapLocation m = u.getPosition();
-            p = drawEntity.getTerrainGridPos(m);
-            drawEntity.drawHexagon(g, p.x, p.y, SELECTION_ATTACK_COLOR, SELECTION_STROKE_SIZE);
+            p.x = m.getX();
+            p.y = m.getY();
+
+            draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_ATTACK_COLOR,  SELECTION_STROKE_SIZE, g);
+
         }
-        p = drawEntity.getTerrainGridPos(selectedMapLocation);
-        drawEntity.drawHexagon(g, p.x, p.y, SELECTION_COLOR, SELECTION_STROKE_SIZE);
+        MapLocation m = selectedMapLocation;
+        p.x = m.getX();
+        p.y = m.getY();
+
+        draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_COLOR,  SELECTION_STROKE_SIZE, g);
     }
 
     /**

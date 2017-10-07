@@ -2,13 +2,10 @@ package strategos.ui;
 
 import strategos.GameState;
 import strategos.MapLocation;
+import strategos.UnitOwner;
 import strategos.ui.controller.Controller;
 import strategos.ui.view.View;
-import strategos.units.*;
-import strategos.terrain.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
