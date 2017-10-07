@@ -19,5 +19,6 @@ class WaryListener extends Controller implements ActionListener {
         if (unit != null) {
             controller.model.wary(unit);
         }
+        view.repaint();
     }
 }

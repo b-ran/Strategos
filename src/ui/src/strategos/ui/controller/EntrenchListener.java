@@ -19,5 +19,6 @@ class EntrenchListener extends Controller implements ActionListener {
         if (unit != null) {
             controller.model.entrench(unit);
         }
+        view.repaint();
     }
 }
