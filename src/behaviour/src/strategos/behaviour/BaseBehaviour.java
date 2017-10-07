@@ -4,15 +4,21 @@ package strategos.behaviour;
 import strategos.*;
 import strategos.units.*;
 
+import java.util.logging.*;
+
 
 abstract class BaseBehaviour implements Behaviour {
 
     //TODO: Where is your javadoc?
 
+    private static Logger logger = Logger.getLogger("strategos.behaviour");
+
     private final GameState   gameState;
     private       MapLocation position;
 
     BaseBehaviour(GameState gameState) {
+        logger.fine(String.format("Create behaviour of type %s", this.getClass()));
+
         if (gameState == null) {
             throw new NullPointerException("BaseBehaviour constructor requires non-null gameState");
         }
@@ -21,6 +27,8 @@ abstract class BaseBehaviour implements Behaviour {
     }
 
     BaseBehaviour(BaseBehaviour behaviour) {
+        logger.fine(String.format("Copy behaviour %s", behaviour));
+
         if (behaviour == null) {
             throw new NullPointerException("BaseBehaviour constructor requires non-null behaviour");
         }
