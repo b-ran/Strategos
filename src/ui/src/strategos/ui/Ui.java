@@ -31,7 +31,6 @@ public class Ui {
             assert (map[0].length == map[y].length);
         }
         try {
-            model.nextTurn();
             view = new View(model);
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());
             view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
