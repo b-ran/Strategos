@@ -2,6 +2,7 @@ package strategos.ui;
 
 import strategos.GameState;
 import strategos.MapLocation;
+import strategos.UnitOwner;
 import strategos.ui.controller.Controller;
 import strategos.ui.view.View;
 import strategos.units.*;
@@ -34,7 +35,9 @@ public class Ui {
             assert (map[0].length == map[y].length);
         }
         try {
-            view = new View(model);
+            model.nextTurn();
+            UnitOwner uiOwner = model.getCurrentTurn();
+            view = new View(model,uiOwner);
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());
             view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
             controller = new Controller(model, view);
