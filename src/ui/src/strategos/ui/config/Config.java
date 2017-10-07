@@ -69,7 +69,7 @@ public class Config {
 
     public static final Color SELECTION_ATTACK_COLOR =  new Color(255, 0, 0);
 
-    public static final int SELECTION_STROKE_SIZE = 2;
+    public static final float SELECTION_STROKE_SIZE = 2;
 
 
     //Side
