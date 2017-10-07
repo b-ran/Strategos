@@ -50,6 +50,7 @@ public class View extends JComponent implements Observer {
     public View(GameState model) {
         this.model = model;
         frame = new JFrame(Config.WINDOW_NAME);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMenu();
     }
 
