@@ -80,6 +80,12 @@ public class Config {
 
     public static final Point SELECTION_LOCATION = new Point(20,20);
 
+    public static final String PLAYER_NAME = "Your Turn";
+
+    public static final String OTHER_PLAYER_NAME = "Other Player's Turn";
+
+    public static final Point PLAYER_NAME_LOCATION = new Point(20, 10);
+
 
     //Text
     public static final String WARY_BUTTON_NAME = "Wary";
