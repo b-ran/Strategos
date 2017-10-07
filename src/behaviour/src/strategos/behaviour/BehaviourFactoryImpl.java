@@ -4,11 +4,29 @@ package strategos.behaviour;
 import strategos.*;
 
 import java.util.function.*;
+import java.util.logging.*;
 
 
 public class BehaviourFactoryImpl implements BehaviourFactory {
 
     //TODO: where is your javadoc?
+
+    public BehaviourFactoryImpl(Level level, Handler handler) {
+        Logger logger = Logger.getLogger("strategos.behaviour");
+        logger.setLevel(level);
+        logger.addHandler(handler);
+    }
+
+    public BehaviourFactoryImpl(Level level) {
+        Logger logger = Logger.getLogger("strategos.behaviour");
+        logger.setLevel(level);
+        Handler handler = new ConsoleHandler();
+        handler.setFormatter(new SimpleFormatter());
+        handler.setLevel(level);
+        logger.addHandler(handler);
+    }
+
+    public BehaviourFactoryImpl() {}
 
     @Override public Behaviour createBehaviourArchers(GameState gameState) {
         return new BehaviourArchers(gameState);
