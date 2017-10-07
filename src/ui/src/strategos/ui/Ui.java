@@ -5,11 +5,7 @@ import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.ui.controller.Controller;
 import strategos.ui.view.View;
-import strategos.units.*;
-import strategos.terrain.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -36,8 +32,7 @@ public class Ui {
         }
         try {
             model.nextTurn();
-            UnitOwner uiOwner = model.getCurrentTurn();
-            view = new View(model,uiOwner);
+            view = new View(model);
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());
             view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
             controller = new Controller(model, view);
