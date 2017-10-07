@@ -64,6 +64,9 @@ public class Strategos implements GameState {
 
 	@Override
 	public Unit getUnitAt(MapLocation location) {
+		if (location == null) {
+			return null;
+		}
 		for (Unit u : world.getAllUnits()) {
 			if (u.getPosition().getX() == location.getX() && u.getPosition().getY() == location.getY()) {
 				return u;
@@ -263,6 +266,9 @@ public class Strategos implements GameState {
 
 	@Override
 	public GameCollections getWorld() {
+		for (UnitOwner player : players) {
+			calculateVision(player);
+		}
 		return world;
 	}
 
