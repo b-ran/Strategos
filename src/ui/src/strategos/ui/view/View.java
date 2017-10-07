@@ -25,11 +25,13 @@ public class View extends JComponent implements Observer {
 
     private MenuComponent menuComponent = new MenuComponent();
     private MenuComponent escapeMenuComponent = new MenuComponent();
+    private MenuComponent loadComponent = new MenuComponent();
     private GridComponent gridComponent = new GridComponent();
     private SideComponent sideComponent = new SideComponent();
 
     private JPanel menuPanel = menuComponent.setMenu();
     private JPanel escapeMenuPanel = escapeMenuComponent.setEscapeMenu();
+    private JPanel loadMenuPanel = loadComponent.setLoadMenu();
     private JLayeredPane gridPanel = gridComponent.getGrid();
     private JPanel sidePanel = sideComponent.getSidePanel();
 
@@ -76,6 +78,16 @@ public class View extends JComponent implements Observer {
     }
 
     /**
+     * Sets view as load menu.
+     */
+    public void setLoad() {
+        removeAllComponents();
+        frame.add(loadMenuPanel);
+        repack();
+        game = false;
+    }
+
+    /**
      * Adds escape menu on top of grid.
      */
     public void addEscapeMenu() {
@@ -99,6 +111,7 @@ public class View extends JComponent implements Observer {
         gamePane.remove(sidePane);
         frame.remove(gamePane);
         frame.remove(menuPanel);
+        frame.remove(loadMenuPanel);
     }
 
     /**
@@ -176,5 +189,9 @@ public class View extends JComponent implements Observer {
 
     public SideComponent getSideComponent() {
         return sideComponent;
+    }
+
+    public MenuComponent getLoadMenuComponent() {
+        return loadComponent;
     }
 }

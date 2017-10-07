@@ -16,6 +16,9 @@ public class MenuComponent extends JComponent {
     private JButton loadButton = new JButton(LOAD_BUTTON_NAME);
     private JButton connectButton = new JButton(CONNECT_BUTTON_NAME);
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
+    private JButton saveSlotOne = new JButton(SAVE_SLOT_BUTTON_NAME + " 1");
+    private JButton saveSlotTwo = new JButton(SAVE_SLOT_BUTTON_NAME + " 2");
+    private JButton saveSlotThree = new JButton(SAVE_SLOT_BUTTON_NAME + " 3");
     private JPanel p = new JPanel();
 
     private JPanel constructMenuSkeleton() {
@@ -65,6 +68,23 @@ public class MenuComponent extends JComponent {
         return p;
     }
 
+    /**
+     * Sets component as the list of load options.
+     *
+     * @return the load menu
+     */
+    JPanel setLoadMenu(){
+        p = constructMenuSkeleton();
+        p.add(saveSlotOne);
+        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
+        p.add(saveSlotTwo);
+        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
+        p.add(saveSlotThree);
+        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
+        p.add(exitButton);
+        return p;
+    }
+
     private void setupButtons() {
         newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -74,6 +94,10 @@ public class MenuComponent extends JComponent {
         connectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         hostButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        saveSlotOne.setAlignmentX(Component.CENTER_ALIGNMENT);
+        saveSlotTwo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        saveSlotThree.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         newGameButton.setMaximumSize(MENU_BUTTON_SIZE);
         exitButton.setMaximumSize(MENU_BUTTON_SIZE);
         resumeButton.setMaximumSize(MENU_BUTTON_SIZE);
@@ -81,6 +105,10 @@ public class MenuComponent extends JComponent {
         loadButton.setMaximumSize(MENU_BUTTON_SIZE);
         connectButton.setMaximumSize(MENU_BUTTON_SIZE);
         hostButton.setMaximumSize(MENU_BUTTON_SIZE);
+
+        saveSlotOne.setMaximumSize(MENU_BUTTON_SIZE);
+        saveSlotTwo.setMaximumSize(MENU_BUTTON_SIZE);
+        saveSlotThree.setMaximumSize(MENU_BUTTON_SIZE);
     }
 
     /**
@@ -144,5 +172,16 @@ public class MenuComponent extends JComponent {
      */
     public JButton getHostButton() {
         return hostButton;
+    }
+
+    public JButton getSaveSlot(int index) {
+        switch (index) {
+            case 1:
+                return saveSlotOne;
+            case 2:
+                return saveSlotTwo;
+            default:
+                return saveSlotThree;
+        }
     }
 }
