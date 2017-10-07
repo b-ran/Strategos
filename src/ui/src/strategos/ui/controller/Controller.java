@@ -104,6 +104,8 @@ public class Controller {
         g.addMouseListener(new MoveListener(this));
         g.addMouseListener(new AttackListener(this));
         s.getNextTurnButton().addActionListener(new NextTurnListener(this));
+        s.getEntrenchButton().addActionListener(new EntrenchListener(this));
+        s.getWaryButton().addActionListener(new WaryListener(this));
     }
 
     Point getHexPos(int x, int y) {

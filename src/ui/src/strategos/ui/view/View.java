@@ -50,6 +50,7 @@ public class View extends JComponent implements Observer {
         this.model = model;
         this.uiOwner = uiOwner;
         frame = new JFrame(Config.WINDOW_NAME);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMenu();
     }
 
