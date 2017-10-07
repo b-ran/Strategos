@@ -3,9 +3,11 @@ package strategos.ui.controller;
 import strategos.GameBoard;
 import strategos.GameState;
 import strategos.MapLocation;
+import strategos.UnitOwner;
 import strategos.terrain.Terrain;
 import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
+import strategos.ui.view.SideComponent;
 import strategos.ui.view.View;
 import strategos.units.Unit;
 
@@ -35,9 +37,10 @@ public class Controller {
      */
     protected View view;
 
-    MapLocation selectedMapLocation;
+    private MapLocation selectedMapLocation;
     Boolean allInput = true;
-    boolean menuToggle = false;
+    private boolean menuToggle = false;
+    UnitOwner uiOwner;
 
 
     /**
@@ -51,6 +54,7 @@ public class Controller {
         this.board = controller.board;
         this.selectedMapLocation = controller.selectedMapLocation;
         this.allInput = controller.allInput;
+        this.uiOwner = controller.uiOwner;
     }
 
     /**
@@ -62,6 +66,7 @@ public class Controller {
     public Controller(GameState model, View view) {
         this.model = model;
         this.view = view;
+        uiOwner = view.getUiOwner();
         board = model.getWorld().getMap();
         setGameListeners();
         setMenuListeners();
@@ -92,11 +97,13 @@ public class Controller {
      */
     private void setGameListeners() {
         GridComponent g = view.getGridComponent();
+        SideComponent s = view.getSideComponent();
         g.addKeyListener(new MenuListener(this));
         g.addMouseListener(new SelectListener(this));
         g.addMouseMotionListener(new SelectListener(this));
         g.addMouseListener(new MoveListener(this));
         g.addMouseListener(new AttackListener(this));
+        s.getNextTurnButton().addActionListener(new NextTurnListener(this));
     }
 
     Point getHexPos(int x, int y) {
