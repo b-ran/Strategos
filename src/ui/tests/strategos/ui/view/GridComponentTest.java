@@ -13,7 +13,7 @@ class GridComponentTest {
     private GridComponent gridComponent;
 
     @BeforeEach void setup() {
-        gridComponent = new GridComponent();
+        gridComponent = new GridComponent(null);
     }
 
     @Test void setEntities() {

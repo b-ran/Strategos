@@ -42,7 +42,7 @@ class ExitListenerTest {
         private boolean didMenu;
 
         MockView() {
-            super(null, null);
+            super(null);
             status = false;
             didMenu = false;
             didExit = false;
