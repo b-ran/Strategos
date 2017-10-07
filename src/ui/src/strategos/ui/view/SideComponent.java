@@ -13,6 +13,7 @@ import static strategos.ui.config.Config.*;
  */
 public class SideComponent extends JComponent {
 
+
     private JButton waryButton = new JButton(WARY_BUTTON_NAME);
     private JButton chargeButton = new JButton(CHARGE_BUTTON_NAME);
     private JButton attackButton = new JButton(ATTACK_BUTTON_NAME);
@@ -20,6 +21,7 @@ public class SideComponent extends JComponent {
     private DrawEntity drawEntity = new DrawEntity();
     private MapLocation selectedMapLocation;
     private Unit selectedUnit;
+    private String playerText = PLAYER_NAME;
 
     /**
      * Instantiates a new Side component for drawing on.
@@ -30,7 +32,6 @@ public class SideComponent extends JComponent {
     }
 
     /**
-     *
      * Gets side panel for buttons.
      *
      * @return the side panel
@@ -57,6 +58,12 @@ public class SideComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         paintSelection(g);
+        paintPlayerText(g);
+    }
+
+    private void paintPlayerText(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.drawString(playerText, PLAYER_NAME_LOCATION.x, PLAYER_NAME_LOCATION.y);
     }
 
     private void paintSelection(Graphics g) {
@@ -75,5 +82,17 @@ public class SideComponent extends JComponent {
     public void setSelection(MapLocation selectedMapLocation, Unit selectedUnit) {
         this.selectedMapLocation = selectedMapLocation;
         this.selectedUnit = selectedUnit;
+    }
+
+    public void togglePlayer() {
+
+    }
+
+    public void setPlayerText(String playerText) {
+        this.playerText = playerText;
+    }
+
+    public JButton getNextTurnButton() {
+        return nextTurnButton;
     }
 }
