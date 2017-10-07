@@ -6,9 +6,19 @@ import strategos.terrain.*;
 import strategos.units.*;
 
 import java.util.*;
+import java.util.logging.*;
 
 
 public class TestUtil {
+
+    static void logAll() {
+        Logger logger = Logger.getLogger("strategos.behaviour");
+        logger.setLevel(Level.ALL);
+        Handler handler = new ConsoleHandler();
+        handler.setFormatter(new SimpleFormatter());
+        handler.setLevel(Level.ALL);
+        logger.addHandler(handler);
+    }
 
     static Unit getMockUnit() {
     return new Unit() {

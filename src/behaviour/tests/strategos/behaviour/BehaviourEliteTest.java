@@ -14,6 +14,10 @@ public class BehaviourEliteTest {
     private Behaviour behaviour;
     private Unit      unit;
 
+    @BeforeClass public static void beforeAll() {
+        TestUtil.logAll();
+    }
+
     @Before public void setUp() throws Exception {
         BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
         behaviour =
