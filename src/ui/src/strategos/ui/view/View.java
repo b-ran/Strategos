@@ -23,7 +23,7 @@ public class View extends JComponent implements Observer {
 
     private MenuComponent menuComponent = new MenuComponent();
     private MenuComponent escapeMenuComponent = new MenuComponent();
-    private MenuComponent loadComponent = new MenuComponent(this);
+    private MenuComponent loadComponent = new MenuComponent();
     private GridComponent gridComponent = new GridComponent(this);
     private SideComponent sideComponent = new SideComponent(this);
 

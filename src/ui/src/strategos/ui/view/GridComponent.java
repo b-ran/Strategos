@@ -50,8 +50,18 @@ public class GridComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        //paintBlackTerrain(g, terrain);
+       // paintBlackTerrain(g, terrain);
         //TODO: view range UnitOwner.getVisibleTiles()
+        List<MapLocation> visibleTiles = entities.get(0).getOwner().getVisibleTiles();
+        drawEntity.fillHexagon(g, drawEntity.getGridX(entities.get(0).getPosition().getX())+
+                ((entities.get(0).getPosition().getY() % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(entities.get(0).getPosition().getY()), Color.BLACK);
+        for (int y = 0; y < seenTerrain.length; y++) {
+            for (int x = 0; x < seenTerrain.length; x++) {
+                if (!visibleTiles.contains(seenTerrain[y][x])) {
+                    seenTerrain[y][x] = null;
+                }
+            }
+        }
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
         paintSelection(g, selectedMapLocation);
@@ -72,19 +82,23 @@ public class GridComponent extends JComponent {
     private void paintTerrain(Graphics g, MapLocation[][] mapLocations) {
         for (int y = 0; y < mapLocations.length; y++) {
             for (int x = 0; x < mapLocations[0].length; x++) {
-                drawEntity.draw(mapLocations[y][x], x, y, g);
+                if (mapLocations[y][x] == null) {
+                    //drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
+                } else {
+                    drawEntity.draw(mapLocations[y][x], x, y, g);
+                }
             }
         }
     }
 
-    private void paintBlackTerrain(Graphics g, MapLocation[][] terrain) {
+/*    private void paintBlackTerrain(Graphics g, MapLocation[][] terrain) {
         g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                //drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
+                drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
             }
         }
-    }
+    }*/
 
     private void paintSelection(Graphics g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
