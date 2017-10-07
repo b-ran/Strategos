@@ -27,6 +27,8 @@ public class Config {
 
     public static final String HOST_BUTTON_NAME = "Host";
 
+    public static final String SAVE_SLOT_BUTTON_NAME = "Save Slot";
+
     //Grid
 
     public static final Dimension GRID_COMPONENT_SIZE = new Dimension(980, 600);
