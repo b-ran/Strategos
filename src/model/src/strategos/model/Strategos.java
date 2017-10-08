@@ -1,6 +1,8 @@
 package strategos.model;
 
 import strategos.*;
+import strategos.hexgrid.Map;
+import strategos.model.units.SwordsmenImpl;
 import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
@@ -19,6 +21,7 @@ public class Strategos implements GameState {
 	private UnitOwner turn;
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
+	private UnitOwner thisInstancePlayer;
 
 	private List<SaveInstance> saves = new ArrayList<>();
 
@@ -30,11 +33,21 @@ public class Strategos implements GameState {
 		turn = playerOne;
 	}
 
+	@Override
+	public UnitOwner getThisInstancePlayer() {
+		return thisInstancePlayer;
+	}
+
+	@Override
+	public void setThisInstancePlayer(UnitOwner thisInstancePlayer) {
+		this.thisInstancePlayer = thisInstancePlayer;
+	}
+
 	public void save() {
 		if (saves.size() > 3) {
-			return;
+			saves.remove(saves.size() - 1);
 		}
-		saves.add(new SaveState(world, players, turn));
+		saves.add(0, export());
 	}
 
 	@Override
@@ -97,7 +110,7 @@ public class Strategos implements GameState {
 	}
 
 	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
-		for (Map.Entry<Direction, MapLocation> entry : origin.getNeighbours().entrySet()) {
+		for (java.util.Map.Entry<Direction, MapLocation> entry : origin.getNeighbours().entrySet()) {
 			if (entry.getValue().equals(neighbour)) {
 				return entry.getKey();
 			}
@@ -181,13 +194,23 @@ public class Strategos implements GameState {
 
 	@Override
 	public List<Unit> getUnitsInAttackRange(Unit unit) {
-		return getUnitsInRange(unit.getPosition(), unit.getAttackRange());
+		List<Unit> units = getUnitsInRange(unit.getPosition(), unit.getAttackRange());
+		List<Unit> actualUnits = new ArrayList<>();
+		for (Unit other : units) {
+			if (!other.getOwner().equals(unit.getOwner())) {
+				actualUnits.add(other);
+			}
+		}
+		return actualUnits;
 	}
 
 	@Override
 	public List<MapLocation> getTilesInMoveRange(Unit unit) {
 		List<MapLocation> potentialTiles = getTilesInRange(unit.getPosition(), 1);
 		List<MapLocation> actualTiles = new ArrayList<>();
+		if (unit.getActionPoints() == 0) {
+			return actualTiles;
+		}
 
 		for (MapLocation tile : potentialTiles) {
 			if (tile.isInPlayArea() && canPassUnit(unit, tile)) {
