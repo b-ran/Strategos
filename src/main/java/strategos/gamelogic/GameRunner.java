@@ -16,6 +16,7 @@ import strategos.model.World;
 import strategos.model.units.*;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.ui.Ui;
+import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
@@ -107,10 +108,15 @@ public class GameRunner {
 		UnitOwner playerTwo = new Player(false);
 		UnitOwner barbarians = new Player(true);
 		GameState newState = new Strategos(new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
-		Behaviour behaviour = factory.createBehaviourArchers(newState);
-		playerOne.getUnits().add(new ArchersImpl(behaviour, playerOne, newState.getWorld().getMap().get(3, 6)));
+		Behaviour behaviour = factory.createBehaviourCavalry(newState);
+		playerOne.getUnits().add(new CavalryImpl(behaviour, playerOne, newState.getWorld().getMap().get(3, 6)));
 		behaviour = factory.createBehaviourSwordsmen(newState);
 		playerTwo.getUnits().add(new SwordsmenImpl(behaviour, playerTwo, newState.getWorld().getMap().get(5, 6)));
+
+		Bridge bridge = new BridgeImpl(factory.createBehaviourBridge(newState), barbarians, newState.getWorld().getMap().get(4,4));
+		newState.getWorld().getAllUnits().add(bridge);
+		barbarians.getUnits().add(bridge);
+
 		newState.getWorld().getAllUnits().addAll(playerOne.getUnits());
 		newState.getWorld().getAllUnits().addAll(playerTwo.getUnits());
 		/*for (UnitOwner player : newState.getPlayers()) {
