@@ -37,4 +37,16 @@ public interface NetworkingHandler {
 	 * Shuts down the connection
 	 */
 	void stop() throws InterruptedException;
+
+	/**
+	 * Is the network connected
+	 * @return true if the network has an ongoing connection
+	 */
+	boolean isConnected();
+
+	/**
+	 * Set the connection status of the network
+	 * @param connected the connection status to be set
+	 */
+	void setConnected(boolean connected);
 }

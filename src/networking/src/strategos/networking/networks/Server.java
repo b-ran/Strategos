@@ -11,13 +11,16 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import strategos.GameState;
 import strategos.SaveInstance;
+import strategos.networking.NetworkingHandler;
 import strategos.networking.handlers.DataHandler;
 import strategos.networking.handlers.NetworkHandler;
+import strategos.networking.handlers.NetworkingHandlerImpl;
 
 /**
  * Used to host the server so clients can send objects to here, and here send messages to clients
  */
 public class Server implements Network {
+	private NetworkingHandler handler;
 	private int port;
 	private NetworkHandler serverHandler;
 	private GameState state;
@@ -25,7 +28,8 @@ public class Server implements Network {
 	private EventLoopGroup workerGroup;
 	private EventLoopGroup bossGroup;
 
-	public Server(int port, GameState state) {
+	public Server(NetworkingHandlerImpl handler, int port, GameState state) {
+		this.handler = handler;
 		this.port = port;
 		this.state = state;
 		serverHandler = new NetworkHandler(this);
@@ -72,5 +76,11 @@ public class Server implements Network {
 	public void stop() {
 		workerGroup.shutdownGracefully();
 		bossGroup.shutdownGracefully();
+	}
+
+	@Override
+	public void setConnected(boolean connected) {
+		handler.setConnected(connected);
+		System.out.println("Server: " + connected);
 	}
 }

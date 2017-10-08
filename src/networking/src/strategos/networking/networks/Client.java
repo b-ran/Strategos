@@ -10,6 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import strategos.GameState;
 import strategos.SaveInstance;
+import strategos.networking.NetworkingHandler;
 import strategos.networking.handlers.DataHandler;
 import strategos.networking.handlers.NetworkHandler;
 
@@ -17,6 +18,7 @@ import strategos.networking.handlers.NetworkHandler;
  * Stores the IP of the server to connect to, the port te server is running on, and handles sending and receiving
  */
 public class Client implements Network {
+	private NetworkingHandler handler;
 	private GameState state;
 	private String host;
 	private int port;
@@ -24,7 +26,8 @@ public class Client implements Network {
 
 	private EventLoopGroup workerGroup;
 
-	public Client(String host, int port, GameState state) {
+	public Client(NetworkingHandler handler, String host, int port, GameState state) {
+		this.handler = handler;
 		this.state = state;
 		this.host = host;
 		this.port = port;
@@ -73,5 +76,11 @@ public class Client implements Network {
 	@Override
 	public void stop() {
 		workerGroup.shutdownGracefully();
+	}
+
+	@Override
+	public void setConnected(boolean connected) {
+		handler.setConnected(connected);
+		System.out.println("client: " + connected);
 	}
 }
