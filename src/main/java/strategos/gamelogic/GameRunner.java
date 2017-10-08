@@ -107,8 +107,13 @@ public class GameRunner {
 		UnitOwner playerTwo = new Player(false);
 		UnitOwner barbarians = new Player(true);
 		GameState newState = new Strategos(new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
-
-		for (UnitOwner player : newState.getPlayers()) {
+		Behaviour behaviour = factory.createBehaviourArchers(newState);
+		playerOne.getUnits().add(new ArchersImpl(behaviour, playerOne, newState.getWorld().getMap().get(3, 6)));
+		behaviour = factory.createBehaviourSwordsmen(newState);
+		playerTwo.getUnits().add(new SwordsmenImpl(behaviour, playerTwo, newState.getWorld().getMap().get(5, 6)));
+		newState.getWorld().getAllUnits().addAll(playerOne.getUnits());
+		newState.getWorld().getAllUnits().addAll(playerTwo.getUnits());
+		/*for (UnitOwner player : newState.getPlayers()) {
 			if (player.isNPC()) {
 				continue;
 			}
@@ -144,7 +149,7 @@ public class GameRunner {
 
 			player.setUnits(units);
 			newState.getWorld().getAllUnits().addAll(units);
-		}
+		}*/
 
 		return newState;
 	}

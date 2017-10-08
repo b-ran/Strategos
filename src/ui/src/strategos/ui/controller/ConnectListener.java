@@ -18,7 +18,7 @@ class ConnectListener extends Controller implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         model.setThisInstancePlayer(model.getPlayers().get(1));
-        //view.getGridComponent().setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
+        view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
         networkingHandler.initialise(model, (String) JOptionPane.showInputDialog(
                 view.getMenuComponent(),
                 "Host IP",

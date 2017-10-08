@@ -24,7 +24,7 @@ public class HostListener extends Controller implements ActionListener {
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
-        if (networkingHandler.channelActive())
+        //if (networkingHandler.channelActive())
         try {
             networkingHandler.send(model.export());
         } catch (InterruptedException e1) {
