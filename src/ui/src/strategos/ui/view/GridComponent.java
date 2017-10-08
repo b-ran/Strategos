@@ -58,6 +58,9 @@ public class GridComponent extends JComponent {
 
     private void paintUnits(Graphics g, List<Unit> entities) {
         for (Unit unit : entities) {
+            if (!view.getSeenTerrain().contains(unit.getPosition())) {
+                continue;
+            }
             Point p = new Point();
             p.x = unit.getPosition().getX();
             p.y = unit.getPosition().getY();
