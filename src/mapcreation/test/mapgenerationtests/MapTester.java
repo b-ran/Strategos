@@ -4,7 +4,9 @@ import mapcreation.mapgeneration.TerrainGeneration;
 import mapcreation.mapgeneration.terrain.*;
 import org.junit.Test;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MapTester {
 
@@ -68,6 +70,64 @@ public class MapTester {
         TestMap testMap = new TestMap();
         terrainGeneration.populateMap(testMap.constructMap(20));
 
+    }
+
+    @Test
+    public void test_settingTerrain_hill_05() {
+        TestHex hex = new TestHex(true);
+        assert (hex.isInPlayArea());
+        hex.setTerrain(new HillTile());
+        assertEquals("HillTile", hex.getTerrainName());
+    }
+
+    @Test
+    public void test_settingTerrain_mountain_06() {
+        TestHex hex = new TestHex(true);
+        assert (hex.isInPlayArea());
+        hex.setTerrain(new MountainTile());
+        assertEquals("MountainTile", hex.getTerrainName());
+    }
+
+    @Test
+    public void test_settingTerrain_plains_07() {
+        TestHex hex = new TestHex(true);
+        assert (hex.isInPlayArea());
+        hex.setTerrain(new PlainsTile());
+        assertEquals("PlainsTile", hex.getTerrainName());
+    }
+
+    @Test
+    public void test_settingTerrain_river_08() {
+        TestHex hex = new TestHex(true);
+        assert (hex.isInPlayArea());
+        hex.setTerrain(new RiverTile());
+        assertEquals("RiverTile", hex.getTerrainName());
+    }
+
+
+    @Test
+    public void test_settingTerrain_repeative_09() {
+        TestHex hex = new TestHex(true);
+        assert (hex.isInPlayArea());
+        for (int i = 0; i < 100; i++) {
+            hex.setTerrain(new ForestTile());
+            hex.setTerrain(new HillTile());
+            hex.setTerrain(new MountainTile());
+            hex.setTerrain(new PlainsTile());
+            hex.setTerrain(new RiverTile());
+        }
+        assertEquals("ForestTile", hex.getTerrainName());
+    }
+
+    @Test
+    public void test_settingTerrain_null_10() {
+        TestHex hex = new TestHex(true);
+        try {
+            hex.setTerrain(null);
+            fail("Exception not thrown");
+        } catch (IllegalArgumentException e) {
+            return;
+        }
     }
 
     /**
