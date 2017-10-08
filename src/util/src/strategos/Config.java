@@ -29,5 +29,12 @@ public class Config {
 	
 	public static final int ELITE_STRENGTH = 20;
 	public static final int ELITE_TOUGHNESS = 35;
+
+	public static final int NUM_SWORDSMEN = 2;
+	public static final int NUM_SPEARMEN = 2;
+	public static final int NUM_ARCHERS = 2;
+	public static final int NUM_ELITES = 1;
+	public static final int NUM_CAVALRY = 2;
+
 	
 }

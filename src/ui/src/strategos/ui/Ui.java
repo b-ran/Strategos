@@ -2,13 +2,10 @@ package strategos.ui;
 
 import strategos.GameState;
 import strategos.MapLocation;
+import strategos.UnitOwner;
 import strategos.ui.controller.Controller;
 import strategos.ui.view.View;
-import strategos.units.*;
-import strategos.terrain.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -37,6 +34,9 @@ public class Ui {
             view = new View(model);
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());
             view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
+
+            // TODO - make this get the thisInstancePlayer of the model once the changes are merged
+            view.getGridComponent().setSeenTerrain(model.getPlayers().get(0).getVisibleTiles());
             controller = new Controller(model, view);
         }
         finally {
