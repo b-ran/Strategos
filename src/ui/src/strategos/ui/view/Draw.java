@@ -30,6 +30,7 @@ public class Draw implements GraphicalVisitor{
     private static BufferedImage plainsImage = null;
     private static BufferedImage riverImage = null;
     private static BufferedImage fogImage = null;
+    static BufferedImage backgroundImage = null;
     private View view;
 
     private Graphics2D g2d = null;
@@ -53,6 +54,7 @@ public class Draw implements GraphicalVisitor{
         plainsImage = loadImage(PLAINS_IMAGE_PATH);
         riverImage = loadImage(RIVER_IMAGE_PATH);
         fogImage = loadImage(FOG_IMAGE_PATH);
+        backgroundImage = loadImage(BACKGROUND_IMAGE_PATH);
         loadImages = false;
     }
 
