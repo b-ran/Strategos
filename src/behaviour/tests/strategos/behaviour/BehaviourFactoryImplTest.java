@@ -15,6 +15,10 @@ public class BehaviourFactoryImplTest {
     private GameState        gameState;
     private Unit             unit;
 
+    @BeforeClass public static void beforeAll() {
+        TestUtil.logAll();
+    }
+
     @Before public void setUp() throws Exception {
         factory = new BehaviourFactoryImpl();
         gameState = TestUtil.getMockGameState();
