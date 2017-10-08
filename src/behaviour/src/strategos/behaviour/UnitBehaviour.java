@@ -122,13 +122,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method move() requires a non-null direction");
         }
 
-        if (getActionPoints(unit) <= 0) {
+        MapLocation neighbour = getPosition(unit).getNeighbour(direction);
+        int movementCost = terrainMovementCost(neighbour.getTerrain());
+
+        if (getActionPoints(unit) < movementCost) {
             logger.info(String.format("%s: not enough action points for move", this.getClass()));
             return false;
         }
         else {
-            setPosition(unit, getPosition(unit).getNeighbour(direction));
-            actionPoints -= terrainMovementCost(unit);
+            setPosition(unit, neighbour);
+            actionPoints -= movementCost;
             return true;
         }
     }
@@ -251,9 +254,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         return result;
     }
 
-    private int terrainMovementCost(Unit unit) {
-        Terrain terrain = getGameState().getTerrainAt(getPosition(unit));
-
+    private int terrainMovementCost(Terrain terrain) {
         if (terrain instanceof Plains) {
             return 1;
         }
