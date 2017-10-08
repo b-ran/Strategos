@@ -16,6 +16,10 @@ public class BaseBehaviourTest {
             ExpectedException.none();
     private GameState gameState;
 
+    @BeforeClass public static void beforeAll() {
+        TestUtil.logAll();
+    }
+
     @Before public void setUp() throws Exception {
         gameState = TestUtil.getMockGameState();
     }

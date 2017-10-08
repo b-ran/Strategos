@@ -7,10 +7,14 @@ import strategos.exception.*;
 import strategos.terrain.*;
 import strategos.units.*;
 
+import java.util.logging.*;
+
 
 abstract class UnitBehaviour extends BaseBehaviour {
 
     //TODO: Where is your javadoc?
+
+   private static Logger logger = Logger.getLogger("strategos.behaviour");
 
     private boolean entrench;
     private int     actionPoints;
@@ -51,6 +55,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void turnTick(Unit unit) {
+        logger.info(String.format("%s: turn tick", this.getClass()));
+
         actionPoints = getMaxActionPoints();
         hasAttacked = false;
 
@@ -60,12 +66,22 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void wary(Unit unit) {
-        if (actionPoints < BehaviourConfig.WARY_COST) {
-            return;
+        if (wary) {
+            wary = false;
+            logger.info(String.format("%s: left wary state", this.getClass()));
         }
-        actionPoints -= BehaviourConfig.WARY_COST;
-        wary = !wary;
-        entrench = false;
+        else if (actionPoints >= BehaviourConfig.WARY_COST) {
+            actionPoints -= BehaviourConfig.WARY_COST;
+            wary = true;
+            if (entrench) {
+                entrench = false;
+                logger.info(String.format("%s: left entrench state", this.getClass()));
+            }
+            logger.info(String.format("%s: entered wary state", this.getClass()));
+        }
+        else {
+            logger.info(String.format("%s: could not wary", this.getClass()));
+        }
     }
 
     @Override public boolean getWary(Unit unit) {
@@ -73,12 +89,22 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void entrench(Unit unit) {
-        if (actionPoints < BehaviourConfig.ENTRENCH_COST) {
-            return;
+        if (entrench) {
+            entrench = false;
+            logger.info(String.format("%s: left entrench state", this.getClass()));
         }
-        actionPoints -= BehaviourConfig.ENTRENCH_COST;
-        entrench = !entrench;
-        wary = false;
+        else if (actionPoints >= BehaviourConfig.WARY_COST) {
+            actionPoints -= BehaviourConfig.WARY_COST;
+            entrench = true;
+            if (wary) {
+                wary = false;
+                logger.info(String.format("%s: left wary state", this.getClass()));
+            }
+            logger.info(String.format("%s: entered entrench state", this.getClass()));
+        }
+        else {
+            logger.info(String.format("%s: could not entrench", this.getClass()));
+        }
     }
 
     @Override public boolean getEntrench(Unit unit) {
@@ -90,11 +116,14 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override final public boolean move(Unit unit, Direction direction) {
+        logger.info(String.format("%s: move %s", this.getClass(), direction));
+
         if (direction == null) {
             throw new NullPointerException("Method move() requires a non-null direction");
         }
 
         if (getActionPoints(unit) <= 0) {
+            logger.info(String.format("%s: not enough action points for move", this.getClass()));
             return false;
         }
         else {
@@ -105,11 +134,14 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
+        logger.info(String.format("%s: attack %s", this.getClass(), enemy));
+
         if (enemy == null) {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
         if (!isAlive(unit) || !enemy.isAlive() || hasAttacked) {
+            logger.info(String.format("%s: cannot attack", this.getClass()));
             return 0;
         }
 
@@ -124,6 +156,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         hitpoints -= defence;
 
         if (enemy instanceof HealthPotion) {
+            logger.info(String.format("%s: use health potion", this.getClass()));
             hitpoints = BehaviourConfig.UNIT_HITPOINTS;
         }
 
@@ -153,6 +186,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
+        logger.info(String.format("%s: defend against %s", this.getClass(), unit));
+
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }
