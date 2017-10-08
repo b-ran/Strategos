@@ -1,12 +1,10 @@
 package units;
 
-import strategos.Direction;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 
-public class UnitTestObj implements Unit{
+public class UnitTestObj implements Unit, Graphical{
 
     private UnitOwner owner;
     private MapLocation mapLocation;
@@ -125,4 +123,7 @@ public class UnitTestObj implements Unit{
         return null;
     }
 
+    @Override
+    public void draw(GraphicalVisitor graphicalVisitor) {
+    }
 }

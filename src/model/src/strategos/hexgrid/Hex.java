@@ -17,7 +17,7 @@ import java.util.Map;
  * @author Daniel Pinfold
  *
  */
-public class Hex implements Graphical, MapLocation {
+public class Hex implements MapLocation {
 	private Map<Direction, MapLocation> neighbours;
 	
 	private int xIndex;
