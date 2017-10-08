@@ -32,5 +32,10 @@ class NextTurnListener extends Controller implements ActionListener {
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null);
         view.repaint();
+        try {
+            getNetworkingHandler().send(model.export());
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
     }
 }
