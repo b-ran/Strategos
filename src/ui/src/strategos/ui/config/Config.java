@@ -31,7 +31,7 @@ public class Config {
 
     //Grid
 
-    public static final Dimension GRID_COMPONENT_SIZE = new Dimension(1500, 900);
+    public static final Dimension GRID_COMPONENT_SIZE = new Dimension(1500, 700);
 
     public static final Integer HEX_SIZE = 60;
 
