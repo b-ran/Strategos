@@ -55,7 +55,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public void turnTick(Unit unit) {
-        logger.info(String.format("%s: turn tick", this.getClass()));
+        logger.fine(String.format("%s: turn tick", this.getClass()));
 
         actionPoints = getMaxActionPoints();
         hasAttacked = false;
@@ -75,7 +75,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
             wary = true;
             if (entrench) {
                 entrench = false;
-                logger.info(String.format("%s: left entrench state", this.getClass()));
+                logger.fine(String.format("%s: left entrench state", this.getClass()));
             }
             logger.info(String.format("%s: entered wary state", this.getClass()));
         }
@@ -98,7 +98,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
             entrench = true;
             if (wary) {
                 wary = false;
-                logger.info(String.format("%s: left wary state", this.getClass()));
+                logger.fine(String.format("%s: left wary state", this.getClass()));
             }
             logger.info(String.format("%s: entered entrench state", this.getClass()));
         }
@@ -186,7 +186,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
-        logger.info(String.format("%s: defend against %s", this.getClass(), unit));
+        logger.fine(String.format("%s: defend against %s", this.getClass(), unit));
 
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
