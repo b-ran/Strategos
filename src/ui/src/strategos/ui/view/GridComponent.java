@@ -48,10 +48,11 @@ public class GridComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        paintBlackTerrain(g, terrain);
+        //revealMap();
         paintTerrain(g, seenTerrain);
         paintUnits(g, entities);
         paintSelection(g, selectedMapLocation);
+        paintBlackTerrain(g, terrain);
 
     }
 
@@ -66,6 +67,7 @@ public class GridComponent extends JComponent {
 
     private void paintTerrain(Graphics g, List<MapLocation> visibleTiles) {
         for (MapLocation tile : visibleTiles) {
+            if (tile.getTerrain() == null) continue;
             Point p = new Point();
             p.x = tile.getX();
             p.y = tile.getY();
@@ -74,10 +76,13 @@ public class GridComponent extends JComponent {
     }
 
     private void paintBlackTerrain(Graphics g, MapLocation[][] terrain) {
-        g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                //drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.GRAY);
+                if (seenTerrain.contains(terrain[y][x])) continue;
+                Point p = new Point();
+                p.x = terrain[y][x].getX();
+                p.y = terrain[y][x].getY();
+                draw.drawFog(p, g);
             }
         }
     }
@@ -138,5 +143,13 @@ public class GridComponent extends JComponent {
         this.selectedMapLocation = selectedMapLocation;
         selectedUnitsInRange = new ArrayList<>();
         selectedTilesInRange = new ArrayList<>();
+    }
+
+    private void revealMap() {
+        for (int y = 0; y < terrain.length; y++) {
+            for (int x = 0; x < terrain[0].length; x++) {
+                seenTerrain.add(terrain[y][x]);
+            }
+        }
     }
 }
