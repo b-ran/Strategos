@@ -49,11 +49,16 @@ public class GridComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
+        paintBackground(g);
         paintTerrain(g, view.getSeenTerrain());
         paintSelection(g, selectedMapLocation);
         paintUnits(g, entities);
         paintBlackTerrain(g, terrain);
 
+    }
+
+    private void paintBackground(Graphics g) {
+        g.drawImage(Draw.backgroundImage, 0, 0, null);
     }
 
     private void paintUnits(Graphics g, List<Unit> entities) {
