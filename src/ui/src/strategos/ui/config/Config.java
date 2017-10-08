@@ -27,6 +27,8 @@ public class Config {
 
     public static final String HOST_BUTTON_NAME = "Host";
 
+    public static final String SAVE_SLOT_BUTTON_NAME = "Save Slot";
+
     //Grid
 
     public static final Dimension GRID_COMPONENT_SIZE = new Dimension(980, 600);
@@ -67,7 +69,7 @@ public class Config {
 
     public static final Color SELECTION_ATTACK_COLOR =  new Color(255, 0, 0);
 
-    public static final int SELECTION_STROKE_SIZE = 2;
+    public static final float SELECTION_STROKE_SIZE = 2;
 
 
     //Side
@@ -78,13 +80,35 @@ public class Config {
 
     public static final Dimension SIDEPANEL_BUTTON_SIZE = new Dimension(80,100);
 
-    public static final Point SELECTION_LOCATION = new Point(20,20);
+    public static final Point SELECTION_LOCATION = new Point(20,40);
+
+    public static final String PLAYER_NAME = "Your Turn";
+
+    public static final String OTHER_PLAYER_NAME = "Other Player's Turn";
+
+    public static final Point PLAYER_NAME_LOCATION = new Point(20, 10);
+
+    public static final String HEALTH_LABEL_NAME = "Health:";
+
+    public static final Point HEALTH_LABEL_LOCATION = new Point(20, 80);
+
+    public static final String ACTIONPOINT_LABEL_NAME = "Action Points:";
+
+    public static final Point ACTIONPOINT_LABEL_LOCATION = new Point(20, 100);
+
+    public static final String ENTRENCH_LABEL_NAME = "Entrench:";
+
+    public static final Point ENTRENCH_LABEL_LOCATION = new Point(20, 120);
+
+    public static final String WARY_LABEL_NAME = "Wary:";
+
+    public static final Point WARY_LABEL_LOCATION = new Point(20, 140);
 
 
     //Text
     public static final String WARY_BUTTON_NAME = "Wary";
 
-    public static final String CHARGE_BUTTON_NAME = "Charge";
+    public static final String ENTRENCH_BUTTON_NAME = "Entrench";
 
     public static final String ATTACK_BUTTON_NAME = "Attack";
 

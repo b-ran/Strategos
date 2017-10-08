@@ -136,6 +136,14 @@ public interface GameState extends Observable {
 	 */
 	public void nextTurn();
 
+	public void setThisInstancePlayer(UnitOwner thisInstancePlayer);
+
+	/**
+	 * This method sets the player of this instance of the Strategos game.
+	 * @return
+	 */
+	public UnitOwner getThisInstancePlayer();
+
 	public GameCollections getWorld();
 
 	public List<UnitOwner> getPlayers();
