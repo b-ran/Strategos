@@ -67,9 +67,9 @@ public class GridComponent extends JComponent {
     private void paintTerrain(Graphics g, List<MapLocation> visibleTiles) {
         for (MapLocation tile : visibleTiles) {
             Point p = new Point();
-            p.x = m.getX();
-            p.y = m.getY();
-            draw.drawTerrain(m.getTerrain(), p, g);
+            p.x = tile.getX();
+            p.y = tile.getY();
+            draw.drawTerrain(tile.getTerrain(), p, g);
         }
     }
 
@@ -77,7 +77,7 @@ public class GridComponent extends JComponent {
         g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.GRAY);
+                //drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.GRAY);
             }
         }
     }

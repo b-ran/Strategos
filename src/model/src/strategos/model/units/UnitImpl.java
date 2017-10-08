@@ -1,13 +1,10 @@
 package strategos.model.units;
 
-import strategos.Direction;
-import strategos.Graphical;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 
-public class UnitImpl implements Graphical, Unit {
+public class UnitImpl implements Unit, Graphical {
 
 	private Behaviour behaviour;
 	private UnitOwner owner;
@@ -130,5 +127,10 @@ public class UnitImpl implements Graphical, Unit {
 	@Override
 	public Unit copy() {
 		return new UnitImpl(getBehaviour().copy(), getOwner(), getPosition());
+	}
+
+	@Override
+	public void draw(GraphicalVisitor graphicalVisitor) {
+
 	}
 }

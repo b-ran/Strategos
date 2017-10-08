@@ -1,5 +1,7 @@
 package strategos.model.units;
 
+import strategos.Graphical;
+import strategos.GraphicalVisitor;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.behaviour.Behaviour;
@@ -11,7 +13,7 @@ import strategos.units.Unit;
  * Created as part of Strategos project
  * 28/07/2017.
  */
-public class SpearmenImpl extends UnitImpl implements Spearmen {
+public class SpearmenImpl extends UnitImpl implements Spearmen, Graphical {
 
 
 	public SpearmenImpl(UnitOwner owner, MapLocation startLocation) {
@@ -25,5 +27,10 @@ public class SpearmenImpl extends UnitImpl implements Spearmen {
 	@Override
 	public Unit copy() {
 		return new SpearmenImpl(getBehaviour().copy(), getOwner(), getPosition());
+	}
+
+	@Override
+	public void draw(GraphicalVisitor graphicalVisitor) {
+		graphicalVisitor.visit(this);
 	}
 }

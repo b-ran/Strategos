@@ -1,5 +1,7 @@
 package strategos.model.units;
 
+import strategos.Graphical;
+import strategos.GraphicalVisitor;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.behaviour.Behaviour;
@@ -13,7 +15,7 @@ import java.awt.*;
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class EliteImpl extends UnitImpl implements Elite {
+public class EliteImpl extends UnitImpl implements Elite, Graphical {
 	private static final Image sprite = null;
 
 	public EliteImpl(UnitOwner owner, MapLocation startLocation) {
@@ -28,5 +30,10 @@ public class EliteImpl extends UnitImpl implements Elite {
 	@Override
 	public Unit copy() {
 		return new EliteImpl(getBehaviour().copy(), getOwner(), getPosition());
+	}
+
+	@Override
+	public void draw(GraphicalVisitor graphicalVisitor) {
+		graphicalVisitor.visit(this);
 	}
 }
