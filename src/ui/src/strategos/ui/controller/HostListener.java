@@ -17,7 +17,7 @@ public class HostListener extends Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         model.setThisInstancePlayer(model.getPlayers().get(0));
-        view.getGridComponent().setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
+        view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
         networkingHandler.initialise(model, 5000);
         try {
             networkingHandler.run();

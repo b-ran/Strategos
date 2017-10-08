@@ -14,5 +14,7 @@ public class ConfigImage {
 
     public static final String RIVER_IMAGE_PATH = "strategos/ui/view/resources/tempRiver.png";
 
+    public static final String FOG_IMAGE_PATH = "strategos/ui/view/resources/tempFog.png";
+
 
 }
