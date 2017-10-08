@@ -148,7 +148,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         int defence = enemy.getToughness();
         defence += enemy.getWary() ? 1 : 0;
         defence += enemy.getEntrench() ? 2 : 0;
-        defence *= (100 - enemy.getHitpoints()) * -0.2;
+        defence *= 1 + (100 - enemy.getHitpoints()) * -0.2;
         defence = terrainDamageBonus(enemy, defence, false);
 
         enemy.defend(unit);
@@ -195,7 +195,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         int attack = enemy.getStrength();
         attack -= getWary(unit) ? 1 : 0;
         attack -= getEntrench(unit) ? 2 : 0;
-        attack *= (100 - enemy.getHitpoints()) * -0.2;
+        attack *= 1 + (100 - enemy.getHitpoints()) * -0.2;
         attack = terrainDamageBonus(enemy, attack, true);
 
         hitpoints -= attack;
