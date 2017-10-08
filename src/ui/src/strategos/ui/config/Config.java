@@ -31,9 +31,9 @@ public class Config {
 
     //Grid
 
-    public static final Dimension GRID_COMPONENT_SIZE = new Dimension(980, 600);
+    public static final Dimension GRID_COMPONENT_SIZE = new Dimension(1500, 900);
 
-    public static final Integer HEX_SIZE = 40;
+    public static final Integer HEX_SIZE = 60;
 
     public static final Color NPC_COLOR = Color.YELLOW;
 
@@ -46,6 +46,8 @@ public class Config {
     public static final String UNIT_ARCHERS_LETTER = "A";
 
     public static final String UNIT_CAVALRY_LETTER = "C";
+
+    public static final String UNIT_BRIDGE_LETTER = "B";
 
     public static final String UNIT_ELITE_LETTER = "E";
 
