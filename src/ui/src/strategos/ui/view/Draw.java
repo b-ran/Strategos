@@ -125,11 +125,12 @@ public class Draw implements GraphicalVisitor{
 
         g.drawImage(image, bounds.x, bounds.y, bounds.width, bounds.height,null);
         g.setClip(null);
-        //g.draw(hex);
+
 
         g.setColor(selectionColor);
         if (selectionStrokeSize > 0) {
             g.setStroke(new BasicStroke(selectionStrokeSize));
+            g.draw(hex);
         }
 
         g.dispose();
