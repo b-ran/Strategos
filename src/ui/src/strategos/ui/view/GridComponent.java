@@ -18,7 +18,7 @@ import static strategos.ui.config.Config.*;
 public class GridComponent extends JComponent {
 
     private MapLocation[][] terrain;
-    private List<MapLocation> seenTerrain;
+    private List<MapLocation> seenTerrain = new ArrayList<>();
     private List<Unit> entities;
     private Draw draw;
     private MapLocation selectedMapLocation;
