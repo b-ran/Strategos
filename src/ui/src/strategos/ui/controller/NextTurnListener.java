@@ -33,7 +33,8 @@ class NextTurnListener extends Controller implements ActionListener {
         view.getSideComponent().setSelection(null, null);
         view.repaint();
         try {
-            getNetworkingHandler().send(model.export());
+            System.out.println("sending L1");
+            controller.getNetworkingHandler().send(model.export());
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }

@@ -57,10 +57,16 @@ public class Strategos implements GameState {
 	}
 
 	public void load(SaveInstance toRestore) {
-
+		System.out.println("loaded");
+		int index = players.indexOf(getThisInstancePlayer());
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
 		this.turn = toRestore.getTurn();
+
+		setThisInstancePlayer(players.get(index));
+
+		setChanged();
+		notifyObservers(null);
 	}
 
 	@Override

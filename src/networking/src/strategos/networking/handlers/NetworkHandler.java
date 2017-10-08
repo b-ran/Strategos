@@ -53,11 +53,13 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 	 * @param instance The SaveInstance to send
 	 */
 	public void send(SaveInstance instance) {
+		System.out.println("sending L3");
 		connections.forEach(conn -> conn.writeAndFlush(instance));
 	}
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, SaveInstance msg) throws Exception {
+		System.out.println("network - received");
 		network.receive(msg);
 	}
 }

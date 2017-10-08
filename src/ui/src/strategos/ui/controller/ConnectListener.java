@@ -18,21 +18,25 @@ class ConnectListener extends Controller implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         model.setThisInstancePlayer(model.getPlayers().get(1));
-        view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
-        networkingHandler.initialise(model, (String) JOptionPane.showInputDialog(
+        String s = (String) JOptionPane.showInputDialog(
                 view.getMenuComponent(),
                 "Host IP",
-                "",
+                "GameRanger LUL",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 null,
-                ""), 5000);
-        try {
-            networkingHandler.run();
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
+                "");
+        if (s != null) {
+            networkingHandler.initialise(model, s, 5000);
+            try {
+                networkingHandler.run();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
+            view.setGame();
+            view.getGridComponent().setEntities(model.getWorld().getAllUnits());
+            view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
         }
-        view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
-        networkingHandler.initialise(model, "", 5000);
     }
 }
