@@ -9,6 +9,8 @@ import strategos.model.Player;
 import strategos.model.Strategos;
 import strategos.model.World;
 import strategos.model.units.BridgeImpl;
+import strategos.units.Bridge;
+import util.TestAlwaysDeadBehaviour;
 import util.TestBehaviour;
 import strategos.model.units.SwordsmenImpl;
 import strategos.model.units.UnitImpl;
@@ -517,6 +519,47 @@ public class ModelTests {
 		gameState.attack(unit, unit.getPosition().getNeighbour(EAST));
 
 		assertFalse(b.attacking);
+	}
+
+	/**
+	 * Tests that attacking a bridge captures it successfully
+	 */
+	@Test
+	public void attackTest_4() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+
+		GameCollections world = gameState.getWorld();
+
+		SwordsmenImpl unit = new SwordsmenImpl(p, null);
+		BridgeImpl bridge = new BridgeImpl(p2, null);
+		TestBehaviour b = new TestBehaviour(gameState);
+
+		unit.setBehaviour(b);
+		TestAlwaysDeadBehaviour b2 = new TestAlwaysDeadBehaviour(gameState);
+		bridge.setBehaviour(b2);
+
+		unit.setPosition(world.getMap().get(3, 3));
+		bridge.setPosition(unit.getPosition().getNeighbour(EAST));
+
+		p.getUnits().add(unit);
+		p2.getUnits().add(bridge);
+		world.getAllUnits().add(unit);
+		world.getAllUnits().add(bridge);
+
+		assertTrue(p2.getUnits().contains(bridge));
+
+		gameState.attack(unit, bridge.getPosition());
+
+		assertTrue(p2.getUnits().isEmpty());
+
+		for (Unit u : p.getUnits()) {
+			if (u instanceof Bridge) {
+				assertTrue(u.getOwner().equals(p));
+			}
+		}
 	}
 
 	/**
