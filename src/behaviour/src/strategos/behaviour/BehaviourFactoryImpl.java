@@ -14,11 +14,13 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
     //TODO: where is your javadoc?
 
     public BehaviourFactoryImpl(Level level, Handler handler) {
+        this();
         logger.setLevel(level);
         logger.addHandler(handler);
     }
 
     public BehaviourFactoryImpl(Level level) {
+        this();
         logger.setLevel(level);
         Handler handler = new ConsoleHandler();
         handler.setFormatter(new SimpleFormatter());
@@ -26,7 +28,9 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
         logger.addHandler(handler);
     }
 
-    public BehaviourFactoryImpl() {}
+    public BehaviourFactoryImpl() {
+        logger.setUseParentHandlers(false);
+    }
 
     @Override public Behaviour createBehaviourArchers(GameState gameState) {
         logger.fine("Create BehaviourArchers with factory");
