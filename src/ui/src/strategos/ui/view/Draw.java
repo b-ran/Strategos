@@ -36,6 +36,7 @@ public class Draw implements GraphicalVisitor{
     private Point p = null;
     private Color selectionColor = null;
     private float selectionStrokeSize = 0;
+    private Point hexPoint;
 
 
     public Draw(View view) {
@@ -76,6 +77,7 @@ public class Draw implements GraphicalVisitor{
 
     void drawUnit(Unit u, Point p, Graphics g) {
         g2d = (Graphics2D) g;
+        this.hexPoint = p;
         this.p = getUnitGridPos(p);
         ((Graphical) u).draw(this);
     }
@@ -182,7 +184,8 @@ public class Draw implements GraphicalVisitor{
 
     @Override
     public void visit(Bridge bridge) {
-
+        Point p = getTerrainGridPos(hexPoint);
+        g2d.drawImage(getTexturedImage(bridgeImage, getHexagon(p), p), p.x, p.y, null);
     }
 
     @Override

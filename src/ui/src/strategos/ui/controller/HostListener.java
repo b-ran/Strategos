@@ -19,5 +19,16 @@ public class HostListener extends Controller implements ActionListener {
         model.setThisInstancePlayer(model.getPlayers().get(0));
         view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
         networkingHandler.initialise(model, 5000);
+        try {
+            networkingHandler.run();
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+        //if (networkingHandler.channelActive())
+        try {
+            networkingHandler.send(model.export());
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
     }
 }
