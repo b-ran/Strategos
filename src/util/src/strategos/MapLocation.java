@@ -1,8 +1,9 @@
 package strategos;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public interface MapLocation extends Paintable{
+public interface MapLocation extends Paintable, Serializable{
 
     int getX();
 
