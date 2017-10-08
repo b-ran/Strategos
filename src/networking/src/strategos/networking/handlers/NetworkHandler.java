@@ -30,12 +30,14 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 	public void channelActive(final ChannelHandlerContext ctx) throws Exception {
 		super.channelActive(ctx);
 		connections.add(ctx);
+		network.setConnected(true);
 	}
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		super.channelInactive(ctx);
 		connections.remove(ctx);
+		network.setConnected(false);
 	}
 
 	@Override

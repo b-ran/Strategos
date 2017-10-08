@@ -30,7 +30,8 @@ public class DataHandler extends ByteToMessageCodec<SaveInstance> {
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
 		try (ObjectInputStream ois = new ObjectInputStream(new ByteBufInputStream(in))) {
 			while(true) {
-				out.add(ois.readObject());
+				Object o = ois.readObject();
+				out.add(o);
 			}
 		} catch (EOFException ignored) {}
 	}
