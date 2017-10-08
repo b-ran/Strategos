@@ -111,7 +111,7 @@ public class GameRunner {
 		Behaviour behaviour = factory.createBehaviourCavalry(newState);
 		playerOne.getUnits().add(new CavalryImpl(behaviour, playerOne, newState.getWorld().getMap().get(3, 6)));
 		behaviour = factory.createBehaviourSwordsmen(newState);
-		playerTwo.getUnits().add(new SwordsmenImpl(behaviour, playerTwo, newState.getWorld().getMap().get(5, 6)));
+		playerTwo.getUnits().add(new SwordsmenImpl(behaviour, playerTwo, newState.getWorld().getMap().get(5, 9)));
 
 		Bridge bridge = new BridgeImpl(factory.createBehaviourBridge(newState), barbarians, newState.getWorld().getMap().get(4,4));
 		newState.getWorld().getAllUnits().add(bridge);
