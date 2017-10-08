@@ -2,6 +2,7 @@ package strategos.model;
 
 import strategos.*;
 import strategos.hexgrid.Map;
+import strategos.model.units.BridgeImpl;
 import strategos.model.units.SwordsmenImpl;
 import strategos.terrain.Terrain;
 import strategos.units.Bridge;
@@ -147,7 +148,24 @@ public class Strategos implements GameState {
 			return;
 		}
 		unit.attack(target);
+		cleanUp(unit, target);
 		setChanged();
+	}
+
+	private void cleanUp(Unit unitA, Unit unitB) {
+		if (unitB.getHitpoints() <= 0) {
+			unitB.getOwner().getUnits().remove(unitB);
+			world.getAllUnits().remove(unitB);
+			if (unitB instanceof Bridge) {
+				BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
+				unitA.getOwner().getUnits().add(newBridge);
+				world.getAllUnits().add(newBridge);
+			}
+		}
+		if (unitA.getHitpoints() <= 0) {
+			unitA.getOwner().getUnits().remove(unitA);
+			world.getAllUnits().remove(unitA);
+		}
 	}
 
 	@Override
