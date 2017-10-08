@@ -137,6 +137,9 @@ public class Strategos implements GameState {
 	@Override
 	public void attack(Unit unit, MapLocation location) {
 		Unit target = getUnitAt(location);
+		if (unit.getActionPoints() == 0) {
+			return;
+		}
 		if (target == null) {
 			return;
 		}
@@ -144,6 +147,7 @@ public class Strategos implements GameState {
 			return;
 		}
 		unit.attack(target);
+		setChanged();
 	}
 
 	@Override
@@ -197,7 +201,10 @@ public class Strategos implements GameState {
 		List<Unit> units = getUnitsInRange(unit.getPosition(), unit.getAttackRange());
 		List<Unit> actualUnits = new ArrayList<>();
 		for (Unit other : units) {
-			if (!other.getOwner().equals(unit.getOwner())) {
+			if (other.equals(unit)) {
+				continue;
+			}
+			if (other.getOwner() != unit.getOwner()) {
 				actualUnits.add(other);
 			}
 		}
