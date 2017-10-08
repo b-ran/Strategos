@@ -2,10 +2,11 @@ package strategos;
 
 import strategos.units.Unit;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface GameCollections {
+public interface GameCollections extends Serializable{
 
 	public GameBoard getMap();
 
