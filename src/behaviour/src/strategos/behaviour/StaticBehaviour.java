@@ -61,7 +61,7 @@ abstract class StaticBehaviour extends BaseBehaviour {
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
-        logger.info(String.format("%s: defend against %s", this.getClass(), unit));
+        logger.fine(String.format("%s: defend against %s", this.getClass(), unit));
 
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
