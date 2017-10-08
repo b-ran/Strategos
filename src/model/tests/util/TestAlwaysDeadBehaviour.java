@@ -20,7 +20,7 @@ public class TestAlwaysDeadBehaviour implements Behaviour {
 
 	public TestAlwaysDeadBehaviour(GameState gameState) {
 		this.gameState = gameState;
-		hitpoints = 100;
+		hitpoints = 0;
 
 		wary = false;
 		entrenched = false;
