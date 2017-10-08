@@ -1,6 +1,7 @@
 package strategos.ui.view;
 
 import strategos.MapLocation;
+import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import javax.swing.*;
