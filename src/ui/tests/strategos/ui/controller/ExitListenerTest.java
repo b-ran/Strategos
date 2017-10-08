@@ -69,7 +69,7 @@ class ExitListenerTest {
     private class MockController extends Controller {
 
         MockController(GameState model, View view) {
-            super(model, view);
+            super(model, view, null);
             allInput = true;
         }
     }

@@ -4,6 +4,7 @@ import strategos.GameBoard;
 import strategos.GameState;
 import strategos.MapLocation;
 import strategos.UnitOwner;
+import strategos.networking.NetworkingHandler;
 import strategos.terrain.Terrain;
 import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
@@ -21,6 +22,7 @@ import static strategos.ui.config.Config.HEX_SIZE;
  */
 public class Controller {
 
+    private NetworkingHandler networkingHandler;
     /**
      * The Model.
      */
@@ -67,6 +69,22 @@ public class Controller {
      * @param model  the model
      * @param view   the view
      */
+    public Controller(GameState model, View view, NetworkingHandler networkingHandler) {
+        this.model = model;
+        this.networkingHandler = networkingHandler;
+        this.view = view;
+        uiOwner = view.getUiOwner();
+        board = model.getWorld().getMap();
+        setGameListeners();
+        setMenuListeners();
+    }
+
+    /**
+     * Instantiates a new Controller.
+     *
+     * @param model  the model
+     * @param view   the view
+     */
     public Controller(GameState model, View view) {
         this.model = model;
         this.view = view;
@@ -86,8 +104,8 @@ public class Controller {
 
         m.getNewGameButton().addActionListener(new NewGameListener(this));
         m.getLoadButton().addActionListener(new LoadListener(this));
-        m.getConnectButton().addActionListener(new ConnectListener(this));
-        m.getHostButton().addActionListener(new HostListener(this));
+        m.getConnectButton().addActionListener(new ConnectListener(this, networkingHandler));
+        m.getHostButton().addActionListener(new HostListener(this, networkingHandler));
         m.getExitButton().addActionListener(new ExitListener(this));
 
         for (int i = 1; i <= 3; i++) {
@@ -164,6 +182,10 @@ public class Controller {
 
     MapLocation getSelectedMapLocation() {
         return selectedMapLocation;
+    }
+
+    public NetworkingHandler getNetworkingHandler() {
+        return networkingHandler;
     }
 
     void setSelectedMapLocation(MapLocation selectedMapLocation) {

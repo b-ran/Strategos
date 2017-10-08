@@ -2,11 +2,14 @@ package strategos.ui.view;
 
 
 import strategos.GameState;
+import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.ui.config.Config;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,6 +38,9 @@ public class View extends JComponent implements Observer {
 
     private JPanel gamePane = new JPanel();
     private JPanel sidePane = new JPanel();
+
+    private List<MapLocation> seenTerrain = new ArrayList<>();
+
     /**
      * The game status.
      * False if game not running
@@ -197,5 +203,13 @@ public class View extends JComponent implements Observer {
     
     public UnitOwner getUiOwner() {
         return uiOwner;
+    }
+
+    public List<MapLocation> getSeenTerrain() {
+        return seenTerrain;
+    }
+
+    public void setSeenTerrain(List<MapLocation> seenTerrain) {
+        this.seenTerrain = seenTerrain;
     }
 }
