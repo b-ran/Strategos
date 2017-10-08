@@ -4,7 +4,7 @@ public class ConfigImage {
 
     public static final String BRIDGE_IMAGE_PATH = "strategos/ui/view/resources/bridgeSpritev2.png";
 
-    public static final String FOREST_IMAGE_PATH = "strategos/ui/view/resources/tempForest.png";
+    public static final String FOREST_IMAGE_PATH = "strategos/ui/view/resources/forestSpritev2.png";
 
     public static final String HILL_IMAGE_PATH = "strategos/ui/view/resources/hillSpritev2.png";
 
