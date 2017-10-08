@@ -2,9 +2,10 @@ package strategos;
 
 import strategos.units.Unit;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface UnitOwner {
+public interface UnitOwner extends Serializable {
 
 	public List<Unit> getUnits();
 

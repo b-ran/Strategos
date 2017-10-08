@@ -4,8 +4,10 @@ package strategos.behaviour;
 import strategos.*;
 import strategos.units.*;
 
+import java.io.Serializable;
 
-public interface Behaviour {
+
+public interface Behaviour extends Serializable {
 
     MapLocation getPosition(Unit unit);
 

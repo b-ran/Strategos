@@ -22,6 +22,10 @@ public class UnitBehaviourTest {
     private MapLocation position2;
     private Unit        unit;
 
+    @BeforeClass public static void beforeAll() {
+        TestUtil.logAll();
+    }
+
     @Before public void setUp() throws Exception {
         unit = TestUtil.getMockUnit();
         behaviour = new UnitBehaviour(TestUtil.getMockGameState()) {
