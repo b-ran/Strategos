@@ -16,5 +16,7 @@ public class ConfigImage {
 
     public static final String FOG_IMAGE_PATH = "strategos/ui/view/resources/fogSpritev2.png";
 
+    public static final String BACKGROUND_IMAGE_PATH = "strategos/ui/view/resources/background.png";
+
 
 }
