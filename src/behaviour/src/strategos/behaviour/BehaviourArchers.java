@@ -5,8 +5,12 @@ import strategos.*;
 import strategos.behaviour.config.*;
 import strategos.units.*;
 
+import java.util.logging.*;
+
 
 class BehaviourArchers extends UnitBehaviour {
+
+    private static Logger logger = Logger.getLogger("strategos.behaviour");
 
     //TODO: Where is your javadoc?
 
@@ -36,15 +40,19 @@ class BehaviourArchers extends UnitBehaviour {
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
+        logger.info(String.format("%s: range attack %s", this.getClass(), enemy));
+
         if (enemy == null) {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
         if (!isAlive(unit) || !enemy.isAlive()) {
+            logger.info(String.format("%s: cannot attack", this.getClass()));
             return 0;
         }
 
         if (getActionPoints(unit) <= 0) {
+            logger.info(String.format("%s: not enough action points to attack", this.getClass()));
             return 0;
         }
 

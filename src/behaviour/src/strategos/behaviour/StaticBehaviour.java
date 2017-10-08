@@ -4,9 +4,12 @@ package strategos.behaviour;
 import strategos.*;
 import strategos.units.*;
 
+import java.util.logging.*;
+
 
 abstract class StaticBehaviour extends BaseBehaviour {
 
+    private static Logger logger = Logger.getLogger("strategos.behaviour");
     private boolean isAlive;
 
     @Override public boolean getWary(Unit unit) {
@@ -58,6 +61,8 @@ abstract class StaticBehaviour extends BaseBehaviour {
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
+        logger.fine(String.format("%s: defend against %s", this.getClass(), unit));
+
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }

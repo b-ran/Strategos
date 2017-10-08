@@ -14,11 +14,6 @@ import java.util.List;
 class SelectListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
-    private boolean toggle = true;
-    private Unit selectedUnit;
-    private MapLocation selectedMapLocation;
-    private List<Unit> unitsInAttackRange = new ArrayList<>();
-    private List<MapLocation> tilesInMoveRange = new ArrayList<>();
 
     SelectListener(Controller controller) {
         super(controller);
@@ -34,19 +29,19 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
     public void mousePressed(MouseEvent e) {
         if (!controller.allInput) return;
         Point p = getHexPos(e.getX(),e.getY());
-        selectedMapLocation = board.get(p.x, p.y);
-        if (selectedUnit != null) {
-            if (tilesInMoveRange.contains(selectedMapLocation) || unitsInAttackRange.contains(model.getUnitAt(selectedMapLocation))) {
+        MapLocation selectedMapLocation = board.get(p.x, p.y);
+        if (controller.getSelectedUnit() != null) {
+            if (controller.getTilesInMoveRange().contains(selectedMapLocation) || controller.getUnitsInAttackRange().contains(model.getUnitAt(selectedMapLocation))) {
                 return;
             }
         }
-        if (!toggle) {
-            toggle = true;
+        if (!controller.getSelectionToggle()) {
+            controller.setSelectionToggle(true);
             view.getGridComponent().setSelection(null);
             view.repaint();
             return;
         }
-        select(selectedMapLocation);
+        controller.setSelectedMapLocation(selectedMapLocation);
     }
 
     @Override
@@ -68,30 +63,12 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
         if (controller.getSelectedMapLocation().equals(board.get(p.x, p.y))) {
             return;
         }
-        selectedMapLocation = board.get(p.x, p.y);
-        select(selectedMapLocation);
+        controller.setSelectedMapLocation(board.get(p.x, p.y));
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
 
-    }
-
-    private void select(MapLocation m) {
-        controller.setSelectedMapLocation(m);
-        selectedUnit = model.getUnitAt(m);
-        if (selectedUnit == null) {
-            toggle = false;
-            view.getGridComponent().setSelection(controller.getSelectedMapLocation());
-            view.getSideComponent().setSelection(controller.getSelectedMapLocation(), null);
-        } else {
-            toggle = true;
-            unitsInAttackRange = model.getUnitsInAttackRange(selectedUnit);
-            tilesInMoveRange = model.getTilesInMoveRange(selectedUnit);
-            view.getGridComponent().setSelection(controller.getSelectedMapLocation(), unitsInAttackRange,  tilesInMoveRange);
-            view.getSideComponent().setSelection(controller.getSelectedMapLocation(), selectedUnit);
-        }
-        view.repaint();
     }
 
 }
