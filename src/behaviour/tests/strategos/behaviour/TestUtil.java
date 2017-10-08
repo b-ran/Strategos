@@ -210,6 +210,14 @@ public class TestUtil {
 
         }
 
+        @Override public void setThisInstancePlayer(UnitOwner thisInstancePlayer) {
+
+        }
+
+        @Override public UnitOwner getThisInstancePlayer() {
+            return null;
+        }
+
         @Override public GameCollections getWorld() {
             return null;
         }
