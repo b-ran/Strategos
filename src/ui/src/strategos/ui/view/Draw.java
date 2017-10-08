@@ -20,6 +20,7 @@ import static strategos.ui.config.ConfigImage.*;
 
 public class Draw implements GraphicalVisitor{
 
+
     private static boolean loadImages = true;
 
     private static BufferedImage bridgeImage = null;
@@ -28,12 +29,14 @@ public class Draw implements GraphicalVisitor{
     private static BufferedImage mountainsImage = null;
     private static BufferedImage plainsImage = null;
     private static BufferedImage riverImage = null;
+    private static BufferedImage fogImage = null;
     private View view;
 
     private Graphics2D g2d = null;
     private Point p = null;
     private Color selectionColor = null;
     private float selectionStrokeSize = 0;
+
 
     public Draw(View view) {
         this.view = view;
@@ -48,6 +51,7 @@ public class Draw implements GraphicalVisitor{
         mountainsImage = loadImage(MOUNTAINS_IMAGE_PATH);
         plainsImage = loadImage(PLAINS_IMAGE_PATH);
         riverImage = loadImage(RIVER_IMAGE_PATH);
+        fogImage = loadImage(FOG_IMAGE_PATH);
         loadImages = false;
     }
 
@@ -96,7 +100,12 @@ public class Draw implements GraphicalVisitor{
         ((Graphical) t).draw(this);
         selectionColor = Color.BLACK;
         selectionStrokeSize = 0;
+    }
 
+    void drawFog(Point point, Graphics g) {
+        g2d = (Graphics2D) g;
+        this.p = getTerrainGridPos(point);
+        g2d.drawImage(getTexturedImage(fogImage, getHexagon(p), p), p.x, p.y , null);
     }
 
     //Credit for solution drawing inside a hexagon https://stackoverflow.com/questions/21632411/texture-background-image-for-polygon
@@ -116,11 +125,12 @@ public class Draw implements GraphicalVisitor{
 
         g.drawImage(image, bounds.x, bounds.y, bounds.width, bounds.height,null);
         g.setClip(null);
-        //g.draw(hex);
+
 
         g.setColor(selectionColor);
         if (selectionStrokeSize > 0) {
             g.setStroke(new BasicStroke(selectionStrokeSize));
+            g.draw(hex);
         }
 
         g.dispose();
@@ -248,4 +258,6 @@ public class Draw implements GraphicalVisitor{
         }
         return new Point(x,y);
     }
+
+
 }

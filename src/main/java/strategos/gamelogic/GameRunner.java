@@ -14,6 +14,7 @@ import strategos.model.Player;
 import strategos.model.Strategos;
 import strategos.model.World;
 import strategos.model.units.*;
+import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.ui.Ui;
 import strategos.units.Unit;
 
@@ -43,7 +44,7 @@ public class GameRunner {
 
 //		world.setAllUnits(allUnits);
 
-		ui = new Ui(gameState);
+		ui = new Ui(gameState, new NetworkingHandlerImpl());
 	}
 
 	public void populateUnits(List<UnitOwner> unitOwners) {
