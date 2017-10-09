@@ -1,17 +1,9 @@
 package strategos.ui.controller;
 
 import strategos.networking.NetworkingHandler;
-import strategos.ui.view.NetworkTestSaveInstance;
-import sun.instrument.InstrumentationImpl;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.lang.instrument.Instrumentation;
-import java.util.Arrays;
 
 public class HostListener extends Controller implements ActionListener {
 
