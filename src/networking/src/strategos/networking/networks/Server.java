@@ -51,7 +51,7 @@ public class Server implements Network {
 								ch.pipeline().addLast(new ObjectEncoder(), new ObjectDecoder(ClassResolvers.cacheDisabled(null)), serverHandler);
 							}
 						})
-						.option(ChannelOption.SO_BACKLOG, 128).option(ChannelOption.SO_RCVBUF, 4096).childOption(ChannelOption.SO_KEEPALIVE, true);
+						.option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);
 				// Bind and start to accept incoming connections.
 				ChannelFuture f = b.bind(port).sync();
 				// Wait until the server socket is closed.

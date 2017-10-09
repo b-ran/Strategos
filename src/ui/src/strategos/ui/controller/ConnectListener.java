@@ -1,6 +1,5 @@
 package strategos.ui.controller;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import strategos.networking.NetworkingHandler;
 
 import javax.swing.*;
@@ -28,7 +27,7 @@ class ConnectListener extends Controller implements ActionListener{
                 null,
                 "");
         if (s != null) {
-            networkingHandler.initialise(model, s, 25000);
+            networkingHandler.initialise(model, s, 8080);
             try {
                 System.out.println("client running");
                 networkingHandler.run();
