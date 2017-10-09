@@ -63,9 +63,11 @@ public class View extends JComponent implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        frame.repaint();
-        gridComponent.setFocusable(true);
+        gridComponent.setEntities(model.getWorld().getAllUnits());
+        gridComponent.setTerrain(model.getWorld().getMap().getData());
         gridComponent.requestFocus();
+        gridComponent.setFocusable(true);
+        frame.repaint();
     }
 
     @Override
@@ -203,6 +205,10 @@ public class View extends JComponent implements Observer {
     
     public UnitOwner getUiOwner() {
         return uiOwner;
+    }
+
+    public void setUiOwner(UnitOwner unitOwner) {
+        uiOwner = unitOwner;
     }
 
     public List<MapLocation> getSeenTerrain() {
