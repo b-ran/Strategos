@@ -38,12 +38,10 @@ public class HostListener extends Controller implements ActionListener {
                 u.turnTick();
             }
             try {
-                System.out.println("initial send L1");
                 networkingHandler.send(model.export());
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
-            System.out.println("ended t/c");
             view.setUiOwner(model.getThisInstancePlayer());
             view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
             view.setGame();

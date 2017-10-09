@@ -13,8 +13,8 @@ import java.util.Observable;
 
 /**
  * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
- * 		libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
- * 		of GameCollections and UnitOwners.
+ * libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
+ * of GameCollections and UnitOwners.
  */
 public class Strategos implements GameState {
 	private GameCollections world;
@@ -23,6 +23,7 @@ public class Strategos implements GameState {
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
 	private UnitOwner thisInstancePlayer;
+	private boolean synced = false;
 
 	private List<SaveInstance> saves = new ArrayList<>();
 
@@ -66,11 +67,14 @@ public class Strategos implements GameState {
 		setThisInstancePlayer(players.get(index));
 
 		for (int i = 0; i < players.get(0).getUnits().size(); i++) {
-			System.out.println(players.get(0).getUnits().get(i).getPosition() + ", " +  oldUnits.get(i).getPosition());
+			System.out.println(players.get(0).getUnits().get(i).getPosition() + ", " + oldUnits.get(i).getPosition());
 		}
 
 		setChanged();
-		notifyObservers(null);
+		if (synced) {
+			notifyObservers(null);
+		}
+		synced = true;
 	}
 
 	@Override
@@ -341,7 +345,10 @@ public class Strategos implements GameState {
 
 	@Override
 	public void notifyObservers(Object o) {
-		observers.forEach(Observer::notify);
+		//observers.forEach(Observer::notify);
+		for (Observer obs : observers) {
+			obs.update(null, o);
+		}
 		changed = false;
 	}
 }
