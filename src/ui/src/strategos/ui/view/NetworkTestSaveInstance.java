@@ -4,22 +4,39 @@ import strategos.GameCollections;
 import strategos.SaveInstance;
 import strategos.UnitOwner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NetworkTestSaveInstance implements SaveInstance {
+
+
+	private final List<UnitOwner> owners;
+	private final GameCollections world;
+	private final UnitOwner turn;
+	private final List<Integer> reeee = new ArrayList<>();
+
+	public NetworkTestSaveInstance(List<UnitOwner> owners, GameCollections world, UnitOwner turn) {
+		for (int i = 0; i < 100; i++) {
+			reeee.add(i);
+		}
+		this.owners = owners;
+		this.world = world;
+		this.turn = turn;
+	}
 	@Override
 	public GameCollections getWorld() {
 		System.out.println("getting world");
-		return null;
+		return world;
 	}
 
 	@Override
 	public List<UnitOwner> getPlayers() {
-		return null;
+		return owners;
 	}
 
 	@Override
 	public UnitOwner getTurn() {
-		return null;
+		return turn;
 	}
 }

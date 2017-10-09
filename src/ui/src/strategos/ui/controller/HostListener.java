@@ -2,10 +2,12 @@ package strategos.ui.controller;
 
 import strategos.networking.NetworkingHandler;
 import strategos.ui.view.NetworkTestSaveInstance;
+import sun.instrument.InstrumentationImpl;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.instrument.Instrumentation;
 
 public class HostListener extends Controller implements ActionListener {
 
@@ -20,7 +22,7 @@ public class HostListener extends Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         model.setThisInstancePlayer(model.getPlayers().get(0));
         view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
-        networkingHandler.initialise(model, 8080);
+        networkingHandler.initialise(model, 25000);
         try {
             networkingHandler.run();
         } catch (InterruptedException e1) {
@@ -33,7 +35,10 @@ public class HostListener extends Controller implements ActionListener {
         }
         try {
             System.out.println("initial send L1");
-            networkingHandler.send(/*model.export()*/new NetworkTestSaveInstance());
+			networkingHandler.send(
+					model.export()
+//					new NetworkTestSaveInstance(null, null, null)
+			);
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }

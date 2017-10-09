@@ -28,7 +28,7 @@ class ConnectListener extends Controller implements ActionListener{
                 null,
                 "");
         if (s != null) {
-            networkingHandler.initialise(model, s, 8080);
+            networkingHandler.initialise(model, s, 25000);
             try {
                 System.out.println("client running");
                 networkingHandler.run();

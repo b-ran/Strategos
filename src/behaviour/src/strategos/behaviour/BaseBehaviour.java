@@ -13,7 +13,7 @@ abstract class BaseBehaviour implements Behaviour {
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");
 
-    private final GameState   gameState;
+    private final transient GameState   gameState;
     private       MapLocation position;
 
     BaseBehaviour(GameState gameState) {
