@@ -14,12 +14,8 @@ public class NetworkTestSaveInstance implements SaveInstance {
 	private final List<UnitOwner> owners;
 	private final GameCollections world;
 	private final UnitOwner turn;
-	private final List<Integer> reeee = new ArrayList<>();
 
 	public NetworkTestSaveInstance(List<UnitOwner> owners, GameCollections world, UnitOwner turn) {
-		for (int i = 0; i < 100; i++) {
-			reeee.add(i);
-		}
 		this.owners = owners;
 		this.world = world;
 		this.turn = turn;
