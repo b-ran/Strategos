@@ -55,6 +55,7 @@ public class View extends JComponent implements Observer {
      */
     public View(GameState model) {
         this.model = model;
+        model.addObserver(this);
         this.uiOwner = model.getCurrentTurn();
         frame = new JFrame(Config.WINDOW_NAME);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -63,6 +64,7 @@ public class View extends JComponent implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("update");
         gridComponent.setEntities(model.getWorld().getAllUnits());
         gridComponent.setTerrain(model.getWorld().getMap().getData());
         gridComponent.requestFocus();
