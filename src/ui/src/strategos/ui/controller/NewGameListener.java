@@ -17,7 +17,7 @@ class NewGameListener extends Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!controller.allInput) return;
-        for (Unit u : model.getPlayers().get(0).getUnits()) {
+        for (Unit u : model.getThisInstancePlayer().getUnits()) {
             u.turnTick();
         }
         view.setGame();

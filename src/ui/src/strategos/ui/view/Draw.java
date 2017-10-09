@@ -188,8 +188,8 @@ public class Draw implements GraphicalVisitor{
     public void visit(Bridge bridge) {
         Point p = getTerrainGridPos((hexPoint == null) ? this.p : hexPoint);
         g2d.drawImage(getTexturedImage(bridgeImage, getHexagon(p), p), p.x, p.y, null);
-        g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_BRIDGE_LETTER, p.x, p.y);
+        /*g2d.setColor(UNIT_FONT_COLOR);
+        g2d.drawString(UNIT_BRIDGE_LETTER, p.x, p.y);*/
     }
 
     @Override

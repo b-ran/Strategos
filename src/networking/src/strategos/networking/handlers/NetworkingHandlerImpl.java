@@ -36,6 +36,7 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 
 	@Override
 	public void send(SaveInstance instance) throws InterruptedException {
+		System.out.println("sending L2");
 		type.send(instance);
 		Thread.sleep(3000);
 	}
