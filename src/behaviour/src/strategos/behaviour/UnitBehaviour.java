@@ -190,7 +190,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
-        logger.fine(String.format("%s: defend against %s", this.getClass(), unit));
+        logger.fine(String.format("%s: defend against %s", this.getClass(), enemy));
 
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
