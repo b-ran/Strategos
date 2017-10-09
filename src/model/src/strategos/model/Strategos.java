@@ -57,13 +57,17 @@ public class Strategos implements GameState {
 	}
 
 	public void load(SaveInstance toRestore) {
+		List<Unit> oldUnits = players.get(0).getUnits();
 		System.out.println("loaded");
 		int index = players.indexOf(getThisInstancePlayer());
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
 		this.turn = toRestore.getTurn();
-		System.out.println(toRestore);
 		setThisInstancePlayer(players.get(index));
+
+		for (int i = 0; i < players.get(0).getUnits().size(); i++) {
+			System.out.println(players.get(0).getUnits().get(i).getPosition() + ", " +  oldUnits.get(i).getPosition());
+		}
 
 		setChanged();
 		notifyObservers(null);
@@ -248,7 +252,6 @@ public class Strategos implements GameState {
 				actualTiles.add(tile);
 			}
 		}
-
 		return actualTiles;
 	}
 
