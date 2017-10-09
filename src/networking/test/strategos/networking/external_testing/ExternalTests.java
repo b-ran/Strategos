@@ -1,5 +1,7 @@
 package strategos.networking.external_testing;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import strategos.*;
 import strategos.networking.NetworkingHandler;
@@ -21,15 +23,16 @@ public class ExternalTests {
 	private NetworkingHandler server;
 	private NetworkingHandler client;
 
-	void setupNetworks() throws InterruptedException {
-		GameBoard testMap = new ExternalTestMap(createMap(false,10), 10);
+	@Before
+	public void setupNetworks() throws InterruptedException {
+		GameBoard testMap = new ExternalTestMap(createMap(false, 10), 10);
 		List<Unit> units = new ArrayList<>();
 		units.add(new ExternalTestUnit(1000));
 		GameCollections testWorld = new ExternalTestWorld(testMap, units);
 
 		serverState = new ExternalTestGameState(testWorld, new ArrayList<>());
 
-		testMap = new ExternalTestMap(createMap(true,10), 10);
+		testMap = new ExternalTestMap(createMap(true, 10), 10);
 		units = new ArrayList<>();
 		units.add(new ExternalTestUnit(500));
 		testWorld = new ExternalTestWorld(testMap, units);
@@ -39,26 +42,23 @@ public class ExternalTests {
 		client = setupHandler(true, clientState);
 	}
 
-	void stopNetworks() throws InterruptedException {
+	@After
+	public void stopNetworks() throws InterruptedException {
 		server.stop();
 		client.stop();
 	}
 
 	@Test
 	public void SendTest_01() throws InterruptedException, java.io.EOFException {
-		setupNetworks();
-
 		SaveInstance saveInstance = serverState.export();
 
 		server.send(saveInstance);
 		assertTrue(clientState.getWorld().getAllUnits().get(0).getStrength() == 1000);
-
-		stopNetworks();
 	}
 
 	@Test
 	public void SendTest_03() throws InterruptedException {
-		setupNetworks();
+
 
 		SaveInstance saveInstance = serverState.export();
 
@@ -72,25 +72,18 @@ public class ExternalTests {
 
 		server.stop();
 
-		stopNetworks();
+
 	}
 
-	@Test
+	@Test(expected = InterruptedException.class)
 	public void SendTest_02() throws InterruptedException {
-		setupNetworks();
-
 		SaveInstance saveInstance = serverState.export();
-
 		server.stop();
-
 		server.send(saveInstance);
-
-		stopNetworks();
 	}
 
 	/**
-	 *
-	 * @param wrong for testing if the maps are different types.
+	 * @param wrong    for testing if the maps are different types.
 	 * @param diameter
 	 * @return
 	 */
