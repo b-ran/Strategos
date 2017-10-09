@@ -1,5 +1,6 @@
 package strategos.networking.handlers;
 
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import strategos.SaveInstance;
@@ -53,11 +54,17 @@ public class NetworkHandler extends SimpleChannelInboundHandler<SaveInstance> {
 	 * @param instance The SaveInstance to send
 	 */
 	public void send(SaveInstance instance) {
-		connections.forEach(conn -> conn.writeAndFlush(instance));
+		System.out.println("sending L3");
+		connections.forEach(conn -> conn.writeAndFlush(instance).addListener((ChannelFutureListener) future -> {
+			if (!future.isSuccess()) {
+				future.cause().printStackTrace();
+			}
+		}));
 	}
 
 	@Override
 	protected void messageReceived(ChannelHandlerContext ctx, SaveInstance msg) throws Exception {
+		System.out.println("network - received");
 		network.receive(msg);
 	}
 }

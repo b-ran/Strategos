@@ -39,6 +39,7 @@ public class Ui {
             view = new View(model);
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());
             view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
+            view.setSeenTerrain(model.getPlayers().get(0).getVisibleTiles());
             this.networkingHandler = networkingHandler;
             controller = new Controller(model, view, networkingHandler);
         }

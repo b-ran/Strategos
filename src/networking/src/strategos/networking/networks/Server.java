@@ -71,6 +71,7 @@ public class Server implements Network {
 
 	@Override
 	public void receive(SaveInstance instance) {
+		System.out.println("server: receieved");
 		state.load(instance);
 	}
 
@@ -83,6 +84,6 @@ public class Server implements Network {
 	@Override
 	public void setConnected(boolean connected) {
 		handler.setConnected(connected);
-		System.out.println("Server: " + connected);
+		System.out.println("server: " + connected);
 	}
 }
