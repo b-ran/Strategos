@@ -157,6 +157,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         enemy.defend(unit);
 
         hitpoints -= defence;
+        hasAttacked = true;
 
         if (enemy instanceof HealthPotion) {
             logger.info(String.format("%s: use health potion", this.getClass()));
