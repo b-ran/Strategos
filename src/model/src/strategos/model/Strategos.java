@@ -72,6 +72,7 @@ public class Strategos implements GameState {
 
 		setChanged();
 		if (synced) {
+			nextTurn();
 			notifyObservers(null);
 		}
 		synced = true;
