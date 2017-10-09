@@ -51,7 +51,7 @@ public class Server implements Network {
 								ch.pipeline().addLast(new ObjectEncoder(), new ObjectDecoder(ClassResolvers.cacheDisabled(null)), serverHandler);
 							}
 						})
-						.option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);
+						.option(ChannelOption.SO_BACKLOG, 128).option(ChannelOption.SO_RCVBUF, 4096).childOption(ChannelOption.SO_KEEPALIVE, true);
 				// Bind and start to accept incoming connections.
 				ChannelFuture f = b.bind(port).sync();
 				// Wait until the server socket is closed.
@@ -71,6 +71,7 @@ public class Server implements Network {
 
 	@Override
 	public void receive(SaveInstance instance) {
+		System.out.println("server: receieved");
 		state.load(instance);
 	}
 
@@ -83,6 +84,6 @@ public class Server implements Network {
 	@Override
 	public void setConnected(boolean connected) {
 		handler.setConnected(connected);
-		System.out.println("Server: " + connected);
+		System.out.println("server: " + connected);
 	}
 }

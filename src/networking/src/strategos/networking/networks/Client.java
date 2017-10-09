@@ -45,6 +45,7 @@ public class Client implements Network {
 				b.group(workerGroup);
 				b.channel(NioSocketChannel.class);
 				b.option(ChannelOption.SO_KEEPALIVE, true);
+				b.option(ChannelOption.SO_RCVBUF, 4096);
 				b.handler(new ChannelInitializer<SocketChannel>() {
 					@Override
 					public void initChannel(SocketChannel ch) throws InterruptedException {
@@ -71,7 +72,7 @@ public class Client implements Network {
 
 	@Override
 	public void receive(SaveInstance instance) {
-		System.out.println("recieved");
+		System.out.println("client: recieved");
 		state.load(instance);
 	}
 
