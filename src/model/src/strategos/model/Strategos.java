@@ -62,7 +62,7 @@ public class Strategos implements GameState {
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
 		this.turn = toRestore.getTurn();
-
+		System.out.println(toRestore);
 		setThisInstancePlayer(players.get(index));
 
 		setChanged();

@@ -1,6 +1,5 @@
 package strategos.ui.controller;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import strategos.networking.NetworkingHandler;
 
 import javax.swing.*;

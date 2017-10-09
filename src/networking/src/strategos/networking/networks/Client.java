@@ -71,7 +71,7 @@ public class Client implements Network {
 
 	@Override
 	public void receive(SaveInstance instance) {
-		System.out.println("client - receiving and loading");
+		System.out.println("client: recieved");
 		state.load(instance);
 	}
 
