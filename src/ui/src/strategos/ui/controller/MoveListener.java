@@ -29,6 +29,10 @@ class MoveListener extends Controller implements MouseListener {
     public void mousePressed(MouseEvent e) {
         if (controller.getSelectedMapLocation() == null) return;
 
+        if (controller.getSelectedUnit() != null && controller.getSelectedUnit().getOwner() != view.getUiOwner()) {
+            return;
+        }
+
         Point p = getHexPos(e.getX(),e.getY());
         Unit selectedUnit = model.getUnitAt(controller.getSelectedMapLocation());
         if (selectedUnit == null) return;
