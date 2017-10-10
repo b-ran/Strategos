@@ -343,6 +343,14 @@ public class Strategos implements GameState {
 		return turn;
 	}
 
+	public boolean gameOver() {
+		for (int i = 0; i < 2; i++) {
+			if (players.get(i).getUnits().isEmpty()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public void addObserver(Observer o) {
