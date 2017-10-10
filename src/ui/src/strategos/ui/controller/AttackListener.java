@@ -28,7 +28,7 @@ class AttackListener extends Controller implements MouseListener, KeyListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (controller.getSelectedMapLocation() == null) return;
+        /*if (controller.getSelectedMapLocation() == null) return;
 
         Point p = getHexPos(e.getX(),e.getY());
         Unit oldSelectedUnit = model.getUnitAt(controller.getSelectedMapLocation());
@@ -40,7 +40,7 @@ class AttackListener extends Controller implements MouseListener, KeyListener {
 
         if (units.contains(newSelectedUnit)) {
             model.attack(oldSelectedUnit, newSelectedUnit.getPosition());
-        }
+        }*/
     }
 
     @Override
