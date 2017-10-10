@@ -68,6 +68,9 @@ public class Hex implements MapLocation {
 	 */
 	@Override
 	public boolean isInPlayArea() {
+		if (terrain != null) {
+			 return isPlayable && terrain.isPassable();
+		}
 		return isPlayable;
 	}
 
