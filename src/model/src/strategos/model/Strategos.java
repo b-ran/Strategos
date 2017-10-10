@@ -58,18 +58,13 @@ public class Strategos implements GameState {
 	}
 
 	public void load(SaveInstance toRestore) {
-		List<Unit> oldUnits = players.get(0).getUnits();
-		System.out.println("loaded");
 		int index = players.indexOf(getThisInstancePlayer());
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
 		this.turn = toRestore.getTurn();
 		setThisInstancePlayer(players.get(index));
 		calculateVision(thisInstancePlayer);
-
-		for (int i = 0; i < players.get(0).getUnits().size(); i++) {
-			System.out.println(players.get(0).getUnits().get(i).getPosition() + ", " + oldUnits.get(i).getPosition());
-		}
+		// TODO - call update(this) on all units
 
 		setChanged();
 		if (synced) {
@@ -77,10 +72,9 @@ public class Strategos implements GameState {
 
 			turn.getUnits().forEach(Unit::turnTick);
 
-			getPlayers().forEach(this::calculateVision);
-
-			notifyObservers(null);
+			//getPlayers().forEach(this::calculateVision);
 		}
+		notifyObservers(null);
 		synced = true;
 	}
 
@@ -125,10 +119,12 @@ public class Strategos implements GameState {
 	 */
 	@Override
 	public void move(Unit unit, MapLocation mapLocation) {
-		if (getTilesInMoveRange(unit).contains(mapLocation)) {
-			unit.move(directionFromNeighbour(unit.getPosition(), mapLocation));
+		MapLocation newLocation = world.getMap().get(mapLocation.getX(), mapLocation.getY());
+		if (getTilesInMoveRange(unit).contains(newLocation)) {
+			unit.move(directionFromNeighbour(unit.getPosition(), newLocation));
 			calculateVision(unit.getOwner());
 		}
+		notifyObservers(null);
 	}
 
 	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
@@ -168,7 +164,9 @@ public class Strategos implements GameState {
 		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
+		int unitHP = unit.getHitpoints();
 		unit.attack(target);
+		System.out.println("unit took " + (unitHP - unit.getHitpoints()) + " damage");
 		cleanUp(unit, target);
 		setChanged();
 	}
