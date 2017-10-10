@@ -20,8 +20,8 @@ public class BridgeImpl extends UnitImpl implements Bridge, Graphical {
 	}
 
 	@Override
-	public Unit copy() {
-		return new BridgeImpl(getBehaviour().copy(), getOwner(), getPosition());
+	public Unit copy(UnitOwner newOwner) {
+		return new BridgeImpl(getBehaviour().copy(), newOwner, getPosition());
 	}
 
 	@Override

@@ -25,8 +25,8 @@ public class SpearmenImpl extends UnitImpl implements Spearmen, Graphical {
 	}
 
 	@Override
-	public Unit copy() {
-		return new SpearmenImpl(getBehaviour().copy(), getOwner(), getPosition());
+	public Unit copy(UnitOwner newOwner) {
+		return new SpearmenImpl(getBehaviour().copy(), newOwner, getPosition());
 	}
 
 	@Override

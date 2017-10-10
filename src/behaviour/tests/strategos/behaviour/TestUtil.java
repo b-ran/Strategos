@@ -111,7 +111,7 @@ public class TestUtil {
         }
 
         @Override
-        public Unit copy() {
+        public Unit copy(UnitOwner newOwner) {
             return null;
         }
     };

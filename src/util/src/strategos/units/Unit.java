@@ -51,5 +51,5 @@ public interface Unit extends Serializable {
 
     int getAttackRange();
 
-    public Unit copy();
+    public Unit copy(UnitOwner newOwner);
 }
