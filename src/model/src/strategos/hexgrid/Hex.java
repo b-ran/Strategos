@@ -23,9 +23,6 @@ public class Hex implements MapLocation {
 	private int xIndex;
 	private int yIndex;
 
-	private double gX;
-	private double gY;
-
 	private Terrain terrain;
 	private final boolean isPlayable;
 
@@ -71,7 +68,6 @@ public class Hex implements MapLocation {
 	 */
 	@Override
 	public boolean isInPlayArea() {
-		// TODO: return if the terrain can be moved over
 		return isPlayable;
 	}
 
