@@ -9,4 +9,9 @@ public class TerrainTestObj implements Terrain, Graphical {
     public void draw(GraphicalVisitor graphicalVisitor) {
 
     }
+
+    @Override
+    public boolean isPassable() {
+        return false;
+    }
 }

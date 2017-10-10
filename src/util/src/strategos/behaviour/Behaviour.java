@@ -43,7 +43,7 @@ public interface Behaviour extends Serializable {
 
     int getActionPoints(Unit unit);
 
-    Behaviour copy();
+    Behaviour copy(GameState newState);
 
     int getAttackRange();
 }

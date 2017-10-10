@@ -1,9 +1,6 @@
 package strategos.model.units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 import strategos.units.Spearmen;
@@ -25,8 +22,8 @@ public class SpearmenImpl extends UnitImpl implements Spearmen, Graphical {
 	}
 
 	@Override
-	public Unit copy(UnitOwner newOwner) {
-		return new SpearmenImpl(getBehaviour().copy(), newOwner, getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new SpearmenImpl(getBehaviour().copy(newState), newOwner, getPosition());
 	}
 
 	@Override

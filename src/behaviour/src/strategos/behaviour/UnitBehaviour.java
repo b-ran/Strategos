@@ -45,8 +45,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
         hasAttacked = true;
     }
 
-    UnitBehaviour(UnitBehaviour behaviour) {
-        super(behaviour);
+    UnitBehaviour(UnitBehaviour behaviour, GameState newState) {
+        super(behaviour, newState);
 
         entrench = behaviour.entrench;
         actionPoints = behaviour.actionPoints;

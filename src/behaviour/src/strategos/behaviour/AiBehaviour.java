@@ -46,10 +46,10 @@ class AiBehaviour extends BaseBehaviour {
         logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), Direction.values()[directionIndex]));
     }
 
-    private AiBehaviour(AiBehaviour aiBehaviour) {
-        super(aiBehaviour);
+    private AiBehaviour(AiBehaviour aiBehaviour, GameState newState) {
+        super(aiBehaviour, newState);
 
-        behaviour = aiBehaviour.copy();
+        behaviour = aiBehaviour.behaviour.copy(newState);
         directionIndex = aiBehaviour.directionIndex;
     }
 
@@ -99,7 +99,7 @@ class AiBehaviour extends BaseBehaviour {
 
     private void explore(Unit unit) {
         Direction[] values = Direction.values();
-        directionIndex = (directionIndex + random.nextInt(2) - 1) % values.length;
+        directionIndex = (values.length + directionIndex + random.nextInt(2) - 1) % values.length;
         Direction direction = values[directionIndex];
         logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), direction));
         getGameState().move(unit, direction, 1);
@@ -233,8 +233,8 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override
-    public Behaviour copy() {
-        return new AiBehaviour(this);
+    public Behaviour copy(GameState newState) {
+        return new AiBehaviour(this, newState);
     }
 
     @Override

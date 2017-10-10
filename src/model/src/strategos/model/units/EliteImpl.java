@@ -1,9 +1,6 @@
 package strategos.model.units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 import strategos.units.Elite;
@@ -28,8 +25,8 @@ public class EliteImpl extends UnitImpl implements Elite, Graphical {
 
 
 	@Override
-	public Unit copy(UnitOwner newOwner) {
-		return new EliteImpl(getBehaviour().copy(), newOwner, getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new EliteImpl(getBehaviour().copy(newState), newOwner, getPosition());
 	}
 
 	@Override

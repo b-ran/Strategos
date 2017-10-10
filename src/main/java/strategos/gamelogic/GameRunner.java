@@ -17,6 +17,7 @@ import strategos.model.units.*;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.ui.Ui;
 import strategos.units.Bridge;
+import strategos.units.Swordsmen;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
@@ -108,10 +109,15 @@ public class GameRunner {
 		UnitOwner playerTwo = new Player(false);
 		UnitOwner barbarians = new Player(true);
 		GameState newState = new Strategos(new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
-		Behaviour behaviour = factory.createBehaviourCavalry(newState);
+		/*Behaviour behaviour = factory.createBehaviourCavalry(newState);
 		playerOne.getUnits().add(new CavalryImpl(behaviour, playerOne, newState.getWorld().getMap().get(3, 6)));
-		behaviour = factory.createBehaviourSwordsmen(newState);
-		playerTwo.getUnits().add(new SwordsmenImpl(behaviour, playerTwo, newState.getWorld().getMap().get(5, 9)));
+		behaviour = factory.createBehaviourCavalry(newState);
+		playerTwo.getUnits().add(new CavalryImpl(behaviour, playerTwo, newState.getWorld().getMap().get(5, 8)));
+
+
+
+		newState.getWorld().getAllUnits().addAll(playerOne.getUnits());
+		newState.getWorld().getAllUnits().addAll(playerTwo.getUnits());*/
 
 		Bridge bridge = new BridgeImpl(factory.createBehaviourBridge(newState), barbarians, newState.getWorld().getMap().get(5,4));
 		newState.getWorld().getAllUnits().add(bridge);
@@ -123,9 +129,18 @@ public class GameRunner {
 		newState.getWorld().getAllUnits().add(bridge);
 		barbarians.getUnits().add(bridge);
 
-		newState.getWorld().getAllUnits().addAll(playerOne.getUnits());
-		newState.getWorld().getAllUnits().addAll(playerTwo.getUnits());
-		/*for (UnitOwner player : newState.getPlayers()) {
+		SwordsmenImpl barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), barbarians, newState.getWorld().getMap().get(0, 10)));
+		barbarians.getUnits().add(barbSwordsman);
+		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), barbarians, newState.getWorld().getMap().get(0, 8)));
+		barbarians.getUnits().add(barbSwordsman);
+		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), barbarians, newState.getWorld().getMap().get(14, 4)));
+		barbarians.getUnits().add(barbSwordsman);
+		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), barbarians, newState.getWorld().getMap().get(14, 6)));
+		barbarians.getUnits().add(barbSwordsman);
+
+		newState.getWorld().getAllUnits().addAll(barbarians.getUnits());
+
+		for (UnitOwner player : newState.getPlayers()) {
 			if (player.isNPC()) {
 				continue;
 			}
@@ -161,7 +176,7 @@ public class GameRunner {
 
 			player.setUnits(units);
 			newState.getWorld().getAllUnits().addAll(units);
-		}*/
+		}
 
 		return newState;
 	}

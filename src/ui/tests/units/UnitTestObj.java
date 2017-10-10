@@ -119,7 +119,7 @@ public class UnitTestObj implements Unit, Graphical{
     }
 
     @Override
-    public Unit copy(UnitOwner newOwner) {
+    public Unit copy(UnitOwner newOwner, GameState newState) {
         return null;
     }
 

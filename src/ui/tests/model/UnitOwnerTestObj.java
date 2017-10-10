@@ -1,5 +1,6 @@
 package model;
 
+import strategos.GameState;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.units.Unit;
@@ -40,7 +41,7 @@ public class UnitOwnerTestObj implements UnitOwner {
     }
 
     @Override
-    public UnitOwner copy() {
+    public UnitOwner copy(GameState newState) {
         return null;
     }
 
