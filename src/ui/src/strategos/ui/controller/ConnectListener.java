@@ -21,7 +21,7 @@ class ConnectListener extends Controller implements ActionListener{
         String s = (String) JOptionPane.showInputDialog(
                 view.getMenuComponent(),
                 "Host IP",
-                "GameRanger LUL",
+                "Connect",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 null,

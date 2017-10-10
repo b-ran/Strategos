@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Function;
+import java.util.logging.Logger;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.hypot;
@@ -20,6 +21,8 @@ import static java.lang.Math.hypot;
 class AiBehaviour extends BaseBehaviour {
 
     //TODO: Where is your javadoc?
+
+    private static Logger logger = Logger.getLogger("strategos.behaviour");
 
     private static final Random random = new Random();
     private Behaviour behaviour;
@@ -33,12 +36,14 @@ class AiBehaviour extends BaseBehaviour {
         }
 
         this.behaviour = factoryMethod.apply(gameState);
+        logger.fine(String.format("AI behaviour created inner behaviour %s", behaviour.getClass()));
 
         if (this.behaviour == null) {
             throw new NullPointerException("Behaviour factory method should not return null");
         }
 
         directionIndex = random.nextInt(Direction.values().length);
+        logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), Direction.values()[directionIndex]));
     }
 
     private AiBehaviour(AiBehaviour aiBehaviour, GameState newState) {
@@ -96,6 +101,7 @@ class AiBehaviour extends BaseBehaviour {
         Direction[] values = Direction.values();
         directionIndex = (directionIndex + random.nextInt(2) - 1) % values.length;
         Direction direction = values[directionIndex];
+        logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), direction));
         getGameState().move(unit, direction, 1);
     }
 

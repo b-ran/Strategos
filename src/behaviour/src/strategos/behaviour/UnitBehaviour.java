@@ -125,7 +125,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         MapLocation neighbour = getPosition(unit).getNeighbour(direction);
         int movementCost = terrainMovementCost(neighbour.getTerrain());
 
-        if (getActionPoints(unit) < movementCost) {
+        if (getActionPoints(unit) < 1) {
             logger.info(String.format("%s: not enough action points for move", this.getClass()));
             return false;
         }
@@ -151,12 +151,13 @@ abstract class UnitBehaviour extends BaseBehaviour {
         int defence = enemy.getToughness();
         defence += enemy.getWary() ? 1 : 0;
         defence += enemy.getEntrench() ? 2 : 0;
-        defence *= 1 + (100 - enemy.getHitpoints()) * -0.2;
+        defence *= 0.8 + (enemy.getHitpoints() / 500.0);
         defence = terrainDamageBonus(enemy, defence, false);
 
         enemy.defend(unit);
 
         hitpoints -= defence;
+        hasAttacked = true;
 
         if (enemy instanceof HealthPotion) {
             logger.info(String.format("%s: use health potion", this.getClass()));
@@ -189,7 +190,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
-        logger.fine(String.format("%s: defend against %s", this.getClass(), unit));
+        logger.fine(String.format("%s: defend against %s", this.getClass(), enemy));
 
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
@@ -198,7 +199,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         int attack = enemy.getStrength();
         attack -= getWary(unit) ? 1 : 0;
         attack -= getEntrench(unit) ? 2 : 0;
-        attack *= 1 + (100 - enemy.getHitpoints()) * -0.2;
+        attack *= 0.8 + (enemy.getHitpoints() / 500.0);
         attack = terrainDamageBonus(enemy, attack, true);
 
         hitpoints -= attack;

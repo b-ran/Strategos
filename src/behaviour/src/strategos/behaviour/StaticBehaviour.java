@@ -10,7 +10,8 @@ import java.util.logging.*;
 abstract class StaticBehaviour extends BaseBehaviour {
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");
-    private boolean isAlive;
+    private int hitpointsMax;
+    private int hitpoints;
 
     @Override public boolean getWary(Unit unit) {
         return false;
@@ -21,19 +22,21 @@ abstract class StaticBehaviour extends BaseBehaviour {
     }
 
     @Override public int getHitpoints(Unit unit) {
-        return isAlive ? 100 : 0;
+        return hitpoints * (100 / hitpointsMax);
     }
 
-    StaticBehaviour(GameState gameState) {
+    StaticBehaviour(GameState gameState, int hitpoints) {
         super(gameState);
 
-        isAlive = true;
+        hitpointsMax = hitpoints;
+        this.hitpoints = hitpoints;
     }
 
     StaticBehaviour(StaticBehaviour behaviour, GameState newState) {
         super(behaviour, newState);
 
-        this.isAlive = behaviour.isAlive;
+        this.hitpointsMax = behaviour.hitpointsMax;
+        this.hitpoints = behaviour.hitpoints;
     }
 
     @Override public void turnTick(Unit unit) {
@@ -67,7 +70,7 @@ abstract class StaticBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }
 
-        isAlive = false;
+        hitpoints -= enemy.getStrength();
 
         return 0;
     }
@@ -88,19 +91,21 @@ abstract class StaticBehaviour extends BaseBehaviour {
 
         StaticBehaviour that = (StaticBehaviour) o;
 
-        return isAlive == that.isAlive;
+        if (hitpointsMax != that.hitpointsMax) return false;
+        return hitpoints == that.hitpoints;
 
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (isAlive ? 1 : 0);
+        result = 31 * result + hitpointsMax;
+        result = 31 * result + hitpoints;
         return result;
     }
 
     @Override public boolean isAlive(Unit unit) {
-        return isAlive;
+        return hitpoints > 0;
     }
 
     @Override public int getSightRadius(Unit unit) {
@@ -114,7 +119,8 @@ abstract class StaticBehaviour extends BaseBehaviour {
     @Override
     public String toString() {
         return "StaticBehaviour{" +
-                "isAlive=" + isAlive +
+                "hitpointsMax=" + hitpointsMax +
+                ", hitpoints=" + hitpoints +
                 "} " + super.toString();
     }
 
