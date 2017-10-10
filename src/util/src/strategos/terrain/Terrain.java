@@ -6,4 +6,5 @@ package strategos.terrain;
  */
 public interface Terrain {
     String toString();
+    boolean isPassable();
 }
