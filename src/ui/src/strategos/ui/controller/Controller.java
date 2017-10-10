@@ -193,6 +193,10 @@ public class Controller {
             selectionHelper();
             return;
         }
+        if (model.getUnitAt(selectedMapLocation) != null && model.getTilesInMoveRange(model.getUnitAt(selectedMapLocation)).contains(selectedMapLocation) /*||
+                (selectedUnit != null && model.getTilesInRange(selectedMapLocation, selectedUnit.getAttackRange()).contains(selectedMapLocation))*/) {
+            return;
+        }
         selectedUnit = model.getUnitAt(selectedMapLocation);
         if (selectedUnit == null) {
             selectionToggle = false;

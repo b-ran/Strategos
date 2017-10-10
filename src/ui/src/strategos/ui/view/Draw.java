@@ -127,7 +127,9 @@ public class Draw implements GraphicalVisitor{
 
         image.getScaledInstance(bounds.width, bounds.height, Image.SCALE_DEFAULT);
 
-        g.drawImage(image, bounds.x, bounds.y, bounds.width, bounds.height,null);
+        if (selectionStrokeSize <= 0) {
+            g.drawImage(image, bounds.x, bounds.y, bounds.width, bounds.height, null);
+        }
         g.setClip(null);
 
 
