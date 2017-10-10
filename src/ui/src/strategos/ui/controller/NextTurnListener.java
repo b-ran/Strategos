@@ -22,6 +22,9 @@ class NextTurnListener extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (uiOwner != model.getCurrentTurn()) {
+            return;
+        }
         model.nextTurn();
 
         UnitOwner unitOwner = model.getCurrentTurn();
