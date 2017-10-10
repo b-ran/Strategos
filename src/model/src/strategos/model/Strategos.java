@@ -65,6 +65,7 @@ public class Strategos implements GameState {
 		this.players = toRestore.getPlayers();
 		this.turn = toRestore.getTurn();
 		setThisInstancePlayer(players.get(index));
+		calculateVision(thisInstancePlayer);
 
 		for (int i = 0; i < players.get(0).getUnits().size(); i++) {
 			System.out.println(players.get(0).getUnits().get(i).getPosition() + ", " + oldUnits.get(i).getPosition());
@@ -72,6 +73,14 @@ public class Strategos implements GameState {
 
 		setChanged();
 		if (synced) {
+			//nextTurn();
+			turn.getUnits().removeIf(u -> !u.isAlive());
+
+			turn.getUnits().forEach(Unit::turnTick);
+
+			getPlayers().forEach(this::calculateVision);
+
+			int turnIndex = players.indexOf(turn);
 			notifyObservers(null);
 		}
 		synced = true;
@@ -300,6 +309,9 @@ public class Strategos implements GameState {
 		int turnIndex = players.indexOf(turn);
 		turnIndex = (turnIndex + 1) % players.size();
 		turn = players.get(turnIndex);
+		if (turnIndex == 2) {
+			nextTurn();
+		}
 	}
 
 	@Override
