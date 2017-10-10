@@ -12,6 +12,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -31,11 +33,11 @@ public class Draw implements GraphicalVisitor{
     private static BufferedImage riverImage = null;
     private static BufferedImage fogImage = null;
 
-    private static BufferedImage archersImage = null;
-    private static BufferedImage cavalryImage = null;
-    private static BufferedImage eliteImage = null;
-    private static BufferedImage spearmenImage = null;
-    private static BufferedImage swordsmenImage = null;
+    private static BufferedImage[] archersImage = new BufferedImage[3];
+    private static BufferedImage[] cavalryImage = new BufferedImage[3];
+    private static BufferedImage[] eliteImage = new BufferedImage[3];
+    private static BufferedImage[] spearmenImage = new BufferedImage[3];
+    private static BufferedImage[] swordsmenImage = new BufferedImage[3];
 
     static BufferedImage backgroundImage = null;
     private View view;
@@ -62,17 +64,33 @@ public class Draw implements GraphicalVisitor{
         riverImage = loadImage(RIVER_IMAGE_PATH);
         fogImage = loadImage(FOG_IMAGE_PATH);
 
-        archersImage = loadImage(ARCHERS_IMAGE_PATH);
-        cavalryImage = loadImage(CAVALRY_IMAGE_PATH);
-        eliteImage = loadImage(ELITE_IMAGE_PATH);
-        spearmenImage = loadImage(SPEARMEN_IMAGE_PATH);
-        swordsmenImage = loadImage(SWORDSMEN_IMAGE_PATH);
-
+        archersImage = loadUnitImage(ARCHERS_IMAGE_PATH);
+        cavalryImage = loadUnitImage(CAVALRY_IMAGE_PATH);
+        eliteImage = loadUnitImage(ELITE_IMAGE_PATH);
+        spearmenImage = loadUnitImage(SPEARMEN_IMAGE_PATH);
+        swordsmenImage = loadUnitImage(SWORDSMEN_IMAGE_PATH);
 
         backgroundImage = loadImage(BACKGROUND_IMAGE_PATH);
         loadImages = false;
     }
 
+    private BufferedImage[] loadUnitImage(String path) {
+        BufferedImage[] image = new BufferedImage[3];
+        for (int i = 0; i < image.length; i++) {
+            image[i] = loadImage(String.format(path, UNIT_TAGS[i]));
+        }
+        return image;
+    }
+
+    private BufferedImage getUnitOwnerImage(Unit u, BufferedImage[] images) {
+        if (u.getOwner().equals(view.getUiOwner())) {
+            return images[0];
+        } else if (u.getOwner().isNPC()) {
+            return images[2];
+        } else {
+            return images[1];
+        }
+    }
 
     private BufferedImage loadImage(String path) {
         if (!loadImages) return null;
@@ -81,10 +99,12 @@ public class Draw implements GraphicalVisitor{
         try {
             image = ImageIO.read(stream);
         } catch (IOException e) {
+            System.out.println(path);
             System.out.println(stream.toString());
         }
         return image;
     }
+
 
     void drawTerrain(Terrain t, Point p, Graphics g) {
         g2d = (Graphics2D) g;
@@ -195,37 +215,23 @@ public class Draw implements GraphicalVisitor{
 
     @Override
     public void visit(Archers archers) {
-        setUnitColor(archers);
-        g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_ARCHERS_LETTER, p.x, p.y);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(archers,archersImage), getHexagon(p), p), p.x, p.y, null);
     }
 
     @Override
     public void visit(Bridge bridge) {
         Point p = getTerrainGridPos((hexPoint == null) ? this.p : hexPoint);
         g2d.drawImage(getTexturedImage(bridgeImage, getHexagon(p), p), p.x, p.y, null);
-        /*g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_BRIDGE_LETTER, p.x, p.y);*/
     }
 
     @Override
     public void visit(Cavalry cavalry) {
-        /*setUnitColor(cavalry);
-        g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_CAVALRY_LETTER, p.x, p.y);*/
-        g2d.drawImage(getTexturedImage(cavalryImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(cavalry,cavalryImage), getHexagon(p), p), p.x, p.y , null);
     }
 
     @Override
     public void visit(Elite elite) {
-        /*setUnitColor(elite);
-        g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_ELITE_LETTER, p.x, p.y);*/
-
-        g2d.drawImage(getTexturedImage(eliteImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(elite, eliteImage), getHexagon(p), p), p.x, p.y , null);
     }
 
     @Override
@@ -235,32 +241,12 @@ public class Draw implements GraphicalVisitor{
 
     @Override
     public void visit(Spearmen spearmen) {
-        /*setUnitColor(spearmen);
-        g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_SPEARMEN_LETTER, p.x, p.y);*/
-
-        g2d.drawImage(getTexturedImage(spearmenImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(spearmen, spearmenImage), getHexagon(p), p), p.x, p.y , null);
     }
 
     @Override
     public void visit(Swordsmen swordsmen) {
-       /* g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
-        g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_SWORDSMEN_LETTER, p.x, p.y);*/
-
-        g2d.drawImage(getTexturedImage(swordsmenImage, getHexagon(p), p), p.x, p.y , null);
-    }
-
-    private void setUnitColor(Unit unit) {
-        UnitOwner owner = unit.getOwner();
-        if (owner.isNPC()) {
-            g2d.setColor(NPC_COLOR);
-        } else if (view.getUiOwner().getUnits().contains(unit)) {
-            g2d.setColor(PLAYER_COLOR);
-        } else {
-            g2d.setColor(OTHER_PLAYER_COLOR);
-        }
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(swordsmen, swordsmenImage), getHexagon(p), p), p.x, p.y , null);
     }
 
     //Credit: https://www.redblobgames.com/grids/hexagons/#hex-to-pixel for logic of hex to pixels
@@ -289,6 +275,5 @@ public class Draw implements GraphicalVisitor{
         }
         return new Point(x,y);
     }
-
 
 }
