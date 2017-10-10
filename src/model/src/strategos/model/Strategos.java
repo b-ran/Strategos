@@ -64,7 +64,10 @@ public class Strategos implements GameState {
 		this.turn = toRestore.getTurn();
 		setThisInstancePlayer(players.get(index));
 		calculateVision(thisInstancePlayer);
-		// TODO - call update(this) on all units
+
+		for (Unit u : world.getAllUnits()) {
+			u.setBehaviour(u.getBehaviour().copy(this));
+		}
 
 		setChanged();
 		if (synced) {
@@ -165,21 +168,22 @@ public class Strategos implements GameState {
 		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
-		int unitHP = unit.getHitpoints();
 		unit.attack(target);
 		cleanUp(unit, target);
 		setChanged();
 	}
 
 	private void cleanUp(Unit unitA, Unit unitB) {
-		if (unitB.getHitpoints() <= 0) {
+		if (unitB instanceof Bridge) {
 			unitB.getOwner().getUnits().remove(unitB);
 			world.getAllUnits().remove(unitB);
-			if (unitB instanceof Bridge) {
-				BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
-				unitA.getOwner().getUnits().add(newBridge);
-				world.getAllUnits().add(newBridge);
-			}
+			BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
+			unitA.getOwner().getUnits().add(newBridge);
+			world.getAllUnits().add(newBridge);
+		}
+		if (!unitB.isAlive()) {
+			unitB.getOwner().getUnits().remove(unitB);
+			world.getAllUnits().remove(unitB);
 		}
 		if (unitA.getHitpoints() <= 0) {
 			unitA.getOwner().getUnits().remove(unitA);
@@ -353,7 +357,6 @@ public class Strategos implements GameState {
 
 	@Override
 	public void notifyObservers(Object o) {
-		//observers.forEach(Observer::notify);
 		for (Observer obs : observers) {
 			obs.update(null, o);
 		}
