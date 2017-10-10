@@ -10,6 +10,7 @@ import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
 import strategos.ui.view.SideComponent;
 import strategos.ui.view.View;
+import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import java.awt.*;
@@ -201,8 +202,10 @@ public class Controller {
         if (this.selectedMapLocation != null && selectedMapLocation != null) {
             if (selectedUnit != null) {
                 if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), 1)) &&
-                       selectedUnit.getOwner() == model.getCurrentTurn()) {
-                    if (model.getUnitAt(selectedMapLocation) == null) {
+                        selectedUnit.getOwner() == model.getCurrentTurn()) {
+                    if (model.getUnitAt(selectedMapLocation) == null ||
+                            (model.getUnitAt(selectedMapLocation) instanceof Bridge &&
+                                    model.getUnitAt(selectedMapLocation).getOwner() == selectedUnit.getOwner())) {
                         model.move(selectedUnit, selectedMapLocation);
                     } else {
                         model.attack(selectedUnit, selectedMapLocation);
