@@ -36,7 +36,7 @@ class NextTurnListener extends Controller implements ActionListener {
         }
         controller.setSelectedMapLocation(null);
         view.getGridComponent().setSelection(null);
-        view.getSideComponent().setSelection(null, null);
+        view.getSideComponent().setSelection(null, null); //TODO: review
         if (model.getPlayers().indexOf(unitOwner) == 1) {
             for (Unit barbarian : model.getPlayers().get(2).getUnits()) {
                 barbarian.turnTick();
