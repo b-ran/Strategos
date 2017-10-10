@@ -20,6 +20,8 @@ public class TerrainGeneration {
      */
     private int xRes = 1, yRes = 1;
 
+    private int octaves = 512;
+
     /**
      * Changes the average elevation of the map
      * Higher value = falter map(more plains less mountains)
@@ -34,16 +36,13 @@ public class TerrainGeneration {
      * Max 100
      * Min 1
      */
-    private int forested = 90;
-
-    private int octaves = 512;
-    private double persistence = 0.01;
+    private int forested = 60;
 
     /**
      * Frequency of different terrain types
      * Highest value it occurs at
      */
-    private double plainsFreq = 0.5, hillFreq = 0.2 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
+    private double plainsFreq = 0.6, hillFreq = 0.2 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
 
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each
