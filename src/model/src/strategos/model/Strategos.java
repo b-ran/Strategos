@@ -154,6 +154,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void attack(Unit unit, MapLocation location) {
+		System.out.println("sending attack command");
 		Unit target = getUnitAt(location);
 		if (unit.getActionPoints() == 0) {
 			return;
@@ -166,7 +167,6 @@ public class Strategos implements GameState {
 		}
 		int unitHP = unit.getHitpoints();
 		unit.attack(target);
-		System.out.println("unit took " + (unitHP - unit.getHitpoints()) + " damage");
 		cleanUp(unit, target);
 		setChanged();
 	}
