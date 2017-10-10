@@ -4,9 +4,9 @@ import strategos.Graphical;
 import strategos.GraphicalVisitor;
 import strategos.terrain.River;
 
-public class RiverTile extends TerrainTile implements River, Graphical {
+import static strategos.terrain.TerrainConfig.riversPassable;
 
-    private final boolean passable = false;
+public class RiverTile extends TerrainTile implements River, Graphical {
 
     @Override
     public String toString() {
@@ -15,7 +15,7 @@ public class RiverTile extends TerrainTile implements River, Graphical {
 
     @Override
     public boolean isPassable() {
-        return passable;
+        return riversPassable;
     }
 
     @Override
