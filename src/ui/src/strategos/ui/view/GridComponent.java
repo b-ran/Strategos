@@ -134,7 +134,7 @@ public class GridComponent extends JComponent {
      */
     public void setTerrain(MapLocation[][] terrain) {
         this.terrain = terrain;
-        revealMap();
+        //revealMap();
     }
 
 

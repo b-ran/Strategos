@@ -28,8 +28,8 @@ public class EliteImpl extends UnitImpl implements Elite, Graphical {
 
 
 	@Override
-	public Unit copy() {
-		return new EliteImpl(getBehaviour().copy(), getOwner(), getPosition());
+	public Unit copy(UnitOwner newOwner) {
+		return new EliteImpl(getBehaviour().copy(), newOwner, getPosition());
 	}
 
 	@Override

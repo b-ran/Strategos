@@ -119,7 +119,7 @@ public class ExternalTestUnit implements Unit {
 	}
 
 	@Override
-	public Unit copy() {
+	public Unit copy(UnitOwner newOwner) {
 		return new ExternalTestUnit(id);
 	}
 }

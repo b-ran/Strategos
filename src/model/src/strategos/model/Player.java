@@ -50,7 +50,10 @@ public class Player implements UnitOwner{
 
 		// Consider using a stream instead of a for loop here
 		//// newUnits = units.stream().map(Unit::copy).collect(Collectors.toList());
-		List<Unit> newUnits = units.stream().map(Unit::copy).collect(Collectors.toList());
+		List<Unit> newUnits = new ArrayList<>();
+		for (int i = 0; i < getUnits().size(); i++) {
+			newUnits.add(getUnits().get(i).copy(newPlayer));
+		}
 		newPlayer.setUnits(newUnits);
 		return newPlayer;
 	}
