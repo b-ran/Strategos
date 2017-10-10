@@ -41,10 +41,10 @@ class AiBehaviour extends BaseBehaviour {
         directionIndex = random.nextInt(Direction.values().length);
     }
 
-    private AiBehaviour(AiBehaviour aiBehaviour) {
-        super(aiBehaviour);
+    private AiBehaviour(AiBehaviour aiBehaviour, GameState newState) {
+        super(aiBehaviour, newState);
 
-        behaviour = aiBehaviour.copy();
+        behaviour = aiBehaviour.copy(newState);
         directionIndex = aiBehaviour.directionIndex;
     }
 
@@ -227,8 +227,8 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override
-    public Behaviour copy() {
-        return new AiBehaviour(this);
+    public Behaviour copy(GameState newState) {
+        return new AiBehaviour(this, newState);
     }
 
     @Override

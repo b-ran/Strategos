@@ -30,8 +30,8 @@ abstract class StaticBehaviour extends BaseBehaviour {
         isAlive = true;
     }
 
-    StaticBehaviour(StaticBehaviour behaviour) {
-        super(behaviour);
+    StaticBehaviour(StaticBehaviour behaviour, GameState newState) {
+        super(behaviour, newState);
 
         this.isAlive = behaviour.isAlive;
     }

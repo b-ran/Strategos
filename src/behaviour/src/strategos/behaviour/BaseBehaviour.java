@@ -26,14 +26,14 @@ abstract class BaseBehaviour implements Behaviour {
         this.gameState = gameState;
     }
 
-    BaseBehaviour(BaseBehaviour behaviour) {
+    BaseBehaviour(BaseBehaviour behaviour, GameState newState) {
         logger.fine(String.format("Copy behaviour %s", behaviour));
 
         if (behaviour == null) {
             throw new NullPointerException("BaseBehaviour constructor requires non-null behaviour");
         }
 
-        gameState = behaviour.gameState;
+        gameState = newState;
         position = behaviour.position;
     }
 

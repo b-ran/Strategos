@@ -10,12 +10,12 @@ class BehaviourBridge extends StaticBehaviour {
         super(gameState);
     }
 
-    private BehaviourBridge(BehaviourBridge behaviour) {
-        super(behaviour);
+    private BehaviourBridge(BehaviourBridge behaviour, GameState newState) {
+        super(behaviour, newState);
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourBridge(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourBridge(this, newState);
     }
 
     @Override

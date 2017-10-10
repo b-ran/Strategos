@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.*;
 
+import strategos.GameState;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.model.units.UnitImpl;
@@ -45,14 +46,14 @@ public class Player implements UnitOwner{
 	}
 
 	@Override
-	public UnitOwner copy() {
+	public UnitOwner copy(GameState newState) {
 		UnitOwner newPlayer = new Player(isNPC);
 
 		// Consider using a stream instead of a for loop here
 		//// newUnits = units.stream().map(Unit::copy).collect(Collectors.toList());
 		List<Unit> newUnits = new ArrayList<>();
 		for (int i = 0; i < getUnits().size(); i++) {
-			newUnits.add(getUnits().get(i).copy(newPlayer));
+			newUnits.add(getUnits().get(i).copy(newPlayer, newState));
 		}
 		newPlayer.getVisibleTiles().addAll(getVisibleTiles());
 		newPlayer.setUnits(newUnits);

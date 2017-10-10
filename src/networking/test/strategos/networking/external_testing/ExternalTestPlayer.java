@@ -1,5 +1,6 @@
 package strategos.networking.external_testing;
 
+import strategos.GameState;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.units.Unit;
@@ -28,7 +29,8 @@ public class ExternalTestPlayer implements UnitOwner {
 	}
 
 	@Override
-	public UnitOwner copy() {
+	public UnitOwner copy(GameState newState) {
 		return null;
 	}
+
 }

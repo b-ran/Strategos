@@ -1,6 +1,7 @@
 package strategos.networking.external_testing;
 
 import strategos.GameCollections;
+import strategos.GameState;
 import strategos.SaveInstance;
 import strategos.UnitOwner;
 import strategos.units.Unit;
@@ -13,11 +14,16 @@ public class ExternalTestSaveInstance implements SaveInstance {
 	private final GameCollections world;
 	private final List<UnitOwner> players;
 
-	public ExternalTestSaveInstance(GameCollections world, List<UnitOwner> oldPlayers, UnitOwner turn) {
+	public ExternalTestSaveInstance(GameState newState, GameCollections world, List<UnitOwner> oldPlayers, UnitOwner turn) {
 
 		List<Unit> allUnits = new ArrayList<>();
 
-		players = oldPlayers.stream().map(UnitOwner::copy).collect(Collectors.toList());
+		players = new ArrayList<>();
+
+		for (int i = 0; i < oldPlayers.size(); i++) {
+			players.add(oldPlayers.get(i).copy(newState));
+		}
+
 		players.stream().map(UnitOwner::getUnits).forEach(allUnits::addAll);
 
 		this.world = new ExternalTestWorld(

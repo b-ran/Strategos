@@ -99,7 +99,8 @@ public class BaseBehaviourTest {
                 return 0;
             }
 
-            @Override public Behaviour copy() {
+            @Override
+            public Behaviour copy(GameState newState) {
                 return null;
             }
 

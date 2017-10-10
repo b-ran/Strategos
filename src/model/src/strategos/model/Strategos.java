@@ -54,7 +54,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public SaveInstance export() {
-		return new SaveState(world, players, turn);
+		return new SaveState(this, world, players, turn);
 	}
 
 	public void load(SaveInstance toRestore) {
