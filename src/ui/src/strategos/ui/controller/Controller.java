@@ -187,17 +187,40 @@ public class Controller {
         return networkingHandler;
     }
 
+    private boolean mapLocationIn(MapLocation location, List<MapLocation> otherLocations) {
+        for (MapLocation other : otherLocations) {
+            if (other.getX() == location.getX() && other.getY() == location.getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void setSelectedMapLocation(MapLocation selectedMapLocation) {
+
+        if (this.selectedMapLocation != null && selectedMapLocation != null) {
+            if (selectedUnit != null) {
+                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), 1)) &&
+                       selectedUnit.getOwner() == model.getCurrentTurn()) {
+                    if (model.getUnitAt(selectedMapLocation) == null) {
+                        model.move(selectedUnit, selectedMapLocation);
+                    } else {
+                        model.attack(selectedUnit, selectedMapLocation);
+                    }
+                } else {
+                    selectedUnit = model.getUnitAt(selectedMapLocation);
+                }
+            }
+        }
+
         this.selectedMapLocation = selectedMapLocation;
+        selectedUnit = model.getUnitAt(this.selectedMapLocation);
         if (selectedMapLocation == null) {
-            selectionHelper();
+           // selectionHelper();
             return;
         }
-        if (model.getUnitAt(selectedMapLocation) != null && model.getTilesInMoveRange(model.getUnitAt(selectedMapLocation)).contains(selectedMapLocation) /*||
-                (selectedUnit != null && model.getTilesInRange(selectedMapLocation, selectedUnit.getAttackRange()).contains(selectedMapLocation))*/) {
-            return;
-        }
-        selectedUnit = model.getUnitAt(selectedMapLocation);
+
+
         if (selectedUnit == null) {
             selectionToggle = false;
             view.getGridComponent().setSelection(selectedMapLocation);
