@@ -54,6 +54,7 @@ public class Player implements UnitOwner{
 		for (int i = 0; i < getUnits().size(); i++) {
 			newUnits.add(getUnits().get(i).copy(newPlayer));
 		}
+		newPlayer.getVisibleTiles().addAll(getVisibleTiles());
 		newPlayer.setUnits(newUnits);
 		return newPlayer;
 	}
