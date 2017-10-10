@@ -17,6 +17,7 @@ import strategos.model.units.*;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.ui.Ui;
 import strategos.units.Bridge;
+import strategos.units.Swordsmen;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
@@ -127,6 +128,15 @@ public class GameRunner {
 		bridge = new BridgeImpl(factory.createBehaviourBridge(newState), barbarians, newState.getWorld().getMap().get(7,7));
 		newState.getWorld().getAllUnits().add(bridge);
 		barbarians.getUnits().add(bridge);
+
+		SwordsmenImpl barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), barbarians, newState.getWorld().getMap().get(0, 10)));
+		barbarians.getUnits().add(barbSwordsman);
+		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), barbarians, newState.getWorld().getMap().get(0, 8)));
+		barbarians.getUnits().add(barbSwordsman);
+		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), barbarians, newState.getWorld().getMap().get(14, 4)));
+		barbarians.getUnits().add(barbSwordsman);
+		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), barbarians, newState.getWorld().getMap().get(14, 6)));
+		barbarians.getUnits().add(barbSwordsman);
 
 		newState.getWorld().getAllUnits().addAll(barbarians.getUnits());
 
