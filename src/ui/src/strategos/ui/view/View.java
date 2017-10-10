@@ -70,7 +70,6 @@ public class View extends JComponent implements Observer {
         if (model.getWorld().getAllUnits() != gridComponent.getEntities()) {
             gridComponent.setEntities(model.getWorld().getAllUnits());
             gridComponent.setTerrain(model.getWorld().getMap().getData());
-            setUiOwner(model.getThisInstancePlayer());
             setSeenTerrain(getUiOwner().getVisibleTiles());
         }
         gridComponent.requestFocus();
@@ -212,18 +211,9 @@ public class View extends JComponent implements Observer {
     }
     
     public UnitOwner getUiOwner() {
-        return uiOwner;
+        return model.getThisInstancePlayer();
     }
 
-    public void setUiOwner(UnitOwner unitOwner) {
-        System.out.println(model.getPlayers().indexOf(unitOwner));
-        if (unitOwner != model.getCurrentTurn()) {
-            getSideComponent().setPlayerText(OTHER_PLAYER_NAME);
-        } else {
-            getSideComponent().setPlayerText(PLAYER_NAME);
-        }
-        uiOwner = unitOwner;
-    }
 
     public List<MapLocation> getSeenTerrain() {
         return seenTerrain;
@@ -232,4 +222,5 @@ public class View extends JComponent implements Observer {
     public void setSeenTerrain(List<MapLocation> seenTerrain) {
         this.seenTerrain = seenTerrain;
     }
+
 }
