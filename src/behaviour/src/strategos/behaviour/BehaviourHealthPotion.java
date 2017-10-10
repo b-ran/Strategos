@@ -2,12 +2,13 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.behaviour.config.BehaviourConfig;
 
 
 class BehaviourHealthPotion extends StaticBehaviour {
 
     BehaviourHealthPotion(GameState gameState) {
-        super(gameState);
+        super(gameState, BehaviourConfig.POTION_HITPOINTS);
     }
 
     private BehaviourHealthPotion(BehaviourHealthPotion behaviourHealthPotion) {
