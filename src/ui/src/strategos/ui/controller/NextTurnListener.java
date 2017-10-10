@@ -1,5 +1,7 @@
 package strategos.ui.controller;
 
+import strategos.GameState;
+import strategos.SaveInstance;
 import strategos.UnitOwner;
 
 import java.awt.event.ActionEvent;
@@ -32,9 +34,12 @@ class NextTurnListener extends Controller implements ActionListener {
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null);
         view.repaint();
+        SaveInstance exported = model.export();
+        if (exported.getPlayers().indexOf(exported.getTurn()) == model.getPlayers().indexOf(uiOwner)) {
+            view.setUiOwner(exported.getTurn());
+        }
         try {
-            System.out.println("sending L1");
-            controller.getNetworkingHandler().send(model.export());
+            controller.getNetworkingHandler().send(exported);
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }

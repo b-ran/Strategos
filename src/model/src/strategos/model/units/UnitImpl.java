@@ -125,8 +125,8 @@ public class UnitImpl implements Unit, Graphical {
 	}
 
 	@Override
-	public Unit copy() {
-		return new UnitImpl(getBehaviour().copy(), getOwner(), getPosition());
+	public Unit copy(UnitOwner newOwner) {
+		return new UnitImpl(getBehaviour().copy(), newOwner, getPosition());
 	}
 
 	@Override

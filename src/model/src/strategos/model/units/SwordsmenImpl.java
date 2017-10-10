@@ -25,8 +25,8 @@ public class SwordsmenImpl extends UnitImpl implements Swordsmen, Graphical {
 	}
 
 	@Override
-	public Unit copy() {
-		return new SwordsmenImpl(getBehaviour().copy(), getOwner(), getPosition());
+	public Unit copy(UnitOwner newOwner) {
+		return new SwordsmenImpl(getBehaviour().copy(), newOwner, getPosition());
 	}
 
 	@Override
