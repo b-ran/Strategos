@@ -67,11 +67,12 @@ public class View extends JComponent implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("update");
-        gridComponent.setEntities(model.getWorld().getAllUnits());
-        gridComponent.setTerrain(model.getWorld().getMap().getData());
-        setUiOwner(model.getThisInstancePlayer());
-        setSeenTerrain(getUiOwner().getVisibleTiles());
+        if (model.getWorld().getAllUnits() != gridComponent.getEntities()) {
+            gridComponent.setEntities(model.getWorld().getAllUnits());
+            gridComponent.setTerrain(model.getWorld().getMap().getData());
+            setUiOwner(model.getThisInstancePlayer());
+            setSeenTerrain(getUiOwner().getVisibleTiles());
+        }
         gridComponent.requestFocus();
         gridComponent.setFocusable(true);
         frame.repaint();
