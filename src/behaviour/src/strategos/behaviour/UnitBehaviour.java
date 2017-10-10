@@ -125,7 +125,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         MapLocation neighbour = getPosition(unit).getNeighbour(direction);
         int movementCost = terrainMovementCost(neighbour.getTerrain());
 
-        if (getActionPoints(unit) < movementCost) {
+        if (getActionPoints(unit) < 1) {
             logger.info(String.format("%s: not enough action points for move", this.getClass()));
             return false;
         }
