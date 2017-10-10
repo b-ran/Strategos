@@ -5,7 +5,6 @@ import strategos.GameState;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.networking.NetworkingHandler;
-import strategos.terrain.Terrain;
 import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
 import strategos.ui.view.SideComponent;
@@ -203,14 +202,9 @@ public class Controller {
             if (selectedUnit != null) {
                 if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), 1)) &&
                         selectedUnit.getOwner() == model.getCurrentTurn()) {
-                    if (model.getUnitAt(selectedMapLocation) == null ||
-                            (model.getUnitAt(selectedMapLocation) instanceof Bridge &&
-                                    model.getUnitAt(selectedMapLocation).getOwner() == selectedUnit.getOwner())) {
-                        model.move(selectedUnit, selectedMapLocation);
-                    } else {
-                        model.attack(selectedUnit, selectedMapLocation);
-                    }
+                    handleCommand(selectedMapLocation);
                 } else {
+                    selectionToggle = true;
                     selectedUnit = model.getUnitAt(selectedMapLocation);
                 }
             }
@@ -219,10 +213,9 @@ public class Controller {
         this.selectedMapLocation = selectedMapLocation;
         selectedUnit = model.getUnitAt(this.selectedMapLocation);
         if (selectedMapLocation == null) {
-           // selectionHelper();
+            selectionHelper();
             return;
         }
-
 
         if (selectedUnit == null) {
             selectionToggle = false;
@@ -236,6 +229,16 @@ public class Controller {
             view.getSideComponent().setSelection(selectedMapLocation, selectedUnit);
         }
         view.repaint();
+    }
+
+    private void handleCommand(MapLocation newLocation) {
+        if (model.getUnitAt(newLocation) == null ||
+                (model.getUnitAt(newLocation) instanceof Bridge &&
+                 model.getUnitAt(newLocation).getOwner() == selectedUnit.getOwner())) {
+            model.move(selectedUnit, newLocation);
+        } else {
+            model.attack(selectedUnit, newLocation);
+        }
     }
 
     private void selectionHelper() {
