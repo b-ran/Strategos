@@ -16,6 +16,7 @@ import strategos.model.World;
 import strategos.model.units.*;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.ui.Ui;
+import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
@@ -107,8 +108,24 @@ public class GameRunner {
 		UnitOwner playerTwo = new Player(false);
 		UnitOwner barbarians = new Player(true);
 		GameState newState = new Strategos(new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
+		Behaviour behaviour = factory.createBehaviourCavalry(newState);
+		playerOne.getUnits().add(new CavalryImpl(behaviour, playerOne, newState.getWorld().getMap().get(3, 6)));
+		behaviour = factory.createBehaviourSwordsmen(newState);
+		playerTwo.getUnits().add(new SwordsmenImpl(behaviour, playerTwo, newState.getWorld().getMap().get(5, 9)));
 
-		for (UnitOwner player : newState.getPlayers()) {
+		Bridge bridge = new BridgeImpl(factory.createBehaviourBridge(newState), barbarians, newState.getWorld().getMap().get(5,4));
+		newState.getWorld().getAllUnits().add(bridge);
+		barbarians.getUnits().add(bridge);
+		bridge = new BridgeImpl(factory.createBehaviourBridge(newState), barbarians, newState.getWorld().getMap().get(10,9));
+		newState.getWorld().getAllUnits().add(bridge);
+		barbarians.getUnits().add(bridge);
+		bridge = new BridgeImpl(factory.createBehaviourBridge(newState), barbarians, newState.getWorld().getMap().get(7,7));
+		newState.getWorld().getAllUnits().add(bridge);
+		barbarians.getUnits().add(bridge);
+
+		newState.getWorld().getAllUnits().addAll(playerOne.getUnits());
+		newState.getWorld().getAllUnits().addAll(playerTwo.getUnits());
+		/*for (UnitOwner player : newState.getPlayers()) {
 			if (player.isNPC()) {
 				continue;
 			}
@@ -144,7 +161,7 @@ public class GameRunner {
 
 			player.setUnits(units);
 			newState.getWorld().getAllUnits().addAll(units);
-		}
+		}*/
 
 		return newState;
 	}

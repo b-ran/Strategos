@@ -8,10 +8,12 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 import strategos.GameState;
 import strategos.SaveInstance;
 import strategos.networking.NetworkingHandler;
-import strategos.networking.handlers.DataHandler;
 import strategos.networking.handlers.NetworkHandler;
 
 /**
@@ -46,7 +48,7 @@ public class Client implements Network {
 				b.handler(new ChannelInitializer<SocketChannel>() {
 					@Override
 					public void initChannel(SocketChannel ch) throws InterruptedException {
-						ch.pipeline().addLast(new DataHandler(), clientHandler);
+						ch.pipeline().addLast(new ObjectEncoder(), new ObjectDecoder(ClassResolvers.cacheDisabled(null)), clientHandler);
 					}
 				});
 				// Start the client.
@@ -69,7 +71,7 @@ public class Client implements Network {
 
 	@Override
 	public void receive(SaveInstance instance) {
-		System.out.println("recieved");
+		System.out.println("client: recieved");
 		state.load(instance);
 	}
 

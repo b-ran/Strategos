@@ -30,12 +30,14 @@ public class Draw implements GraphicalVisitor{
     private static BufferedImage plainsImage = null;
     private static BufferedImage riverImage = null;
     private static BufferedImage fogImage = null;
+    static BufferedImage backgroundImage = null;
     private View view;
 
     private Graphics2D g2d = null;
     private Point p = null;
     private Color selectionColor = null;
     private float selectionStrokeSize = 0;
+    private Point hexPoint;
 
 
     public Draw(View view) {
@@ -52,6 +54,7 @@ public class Draw implements GraphicalVisitor{
         plainsImage = loadImage(PLAINS_IMAGE_PATH);
         riverImage = loadImage(RIVER_IMAGE_PATH);
         fogImage = loadImage(FOG_IMAGE_PATH);
+        backgroundImage = loadImage(BACKGROUND_IMAGE_PATH);
         loadImages = false;
     }
 
@@ -76,6 +79,7 @@ public class Draw implements GraphicalVisitor{
 
     void drawUnit(Unit u, Point p, Graphics g) {
         g2d = (Graphics2D) g;
+        this.hexPoint = p;
         this.p = getUnitGridPos(p);
         ((Graphical) u).draw(this);
     }
@@ -182,7 +186,10 @@ public class Draw implements GraphicalVisitor{
 
     @Override
     public void visit(Bridge bridge) {
-
+        Point p = getTerrainGridPos((hexPoint == null) ? this.p : hexPoint);
+        g2d.drawImage(getTexturedImage(bridgeImage, getHexagon(p), p), p.x, p.y, null);
+        /*g2d.setColor(UNIT_FONT_COLOR);
+        g2d.drawString(UNIT_BRIDGE_LETTER, p.x, p.y);*/
     }
 
     @Override
