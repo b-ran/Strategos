@@ -139,7 +139,7 @@ public class Controller {
     Point getHexPos(int x, int y) {
         Point p = new Point();
         p.y = getHexY(y);
-        p.x = getHexX(x)-p.y/2;
+        p.x = getHexX(x - ((p.y % 2 != 0) ? HEX_SIZE / 2 : 0)) - p.y / 2;
         if (p.x > board.getData()[0].length-1) {
             p.x = board.getData()[0].length-1;
         } else if (p.x < 0) {
@@ -152,7 +152,6 @@ public class Controller {
         }
         return p;
     }
-
 
     private int getHexX(int x) {
         return x / (HEX_SIZE) - 1;

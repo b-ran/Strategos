@@ -49,6 +49,7 @@ public class GridComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
+        paintBackground(g);
         paintTerrain(g, view.getSeenTerrain());
         paintSelection(g, selectedMapLocation);
         paintUnits(g, entities);
@@ -56,8 +57,15 @@ public class GridComponent extends JComponent {
 
     }
 
+    private void paintBackground(Graphics g) {
+        g.drawImage(Draw.backgroundImage, 0, 0, null);
+    }
+
     private void paintUnits(Graphics g, List<Unit> entities) {
         for (Unit unit : entities) {
+            if (!view.getSeenTerrain().contains(unit.getPosition())) {
+                continue;
+            }
             Point p = new Point();
             p.x = unit.getPosition().getX();
             p.y = unit.getPosition().getY();

@@ -38,7 +38,7 @@ class MoveListener extends Controller implements MouseListener {
         for (MapLocation maplocation : mapLocations) {
             if (maplocation.getX() == p.x && maplocation.getY() == p.y) {
                 model.move(selectedUnit, maplocation);
-                System.out.println("move");
+                controller.setSelectedMapLocation(selectedUnit.getPosition());
             }
         }
         view.repaint();

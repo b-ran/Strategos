@@ -39,6 +39,7 @@ class AttackListener extends Controller implements MouseListener, KeyListener {
         List<Unit> units = model.getUnitsInAttackRange(oldSelectedUnit);
 
         if (units.contains(newSelectedUnit)) {
+            System.out.println("send attack command");
             model.attack(oldSelectedUnit, newSelectedUnit.getPosition());
         }*/
     }
