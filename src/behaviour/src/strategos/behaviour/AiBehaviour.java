@@ -49,7 +49,7 @@ class AiBehaviour extends BaseBehaviour {
     private AiBehaviour(AiBehaviour aiBehaviour, GameState newState) {
         super(aiBehaviour, newState);
 
-        behaviour = aiBehaviour.copy(newState);
+        behaviour = aiBehaviour.behaviour.copy(newState);
         directionIndex = aiBehaviour.directionIndex;
     }
 
