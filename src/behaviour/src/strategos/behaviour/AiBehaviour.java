@@ -99,7 +99,7 @@ class AiBehaviour extends BaseBehaviour {
 
     private void explore(Unit unit) {
         Direction[] values = Direction.values();
-        directionIndex = (directionIndex + random.nextInt(2) - 1) % values.length;
+        directionIndex = (values.length + directionIndex + random.nextInt(2) - 1) % values.length;
         Direction direction = values[directionIndex];
         logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), direction));
         getGameState().move(unit, direction, 1);
