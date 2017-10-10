@@ -4,7 +4,7 @@ import strategos.Graphical;
 import strategos.GraphicalVisitor;
 import strategos.terrain.Plains;
 
-import static strategos.terrain.TerrainConfig.plainsPassable;
+import static strategos.terrain.TerrainConfig.PLAINS_PASSABLE;
 
 public class PlainsTile extends TerrainTile implements Plains, Graphical {
 
@@ -15,7 +15,7 @@ public class PlainsTile extends TerrainTile implements Plains, Graphical {
 
     @Override
     public boolean isPassable() {
-        return plainsPassable;
+        return PLAINS_PASSABLE;
     }
 
     @Override

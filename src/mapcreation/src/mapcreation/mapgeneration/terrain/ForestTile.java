@@ -4,7 +4,7 @@ import strategos.Graphical;
 import strategos.GraphicalVisitor;
 import strategos.terrain.Forest;
 
-import static strategos.terrain.TerrainConfig.forestsPassable;
+import static strategos.terrain.TerrainConfig.FORESTS_PASSABLE;
 
 public class ForestTile extends TerrainTile implements Forest, Graphical {
 
@@ -15,7 +15,7 @@ public class ForestTile extends TerrainTile implements Forest, Graphical {
 
     @Override
     public boolean isPassable() {
-        return forestsPassable;
+        return FORESTS_PASSABLE;
     }
 
     @Override

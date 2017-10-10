@@ -4,7 +4,7 @@ import strategos.Graphical;
 import strategos.GraphicalVisitor;
 import strategos.terrain.Mountain;
 
-import static strategos.terrain.TerrainConfig.mountainsPassable;
+import static strategos.terrain.TerrainConfig.MOUNTAINS_PASSABLE;
 
 public class MountainTile extends TerrainTile implements Mountain, Graphical {
 
@@ -15,7 +15,7 @@ public class MountainTile extends TerrainTile implements Mountain, Graphical {
 
     @Override
     public boolean isPassable() {
-        return mountainsPassable;
+        return MOUNTAINS_PASSABLE;
     }
 
     @Override

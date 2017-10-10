@@ -4,7 +4,7 @@ import strategos.Graphical;
 import strategos.GraphicalVisitor;
 import strategos.terrain.Hill;
 
-import static strategos.terrain.TerrainConfig.hillsPassable;
+import static strategos.terrain.TerrainConfig.HILLS_PASSABLE;
 
 public class HillTile extends TerrainTile implements Hill, Graphical {
 
@@ -15,7 +15,7 @@ public class HillTile extends TerrainTile implements Hill, Graphical {
 
     @Override
     public boolean isPassable() {
-        return hillsPassable;
+        return HILLS_PASSABLE;
     }
 
     @Override
