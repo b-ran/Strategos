@@ -22,7 +22,7 @@ class NextTurnListener extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (uiOwner != model.getCurrentTurn()) {
+        if (model.getPlayers().indexOf(model.getThisInstancePlayer()) != model.getPlayers().indexOf(model.getCurrentTurn())) {
             return;
         }
         model.nextTurn();
