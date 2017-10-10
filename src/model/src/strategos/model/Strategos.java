@@ -73,14 +73,12 @@ public class Strategos implements GameState {
 
 		setChanged();
 		if (synced) {
-			//nextTurn();
 			turn.getUnits().removeIf(u -> !u.isAlive());
 
 			turn.getUnits().forEach(Unit::turnTick);
 
 			getPlayers().forEach(this::calculateVision);
 
-			int turnIndex = players.indexOf(turn);
 			notifyObservers(null);
 		}
 		synced = true;

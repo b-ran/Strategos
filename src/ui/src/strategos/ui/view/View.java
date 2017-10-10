@@ -71,7 +71,10 @@ public class View extends JComponent implements Observer {
         gridComponent.setEntities(model.getWorld().getAllUnits());
         gridComponent.setTerrain(model.getWorld().getMap().getData());
         setUiOwner(model.getThisInstancePlayer());
+<<<<<<< HEAD
         setSeenTerrain(getUiOwner().getVisibleTiles());
+=======
+>>>>>>> 8ae24afd72b7216aeeaa8cfaa5946eeebb56b8b1
         gridComponent.requestFocus();
         gridComponent.setFocusable(true);
         frame.repaint();
