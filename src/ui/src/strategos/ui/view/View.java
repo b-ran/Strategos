@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
+import static strategos.ui.config.Config.PLAYER_NAME;
+
 /**
  * The type View.
  */
@@ -67,6 +70,8 @@ public class View extends JComponent implements Observer {
         System.out.println("update");
         gridComponent.setEntities(model.getWorld().getAllUnits());
         gridComponent.setTerrain(model.getWorld().getMap().getData());
+        setUiOwner(model.getThisInstancePlayer());
+        setSeenTerrain(getUiOwner().getVisibleTiles());
         gridComponent.requestFocus();
         gridComponent.setFocusable(true);
         frame.repaint();
@@ -210,6 +215,12 @@ public class View extends JComponent implements Observer {
     }
 
     public void setUiOwner(UnitOwner unitOwner) {
+        System.out.println(model.getPlayers().indexOf(unitOwner));
+        if (unitOwner != model.getCurrentTurn()) {
+            getSideComponent().setPlayerText(OTHER_PLAYER_NAME);
+        } else {
+            getSideComponent().setPlayerText(PLAYER_NAME);
+        }
         uiOwner = unitOwner;
     }
 
