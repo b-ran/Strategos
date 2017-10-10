@@ -3,6 +3,7 @@ package strategos.ui.controller;
 import strategos.GameState;
 import strategos.SaveInstance;
 import strategos.UnitOwner;
+import strategos.units.Unit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,9 @@ class NextTurnListener extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (model.getPlayers().indexOf(model.getThisInstancePlayer()) != model.getPlayers().indexOf(model.getCurrentTurn())) {
+            return;
+        }
         model.nextTurn();
 
         UnitOwner unitOwner = model.getCurrentTurn();
@@ -32,7 +36,12 @@ class NextTurnListener extends Controller implements ActionListener {
         }
         controller.setSelectedMapLocation(null);
         view.getGridComponent().setSelection(null);
-        view.getSideComponent().setSelection(null, null);
+        view.getSideComponent().setSelection(null, null); //TODO: review
+        if (model.getPlayers().indexOf(unitOwner) == 1) {
+            for (Unit barbarian : model.getPlayers().get(2).getUnits()) {
+                barbarian.turnTick();
+            }
+        }
         view.repaint();
         SaveInstance exported = model.export();
         if (exported.getPlayers().indexOf(exported.getTurn()) == model.getPlayers().indexOf(uiOwner)) {

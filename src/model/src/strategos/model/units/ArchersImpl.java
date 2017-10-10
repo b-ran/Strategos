@@ -22,8 +22,8 @@ public class ArchersImpl extends UnitImpl implements Archers, Graphical {
 	}
 
 	@Override
-	public Unit copy(UnitOwner newOwner) {
-		return new ArchersImpl(getBehaviour().copy(), newOwner, getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new ArchersImpl(getBehaviour().copy(newState), newOwner, getPosition());
 	}
 
 	@Override

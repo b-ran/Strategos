@@ -54,12 +54,10 @@ public class Strategos implements GameState {
 
 	@Override
 	public SaveInstance export() {
-		return new SaveState(world, players, turn);
+		return new SaveState(this, world, players, turn);
 	}
 
 	public void load(SaveInstance toRestore) {
-		List<Unit> oldUnits = players.get(0).getUnits();
-		System.out.println("loaded");
 		int index = players.indexOf(getThisInstancePlayer());
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
@@ -67,8 +65,8 @@ public class Strategos implements GameState {
 		setThisInstancePlayer(players.get(index));
 		calculateVision(thisInstancePlayer);
 
-		for (int i = 0; i < players.get(0).getUnits().size(); i++) {
-			System.out.println(players.get(0).getUnits().get(i).getPosition() + ", " + oldUnits.get(i).getPosition());
+		for (Unit u : world.getAllUnits()) {
+			u.setBehaviour(u.getBehaviour().copy(this));
 		}
 
 		setChanged();
@@ -77,10 +75,9 @@ public class Strategos implements GameState {
 
 			turn.getUnits().forEach(Unit::turnTick);
 
-			getPlayers().forEach(this::calculateVision);
-
-			notifyObservers(null);
+			//getPlayers().forEach(this::calculateVision);
 		}
+		notifyObservers(null);
 		synced = true;
 	}
 
@@ -125,10 +122,12 @@ public class Strategos implements GameState {
 	 */
 	@Override
 	public void move(Unit unit, MapLocation mapLocation) {
-		if (getTilesInMoveRange(unit).contains(mapLocation)) {
-			unit.move(directionFromNeighbour(unit.getPosition(), mapLocation));
+		MapLocation newLocation = world.getMap().get(mapLocation.getX(), mapLocation.getY());
+		if (getTilesInMoveRange(unit).contains(newLocation)) {
+			unit.move(directionFromNeighbour(unit.getPosition(), newLocation));
 			calculateVision(unit.getOwner());
 		}
+		notifyObservers(null);
 	}
 
 	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
@@ -158,6 +157,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void attack(Unit unit, MapLocation location) {
+		System.out.println("sending attack command");
 		Unit target = getUnitAt(location);
 		if (unit.getActionPoints() == 0) {
 			return;
@@ -174,14 +174,16 @@ public class Strategos implements GameState {
 	}
 
 	private void cleanUp(Unit unitA, Unit unitB) {
-		if (unitB.getHitpoints() <= 0) {
+		if (unitB instanceof Bridge) {
 			unitB.getOwner().getUnits().remove(unitB);
 			world.getAllUnits().remove(unitB);
-			if (unitB instanceof Bridge) {
-				BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
-				unitA.getOwner().getUnits().add(newBridge);
-				world.getAllUnits().add(newBridge);
-			}
+			BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
+			unitA.getOwner().getUnits().add(newBridge);
+			world.getAllUnits().add(newBridge);
+		}
+		if (!unitB.isAlive()) {
+			unitB.getOwner().getUnits().remove(unitB);
+			world.getAllUnits().remove(unitB);
 		}
 		if (unitA.getHitpoints() <= 0) {
 			unitA.getOwner().getUnits().remove(unitA);
@@ -355,7 +357,6 @@ public class Strategos implements GameState {
 
 	@Override
 	public void notifyObservers(Object o) {
-		//observers.forEach(Observer::notify);
 		for (Observer obs : observers) {
 			obs.update(null, o);
 		}

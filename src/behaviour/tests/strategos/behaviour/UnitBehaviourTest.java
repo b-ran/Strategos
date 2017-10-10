@@ -37,9 +37,11 @@ public class UnitBehaviourTest {
                 return 25;
             }
 
-            @Override public Behaviour copy() {
+            @Override
+            public Behaviour copy(GameState newState) {
                 return null;
             }
+
         };
         position1 = new MapLocation() {
             @Override public int getX() {

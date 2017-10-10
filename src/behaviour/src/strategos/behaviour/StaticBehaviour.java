@@ -32,8 +32,8 @@ abstract class StaticBehaviour extends BaseBehaviour {
         this.hitpoints = hitpoints;
     }
 
-    StaticBehaviour(StaticBehaviour behaviour) {
-        super(behaviour);
+    StaticBehaviour(StaticBehaviour behaviour, GameState newState) {
+        super(behaviour, newState);
 
         this.hitpointsMax = behaviour.hitpointsMax;
         this.hitpoints = behaviour.hitpoints;
