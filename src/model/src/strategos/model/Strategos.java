@@ -261,7 +261,11 @@ public class Strategos implements GameState {
 		}
 
 		for (MapLocation tile : potentialTiles) {
-			if (tile.isInPlayArea() && canPassUnit(unit, tile)) {
+			if (tile.isInPlayArea()) {
+				if (canPassUnit(unit, tile)) {
+					actualTiles.add(tile);
+				}
+			} else if (getUnitAt(tile) instanceof Bridge && canPassUnit(unit, tile)){
 				actualTiles.add(tile);
 			}
 		}
@@ -302,7 +306,9 @@ public class Strategos implements GameState {
 	public void nextTurn() {
 		turn.getUnits().removeIf(u -> !u.isAlive());
 
-		turn.getUnits().forEach(Unit::turnTick);
+		for (int i = 0; i < turn.getUnits().size(); i++) {
+			turn.getUnits().get(i).turnTick();
+		}
 
 		getPlayers().forEach(this::calculateVision);
 
@@ -337,6 +343,14 @@ public class Strategos implements GameState {
 		return turn;
 	}
 
+	public boolean gameOver() {
+		for (int i = 0; i < 2; i++) {
+			if (players.get(i).getUnits().isEmpty()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public void addObserver(Observer o) {
