@@ -35,8 +35,8 @@ class NextTurnListener extends Controller implements ActionListener {
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null);
         if (model.getPlayers().indexOf(unitOwner) == 1) {
-            for (Unit barbarian : model.getPlayers().get(2).getUnits()) {
-                barbarian.turnTick();
+            for (int i = 0; i < model.getPlayers().get(2).getUnits().size(); i++) {
+                model.getPlayers().get(2).getUnits().get(i).turnTick();
             }
         }
         view.repaint();
