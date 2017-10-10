@@ -30,6 +30,13 @@ public class Draw implements GraphicalVisitor{
     private static BufferedImage plainsImage = null;
     private static BufferedImage riverImage = null;
     private static BufferedImage fogImage = null;
+
+    private static BufferedImage archersImage = null;
+    private static BufferedImage cavalryImage = null;
+    private static BufferedImage eliteImage = null;
+    private static BufferedImage spearmenImage = null;
+    private static BufferedImage swordsmenImage = null;
+
     static BufferedImage backgroundImage = null;
     private View view;
 
@@ -54,6 +61,14 @@ public class Draw implements GraphicalVisitor{
         plainsImage = loadImage(PLAINS_IMAGE_PATH);
         riverImage = loadImage(RIVER_IMAGE_PATH);
         fogImage = loadImage(FOG_IMAGE_PATH);
+
+        archersImage = loadImage(ARCHERS_IMAGE_PATH);
+        cavalryImage = loadImage(CAVALRY_IMAGE_PATH);
+        eliteImage = loadImage(ELITE_IMAGE_PATH);
+        spearmenImage = loadImage(SPEARMEN_IMAGE_PATH);
+        swordsmenImage = loadImage(SWORDSMEN_IMAGE_PATH);
+
+
         backgroundImage = loadImage(BACKGROUND_IMAGE_PATH);
         loadImages = false;
     }
@@ -194,18 +209,21 @@ public class Draw implements GraphicalVisitor{
 
     @Override
     public void visit(Cavalry cavalry) {
-        setUnitColor(cavalry);
+        /*setUnitColor(cavalry);
         g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_CAVALRY_LETTER, p.x, p.y);
+        g2d.drawString(UNIT_CAVALRY_LETTER, p.x, p.y);*/
+        g2d.drawImage(getTexturedImage(cavalryImage, getHexagon(p), p), p.x, p.y , null);
     }
 
     @Override
     public void visit(Elite elite) {
-        setUnitColor(elite);
+        /*setUnitColor(elite);
         g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_ELITE_LETTER, p.x, p.y);
+        g2d.drawString(UNIT_ELITE_LETTER, p.x, p.y);*/
+
+        g2d.drawImage(getTexturedImage(eliteImage, getHexagon(p), p), p.x, p.y , null);
     }
 
     @Override
@@ -215,17 +233,21 @@ public class Draw implements GraphicalVisitor{
 
     @Override
     public void visit(Spearmen spearmen) {
-        setUnitColor(spearmen);
+        /*setUnitColor(spearmen);
         g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_SPEARMEN_LETTER, p.x, p.y);
+        g2d.drawString(UNIT_SPEARMEN_LETTER, p.x, p.y);*/
+
+        g2d.drawImage(getTexturedImage(spearmenImage, getHexagon(p), p), p.x, p.y , null);
     }
 
     @Override
     public void visit(Swordsmen swordsmen) {
-        g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
+       /* g2d.fillOval(p.x, p.y , HEX_SIZE/2, HEX_SIZE/2);
         g2d.setColor(UNIT_FONT_COLOR);
-        g2d.drawString(UNIT_SWORDSMEN_LETTER, p.x, p.y);
+        g2d.drawString(UNIT_SWORDSMEN_LETTER, p.x, p.y);*/
+
+        g2d.drawImage(getTexturedImage(swordsmenImage, getHexagon(p), p), p.x, p.y , null);
     }
 
     private void setUnitColor(Unit unit) {
@@ -249,10 +271,10 @@ public class Draw implements GraphicalVisitor{
     }
 
     private Point getUnitGridPos(Point p) {
-        int y = getGridY(p.y)+HEX_SIZE/4;
+        int y = getGridY(p.y);
         int x = getGridX(p.x)+HEX_SIZE/4;
         if (y != 0) {
-            x = getGridX(p.x)+p.y*HEX_SIZE/2+HEX_SIZE/4;
+            x = getGridX(p.x)+p.y*HEX_SIZE/2;
         }
         return new Point(x,y);
     }
