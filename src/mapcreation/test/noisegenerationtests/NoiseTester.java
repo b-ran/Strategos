@@ -80,7 +80,7 @@ public class NoiseTester {
     }
 
 
-    /*@Test
+    @Test
     public void mapTest_1() {
         TerrainGeneration TG = new TerrainGeneration();
         double[][] map = TG.testFillMap(50, 50, 1, 90);
@@ -106,7 +106,7 @@ public class NoiseTester {
                 assert (forest[x][y] == testForest[x][y]);
             }
         }
-    }*/
+    }
 
 
 

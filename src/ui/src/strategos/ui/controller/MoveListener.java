@@ -29,15 +29,18 @@ class MoveListener extends Controller implements MouseListener {
     public void mousePressed(MouseEvent e) {
         if (controller.getSelectedMapLocation() == null) return;
 
+        Unit selectedUnit = controller.getSelectedUnit();
+
         Point p = getHexPos(e.getX(),e.getY());
-        Unit selectedUnit = model.getUnitAt(controller.getSelectedMapLocation());
-        if (selectedUnit == null) return;
+        if (selectedUnit == null) {
+            return;
+        }
 
         List<MapLocation> mapLocations = model.getTilesInMoveRange(selectedUnit);
 
         for (MapLocation maplocation : mapLocations) {
             if (maplocation.getX() == p.x && maplocation.getY() == p.y) {
-                model.move(selectedUnit, maplocation);
+                //model.move(selectedUnit, maplocation);
                 controller.setSelectedMapLocation(selectedUnit.getPosition());
             }
         }

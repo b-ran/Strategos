@@ -1,9 +1,6 @@
 package strategos.model.units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 import strategos.units.Cavalry;
@@ -25,8 +22,8 @@ public class CavalryImpl extends UnitImpl implements Cavalry, Graphical {
 	}
 
 	@Override
-	public Unit copy() {
-		return new CavalryImpl(getBehaviour().copy(), getOwner(), getPosition());
+ 	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new CavalryImpl(getBehaviour().copy(newState), newOwner, getPosition());
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class ExternalTests {
 	@Test
 	public void testCopyPlayer() {
 		Player player = new Player(false);
-		Player copy = (Player) player.copy();
+		Player copy = (Player) player.copy(null);
 		assertEquals(player, copy);
 		player.setUnits(Collections.singletonList(new UnitImpl(null, null)));
 		assertNotEquals(player, copy);

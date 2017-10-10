@@ -13,8 +13,8 @@ import java.util.Observable;
 
 /**
  * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
- * 		libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
- * 		of GameCollections and UnitOwners.
+ * libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
+ * of GameCollections and UnitOwners.
  */
 public class Strategos implements GameState {
 	private GameCollections world;
@@ -23,6 +23,7 @@ public class Strategos implements GameState {
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
 	private UnitOwner thisInstancePlayer;
+	private boolean synced = false;
 
 	private List<SaveInstance> saves = new ArrayList<>();
 
@@ -53,20 +54,31 @@ public class Strategos implements GameState {
 
 	@Override
 	public SaveInstance export() {
-		return new SaveState(world, players, turn);
+		return new SaveState(this, world, players, turn);
 	}
 
 	public void load(SaveInstance toRestore) {
-		System.out.println("loaded");
 		int index = players.indexOf(getThisInstancePlayer());
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
 		this.turn = toRestore.getTurn();
-		System.out.println(toRestore);
 		setThisInstancePlayer(players.get(index));
+		calculateVision(thisInstancePlayer);
+
+		for (Unit u : world.getAllUnits()) {
+			u.setBehaviour(u.getBehaviour().copy(this));
+		}
 
 		setChanged();
+		if (synced) {
+			turn.getUnits().removeIf(u -> !u.isAlive());
+
+			turn.getUnits().forEach(Unit::turnTick);
+
+			//getPlayers().forEach(this::calculateVision);
+		}
 		notifyObservers(null);
+		synced = true;
 	}
 
 	@Override
@@ -110,10 +122,12 @@ public class Strategos implements GameState {
 	 */
 	@Override
 	public void move(Unit unit, MapLocation mapLocation) {
-		if (getTilesInMoveRange(unit).contains(mapLocation)) {
-			unit.move(directionFromNeighbour(unit.getPosition(), mapLocation));
+		MapLocation newLocation = world.getMap().get(mapLocation.getX(), mapLocation.getY());
+		if (getTilesInMoveRange(unit).contains(newLocation)) {
+			unit.move(directionFromNeighbour(unit.getPosition(), newLocation));
 			calculateVision(unit.getOwner());
 		}
+		notifyObservers(null);
 	}
 
 	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
@@ -143,6 +157,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void attack(Unit unit, MapLocation location) {
+		System.out.println("sending attack command");
 		Unit target = getUnitAt(location);
 		if (unit.getActionPoints() == 0) {
 			return;
@@ -159,14 +174,16 @@ public class Strategos implements GameState {
 	}
 
 	private void cleanUp(Unit unitA, Unit unitB) {
-		if (unitB.getHitpoints() <= 0) {
+		if (unitB instanceof Bridge) {
 			unitB.getOwner().getUnits().remove(unitB);
 			world.getAllUnits().remove(unitB);
-			if (unitB instanceof Bridge) {
-				BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
-				unitA.getOwner().getUnits().add(newBridge);
-				world.getAllUnits().add(newBridge);
-			}
+			BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
+			unitA.getOwner().getUnits().add(newBridge);
+			world.getAllUnits().add(newBridge);
+		}
+		if (!unitB.isAlive()) {
+			unitB.getOwner().getUnits().remove(unitB);
+			world.getAllUnits().remove(unitB);
 		}
 		if (unitA.getHitpoints() <= 0) {
 			unitA.getOwner().getUnits().remove(unitA);
@@ -252,7 +269,6 @@ public class Strategos implements GameState {
 				actualTiles.add(tile);
 			}
 		}
-
 		return actualTiles;
 	}
 
@@ -299,6 +315,9 @@ public class Strategos implements GameState {
 		int turnIndex = players.indexOf(turn);
 		turnIndex = (turnIndex + 1) % players.size();
 		turn = players.get(turnIndex);
+		if (turnIndex == 2) {
+			nextTurn();
+		}
 	}
 
 	@Override
@@ -344,7 +363,9 @@ public class Strategos implements GameState {
 
 	@Override
 	public void notifyObservers(Object o) {
-		observers.forEach(Observer::notify);
+		for (Observer obs : observers) {
+			obs.update(null, o);
+		}
 		changed = false;
 	}
 }
