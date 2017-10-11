@@ -129,7 +129,7 @@ class AiBehaviour extends BaseBehaviour {
     private void pursueUnit(Unit unit, Unit nearest) {
         int dx = nearest.getPosition().getX() - unit.getPosition().getX();
         int dy = nearest.getPosition().getY() - unit.getPosition().getY();
-
+        System.out.println("pursuing");
         if (dx < 0) {
             getGameState().move(unit, Direction.WEST);
         }
