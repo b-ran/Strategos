@@ -8,6 +8,7 @@ import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.*;
 import java.util.Observable;
 
@@ -157,7 +158,6 @@ public class Strategos implements GameState {
 
 	@Override
 	public void attack(Unit unit, MapLocation location) {
-		System.out.println("sending attack command");
 		Unit target = getUnitAt(location);
 		if (unit.getActionPoints() == 0) {
 			return;
@@ -168,13 +168,17 @@ public class Strategos implements GameState {
 		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
+		System.out.println("attacking");
+		int enemyHP = target.getHitpoints();
 		unit.attack(target);
+		System.out.println("dealt " + (enemyHP - target.getHitpoints()) + " damage");
 		cleanUp(unit, target);
 		setChanged();
 	}
 
 	private void cleanUp(Unit unitA, Unit unitB) {
 		if (unitB instanceof Bridge) {
+			System.out.println("changing bridge ownership");
 			unitB.getOwner().getUnits().remove(unitB);
 			world.getAllUnits().remove(unitB);
 			BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
