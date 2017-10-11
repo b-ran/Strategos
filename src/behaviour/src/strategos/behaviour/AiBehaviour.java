@@ -91,8 +91,7 @@ class AiBehaviour extends BaseBehaviour {
             return true;
         }
         else {
-            pursueUnit(unit, nearest);
-            return false;
+            return !pursueUnit(unit, nearest);
         }
     }
 
@@ -126,10 +125,12 @@ class AiBehaviour extends BaseBehaviour {
         return aD - bD;
     }
 
-    private void pursueUnit(Unit unit, Unit nearest) {
-        int dx = nearest.getPosition().getX() - unit.getPosition().getX();
-        int dy = nearest.getPosition().getY() - unit.getPosition().getY();
-        System.out.println("pursuing");
+    private boolean pursueUnit(Unit unit, Unit nearest) {
+        int dx = nearest.getPosition().getX() - getPosition(unit).getX();
+        int dy = nearest.getPosition().getY() - getPosition(unit).getY();
+
+        MapLocation previous = getPosition(unit);
+
         if (dx < 0) {
             getGameState().move(unit, Direction.WEST);
         }
@@ -142,7 +143,11 @@ class AiBehaviour extends BaseBehaviour {
         else if (dy > 0) {
             getGameState().move(unit, Direction.NORTH_WEST);
         }
+
+        return !previous.equals(getPosition(unit));
     }
+
+
 
     @Override
     public void setPosition(Unit unit, MapLocation position) {
