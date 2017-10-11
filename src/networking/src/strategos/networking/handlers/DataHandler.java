@@ -3,9 +3,8 @@ package strategos.networking.handlers;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPromise;
 import io.netty.handler.codec.ByteToMessageCodec;
-import strategos.SaveInstance;
+import strategos.model.SaveInstance;
 
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;

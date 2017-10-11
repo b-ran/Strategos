@@ -2,7 +2,7 @@ package strategos.behaviour;
 
 
 import org.junit.*;
-import strategos.*;
+import strategos.model.GameState;
 import strategos.units.*;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class BehaviourFactoryImplTest {
 
     private BehaviourFactory factory;
-    private GameState        gameState;
+    private GameState gameState;
     private Unit             unit;
 
     @BeforeClass public static void beforeAll() {

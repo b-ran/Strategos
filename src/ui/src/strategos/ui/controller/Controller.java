@@ -1,9 +1,9 @@
 package strategos.ui.controller;
 
-import strategos.GameBoard;
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.GameBoard;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.networking.NetworkingHandler;
 import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;

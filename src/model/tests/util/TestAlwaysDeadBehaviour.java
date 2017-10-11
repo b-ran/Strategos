@@ -1,8 +1,8 @@
 package util;
 
 import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
 import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 

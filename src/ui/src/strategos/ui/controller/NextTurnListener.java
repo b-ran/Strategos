@@ -1,9 +1,7 @@
 package strategos.ui.controller;
 
-import strategos.GameState;
-import strategos.SaveInstance;
-import strategos.UnitOwner;
-import strategos.units.Unit;
+import strategos.model.SaveInstance;
+import strategos.model.UnitOwner;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

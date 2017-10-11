@@ -1,7 +1,6 @@
 package strategos.ui.view;
 
-import strategos.MapLocation;
-import strategos.terrain.*;
+import strategos.model.MapLocation;
 import strategos.units.*;
 
 import javax.swing.*;

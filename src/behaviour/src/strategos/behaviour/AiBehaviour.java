@@ -2,9 +2,9 @@ package strategos.behaviour;
 
 
 import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.exception.RuleViolationException;
 import strategos.units.Unit;
 
@@ -15,7 +15,6 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.hypot;
 
 
 class AiBehaviour extends BaseBehaviour {

@@ -1,6 +1,6 @@
 package strategos.networking.networks;
 
-import strategos.SaveInstance;
+import strategos.model.SaveInstance;
 
 /**
  * Interface for Servers and Client

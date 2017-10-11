@@ -2,20 +2,13 @@ package strategos.model;
 
 import org.junit.Test;
 import strategos.*;
-import strategos.behaviour.Behaviour;
 import strategos.hexgrid.Hex;
 import strategos.hexgrid.Map;
-import strategos.model.Player;
-import strategos.model.Strategos;
-import strategos.model.World;
 import strategos.model.units.BridgeImpl;
 import strategos.units.Bridge;
 import util.TestAlwaysDeadBehaviour;
 import util.TestBehaviour;
 import strategos.model.units.SwordsmenImpl;
-import strategos.model.units.UnitImpl;
-import strategos.terrain.Mountain;
-import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
 import java.util.ArrayList;

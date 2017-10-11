@@ -1,6 +1,7 @@
 package strategos.networking.external_testing;
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 

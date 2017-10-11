@@ -2,6 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.*;
 import strategos.units.*;
 

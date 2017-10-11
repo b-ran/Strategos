@@ -2,8 +2,8 @@ package strategos.model.units;
 
 import strategos.GameObject;
 import strategos.GameObjectVisitor;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 

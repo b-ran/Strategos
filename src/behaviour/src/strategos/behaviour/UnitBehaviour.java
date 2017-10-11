@@ -4,6 +4,8 @@ package strategos.behaviour;
 import strategos.*;
 import strategos.behaviour.config.*;
 import strategos.exception.*;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
 import strategos.terrain.*;
 import strategos.units.*;
 
