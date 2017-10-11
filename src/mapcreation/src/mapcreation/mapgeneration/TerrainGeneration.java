@@ -19,7 +19,7 @@ public class TerrainGeneration {
      * Change the resolution if sampling areas to produce map instead of individual pixels(wont be used in this version)
      */
     private int xRes = 1, yRes = 1;
-
+    
     private int octaves = 512;
 
     /**
