@@ -2,10 +2,7 @@ package strategos.hexgrid;
 
 
 import strategos.Direction;
-import strategos.Graphical;
 import strategos.MapLocation;
-import strategos.Paintable;
-import strategos.exception.RuleViolationException;
 import strategos.terrain.Terrain;
 
 import java.util.HashMap;

@@ -42,7 +42,7 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
         }*/
         if (!controller.getSelectionToggle()) {
             controller.setSelectionToggle(true);
-            //view.getGridComponent().setSelection(null); //TODO: review
+            view.getGridComponent().setSelection(null); //TODO: review
             view.repaint();
             return;
         }

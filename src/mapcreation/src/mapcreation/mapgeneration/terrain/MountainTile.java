@@ -1,12 +1,12 @@
 package mapcreation.mapgeneration.terrain;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.terrain.Mountain;
 
 import static strategos.terrain.TerrainConfig.MOUNTAINS_PASSABLE;
 
-public class MountainTile extends TerrainTile implements Mountain, Graphical {
+public class MountainTile extends TerrainTile implements Mountain, GameObject {
 
     @Override
     public String toString() {
@@ -19,7 +19,7 @@ public class MountainTile extends TerrainTile implements Mountain, Graphical {
     }
 
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }
