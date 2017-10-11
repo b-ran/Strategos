@@ -256,19 +256,13 @@ public class Draw implements GameObjectVisitor {
 
     private Point getUnitGridPos(Point p) {
         int y = getGridY(p.y);
-        int x = getGridX(p.x)+HEX_SIZE/4;
-        if (y != 0) {
-            x = getGridX(p.x)+p.y*HEX_SIZE/2;
-        }
+        int  x = getGridX(p.x)+p.y*HEX_SIZE/2;
         return new Point(x,y);
     }
 
     private Point getTerrainGridPos(Point p) {
         int y = getGridY(p.y);
-        int x = getGridX(p.x);
-        if (y != 0) {
-            x = getGridX(p.x)+(p.y*HEX_SIZE/2);
-        }
+        int x = getGridX(p.x)+(p.y*HEX_SIZE/2);
         return new Point(x,y);
     }
 
