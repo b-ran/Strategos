@@ -5,11 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 import strategos.*;
 import strategos.networking.NetworkingHandler;
-import strategos.networking.TestGameState;
-import strategos.networking.TestSaveInstance;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.units.Unit;
 
+import java.nio.channels.ClosedChannelException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,11 +74,11 @@ public class ExternalTests {
 
 	}
 
-	@Test(expected = InterruptedException.class)
 	public void SendTest_02() throws InterruptedException {
 		SaveInstance saveInstance = serverState.export();
 		server.stop();
 		server.send(saveInstance);
+		assertFalse(clientState.export().equals(saveInstance));
 	}
 
 	/**
