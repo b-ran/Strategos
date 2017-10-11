@@ -75,7 +75,6 @@ public class SideComponent extends JComponent {
         if (selectedMapLocation == null) return;
         if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
 
-
         if (selectedUnit != null) {
             draw.drawUnitNonGrid(selectedUnit, SELECTION_LOCATION, g);
             return;

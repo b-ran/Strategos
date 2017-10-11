@@ -82,7 +82,7 @@ public class Config {
 
     public static final Dimension SIDEPANEL_BUTTON_SIZE = new Dimension(80,100);
 
-    public static final Point SELECTION_LOCATION = new Point(20,40);
+    public static final Point SELECTION_LOCATION = new Point(20,30);
 
     public static final String PLAYER_NAME = "Your Turn";
 
@@ -92,19 +92,23 @@ public class Config {
 
     public static final String HEALTH_LABEL_NAME = "Health:";
 
-    public static final Point HEALTH_LABEL_LOCATION = new Point(20, 80);
+    public static final Point HEALTH_LABEL_LOCATION = new Point(20, 120);
+
+    public static final int LABEL_PADDING = 20;
 
     public static final String ACTIONPOINT_LABEL_NAME = "Action Points:";
 
-    public static final Point ACTIONPOINT_LABEL_LOCATION = new Point(20, 100);
+    public static final Point ACTIONPOINT_LABEL_LOCATION = new Point(20, HEALTH_LABEL_LOCATION.y+LABEL_PADDING);
 
     public static final String ENTRENCH_LABEL_NAME = "Entrench:";
 
-    public static final Point ENTRENCH_LABEL_LOCATION = new Point(20, 120);
+    public static final Point ENTRENCH_LABEL_LOCATION = new Point(20, ACTIONPOINT_LABEL_LOCATION.y+LABEL_PADDING);
 
     public static final String WARY_LABEL_NAME = "Wary:";
 
-    public static final Point WARY_LABEL_LOCATION = new Point(20, 140);
+    public static final Point WARY_LABEL_LOCATION = new Point(20, ENTRENCH_LABEL_LOCATION.y+LABEL_PADDING);
+
+
 
 
     //Text
