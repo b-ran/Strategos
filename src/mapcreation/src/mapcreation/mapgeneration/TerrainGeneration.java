@@ -42,7 +42,7 @@ public class TerrainGeneration {
      * Frequency of different terrain types
      * Highest value it occurs at
      */
-    private double plainsFreq = 0.55, hillFreq = 0.45 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
+    private double plainsFreq = 0.55, hillFreq = 0.35 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
 
 
     /**
