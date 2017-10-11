@@ -1,14 +1,13 @@
 package strategos.model.units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
 import strategos.units.Unit;
 
-public class NullUnitImpl extends UnitImpl implements Unit, Graphical {
+public class NullUnitImpl extends UnitImpl implements Unit, GameObject {
 
 	public NullUnitImpl(UnitOwner owner, MapLocation startLocation) {
 		super(owner, startLocation);
@@ -19,7 +18,7 @@ public class NullUnitImpl extends UnitImpl implements Unit, Graphical {
 	}
 
 	@Override
-	public void draw(GraphicalVisitor graphicalVisitor) {
+	public void accept(GameObjectVisitor gameObjectVisitor) {
 		return;
 	}
 }

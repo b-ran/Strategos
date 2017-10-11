@@ -3,7 +3,7 @@ package strategos;
 import strategos.terrain.*;
 import strategos.units.*;
 
-public interface GraphicalVisitor {
+public interface GameObjectVisitor {
 
     public void visit(Forest forest);
 

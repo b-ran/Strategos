@@ -1,12 +1,12 @@
 package units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.UnitOwner;
 import strategos.behaviour.Behaviour;
 import strategos.units.Spearmen;
 
-public class SpearmenTestObj extends UnitTestObj implements Spearmen, Graphical {
+public class SpearmenTestObj extends UnitTestObj implements Spearmen, GameObject {
     public SpearmenTestObj(UnitOwner owner) {
         super(owner);
     }
@@ -17,7 +17,7 @@ public class SpearmenTestObj extends UnitTestObj implements Spearmen, Graphical 
     }
 
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }

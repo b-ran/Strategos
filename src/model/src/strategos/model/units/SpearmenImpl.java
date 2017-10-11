@@ -2,7 +2,6 @@ package strategos.model.units;
 
 import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
 import strategos.units.Spearmen;
 import strategos.units.Unit;
 
@@ -10,7 +9,7 @@ import strategos.units.Unit;
  * Created as part of Strategos project
  * 28/07/2017.
  */
-public class SpearmenImpl extends UnitImpl implements Spearmen, Graphical {
+public class SpearmenImpl extends UnitImpl implements Spearmen, GameObject {
 
 
 	public SpearmenImpl(UnitOwner owner, MapLocation startLocation) {
@@ -27,7 +26,7 @@ public class SpearmenImpl extends UnitImpl implements Spearmen, Graphical {
 	}
 
 	@Override
-	public void draw(GraphicalVisitor graphicalVisitor) {
-		graphicalVisitor.visit(this);
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
 	}
 }

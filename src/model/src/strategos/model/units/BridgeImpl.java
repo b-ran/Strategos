@@ -5,7 +5,7 @@ import strategos.behaviour.Behaviour;
 import strategos.units.Bridge;
 import strategos.units.Unit;
 
-public class BridgeImpl extends UnitImpl implements Bridge, Graphical {
+public class BridgeImpl extends UnitImpl implements Bridge, GameObject {
 
 
 	public BridgeImpl(UnitOwner owner, MapLocation startLocation) {
@@ -22,7 +22,7 @@ public class BridgeImpl extends UnitImpl implements Bridge, Graphical {
 	}
 
 	@Override
-	public void draw(GraphicalVisitor graphicalVisitor) {
-		graphicalVisitor.visit(this);
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
 	}
 }

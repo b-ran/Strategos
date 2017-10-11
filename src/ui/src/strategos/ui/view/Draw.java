@@ -1,10 +1,8 @@
 package strategos.ui.view;
 
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.terrain.*;
 import strategos.units.*;
 
@@ -12,15 +10,13 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 import static strategos.ui.config.Config.*;
 import static strategos.ui.config.ConfigImage.*;
 
-public class Draw implements GraphicalVisitor{
+public class Draw implements GameObjectVisitor {
 
 
     private static boolean loadImages = true;
@@ -109,26 +105,26 @@ public class Draw implements GraphicalVisitor{
     void drawTerrain(Terrain t, Point p, Graphics g) {
         g2d = (Graphics2D) g;
         this.p = getTerrainGridPos(p);
-        ((Graphical) t).draw(this);
+        ((GameObject) t).accept(this);
     }
 
     void drawUnit(Unit u, Point p, Graphics g) {
         g2d = (Graphics2D) g;
         this.hexPoint = p;
         this.p = getUnitGridPos(p);
-        ((Graphical) u).draw(this);
+        ((GameObject) u).accept(this);
     }
 
     void drawTerrainNonGrid(Terrain t, Point p, Graphics g) {
         g2d = (Graphics2D) g;
         this.p = p;
-        ((Graphical) t).draw(this);
+        ((GameObject) t).accept(this);
     }
 
     void drawUnitNonGrid(Unit u, Point p, Graphics g) {
         g2d = (Graphics2D) g;
         this.p = p;
-        ((Graphical) u).draw(this);
+        ((GameObject) u).accept(this);
     }
 
     void drawTerrainSelection(Terrain t, Point p, Color c, Float s, Graphics g) {
@@ -136,7 +132,7 @@ public class Draw implements GraphicalVisitor{
         this.p = getTerrainGridPos(p);
         selectionColor = c;
         selectionStrokeSize = s;
-        ((Graphical) t).draw(this);
+        ((GameObject) t).accept(this);
         selectionColor = Color.BLACK;
         selectionStrokeSize = 0;
     }

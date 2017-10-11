@@ -4,7 +4,7 @@ import strategos.*;
 import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 
-public class UnitImpl implements Unit, Graphical {
+public class UnitImpl implements Unit, GameObject {
 
 	private Behaviour behaviour;
 	private UnitOwner owner;
@@ -130,7 +130,7 @@ public class UnitImpl implements Unit, Graphical {
 	}
 
 	@Override
-	public void draw(GraphicalVisitor graphicalVisitor) {
+	public void accept(GameObjectVisitor gameObjectVisitor) {
 
 	}
 }
