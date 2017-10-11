@@ -187,7 +187,7 @@ public class Controller {
         return networkingHandler;
     }
 
-    private boolean mapLocationIn(MapLocation location, List<MapLocation> otherLocations) {
+    /*private boolean mapLocationIn(MapLocation location, List<MapLocation> otherLocations) {
         for (MapLocation other : otherLocations) {
             if (other.getX() == location.getX() && other.getY() == location.getY()) {
                 return true;
@@ -197,11 +197,9 @@ public class Controller {
     }
 
     void setSelectedMapLocation(MapLocation selectedMapLocation) {
-
         if (this.selectedMapLocation != null && selectedMapLocation != null) {
             if (selectedUnit != null) {
-                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), 1)) &&
-                        selectedUnit.getOwner() == model.getCurrentTurn()) {
+                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), selectedUnit.getAttackRange())) && selectedUnit.getOwner() == model.getCurrentTurn()) {
                     handleCommand(selectedMapLocation);
                 } else {
                     selectionToggle = true;
@@ -248,6 +246,73 @@ public class Controller {
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null);
         view.repaint();
+    }*/
+
+
+    void setSelectedMapLocation(MapLocation selectedMapLocation) {
+        GridComponent g = view.getGridComponent();
+        SideComponent s = view.getSideComponent();
+
+        if (checkMoveAttack(selectedMapLocation)) return;
+
+        this.selectedMapLocation = selectedMapLocation;
+        this.selectedUnit = model.getUnitAt(selectedMapLocation);
+
+        if (selectedUnit == null) {
+            if (!selectionToggle) {
+                resetSection();
+                return;
+            }
+            s.setSelection(selectedMapLocation,null);
+            g.setSelection(selectedMapLocation);
+
+        } else {
+            List<MapLocation> tilesInMoveRange = model.getTilesInMoveRange(selectedUnit);
+            List<Unit> unitsInAttackRange = model.getUnitsInAttackRange(selectedUnit);
+
+            if (this.selectedUnit.getOwner() != view.getUiOwner()) {
+                s.setSelection(selectedMapLocation, this.selectedUnit);
+                g.setSelection(selectedMapLocation);
+                return;
+            }
+
+
+            s.setSelection(selectedMapLocation, this.selectedUnit);
+            g.setSelection(selectedMapLocation, unitsInAttackRange, tilesInMoveRange);
+            selectionToggle = false;
+        }
+    }
+
+    private boolean checkMoveAttack(MapLocation selectedMapLocation) {
+        if (selectedUnit == null || selectedMapLocation == null || this.selectedUnit.getOwner() != view.getUiOwner()) return false;
+
+        List<MapLocation> tilesInMoveRange = model.getTilesInMoveRange(selectedUnit);
+        List<Unit> unitsInAttackRange = model.getUnitsInAttackRange(selectedUnit);
+
+        for (MapLocation m : tilesInMoveRange) {
+            if (m.getX() == selectedMapLocation.getX() && m.getY() == selectedMapLocation.getY()) {
+                model.move(selectedUnit,selectedMapLocation);
+                return false;
+            }
+        }
+
+        for (Unit u : unitsInAttackRange) {
+            MapLocation m = u.getPosition();
+            if (m.equals(selectedMapLocation)) {
+                model.attack(selectedUnit, selectedMapLocation);
+                view.repaint();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void resetSection() {
+        selectionToggle = true;
+        view.getGridComponent().setSelection(null);
+        view.getSideComponent().setSelection(null, null);
+        view.repaint();
     }
 
     boolean getSelectionToggle() {
@@ -269,4 +334,6 @@ public class Controller {
     void setSelectionToggle(boolean selectionToggle) {
         this.selectionToggle = selectionToggle;
     }
+
+
 }
