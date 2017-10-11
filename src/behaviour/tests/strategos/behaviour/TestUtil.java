@@ -2,6 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.*;
 import strategos.units.*;
 
@@ -148,7 +149,7 @@ public class TestUtil {
         }
 
         @Override
-        public void move(Unit unit, Direction direction, int amount) {
+        public void move(Unit unit, Direction direction) {
 
         }
 

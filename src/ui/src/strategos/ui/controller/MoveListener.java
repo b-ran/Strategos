@@ -1,12 +1,10 @@
 package strategos.ui.controller;
 
-import strategos.MapLocation;
+import strategos.model.MapLocation;
 import strategos.units.Unit;
 
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;

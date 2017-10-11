@@ -2,7 +2,7 @@ package units;
 
 import strategos.GameObject;
 import strategos.GameObjectVisitor;
-import strategos.UnitOwner;
+import strategos.model.UnitOwner;
 import strategos.behaviour.Behaviour;
 import strategos.units.Spearmen;
 

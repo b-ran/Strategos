@@ -1,9 +1,9 @@
 package strategos.ui.view;
 
 
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.ui.config.Config;
 
 import javax.swing.*;
@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
-import static strategos.ui.config.Config.PLAYER_NAME;
 
 /**
  * The type View.

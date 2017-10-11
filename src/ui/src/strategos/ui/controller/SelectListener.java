@@ -1,15 +1,12 @@
 package strategos.ui.controller;
 
 
-import strategos.MapLocation;
-import strategos.units.Unit;
+import strategos.model.MapLocation;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 class SelectListener extends Controller implements MouseListener, MouseMotionListener {
 

@@ -2,7 +2,7 @@ package strategos.external;
 
 import org.junit.Test;
 import strategos.Direction;
-import strategos.MapLocation;
+import strategos.model.MapLocation;
 import strategos.exception.RuleViolationException;
 import strategos.hexgrid.Map;
 import strategos.model.Player;

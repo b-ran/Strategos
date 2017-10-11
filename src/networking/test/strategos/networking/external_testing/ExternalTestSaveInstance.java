@@ -1,14 +1,13 @@
 package strategos.networking.external_testing;
 
-import strategos.GameCollections;
-import strategos.GameState;
-import strategos.SaveInstance;
-import strategos.UnitOwner;
+import strategos.model.GameCollections;
+import strategos.model.GameState;
+import strategos.model.SaveInstance;
+import strategos.model.UnitOwner;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ExternalTestSaveInstance implements SaveInstance {
 	private final GameCollections world;

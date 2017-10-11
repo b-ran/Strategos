@@ -1,7 +1,7 @@
 package strategos.model.units;
 
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.behaviour.Behaviour;
 import strategos.units.Castle;
 

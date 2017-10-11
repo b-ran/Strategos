@@ -1,7 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.*;
+import strategos.model.GameState;
 
 import java.util.function.*;
 import java.util.logging.*;

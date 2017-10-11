@@ -1,6 +1,6 @@
 import model.*;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.terrain.Terrain;
 import strategos.ui.Ui;
 import strategos.units.*;

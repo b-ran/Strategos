@@ -3,7 +3,7 @@ package strategos.networking.handlers;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import strategos.SaveInstance;
+import strategos.model.SaveInstance;
 import strategos.networking.networks.Network;
 
 import java.util.ArrayList;

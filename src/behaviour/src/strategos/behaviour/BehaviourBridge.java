@@ -1,8 +1,8 @@
 package strategos.behaviour;
 
 
-import strategos.*;
 import strategos.behaviour.config.BehaviourConfig;
+import strategos.model.GameState;
 
 
 class BehaviourBridge extends StaticBehaviour {

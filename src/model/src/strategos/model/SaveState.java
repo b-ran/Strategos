@@ -1,15 +1,10 @@
 package strategos.model;
 
-import strategos.GameCollections;
-import strategos.GameState;
-import strategos.SaveInstance;
-import strategos.UnitOwner;
 import strategos.hexgrid.Map;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.*;
 
 
 public class SaveState implements SaveInstance {

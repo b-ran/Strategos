@@ -1,6 +1,6 @@
 package strategos.ui.view;
 
-import strategos.MapLocation;
+import strategos.model.MapLocation;
 import strategos.units.*;
 
 import javax.swing.*;
@@ -137,7 +137,7 @@ public class GridComponent extends JComponent {
      */
     public void setTerrain(MapLocation[][] terrain) {
         this.terrain = terrain;
-       revealMap();
+//       revealMap();
     }
 
 
