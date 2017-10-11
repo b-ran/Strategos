@@ -132,16 +132,16 @@ class AiBehaviour extends BaseBehaviour {
         int dy = nearest.getPosition().getY() - unit.getPosition().getY();
 
         if (dx < 0) {
-            move(unit, Direction.WEST);
+            getGameState().move(unit, Direction.WEST, 1);
         }
         else if (dx > 0) {
-            move(unit, Direction.EAST);
+            getGameState().move(unit, Direction.EAST, 1);
         }
         else if (dy < 0) {
-            move(unit, Direction.NORTH_EAST);
+            getGameState().move(unit, Direction.NORTH_EAST, 1);
         }
         else if (dy > 0) {
-            move(unit, Direction.SOUTH_WEST);
+            getGameState().move(unit, Direction.NORTH_WEST, 1);
         }
     }
 
