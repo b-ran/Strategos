@@ -1,12 +1,12 @@
 package mapcreation.mapgeneration.terrain;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.terrain.Plains;
 
 import static strategos.terrain.TerrainConfig.PLAINS_PASSABLE;
 
-public class PlainsTile extends TerrainTile implements Plains, Graphical {
+public class PlainsTile extends TerrainTile implements Plains, GameObject {
 
     @Override
     public String toString() {
@@ -19,7 +19,7 @@ public class PlainsTile extends TerrainTile implements Plains, Graphical {
     }
 
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }

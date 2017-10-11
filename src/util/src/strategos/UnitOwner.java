@@ -2,9 +2,10 @@ package strategos;
 
 import strategos.units.Unit;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface UnitOwner {
+public interface UnitOwner extends Serializable {
 
 	public List<Unit> getUnits();
 
@@ -14,5 +15,5 @@ public interface UnitOwner {
 
 	public void setUnits(List<Unit> newUnits);
 
-	public UnitOwner copy();
+	public UnitOwner copy(GameState newState);
 }

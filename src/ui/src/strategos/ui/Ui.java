@@ -3,6 +3,7 @@ package strategos.ui;
 import strategos.GameState;
 import strategos.MapLocation;
 import strategos.UnitOwner;
+import strategos.networking.NetworkingHandler;
 import strategos.ui.controller.Controller;
 import strategos.ui.view.View;
 
@@ -15,6 +16,37 @@ public class Ui {
 
     View view = null;
     Controller controller = null;
+    NetworkingHandler networkingHandler;
+
+    /**
+     * Instantiates a new Ui.
+     *
+     * @param model    the current gameStateModel
+     *                 <dt><b>Precondition:</b><dd>
+     *                 model must not be null<br>
+     *                 terrain array lengths must be the same
+     *
+     * @param networkingHandler the handler for the network in the
+     *                          multiplayer game.
+     */
+    public Ui(GameState model, NetworkingHandler networkingHandler) {
+        assert (model != null);
+        MapLocation[][] map = model.getWorld().getMap().getData();
+        for (int y = 1; y < map.length; y++) {
+            assert (map[0].length == map[y].length);
+        }
+        try {
+            view = new View(model);
+            view.getGridComponent().setEntities(model.getWorld().getAllUnits());
+            view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
+            view.setSeenTerrain(model.getPlayers().get(0).getVisibleTiles());
+            this.networkingHandler = networkingHandler;
+            controller = new Controller(model, view, networkingHandler);
+        }
+        finally {
+            assert (view != null && controller != null);
+        }
+    }
 
     /**
      * Instantiates a new Ui.
@@ -34,9 +66,6 @@ public class Ui {
             view = new View(model);
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());
             view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
-
-            // TODO - make this get the thisInstancePlayer of the model once the changes are merged
-            view.getGridComponent().setSeenTerrain(model.getPlayers().get(0).getVisibleTiles());
             controller = new Controller(model, view);
         }
         finally {

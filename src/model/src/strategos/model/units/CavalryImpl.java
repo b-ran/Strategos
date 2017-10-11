@@ -1,11 +1,7 @@
 package strategos.model.units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
 import strategos.units.Cavalry;
 import strategos.units.Unit;
 
@@ -13,7 +9,7 @@ import strategos.units.Unit;
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class CavalryImpl extends UnitImpl implements Cavalry, Graphical {
+public class CavalryImpl extends UnitImpl implements Cavalry, GameObject {
 
 
 	public CavalryImpl(UnitOwner owner, MapLocation startLocation) {
@@ -25,12 +21,12 @@ public class CavalryImpl extends UnitImpl implements Cavalry, Graphical {
 	}
 
 	@Override
-	public Unit copy() {
-		return new CavalryImpl(getBehaviour().copy(), getOwner(), getPosition());
+ 	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new CavalryImpl(getBehaviour().copy(newState), newOwner, getPosition());
 	}
 
 	@Override
-	public void draw(GraphicalVisitor graphicalVisitor) {
-		graphicalVisitor.visit(this);
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
 	}
 }

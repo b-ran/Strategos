@@ -2,10 +2,7 @@ package strategos.hexgrid;
 
 
 import strategos.Direction;
-import strategos.Graphical;
 import strategos.MapLocation;
-import strategos.Paintable;
-import strategos.exception.RuleViolationException;
 import strategos.terrain.Terrain;
 
 import java.util.HashMap;
@@ -22,9 +19,6 @@ public class Hex implements MapLocation {
 	
 	private int xIndex;
 	private int yIndex;
-
-	private double gX;
-	private double gY;
 
 	private Terrain terrain;
 	private final boolean isPlayable;
@@ -71,7 +65,9 @@ public class Hex implements MapLocation {
 	 */
 	@Override
 	public boolean isInPlayArea() {
-		// TODO: return if the terrain can be moved over
+		if (terrain != null) {
+			 return isPlayable && terrain.isPassable();
+		}
 		return isPlayable;
 	}
 

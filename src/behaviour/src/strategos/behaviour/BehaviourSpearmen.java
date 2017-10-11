@@ -14,8 +14,8 @@ class BehaviourSpearmen extends UnitBehaviour {
         super(gameState);
     }
 
-    private BehaviourSpearmen(BehaviourSpearmen behaviourSpearmen) {
-        super(behaviourSpearmen);
+    private BehaviourSpearmen(BehaviourSpearmen behaviourSpearmen, GameState newState) {
+        super(behaviourSpearmen, newState);
     }
 
     @Override public int getStrength(Unit unit) {
@@ -26,8 +26,8 @@ class BehaviourSpearmen extends UnitBehaviour {
         return BehaviourConfig.SPEARMEN_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourSpearmen(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourSpearmen(this, newState);
     }
 
     @Override

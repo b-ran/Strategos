@@ -2,18 +2,20 @@ package strategos.model;
 
 import strategos.*;
 import strategos.hexgrid.Map;
+import strategos.model.units.BridgeImpl;
 import strategos.model.units.SwordsmenImpl;
 import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.*;
 import java.util.Observable;
 
 /**
  * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
- * 		libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
- * 		of GameCollections and UnitOwners.
+ * libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
+ * of GameCollections and UnitOwners.
  */
 public class Strategos implements GameState {
 	private GameCollections world;
@@ -22,6 +24,7 @@ public class Strategos implements GameState {
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
 	private UnitOwner thisInstancePlayer;
+	private boolean synced = false;
 
 	private List<SaveInstance> saves = new ArrayList<>();
 
@@ -52,14 +55,31 @@ public class Strategos implements GameState {
 
 	@Override
 	public SaveInstance export() {
-		return new SaveState(world, players, turn);
+		return new SaveState(this, world, players, turn);
 	}
 
 	public void load(SaveInstance toRestore) {
-
+		int index = players.indexOf(getThisInstancePlayer());
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
 		this.turn = toRestore.getTurn();
+		setThisInstancePlayer(players.get(index));
+		calculateVision(thisInstancePlayer);
+
+		for (Unit u : world.getAllUnits()) {
+			u.setBehaviour(u.getBehaviour().copy(this));
+		}
+
+		setChanged();
+		if (synced) {
+			//turn.getUnits().removeIf(u -> !u.isAlive());
+
+			turn.getUnits().forEach(Unit::turnTick);
+
+			//getPlayers().forEach(this::calculateVision);
+		}
+		notifyObservers(null);
+		synced = true;
 	}
 
 	@Override
@@ -67,12 +87,16 @@ public class Strategos implements GameState {
 		if (location == null) {
 			return null;
 		}
+		Unit potentialUnit = null;
 		for (Unit u : world.getAllUnits()) {
 			if (u.getPosition().getX() == location.getX() && u.getPosition().getY() == location.getY()) {
-				return u;
+				potentialUnit = u;
+				if (!(potentialUnit instanceof Bridge)) {
+					return potentialUnit;
+				}
 			}
 		}
-		return null;
+		return potentialUnit;
 	}
 
 	@Override
@@ -103,10 +127,12 @@ public class Strategos implements GameState {
 	 */
 	@Override
 	public void move(Unit unit, MapLocation mapLocation) {
-		if (getTilesInMoveRange(unit).contains(mapLocation)) {
-			unit.move(directionFromNeighbour(unit.getPosition(), mapLocation));
+		MapLocation newLocation = world.getMap().get(mapLocation.getX(), mapLocation.getY());
+		if (getTilesInMoveRange(unit).contains(newLocation)) {
+			unit.move(directionFromNeighbour(unit.getPosition(), newLocation));
 			calculateVision(unit.getOwner());
 		}
+		notifyObservers(null);
 	}
 
 	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
@@ -137,13 +163,40 @@ public class Strategos implements GameState {
 	@Override
 	public void attack(Unit unit, MapLocation location) {
 		Unit target = getUnitAt(location);
+		if (unit.getActionPoints() <= 0) {
+			return;
+		}
 		if (target == null) {
 			return;
 		}
 		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
+		System.out.println("attacking");
+		int enemyHP = target.getHitpoints();
 		unit.attack(target);
+		System.out.println("dealt " + (enemyHP - target.getHitpoints()) + " damage");
+		cleanUp(unit, target);
+		setChanged();
+	}
+
+	private void cleanUp(Unit unitA, Unit unitB) {
+		if (unitB instanceof Bridge) {
+			System.out.println("changing bridge ownership");
+			unitB.getOwner().getUnits().remove(unitB);
+			world.getAllUnits().remove(unitB);
+			BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
+			unitA.getOwner().getUnits().add(0, newBridge);
+			world.getAllUnits().add(0, newBridge);
+		}
+		if (!unitB.isAlive() && !(unitB instanceof Bridge)) {
+			unitB.getOwner().getUnits().remove(unitB);
+			world.getAllUnits().remove(unitB);
+		}
+		if (unitA.getHitpoints() <= 0) {
+			unitA.getOwner().getUnits().remove(unitA);
+			world.getAllUnits().remove(unitA);
+		}
 	}
 
 	@Override
@@ -197,7 +250,10 @@ public class Strategos implements GameState {
 		List<Unit> units = getUnitsInRange(unit.getPosition(), unit.getAttackRange());
 		List<Unit> actualUnits = new ArrayList<>();
 		for (Unit other : units) {
-			if (!other.getOwner().equals(unit.getOwner())) {
+			if (other.equals(unit)) {
+				continue;
+			}
+			if (other.getOwner() != unit.getOwner()) {
 				actualUnits.add(other);
 			}
 		}
@@ -213,11 +269,14 @@ public class Strategos implements GameState {
 		}
 
 		for (MapLocation tile : potentialTiles) {
-			if (tile.isInPlayArea() && canPassUnit(unit, tile)) {
+			if (tile.isInPlayArea()) {
+				if (canPassUnit(unit, tile)) {
+					actualTiles.add(tile);
+				}
+			} else if (getUnitAt(tile) instanceof Bridge && canPassUnit(unit, tile)){
 				actualTiles.add(tile);
 			}
 		}
-
 		return actualTiles;
 	}
 
@@ -253,15 +312,20 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
-		turn.getUnits().removeIf(u -> !u.isAlive());
+		//turn.getUnits().removeIf(u -> !u.isAlive());
 
-		turn.getUnits().forEach(Unit::turnTick);
+		for (int i = 0; i < turn.getUnits().size(); i++) {
+			turn.getUnits().get(i).turnTick();
+		}
 
 		getPlayers().forEach(this::calculateVision);
 
 		int turnIndex = players.indexOf(turn);
 		turnIndex = (turnIndex + 1) % players.size();
 		turn = players.get(turnIndex);
+		if (turnIndex == 2) {
+			nextTurn();
+		}
 	}
 
 	@Override
@@ -287,6 +351,14 @@ public class Strategos implements GameState {
 		return turn;
 	}
 
+	public boolean gameOver() {
+		for (int i = 0; i < 2; i++) {
+			if (players.get(i).getUnits().isEmpty()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public void addObserver(Observer o) {
@@ -307,7 +379,9 @@ public class Strategos implements GameState {
 
 	@Override
 	public void notifyObservers(Object o) {
-		observers.forEach(Observer::notify);
+		for (Observer obs : observers) {
+			obs.update(null, o);
+		}
 		changed = false;
 	}
 }

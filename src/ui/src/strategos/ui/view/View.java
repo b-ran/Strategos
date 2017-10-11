@@ -2,13 +2,19 @@ package strategos.ui.view;
 
 
 import strategos.GameState;
+import strategos.MapLocation;
 import strategos.UnitOwner;
 import strategos.ui.config.Config;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
+import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
+import static strategos.ui.config.Config.PLAYER_NAME;
 
 /**
  * The type View.
@@ -35,6 +41,9 @@ public class View extends JComponent implements Observer {
 
     private JPanel gamePane = new JPanel();
     private JPanel sidePane = new JPanel();
+
+    private List<MapLocation> seenTerrain = new ArrayList<>();
+
     /**
      * The game status.
      * False if game not running
@@ -49,6 +58,7 @@ public class View extends JComponent implements Observer {
      */
     public View(GameState model) {
         this.model = model;
+        model.addObserver(this);
         this.uiOwner = model.getCurrentTurn();
         frame = new JFrame(Config.WINDOW_NAME);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -57,9 +67,14 @@ public class View extends JComponent implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        frame.repaint();
-        gridComponent.setFocusable(true);
+        if (model.getWorld().getAllUnits() != gridComponent.getEntities()) {
+            gridComponent.setEntities(model.getWorld().getAllUnits());
+            gridComponent.setTerrain(model.getWorld().getMap().getData());
+            setSeenTerrain(getUiOwner().getVisibleTiles());
+        }
         gridComponent.requestFocus();
+        gridComponent.setFocusable(true);
+        frame.repaint();
     }
 
     @Override
@@ -196,6 +211,16 @@ public class View extends JComponent implements Observer {
     }
     
     public UnitOwner getUiOwner() {
-        return uiOwner;
+        return model.getThisInstancePlayer();
     }
+
+
+    public List<MapLocation> getSeenTerrain() {
+        return seenTerrain;
+    }
+
+    public void setSeenTerrain(List<MapLocation> seenTerrain) {
+        this.seenTerrain = seenTerrain;
+    }
+
 }

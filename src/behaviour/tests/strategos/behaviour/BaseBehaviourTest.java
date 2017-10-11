@@ -16,6 +16,10 @@ public class BaseBehaviourTest {
             ExpectedException.none();
     private GameState gameState;
 
+    @BeforeClass public static void beforeAll() {
+        TestUtil.logAll();
+    }
+
     @Before public void setUp() throws Exception {
         gameState = TestUtil.getMockGameState();
     }
@@ -95,7 +99,8 @@ public class BaseBehaviourTest {
                 return 0;
             }
 
-            @Override public Behaviour copy() {
+            @Override
+            public Behaviour copy(GameState newState) {
                 return null;
             }
 

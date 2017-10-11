@@ -8,15 +8,19 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 import strategos.GameState;
 import strategos.SaveInstance;
-import strategos.networking.handlers.DataHandler;
+import strategos.networking.NetworkingHandler;
 import strategos.networking.handlers.NetworkHandler;
 
 /**
  * Stores the IP of the server to connect to, the port te server is running on, and handles sending and receiving
  */
 public class Client implements Network {
+	private NetworkingHandler handler;
 	private GameState state;
 	private String host;
 	private int port;
@@ -24,7 +28,8 @@ public class Client implements Network {
 
 	private EventLoopGroup workerGroup;
 
-	public Client(String host, int port, GameState state) {
+	public Client(NetworkingHandler handler, String host, int port, GameState state) {
+		this.handler = handler;
 		this.state = state;
 		this.host = host;
 		this.port = port;
@@ -43,7 +48,7 @@ public class Client implements Network {
 				b.handler(new ChannelInitializer<SocketChannel>() {
 					@Override
 					public void initChannel(SocketChannel ch) throws InterruptedException {
-						ch.pipeline().addLast(new DataHandler(), clientHandler);
+						ch.pipeline().addLast(new ObjectEncoder(), new ObjectDecoder(ClassResolvers.cacheDisabled(null)), clientHandler);
 					}
 				});
 				// Start the client.
@@ -66,12 +71,18 @@ public class Client implements Network {
 
 	@Override
 	public void receive(SaveInstance instance) {
-		System.out.println("recieved");
+		System.out.println("client: recieved");
 		state.load(instance);
 	}
 
 	@Override
 	public void stop() {
 		workerGroup.shutdownGracefully();
+	}
+
+	@Override
+	public void setConnected(boolean connected) {
+		handler.setConnected(connected);
+		System.out.println("client: " + connected);
 	}
 }

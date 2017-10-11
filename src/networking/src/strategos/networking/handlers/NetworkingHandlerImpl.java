@@ -16,15 +16,16 @@ import java.util.Scanner;
  */
 public class NetworkingHandlerImpl implements NetworkingHandler {
 	private Network type;
+	private boolean connected;
 
 	@Override
 	public void initialise(GameState state, int port) {
-		type = new Server(port, state);
+		type = new Server(this, port, state);
 	}
 
 	@Override
 	public void initialise(GameState state, String host, int port) {
-		type = new Client(host, port, state);
+		type = new Client(this, host, port, state);
 	}
 
 	@Override
@@ -35,6 +36,7 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 
 	@Override
 	public void send(SaveInstance instance) throws InterruptedException {
+		System.out.println("sending L2");
 		type.send(instance);
 		Thread.sleep(3000);
 	}
@@ -42,6 +44,16 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 	@Override
 	public void stop() throws InterruptedException {
 		type.stop();
+	}
+
+	@Override
+	public boolean isConnected() {
+		return connected;
+	}
+
+	@Override
+	public void setConnected(boolean connected) {
+		this.connected = connected;
 	}
 
 	/**
