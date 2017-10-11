@@ -38,15 +38,15 @@ class NextTurnListener extends Controller implements ActionListener {
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null); //TODO: review
         if (model.getPlayers().indexOf(unitOwner) == 1) {
-            for (Unit barbarian : model.getPlayers().get(2).getUnits()) {
-                barbarian.turnTick();
+            for (int i = 0; i < model.getPlayers().get(2).getUnits().size(); i++) {
+                model.getPlayers().get(2).getUnits().get(i).turnTick();
             }
         }
         view.repaint();
         SaveInstance exported = model.export();
-        if (exported.getPlayers().indexOf(exported.getTurn()) == model.getPlayers().indexOf(uiOwner)) {
-            view.setUiOwner(exported.getTurn());
-        }
+//        if (exported.getPlayers().indexOf(exported.getTurn()) == model.getPlayers().indexOf(uiOwner)) {
+//            view.setUiOwner(exported.getTurn());
+//        }
         try {
             controller.getNetworkingHandler().send(exported);
         } catch (InterruptedException e1) {

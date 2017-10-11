@@ -200,7 +200,7 @@ public class Controller {
 
         if (this.selectedMapLocation != null && selectedMapLocation != null) {
             if (selectedUnit != null) {
-                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), 1)) &&
+                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), selectedUnit.getAttackRange())) &&
                         selectedUnit.getOwner() == model.getCurrentTurn()) {
                     handleCommand(selectedMapLocation);
                 } else {
@@ -232,9 +232,10 @@ public class Controller {
     }
 
     private void handleCommand(MapLocation newLocation) {
-        if (model.getUnitAt(newLocation) == null ||
-                (model.getUnitAt(newLocation) instanceof Bridge &&
-                 model.getUnitAt(newLocation).getOwner() == selectedUnit.getOwner())) {
+        if (model.getUnitAt(newLocation) == null ) {
+            model.move(selectedUnit, newLocation);
+        } else if (model.getUnitAt(newLocation) instanceof Bridge &&
+                model.getUnitAt(newLocation).getOwner() == selectedUnit.getOwner()) {
             model.move(selectedUnit, newLocation);
         } else {
             model.attack(selectedUnit, newLocation);

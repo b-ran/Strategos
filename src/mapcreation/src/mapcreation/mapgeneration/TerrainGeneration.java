@@ -19,7 +19,7 @@ public class TerrainGeneration {
      * Change the resolution if sampling areas to produce map instead of individual pixels(wont be used in this version)
      */
     private int xRes = 1, yRes = 1;
-
+    
     private int octaves = 512;
 
     /**
@@ -36,13 +36,14 @@ public class TerrainGeneration {
      * Max 100
      * Min 1
      */
-    private int forested = 60;
+    private int forested = 85;
 
     /**
      * Frequency of different terrain types
      * Highest value it occurs at
      */
-    private double plainsFreq = 0.6, hillFreq = 0.2 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
+    private double plainsFreq = 0.55, hillFreq = 0.35 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
+
 
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each

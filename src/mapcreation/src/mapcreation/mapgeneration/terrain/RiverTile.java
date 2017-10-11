@@ -1,12 +1,12 @@
 package mapcreation.mapgeneration.terrain;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.terrain.River;
 
 import static strategos.terrain.TerrainConfig.RIVERS_PASSABLE;
 
-public class RiverTile extends TerrainTile implements River, Graphical {
+public class RiverTile extends TerrainTile implements River, GameObject {
 
     @Override
     public String toString() {
@@ -19,7 +19,7 @@ public class RiverTile extends TerrainTile implements River, Graphical {
     }
 
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }
