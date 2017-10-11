@@ -267,18 +267,24 @@ public class Controller {
             g.setSelection(selectedMapLocation);
 
         } else {
-
             List<MapLocation> tilesInMoveRange = model.getTilesInMoveRange(selectedUnit);
             List<Unit> unitsInAttackRange = model.getUnitsInAttackRange(selectedUnit);
 
-            s.setSelection(selectedMapLocation, selectedUnit);
+            if (this.selectedUnit.getOwner() != view.getUiOwner()) {
+                s.setSelection(selectedMapLocation, this.selectedUnit);
+                g.setSelection(selectedMapLocation);
+                return;
+            }
+
+
+            s.setSelection(selectedMapLocation, this.selectedUnit);
             g.setSelection(selectedMapLocation, unitsInAttackRange, tilesInMoveRange);
             selectionToggle = false;
         }
     }
 
     private boolean checkMoveAttack(MapLocation selectedMapLocation) {
-        if (selectedUnit == null || selectedMapLocation == null) return false;
+        if (selectedUnit == null || selectedMapLocation == null || this.selectedUnit.getOwner() != view.getUiOwner()) return false;
 
         List<MapLocation> tilesInMoveRange = model.getTilesInMoveRange(selectedUnit);
         List<Unit> unitsInAttackRange = model.getUnitsInAttackRange(selectedUnit);
