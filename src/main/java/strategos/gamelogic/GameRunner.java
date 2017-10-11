@@ -4,6 +4,7 @@ package strategos.gamelogic;
 import mapcreation.mapgeneration.TerrainGeneration;
 import strategos.behaviour.BehaviourFactory;
 import strategos.behaviour.BehaviourFactoryImpl;
+import strategos.mapGenerator.Generator;
 import strategos.model.GameState;
 import strategos.model.GameStateFactory;
 import strategos.model.units.*;
@@ -16,7 +17,7 @@ public class GameRunner {
 	private GameState gameState;
 
 	public GameRunner() {
-		TerrainGeneration generator = new TerrainGeneration();
+		Generator generator = new TerrainGeneration();
 		BehaviourFactory factory = new BehaviourFactoryImpl();
 
 		GameStateFactory stateCreator = new StateCreator(factory, generator);

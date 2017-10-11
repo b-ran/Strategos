@@ -4,6 +4,7 @@ import strategos.Paintable;
 import strategos.behaviour.Behaviour;
 import strategos.behaviour.BehaviourFactory;
 import strategos.hexgrid.Map;
+import strategos.mapGenerator.Generator;
 import strategos.model.*;
 import strategos.units.Bridge;
 import strategos.units.Unit;
@@ -18,24 +19,24 @@ import static strategos.Config.NUM_ELITES;
 public class StateCreator implements GameStateFactory {
 
 	private final BehaviourFactory factory;
-	//private final TerrainGeneration generator;
+	private final Generator generator;
 
-	public StateCreator(BehaviourFactory factory/*, TerrainGeneration generator*/) {
+	public StateCreator(BehaviourFactory factory, Generator generator) {
 		this.factory = factory;
-		//this.generator = generator;
+		this.generator = generator;
 	}
 
 	@Override
 	public GameState createNewState() {
 
 		Map map = new Map(MAP_DIAMETER);
-//		Paintable[][] terrainMap = generator.populateMap(map.getData());
-//
-//		for (int x = 0; x < terrainMap.length; x++) {
-//			for (int y = 0; y < terrainMap.length; y++) {
-//				map.getData()[x][y].setTerrain(terrainMap[x][y].getTerrain());
-//			}
-//		}
+		Paintable[][] terrainMap = generator.populateMap(map.getData());
+
+		for (int x = 0; x < terrainMap.length; x++) {
+			for (int y = 0; y < terrainMap.length; y++) {
+				map.getData()[x][y].setTerrain(terrainMap[x][y].getTerrain());
+			}
+		}
 		UnitOwner playerOne = new Player(false);
 		UnitOwner playerTwo = new Player(false);
 		UnitOwner barbarians = new Player(true);
@@ -47,7 +48,7 @@ public class StateCreator implements GameStateFactory {
 
 			List<Unit> units = createUnits(player, newState);
 			player.setUnits(units);
-			newState.getWorld().setAllUnits(units);
+			newState.getWorld().getAllUnits().addAll(units);
 		}
 
 		return newState;
