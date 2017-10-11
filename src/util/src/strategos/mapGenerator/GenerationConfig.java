@@ -6,7 +6,7 @@ public class GenerationConfig {
      * Frequency of different terrain types
      * Highest value it occurs at
      */
-    public static double plainsFreq = 0.6, hillFreq = 0.2 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
+    public static double plainsFreq = 0.55, hillFreq = 0.35 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
 
     /**
      * Changes the average forest content of the map
