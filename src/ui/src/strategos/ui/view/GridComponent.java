@@ -127,6 +127,10 @@ public class GridComponent extends JComponent {
         this.entities = entities;
     }
 
+    public List<Unit> getEntities() {
+        return entities;
+    }
+
     /**
      * Sets terrain.
      *
@@ -134,7 +138,7 @@ public class GridComponent extends JComponent {
      */
     public void setTerrain(MapLocation[][] terrain) {
         this.terrain = terrain;
-        //revealMap();
+        revealMap();
     }
 
 

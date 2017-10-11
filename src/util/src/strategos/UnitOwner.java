@@ -15,5 +15,5 @@ public interface UnitOwner extends Serializable {
 
 	public void setUnits(List<Unit> newUnits);
 
-	public UnitOwner copy();
+	public UnitOwner copy(GameState newState);
 }

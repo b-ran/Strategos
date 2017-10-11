@@ -44,7 +44,6 @@ public class TerrainGeneration {
      */
     private double plainsFreq = 0.55, hillFreq = 0.45 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
 
-
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each
      *

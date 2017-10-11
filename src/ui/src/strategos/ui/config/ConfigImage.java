@@ -18,5 +18,13 @@ public class ConfigImage {
 
     public static final String BACKGROUND_IMAGE_PATH = "strategos/ui/view/resources/background.png";
 
+    public static final String ARCHERS_IMAGE_PATH = "strategos/ui/view/resources/archerSprite.png";
 
+    public static final String CAVALRY_IMAGE_PATH = "strategos/ui/view/resources/cavalrySprite.png";
+
+    public static final String ELITE_IMAGE_PATH = "strategos/ui/view/resources/eliteSprite.png";
+
+    public static final String SPEARMEN_IMAGE_PATH = "strategos/ui/view/resources/spearmenSprite.png";
+
+    public static final String SWORDSMEN_IMAGE_PATH = "strategos/ui/view/resources/swordsmenSprite.png";
 }

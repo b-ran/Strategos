@@ -111,7 +111,7 @@ public class TestUtil {
         }
 
         @Override
-        public Unit copy(UnitOwner newOwner) {
+        public Unit copy(UnitOwner newOwner, GameState newState) {
             return null;
         }
     };

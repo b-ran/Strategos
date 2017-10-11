@@ -158,7 +158,7 @@ public class ExternalTestGameState implements GameState {
 	 */
 	@Override
 	public SaveInstance export() {
-		return new ExternalTestSaveInstance(getWorld(), getPlayers(), getCurrentTurn());
+		return new ExternalTestSaveInstance(this, getWorld(), getPlayers(), getCurrentTurn());
 	}
 
 	/**
