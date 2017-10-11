@@ -87,12 +87,16 @@ public class Strategos implements GameState {
 		if (location == null) {
 			return null;
 		}
+		Unit potentialUnit = null;
 		for (Unit u : world.getAllUnits()) {
 			if (u.getPosition().getX() == location.getX() && u.getPosition().getY() == location.getY()) {
-				return u;
+				potentialUnit = u;
+				if (!(potentialUnit instanceof Bridge)) {
+					return potentialUnit;
+				}
 			}
 		}
-		return null;
+		return potentialUnit;
 	}
 
 	@Override
