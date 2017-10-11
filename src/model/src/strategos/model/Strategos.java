@@ -241,6 +241,9 @@ public class Strategos implements GameState {
 	public List<Unit> getUnitsInAttackRange(Unit unit) {
 		List<Unit> units = getUnitsInRange(unit.getPosition(), unit.getAttackRange());
 		List<Unit> actualUnits = new ArrayList<>();
+		if (unit.getActionPoints() <= 0) {
+			return actualUnits;
+		}
 		for (Unit other : units) {
 			if (other.equals(unit)) {
 				continue;
@@ -256,7 +259,7 @@ public class Strategos implements GameState {
 	public List<MapLocation> getTilesInMoveRange(Unit unit) {
 		List<MapLocation> potentialTiles = getTilesInRange(unit.getPosition(), 1);
 		List<MapLocation> actualTiles = new ArrayList<>();
-		if (unit.getActionPoints() == 0) {
+		if (unit.getActionPoints() <= 0) {
 			return actualTiles;
 		}
 
