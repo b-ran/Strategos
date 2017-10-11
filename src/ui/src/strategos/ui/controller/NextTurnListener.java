@@ -44,9 +44,9 @@ class NextTurnListener extends Controller implements ActionListener {
         }
         view.repaint();
         SaveInstance exported = model.export();
-        if (exported.getPlayers().indexOf(exported.getTurn()) == model.getPlayers().indexOf(uiOwner)) {
-            view.setUiOwner(exported.getTurn());
-        }
+//        if (exported.getPlayers().indexOf(exported.getTurn()) == model.getPlayers().indexOf(uiOwner)) {
+//            view.setUiOwner(exported.getTurn());
+//        }
         try {
             controller.getNetworkingHandler().send(exported);
         } catch (InterruptedException e1) {

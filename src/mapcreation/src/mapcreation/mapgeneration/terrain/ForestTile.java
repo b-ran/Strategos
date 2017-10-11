@@ -1,12 +1,12 @@
 package mapcreation.mapgeneration.terrain;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.terrain.Forest;
 
 import static strategos.terrain.TerrainConfig.FORESTS_PASSABLE;
 
-public class ForestTile extends TerrainTile implements Forest, Graphical {
+public class ForestTile extends TerrainTile implements Forest, GameObject {
 
     @Override
     public String toString() {
@@ -19,7 +19,7 @@ public class ForestTile extends TerrainTile implements Forest, Graphical {
     }
 
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }
