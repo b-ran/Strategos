@@ -1,6 +1,5 @@
 package strategos.gamelogic;
 
-
 import mapcreation.mapgeneration.TerrainGeneration;
 import strategos.behaviour.BehaviourFactory;
 import strategos.behaviour.BehaviourFactoryImpl;
@@ -13,7 +12,6 @@ import strategos.ui.Ui;
 
 public class GameRunner {
 
-	private Ui ui;
 	private GameState gameState;
 
 	public GameRunner() {
@@ -24,7 +22,7 @@ public class GameRunner {
 
 		gameState = stateCreator.createNewState();
 
-		ui = new Ui(gameState, new NetworkingHandlerImpl());
+		Ui ui = new Ui(gameState, new NetworkingHandlerImpl());
 	}
 
 	public static void main(String[] args) {
