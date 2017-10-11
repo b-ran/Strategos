@@ -45,7 +45,7 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
-    public void move(Unit unit, Direction direction, int amount) {
+    public void move(Unit unit, Direction direction) {
 
     }
 

@@ -92,20 +92,8 @@ public class Strategos implements GameState {
 	}
 
 	@Override
-	public void move(Unit unit, Direction direction, int amount) {
-		amount = Math.min(amount, unit.getActionPoints());
-		MapLocation currentPosition = unit.getPosition();
-		while (amount != 0) {
-			if (!currentPosition.getNeighbour(direction).isInPlayArea() || !canPassUnit(unit, currentPosition.getNeighbour(direction))) {
-				break;
-			}
-			currentPosition = currentPosition.getNeighbour(direction);
-			if (!unit.move(direction)) {
-				break;
-			}
-			amount--;
-			calculateVision(unit.getOwner());
-		}
+	public void move(Unit unit, Direction direction) {
+		move(unit, unit.getPosition().getNeighbour(direction));
 	}
 
 	/**

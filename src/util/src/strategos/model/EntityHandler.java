@@ -24,9 +24,8 @@ public interface EntityHandler {
 	 *
 	 * @param unit the unit to be moved. If this Unit is null, fail the command.
 	 * @param direction the direction to move in, using the Direction enum in the Config file.
-	 * @param amount the magnitude to move by, or the maximum number of action points left.
 	 */
-	public void move(Unit unit, Direction direction, int amount);
+	public void move(Unit unit, Direction direction);
 
 
 	/**

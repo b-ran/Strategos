@@ -148,7 +148,7 @@ public class ModelTests {
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		assertTrue(p.getVisibleTiles().size() != 0);
 	}
@@ -170,7 +170,7 @@ public class ModelTests {
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		List<MapLocation> hexes = gameState.getTilesInRange(unit.getPosition(), unit.getSightRadius());
 
@@ -196,10 +196,10 @@ public class ModelTests {
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 		int visibleSize = p.getVisibleTiles().size();
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 		assertTrue(p.getVisibleTiles().size() > visibleSize);
 	}
 
@@ -289,7 +289,7 @@ public class ModelTests {
 		unit.setPosition(world.getMap().get(3, 3));
 		p.getUnits().add(unit);
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		assertTrue(b.moved);
 	}
@@ -318,7 +318,7 @@ public class ModelTests {
 
 		p.getUnits().add(unit);
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		assertFalse(unit.getPosition().getX() == 4);
 	}
@@ -351,7 +351,7 @@ public class ModelTests {
 		world.getAllUnits().add(unit);
 		world.getAllUnits().add(unit2);
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		assertFalse(unit.getPosition().getX() == 4);
 	}
@@ -384,7 +384,7 @@ public class ModelTests {
 		world.getAllUnits().add(unit);
 		world.getAllUnits().add(bridge);
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		assertTrue(unit.getPosition().getX() == 4);
 	}
@@ -417,7 +417,7 @@ public class ModelTests {
 		world.getAllUnits().add(unit);
 		world.getAllUnits().add(bridge);
 
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		assertFalse(unit.getPosition().getX() == 4);
 	}
@@ -638,7 +638,7 @@ public class ModelTests {
 		p.getUnits().add(unit);
 		world.getAllUnits().add(unit);
 		gameState.save();
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		assertTrue(unit.getPosition().getX() == 4);
 
@@ -677,7 +677,7 @@ public class ModelTests {
 		p.getUnits().add(unit);
 		world.getAllUnits().add(unit);
 		gameState.save();
-		gameState.move(unit, EAST, 1);
+		gameState.move(unit, EAST);
 
 		assertTrue(unit.getPosition().getX() == 4);
 
@@ -719,7 +719,8 @@ public class ModelTests {
 		world.getAllUnits().add(unit);
 
 		gameState.save();
-		gameState.move(unit, EAST, 2);
+		gameState.move(unit, EAST);
+		gameState.move(unit, EAST);
 		SaveInstance save = gameState.getSaves().get(0);
 
 		gameState.load(save);

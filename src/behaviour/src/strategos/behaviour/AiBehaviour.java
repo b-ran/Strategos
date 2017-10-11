@@ -101,7 +101,7 @@ class AiBehaviour extends BaseBehaviour {
         directionIndex = (values.length + directionIndex + random.nextInt(2) - 1) % values.length;
         Direction direction = values[directionIndex];
         logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), direction));
-        getGameState().move(unit, direction, 1);
+        getGameState().move(unit, direction);
     }
 
     @Override
@@ -131,16 +131,16 @@ class AiBehaviour extends BaseBehaviour {
         int dy = nearest.getPosition().getY() - unit.getPosition().getY();
 
         if (dx < 0) {
-            getGameState().move(unit, Direction.WEST, 1);
+            getGameState().move(unit, Direction.WEST);
         }
         else if (dx > 0) {
-            getGameState().move(unit, Direction.EAST, 1);
+            getGameState().move(unit, Direction.EAST);
         }
         else if (dy < 0) {
-            getGameState().move(unit, Direction.NORTH_EAST, 1);
+            getGameState().move(unit, Direction.NORTH_EAST);
         }
         else if (dy > 0) {
-            getGameState().move(unit, Direction.NORTH_WEST, 1);
+            getGameState().move(unit, Direction.NORTH_WEST);
         }
     }
 

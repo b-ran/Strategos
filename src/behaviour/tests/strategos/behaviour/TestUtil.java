@@ -149,7 +149,7 @@ public class TestUtil {
         }
 
         @Override
-        public void move(Unit unit, Direction direction, int amount) {
+        public void move(Unit unit, Direction direction) {
 
         }
 
