@@ -29,4 +29,6 @@ public interface Network {
 	 * Shuts down the connection
 	 */
 	void stop();
+
+	void setConnected(boolean connected);
 }

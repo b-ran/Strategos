@@ -1,12 +1,12 @@
 package mapcreation.mapgeneration.terrain;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.terrain.Hill;
 
 import static strategos.terrain.TerrainConfig.HILLS_PASSABLE;
 
-public class HillTile extends TerrainTile implements Hill, Graphical {
+public class HillTile extends TerrainTile implements Hill, GameObject {
 
     @Override
     public String toString() {
@@ -19,7 +19,7 @@ public class HillTile extends TerrainTile implements Hill, Graphical {
     }
 
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }

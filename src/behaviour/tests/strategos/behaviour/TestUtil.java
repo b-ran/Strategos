@@ -6,9 +6,19 @@ import strategos.terrain.*;
 import strategos.units.*;
 
 import java.util.*;
+import java.util.logging.*;
 
 
 public class TestUtil {
+
+    static void logAll() {
+        Logger logger = Logger.getLogger("strategos.behaviour");
+        logger.setLevel(Level.ALL);
+        Handler handler = new ConsoleHandler();
+        handler.setFormatter(new SimpleFormatter());
+        handler.setLevel(Level.ALL);
+        logger.addHandler(handler);
+    }
 
     static Unit getMockUnit() {
     return new Unit() {
@@ -101,7 +111,7 @@ public class TestUtil {
         }
 
         @Override
-        public Unit copy() {
+        public Unit copy(UnitOwner newOwner, GameState newState) {
             return null;
         }
     };
@@ -198,6 +208,14 @@ public class TestUtil {
 
         @Override public void nextTurn() {
 
+        }
+
+        @Override public void setThisInstancePlayer(UnitOwner thisInstancePlayer) {
+
+        }
+
+        @Override public UnitOwner getThisInstancePlayer() {
+            return null;
         }
 
         @Override public GameCollections getWorld() {

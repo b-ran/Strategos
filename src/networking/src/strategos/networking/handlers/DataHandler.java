@@ -8,6 +8,7 @@ import io.netty.handler.codec.ByteToMessageCodec;
 import strategos.SaveInstance;
 
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 public class DataHandler extends ByteToMessageCodec<SaveInstance> {
 	@Override
 	protected void encode(ChannelHandlerContext ctx, SaveInstance msg, ByteBuf out) throws Exception {
+		System.out.println("encoding");
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(bos);
 		oos.writeObject(msg);
@@ -27,8 +29,12 @@ public class DataHandler extends ByteToMessageCodec<SaveInstance> {
 
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-		ObjectInputStream ois = new ObjectInputStream(new ByteBufInputStream(in));
-		out.add(ois.readObject());
-		ois.close();
+		System.out.println("decoding");
+		try (ObjectInputStream ois = new ObjectInputStream(new ByteBufInputStream(in))) {
+			while(true) {
+				Object o = ois.readObject();
+				out.add(o);
+			}
+		} catch (EOFException ignored) {}
 	}
 }

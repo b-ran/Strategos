@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Function;
+import java.util.logging.Logger;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.hypot;
@@ -20,6 +21,8 @@ import static java.lang.Math.hypot;
 class AiBehaviour extends BaseBehaviour {
 
     //TODO: Where is your javadoc?
+
+    private static Logger logger = Logger.getLogger("strategos.behaviour");
 
     private static final Random random = new Random();
     private Behaviour behaviour;
@@ -33,18 +36,20 @@ class AiBehaviour extends BaseBehaviour {
         }
 
         this.behaviour = factoryMethod.apply(gameState);
+        logger.fine(String.format("AI behaviour created inner behaviour %s", behaviour.getClass()));
 
         if (this.behaviour == null) {
             throw new NullPointerException("Behaviour factory method should not return null");
         }
 
         directionIndex = random.nextInt(Direction.values().length);
+        logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), Direction.values()[directionIndex]));
     }
 
-    private AiBehaviour(AiBehaviour aiBehaviour) {
-        super(aiBehaviour);
+    private AiBehaviour(AiBehaviour aiBehaviour, GameState newState) {
+        super(aiBehaviour, newState);
 
-        behaviour = aiBehaviour.copy();
+        behaviour = aiBehaviour.behaviour.copy(newState);
         directionIndex = aiBehaviour.directionIndex;
     }
 
@@ -94,8 +99,9 @@ class AiBehaviour extends BaseBehaviour {
 
     private void explore(Unit unit) {
         Direction[] values = Direction.values();
-        directionIndex = (directionIndex + random.nextInt(2) - 1) % values.length;
+        directionIndex = (values.length + directionIndex + random.nextInt(2) - 1) % values.length;
         Direction direction = values[directionIndex];
+        logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), direction));
         getGameState().move(unit, direction, 1);
     }
 
@@ -126,16 +132,16 @@ class AiBehaviour extends BaseBehaviour {
         int dy = nearest.getPosition().getY() - unit.getPosition().getY();
 
         if (dx < 0) {
-            move(unit, Direction.WEST);
+            getGameState().move(unit, Direction.WEST, 1);
         }
         else if (dx > 0) {
-            move(unit, Direction.EAST);
+            getGameState().move(unit, Direction.EAST, 1);
         }
         else if (dy < 0) {
-            move(unit, Direction.NORTH_EAST);
+            getGameState().move(unit, Direction.NORTH_EAST, 1);
         }
         else if (dy > 0) {
-            move(unit, Direction.SOUTH_WEST);
+            getGameState().move(unit, Direction.NORTH_WEST, 1);
         }
     }
 
@@ -227,8 +233,8 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override
-    public Behaviour copy() {
-        return new AiBehaviour(this);
+    public Behaviour copy(GameState newState) {
+        return new AiBehaviour(this, newState);
     }
 
     @Override

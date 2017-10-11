@@ -4,11 +4,12 @@ import strategos.GameBoard;
 import strategos.GameState;
 import strategos.MapLocation;
 import strategos.UnitOwner;
-import strategos.terrain.Terrain;
+import strategos.networking.NetworkingHandler;
 import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
 import strategos.ui.view.SideComponent;
 import strategos.ui.view.View;
+import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import java.awt.*;
@@ -21,6 +22,7 @@ import static strategos.ui.config.Config.HEX_SIZE;
  */
 public class Controller {
 
+    private NetworkingHandler networkingHandler;
     /**
      * The Model.
      */
@@ -67,6 +69,22 @@ public class Controller {
      * @param model  the model
      * @param view   the view
      */
+    public Controller(GameState model, View view, NetworkingHandler networkingHandler) {
+        this.model = model;
+        this.networkingHandler = networkingHandler;
+        this.view = view;
+        uiOwner = view.getUiOwner();
+        board = model.getWorld().getMap();
+        setGameListeners();
+        setMenuListeners();
+    }
+
+    /**
+     * Instantiates a new Controller.
+     *
+     * @param model  the model
+     * @param view   the view
+     */
     public Controller(GameState model, View view) {
         this.model = model;
         this.view = view;
@@ -86,8 +104,8 @@ public class Controller {
 
         m.getNewGameButton().addActionListener(new NewGameListener(this));
         m.getLoadButton().addActionListener(new LoadListener(this));
-        m.getConnectButton().addActionListener(new ConnectListener(this));
-        m.getHostButton().addActionListener(new HostListener(this));
+        m.getConnectButton().addActionListener(new ConnectListener(this, networkingHandler));
+        m.getHostButton().addActionListener(new HostListener(this, networkingHandler));
         m.getExitButton().addActionListener(new ExitListener(this));
 
         for (int i = 1; i <= 3; i++) {
@@ -121,7 +139,7 @@ public class Controller {
     Point getHexPos(int x, int y) {
         Point p = new Point();
         p.y = getHexY(y);
-        p.x = getHexX(x)-p.y/2;
+        p.x = getHexX(x - ((p.y % 2 != 0) ? HEX_SIZE / 2 : 0)) - p.y / 2;
         if (p.x > board.getData()[0].length-1) {
             p.x = board.getData()[0].length-1;
         } else if (p.x < 0) {
@@ -134,7 +152,6 @@ public class Controller {
         }
         return p;
     }
-
 
     private int getHexX(int x) {
         return x / (HEX_SIZE) - 1;
@@ -166,13 +183,40 @@ public class Controller {
         return selectedMapLocation;
     }
 
+    public NetworkingHandler getNetworkingHandler() {
+        return networkingHandler;
+    }
+
+    private boolean mapLocationIn(MapLocation location, List<MapLocation> otherLocations) {
+        for (MapLocation other : otherLocations) {
+            if (other.getX() == location.getX() && other.getY() == location.getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void setSelectedMapLocation(MapLocation selectedMapLocation) {
+
+        if (this.selectedMapLocation != null && selectedMapLocation != null) {
+            if (selectedUnit != null) {
+                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), selectedUnit.getAttackRange())) &&
+                        selectedUnit.getOwner() == model.getCurrentTurn()) {
+                    handleCommand(selectedMapLocation);
+                } else {
+                    selectionToggle = true;
+                    selectedUnit = model.getUnitAt(selectedMapLocation);
+                }
+            }
+        }
+
         this.selectedMapLocation = selectedMapLocation;
+        selectedUnit = model.getUnitAt(this.selectedMapLocation);
         if (selectedMapLocation == null) {
             selectionHelper();
             return;
         }
-        selectedUnit = model.getUnitAt(selectedMapLocation);
+
         if (selectedUnit == null) {
             selectionToggle = false;
             view.getGridComponent().setSelection(selectedMapLocation);
@@ -185,6 +229,17 @@ public class Controller {
             view.getSideComponent().setSelection(selectedMapLocation, selectedUnit);
         }
         view.repaint();
+    }
+
+    private void handleCommand(MapLocation newLocation) {
+        if (model.getUnitAt(newLocation) == null ) {
+            model.move(selectedUnit, newLocation);
+        } else if (model.getUnitAt(newLocation) instanceof Bridge &&
+                model.getUnitAt(newLocation).getOwner() == selectedUnit.getOwner()) {
+            model.move(selectedUnit, newLocation);
+        } else {
+            model.attack(selectedUnit, newLocation);
+        }
     }
 
     private void selectionHelper() {

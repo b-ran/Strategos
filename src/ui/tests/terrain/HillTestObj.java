@@ -1,12 +1,12 @@
 package terrain;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.terrain.Hill;
 
-public class HillTestObj extends TerrainTestObj implements Hill, Graphical {
+public class HillTestObj extends TerrainTestObj implements Hill, GameObject {
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }

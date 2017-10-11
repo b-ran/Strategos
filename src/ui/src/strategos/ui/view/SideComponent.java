@@ -1,6 +1,7 @@
 package strategos.ui.view;
 
 import strategos.MapLocation;
+import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ import static strategos.ui.config.Config.*;
 public class SideComponent extends JComponent {
 
 
+    private final View view;
     private JButton waryButton = new JButton(WARY_BUTTON_NAME);
     private JButton entrenchButton = new JButton(ENTRENCH_BUTTON_NAME);
     private JButton attackButton = new JButton(ATTACK_BUTTON_NAME);
@@ -27,6 +29,7 @@ public class SideComponent extends JComponent {
      * Instantiates a new Side component for drawing on.
      */
     SideComponent(View view) {
+        this.view = view;
         setLayout(new BorderLayout());
         setPreferredSize(SIDE_COMPONENT_SIZE);
         draw = new Draw(view);
@@ -70,6 +73,9 @@ public class SideComponent extends JComponent {
 
     private void paintSelection(Graphics g) {
         if (selectedMapLocation == null) return;
+        if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
+
+
         if (selectedUnit != null) {
             draw.drawUnitNonGrid(selectedUnit, SELECTION_LOCATION, g);
             return;
@@ -79,6 +85,8 @@ public class SideComponent extends JComponent {
 
     private void paintLabels(Graphics g) {
         if (selectedUnit == null) return;
+        if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
+
         g.setColor(Color.BLACK);
         g.drawString(HEALTH_LABEL_NAME + " " + selectedUnit.getHitpoints(), HEALTH_LABEL_LOCATION.x, HEALTH_LABEL_LOCATION.y);
         g.drawString(ACTIONPOINT_LABEL_NAME + " " + selectedUnit.getActionPoints(), ACTIONPOINT_LABEL_LOCATION.x, ACTIONPOINT_LABEL_LOCATION.y);

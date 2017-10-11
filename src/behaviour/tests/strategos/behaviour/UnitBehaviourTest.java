@@ -22,6 +22,10 @@ public class UnitBehaviourTest {
     private MapLocation position2;
     private Unit        unit;
 
+    @BeforeClass public static void beforeAll() {
+        TestUtil.logAll();
+    }
+
     @Before public void setUp() throws Exception {
         unit = TestUtil.getMockUnit();
         behaviour = new UnitBehaviour(TestUtil.getMockGameState()) {
@@ -33,9 +37,11 @@ public class UnitBehaviourTest {
                 return 25;
             }
 
-            @Override public Behaviour copy() {
+            @Override
+            public Behaviour copy(GameState newState) {
                 return null;
             }
+
         };
         position1 = new MapLocation() {
             @Override public int getX() {

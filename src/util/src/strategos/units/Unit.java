@@ -4,8 +4,10 @@ package strategos.units;
 import strategos.*;
 import strategos.behaviour.Behaviour;
 
+import java.io.Serializable;
 
-public interface Unit {
+
+public interface Unit extends Serializable {
 
     void setBehaviour(Behaviour behaviour);
 
@@ -49,5 +51,5 @@ public interface Unit {
 
     int getAttackRange();
 
-    public Unit copy();
+    public Unit copy(UnitOwner newOwner, GameState newState);
 }

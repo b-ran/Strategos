@@ -4,7 +4,7 @@ import strategos.*;
 import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 
-public class UnitTestObj implements Unit, Graphical{
+public class UnitTestObj implements Unit, GameObject {
 
     private UnitOwner owner;
     private MapLocation mapLocation;
@@ -119,11 +119,11 @@ public class UnitTestObj implements Unit, Graphical{
     }
 
     @Override
-    public Unit copy() {
+    public Unit copy(UnitOwner newOwner, GameState newState) {
         return null;
     }
 
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
+    public void accept(GameObjectVisitor gameObjectVisitor) {
     }
 }

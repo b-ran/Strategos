@@ -17,8 +17,8 @@ import static strategos.ui.config.Config.*;
  */
 public class GridComponent extends JComponent {
 
+    private final View view;
     private MapLocation[][] terrain;
-    private List<MapLocation> seenTerrain;
     private List<Unit> entities;
     private Draw draw;
     private MapLocation selectedMapLocation;
@@ -29,6 +29,7 @@ public class GridComponent extends JComponent {
      * Instantiates a new Grid component for drawing on.
      */
     GridComponent(View view) {
+        this.view = view;
         setLayout(new BorderLayout());
         setPreferredSize(GRID_COMPONENT_SIZE);
         draw = new Draw(view);
@@ -48,15 +49,23 @@ public class GridComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        paintBlackTerrain(g, terrain);
-        paintTerrain(g, seenTerrain);
-        paintUnits(g, entities);
+        paintBackground(g);
+        paintTerrain(g, view.getSeenTerrain());
         paintSelection(g, selectedMapLocation);
+        paintUnits(g, entities);
+        paintBlackTerrain(g, terrain);
 
+    }
+
+    private void paintBackground(Graphics g) {
+        g.drawImage(Draw.backgroundImage, 0, 0, null);
     }
 
     private void paintUnits(Graphics g, List<Unit> entities) {
         for (Unit unit : entities) {
+            if (!view.getSeenTerrain().contains(unit.getPosition())) {
+                continue;
+            }
             Point p = new Point();
             p.x = unit.getPosition().getX();
             p.y = unit.getPosition().getY();
@@ -66,6 +75,7 @@ public class GridComponent extends JComponent {
 
     private void paintTerrain(Graphics g, List<MapLocation> visibleTiles) {
         for (MapLocation tile : visibleTiles) {
+            if (tile.getTerrain() == null) continue;
             Point p = new Point();
             p.x = tile.getX();
             p.y = tile.getY();
@@ -74,10 +84,13 @@ public class GridComponent extends JComponent {
     }
 
     private void paintBlackTerrain(Graphics g, MapLocation[][] terrain) {
-        g.setColor(Color.BLACK);
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                //drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.GRAY);
+                if (view.getSeenTerrain().contains(terrain[y][x])) continue;
+                Point p = new Point();
+                p.x = terrain[y][x].getX();
+                p.y = terrain[y][x].getY();
+                draw.drawFog(p, g);
             }
         }
     }
@@ -85,13 +98,13 @@ public class GridComponent extends JComponent {
     private void paintSelection(Graphics g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
         Point p = new Point();
-        for (MapLocation m :selectedTilesInRange) {
+        for (MapLocation m : selectedTilesInRange) {
             p.x = m.getX();
             p.y = m.getY();
 
             draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_MOVE_COLOR,  SELECTION_STROKE_SIZE, g);
         }
-        for (Unit u :selectedUnitsInRange) {
+        for (Unit u : selectedUnitsInRange) {
             MapLocation m = u.getPosition();
             p.x = m.getX();
             p.y = m.getY();
@@ -102,7 +115,6 @@ public class GridComponent extends JComponent {
         MapLocation m = selectedMapLocation;
         p.x = m.getX();
         p.y = m.getY();
-
         draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_COLOR,  SELECTION_STROKE_SIZE, g);
     }
 
@@ -115,6 +127,10 @@ public class GridComponent extends JComponent {
         this.entities = entities;
     }
 
+    public List<Unit> getEntities() {
+        return entities;
+    }
+
     /**
      * Sets terrain.
      *
@@ -122,11 +138,9 @@ public class GridComponent extends JComponent {
      */
     public void setTerrain(MapLocation[][] terrain) {
         this.terrain = terrain;
+//        revealMap();
     }
 
-    public void setSeenTerrain(List<MapLocation> seenTerrain) {
-        this.seenTerrain = seenTerrain;
-    }
 
     public void setSelection(MapLocation selectedMapLocation, List<Unit> selectedUnitsInRange, List<MapLocation> selectedTilesInRange) {
         this.selectedMapLocation = selectedMapLocation;
@@ -138,5 +152,13 @@ public class GridComponent extends JComponent {
         this.selectedMapLocation = selectedMapLocation;
         selectedUnitsInRange = new ArrayList<>();
         selectedTilesInRange = new ArrayList<>();
+    }
+
+    private void revealMap() {
+        for (int y = 0; y < terrain.length; y++) {
+            for (int x = 0; x < terrain[0].length; x++) {
+                view.getSeenTerrain().add(terrain[y][x]);
+            }
+        }
     }
 }

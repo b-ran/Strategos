@@ -4,8 +4,10 @@ package strategos.behaviour;
 import strategos.*;
 import strategos.units.*;
 
+import java.io.Serializable;
 
-public interface Behaviour {
+
+public interface Behaviour extends Serializable {
 
     MapLocation getPosition(Unit unit);
 
@@ -41,7 +43,7 @@ public interface Behaviour {
 
     int getActionPoints(Unit unit);
 
-    Behaviour copy();
+    Behaviour copy(GameState newState);
 
     int getAttackRange();
 }

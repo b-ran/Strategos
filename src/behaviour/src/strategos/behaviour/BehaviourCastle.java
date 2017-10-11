@@ -5,8 +5,12 @@ import strategos.GameState;
 import strategos.behaviour.config.BehaviourConfig;
 import strategos.units.Unit;
 
+import java.util.logging.*;
+
 
 class BehaviourCastle extends UnitBehaviour {
+
+    private static Logger logger = Logger.getLogger("strategos.behaviour");
 
     //TODO: Where is your javadoc?
 
@@ -14,8 +18,8 @@ class BehaviourCastle extends UnitBehaviour {
         super(gameState);
     }
 
-    private BehaviourCastle(BehaviourCastle behaviourCastle) {
-        super(behaviourCastle);
+    private BehaviourCastle(BehaviourCastle behaviourCastle, GameState newState) {
+        super(behaviourCastle, newState);
     }
 
     @Override public int getStrength(Unit unit) {
@@ -26,8 +30,8 @@ class BehaviourCastle extends UnitBehaviour {
         return BehaviourConfig.CASTLE_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourCastle(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourCastle(this, newState);
     }
 
     @Override public void charge(Unit unit) {
@@ -36,15 +40,19 @@ class BehaviourCastle extends UnitBehaviour {
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
+        logger.info(String.format("%s: range attack %s", this.getClass(), enemy));
+
         if (enemy == null) {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
         if (!isAlive(unit) || !enemy.isAlive()) {
+            logger.info(String.format("%s: cannot attack", this.getClass()));
             return 0;
         }
 
         if (getActionPoints(unit) <= 0) {
+            logger.info(String.format("%s: not enough action points to attack", this.getClass()));
             return 0;
         }
 

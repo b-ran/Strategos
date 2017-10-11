@@ -14,8 +14,8 @@ class BehaviourCavalry extends UnitBehaviour {
         super(gameState);
     }
 
-    private BehaviourCavalry(BehaviourCavalry behaviourCavalry) {
-        super(behaviourCavalry);
+    private BehaviourCavalry(BehaviourCavalry behaviourCavalry, GameState newState) {
+        super(behaviourCavalry, newState);
     }
 
     @Override int getMaxActionPoints() {
@@ -30,8 +30,8 @@ class BehaviourCavalry extends UnitBehaviour {
         return BehaviourConfig.CAVALRY_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourCavalry(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourCavalry(this, newState);
     }
 
     @Override
