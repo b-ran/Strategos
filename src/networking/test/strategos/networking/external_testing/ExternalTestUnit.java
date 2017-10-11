@@ -1,8 +1,9 @@
 package strategos.networking.external_testing;
 
 import strategos.Direction;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 
@@ -119,7 +120,8 @@ public class ExternalTestUnit implements Unit {
 	}
 
 	@Override
-	public Unit copy(UnitOwner newOwner) {
-		return new ExternalTestUnit(id);
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return null;
 	}
+
 }

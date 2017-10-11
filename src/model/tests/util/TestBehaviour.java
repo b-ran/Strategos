@@ -1,8 +1,8 @@
 package util;
 
 import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
 import strategos.behaviour.Behaviour;
 import strategos.units.Unit;
 
@@ -120,7 +120,7 @@ public class TestBehaviour implements Behaviour {
 	}
 
 	@Override
-	public Behaviour copy() {
+	public Behaviour copy(GameState newState) {
 		TestBehaviour behaviour = new TestBehaviour(null);
 		behaviour.takeDamage(100 - hitpoints);
 		behaviour.setPosition(null, getPosition(null));

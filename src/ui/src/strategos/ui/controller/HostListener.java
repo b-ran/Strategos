@@ -42,7 +42,6 @@ public class HostListener extends Controller implements ActionListener {
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
-            view.setUiOwner(model.getThisInstancePlayer());
             view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
             view.setGame();
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());

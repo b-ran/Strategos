@@ -3,24 +3,33 @@ package mapcreation.mapgeneration;
 import mapcreation.mapgeneration.terrain.*;
 import mapcreation.noisegeneration.NoiseGenerator;
 import strategos.Paintable;
+import strategos.mapGenerator.GenerationConfig;
+import strategos.mapGenerator.Generator;
 import strategos.terrain.Terrain;
 
 import java.util.Random;
+
+import static strategos.mapGenerator.GenerationConfig.*;
 
 /**
  * Created by Shaun Sinclair
  * Strategos
  * 28/07/2017.
  */
-public class TerrainGeneration {
+public class TerrainGeneration implements Generator {
 
-    //Following vars will eventually be pulled from settings that the user can change(set statically for now)
+
     /**
      * Change the resolution if sampling areas to produce map instead of individual pixels(wont be used in this version)
      */
     private int xRes = 1, yRes = 1;
 
-    private int octaves = 512;
+    //Following vars will eventually be pulled from settings that the user can change(set statically for now)
+
+    /**
+     * Number of octaves used by the generator(currently way to high)
+     */
+    private final int octaves = NUM_OCTAVES;
 
     /**
      * Changes the average elevation of the map
@@ -28,7 +37,7 @@ public class TerrainGeneration {
      * Max 100
      * Min 1
      */
-    private int flatness = 90;
+    private int mapAltitude = MAP_ALTITUDE;
 
     /**
      * Changes the average forest content of the map
@@ -36,13 +45,8 @@ public class TerrainGeneration {
      * Max 100
      * Min 1
      */
-    private int forested = 60;
+    private int forestFreq = GenerationConfig.FOREST_FREQ;
 
-    /**
-     * Frequency of different terrain types
-     * Highest value it occurs at
-     */
-    private double plainsFreq = 0.6, hillFreq = 0.2 + plainsFreq;//, mountainFreq = 0.3 + hillFreq + plainsFreq;
 
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each
@@ -107,7 +111,7 @@ public class TerrainGeneration {
                 noise = generatedNoise.getNoise(x, y);
                 noise = (noise + 10) / 20;
                 //Shifts the values of map
-                noise = (noise / 100) * flatness;
+                noise = (noise / 100) * mapAltitude;
                 mapTopology[x][y] = noise;
             }
         }
@@ -115,12 +119,12 @@ public class TerrainGeneration {
     }
 
     /**
-     * For testing fillMap() with a specific value of forested
+     * For testing fillMap() with a specific value of FOREST_FREQ
      *
      * @return fillMap()
      */
     public double[][] testFillMap(int width, int height, int seed, int flatness) {
-        this.flatness = flatness;
+        this.mapAltitude = flatness;
         return fillMap(width, height, seed);
     }
 
@@ -130,7 +134,7 @@ public class TerrainGeneration {
      * @param width  Width of hexMap to be filled
      * @param height Height of hexMap to be filled
      * @param seed   The seed the map is being produced from
-     * @return If the tile is forested or not
+     * @return If the tile is FOREST_FREQ or not
      */
     private boolean[][] fillForest(int width, int height, int seed) {
         //Calls the noise generation class to produce a field of noise(seed incremented to provide some deviation from the topologyMap)
@@ -144,7 +148,7 @@ public class TerrainGeneration {
                 //noise values are ~ between -10 and 10 but need to be scaled to between ~ 0 and 1 for drawing an image to work in testing
                 noise = (noise + 10) / 20;
                 //Shifts the values of map
-                noise = (noise / 100) * forested;
+                noise = (noise / 100) * forestFreq;
                 forestMap[x][y] = noise >= 0.5;
             }
         }
@@ -152,12 +156,12 @@ public class TerrainGeneration {
     }
 
     /**
-     * For testing fillForest() with a specific value of forested
+     * For testing fillForest() with a specific value of FOREST_FREQ
      *
      * @return fillForest()
      */
     public boolean[][] testFillForest(int width, int height, int seed, int forested) {
-        this.forested = forested;
+        this.forestFreq = forested;
         return fillForest(width, height, seed);
     }
 

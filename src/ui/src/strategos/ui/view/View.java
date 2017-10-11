@@ -1,9 +1,9 @@
 package strategos.ui.view;
 
 
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.ui.config.Config;
 
 import javax.swing.*;
@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
-import static strategos.ui.config.Config.PLAYER_NAME;
 
 /**
  * The type View.
@@ -67,11 +64,11 @@ public class View extends JComponent implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("update");
-        gridComponent.setEntities(model.getWorld().getAllUnits());
-        gridComponent.setTerrain(model.getWorld().getMap().getData());
-        setUiOwner(model.getThisInstancePlayer());
-        setSeenTerrain(getUiOwner().getVisibleTiles());
+        if (model.getWorld().getAllUnits() != gridComponent.getEntities()) {
+            gridComponent.setEntities(model.getWorld().getAllUnits());
+            gridComponent.setTerrain(model.getWorld().getMap().getData());
+            setSeenTerrain(getUiOwner().getVisibleTiles());
+        }
         gridComponent.requestFocus();
         gridComponent.setFocusable(true);
         frame.repaint();
@@ -211,18 +208,9 @@ public class View extends JComponent implements Observer {
     }
     
     public UnitOwner getUiOwner() {
-        return uiOwner;
+        return model.getThisInstancePlayer();
     }
 
-    public void setUiOwner(UnitOwner unitOwner) {
-        System.out.println(model.getPlayers().indexOf(unitOwner));
-        if (unitOwner != model.getCurrentTurn()) {
-            getSideComponent().setPlayerText(OTHER_PLAYER_NAME);
-        } else {
-            getSideComponent().setPlayerText(PLAYER_NAME);
-        }
-        uiOwner = unitOwner;
-    }
 
     public List<MapLocation> getSeenTerrain() {
         return seenTerrain;
@@ -231,4 +219,5 @@ public class View extends JComponent implements Observer {
     public void setSeenTerrain(List<MapLocation> seenTerrain) {
         this.seenTerrain = seenTerrain;
     }
+
 }

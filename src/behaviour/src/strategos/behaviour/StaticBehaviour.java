@@ -2,6 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.model.GameState;
 import strategos.units.*;
 
 import java.util.logging.*;
@@ -32,8 +33,8 @@ abstract class StaticBehaviour extends BaseBehaviour {
         this.hitpoints = hitpoints;
     }
 
-    StaticBehaviour(StaticBehaviour behaviour) {
-        super(behaviour);
+    StaticBehaviour(StaticBehaviour behaviour, GameState newState) {
+        super(behaviour, newState);
 
         this.hitpointsMax = behaviour.hitpointsMax;
         this.hitpoints = behaviour.hitpoints;

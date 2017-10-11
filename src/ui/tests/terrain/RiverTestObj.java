@@ -1,12 +1,12 @@
 package terrain;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
 import strategos.terrain.River;
 
-public class RiverTestObj extends TerrainTestObj implements River, Graphical {
+public class RiverTestObj extends TerrainTestObj implements River, GameObject {
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }

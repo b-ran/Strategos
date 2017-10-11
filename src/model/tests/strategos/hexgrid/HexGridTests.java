@@ -2,15 +2,10 @@ package strategos.hexgrid;
 
 import org.junit.Test;
 import strategos.Direction;
-import strategos.MapLocation;
-import strategos.hexgrid.Hex;
-import strategos.hexgrid.Map;
-import strategos.terrain.Forest;
-import strategos.terrain.Mountain;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 import util.TestForest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;

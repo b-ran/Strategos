@@ -1,6 +1,6 @@
 package strategos.ui.controller;
 
-import strategos.GameState;
+import strategos.model.GameState;
 import strategos.ui.view.View;
 
 import java.awt.event.ActionEvent;

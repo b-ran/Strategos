@@ -1,7 +1,6 @@
 package strategos.ui.view;
 
-import strategos.MapLocation;
-import strategos.units.Bridge;
+import strategos.model.MapLocation;
 import strategos.units.Unit;
 
 import javax.swing.*;
@@ -74,7 +73,6 @@ public class SideComponent extends JComponent {
     private void paintSelection(Graphics g) {
         if (selectedMapLocation == null) return;
         if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
-
 
         if (selectedUnit != null) {
             draw.drawUnitNonGrid(selectedUnit, SELECTION_LOCATION, g);

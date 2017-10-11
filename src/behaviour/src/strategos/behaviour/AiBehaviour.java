@@ -2,9 +2,9 @@ package strategos.behaviour;
 
 
 import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.exception.RuleViolationException;
 import strategos.units.Unit;
 
@@ -15,7 +15,6 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.hypot;
 
 
 class AiBehaviour extends BaseBehaviour {
@@ -46,10 +45,10 @@ class AiBehaviour extends BaseBehaviour {
         logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), Direction.values()[directionIndex]));
     }
 
-    private AiBehaviour(AiBehaviour aiBehaviour) {
-        super(aiBehaviour);
+    private AiBehaviour(AiBehaviour aiBehaviour, GameState newState) {
+        super(aiBehaviour, newState);
 
-        behaviour = aiBehaviour.copy();
+        behaviour = aiBehaviour.behaviour.copy(newState);
         directionIndex = aiBehaviour.directionIndex;
     }
 
@@ -99,10 +98,10 @@ class AiBehaviour extends BaseBehaviour {
 
     private void explore(Unit unit) {
         Direction[] values = Direction.values();
-        directionIndex = (directionIndex + random.nextInt(2) - 1) % values.length;
+        directionIndex = (values.length + directionIndex + random.nextInt(2) - 1) % values.length;
         Direction direction = values[directionIndex];
         logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), direction));
-        getGameState().move(unit, direction, 1);
+        getGameState().move(unit, direction);
     }
 
     @Override
@@ -132,16 +131,16 @@ class AiBehaviour extends BaseBehaviour {
         int dy = nearest.getPosition().getY() - unit.getPosition().getY();
 
         if (dx < 0) {
-            getGameState().move(unit, Direction.WEST, 1);
+            getGameState().move(unit, Direction.WEST);
         }
         else if (dx > 0) {
-            getGameState().move(unit, Direction.EAST, 1);
+            getGameState().move(unit, Direction.EAST);
         }
         else if (dy < 0) {
-            getGameState().move(unit, Direction.NORTH_EAST, 1);
+            getGameState().move(unit, Direction.NORTH_EAST);
         }
         else if (dy > 0) {
-            getGameState().move(unit, Direction.NORTH_WEST, 1);
+            getGameState().move(unit, Direction.NORTH_WEST);
         }
     }
 
@@ -233,8 +232,8 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override
-    public Behaviour copy() {
-        return new AiBehaviour(this);
+    public Behaviour copy(GameState newState) {
+        return new AiBehaviour(this, newState);
     }
 
     @Override

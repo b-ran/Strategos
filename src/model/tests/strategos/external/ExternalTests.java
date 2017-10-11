@@ -2,7 +2,7 @@ package strategos.external;
 
 import org.junit.Test;
 import strategos.Direction;
-import strategos.MapLocation;
+import strategos.model.MapLocation;
 import strategos.exception.RuleViolationException;
 import strategos.hexgrid.Map;
 import strategos.model.Player;
@@ -19,7 +19,7 @@ public class ExternalTests {
 	@Test
 	public void testCopyPlayer() {
 		Player player = new Player(false);
-		Player copy = (Player) player.copy();
+		Player copy = (Player) player.copy(null);
 		assertEquals(player, copy);
 		player.setUnits(Collections.singletonList(new UnitImpl(null, null)));
 		assertNotEquals(player, copy);

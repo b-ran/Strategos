@@ -1,7 +1,7 @@
 package strategos.networking.external_testing;
 
-import strategos.GameBoard;
-import strategos.MapLocation;
+import strategos.model.GameBoard;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 
 public class ExternalTestMap implements GameBoard{

@@ -3,10 +3,7 @@ package strategos.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import strategos.GameBoard;
-import strategos.GameCollections;
 import strategos.hexgrid.Map;
-import strategos.model.units.UnitImpl;
 import strategos.units.Unit;
 
 public class World implements GameCollections {

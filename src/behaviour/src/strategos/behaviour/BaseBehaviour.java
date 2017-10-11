@@ -1,7 +1,8 @@
 package strategos.behaviour;
 
 
-import strategos.*;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
 import strategos.units.*;
 
 import java.util.logging.*;
@@ -14,7 +15,7 @@ abstract class BaseBehaviour implements Behaviour {
     private static Logger logger = Logger.getLogger("strategos.behaviour");
 
     private final transient GameState gameState;
-    private       MapLocation position;
+    private MapLocation position;
 
     BaseBehaviour(GameState gameState) {
         logger.fine(String.format("Create behaviour of type %s", this.getClass()));
@@ -26,14 +27,14 @@ abstract class BaseBehaviour implements Behaviour {
         this.gameState = gameState;
     }
 
-    BaseBehaviour(BaseBehaviour behaviour) {
+    BaseBehaviour(BaseBehaviour behaviour, GameState newState) {
         logger.fine(String.format("Copy behaviour %s", behaviour));
 
         if (behaviour == null) {
             throw new NullPointerException("BaseBehaviour constructor requires non-null behaviour");
         }
 
-        gameState = behaviour.gameState;
+        gameState = newState;
         position = behaviour.position;
     }
 

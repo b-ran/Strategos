@@ -2,6 +2,8 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
 import strategos.units.*;
 
 import java.io.Serializable;
@@ -43,7 +45,7 @@ public interface Behaviour extends Serializable {
 
     int getActionPoints(Unit unit);
 
-    Behaviour copy();
+    Behaviour copy(GameState newState);
 
     int getAttackRange();
 }

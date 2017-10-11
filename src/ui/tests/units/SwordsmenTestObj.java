@@ -1,12 +1,12 @@
 package units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
-import strategos.UnitOwner;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
+import strategos.model.UnitOwner;
 import strategos.behaviour.Behaviour;
 import strategos.units.Swordsmen;
 
-public class SwordsmenTestObj extends UnitTestObj implements Swordsmen, Graphical {
+public class SwordsmenTestObj extends UnitTestObj implements Swordsmen, GameObject {
     public SwordsmenTestObj(UnitOwner owner) {
         super(owner);
     }
@@ -17,7 +17,7 @@ public class SwordsmenTestObj extends UnitTestObj implements Swordsmen, Graphica
     }
 
     @Override
-    public void draw(GraphicalVisitor graphicalVisitor) {
-        graphicalVisitor.visit(this);
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }

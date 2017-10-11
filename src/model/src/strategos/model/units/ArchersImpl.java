@@ -2,7 +2,9 @@ package strategos.model.units;
 
 import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Archers;
 import strategos.units.Unit;
 
@@ -10,7 +12,7 @@ import strategos.units.Unit;
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class ArchersImpl extends UnitImpl implements Archers, Graphical {
+public class ArchersImpl extends UnitImpl implements Archers, GameObject {
 
 
 	public ArchersImpl(UnitOwner owner, MapLocation startLocation) {
@@ -22,12 +24,12 @@ public class ArchersImpl extends UnitImpl implements Archers, Graphical {
 	}
 
 	@Override
-	public Unit copy(UnitOwner newOwner) {
-		return new ArchersImpl(getBehaviour().copy(), newOwner, getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new ArchersImpl(getBehaviour().copy(newState), newOwner, getPosition());
 	}
 
 	@Override
-	public void draw(GraphicalVisitor graphicalVisitor) {
-		graphicalVisitor.visit(this);
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
 	}
 }

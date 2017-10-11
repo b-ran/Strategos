@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: netty-all-5.0.0.Alpha3-20151217.120754-459.jar junit-4.12.
+ jar hamcrest-core-1.3.jar
+Main-Class: strategos.gamelogic.GameRunner
+

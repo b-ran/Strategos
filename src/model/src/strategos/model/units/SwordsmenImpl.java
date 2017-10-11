@@ -1,11 +1,10 @@
 package strategos.model.units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Swordsmen;
 import strategos.units.Unit;
 
@@ -13,7 +12,7 @@ import strategos.units.Unit;
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class SwordsmenImpl extends UnitImpl implements Swordsmen, Graphical {
+public class SwordsmenImpl extends UnitImpl implements Swordsmen, GameObject {
 
 
 	public SwordsmenImpl(UnitOwner owner, MapLocation startLocation) {
@@ -25,12 +24,12 @@ public class SwordsmenImpl extends UnitImpl implements Swordsmen, Graphical {
 	}
 
 	@Override
-	public Unit copy(UnitOwner newOwner) {
-		return new SwordsmenImpl(getBehaviour().copy(), newOwner, getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new SwordsmenImpl(getBehaviour().copy(newState), newOwner, getPosition());
 	}
 
 	@Override
-	public void draw(GraphicalVisitor graphicalVisitor) {
-		graphicalVisitor.visit(this);
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
 	}
 }

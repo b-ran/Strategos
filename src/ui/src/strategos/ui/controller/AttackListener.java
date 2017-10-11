@@ -1,15 +1,10 @@
 package strategos.ui.controller;
 
 
-import strategos.MapLocation;
-import strategos.units.Unit;
-
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
 
 class AttackListener extends Controller implements MouseListener, KeyListener {
@@ -28,7 +23,7 @@ class AttackListener extends Controller implements MouseListener, KeyListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (controller.getSelectedMapLocation() == null) return;
+        /*if (controller.getSelectedMapLocation() == null) return;
 
         Point p = getHexPos(e.getX(),e.getY());
         Unit oldSelectedUnit = model.getUnitAt(controller.getSelectedMapLocation());
@@ -41,7 +36,7 @@ class AttackListener extends Controller implements MouseListener, KeyListener {
         if (units.contains(newSelectedUnit)) {
             System.out.println("send attack command");
             model.attack(oldSelectedUnit, newSelectedUnit.getPosition());
-        }
+        }*/
     }
 
     @Override

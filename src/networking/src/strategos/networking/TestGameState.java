@@ -1,6 +1,7 @@
 package strategos.networking;
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
@@ -32,7 +33,7 @@ public class TestGameState implements GameState {
 	}
 
 	@Override
-	public void move(Unit unit, Direction direction, int amount) {
+	public void move(Unit unit, Direction direction) {
 
 	}
 

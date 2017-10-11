@@ -1,11 +1,8 @@
 import model.*;
-import strategos.GameCollections;
-import strategos.Graphical;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.terrain.Terrain;
 import strategos.ui.Ui;
-import strategos.ui.view.Draw;
 import strategos.units.*;
 import terrain.*;
 import units.*;

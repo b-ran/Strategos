@@ -4,6 +4,8 @@ package strategos.behaviour;
 import strategos.*;
 import strategos.behaviour.config.*;
 import strategos.exception.*;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
 import strategos.terrain.*;
 import strategos.units.*;
 
@@ -45,8 +47,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
         hasAttacked = true;
     }
 
-    UnitBehaviour(UnitBehaviour behaviour) {
-        super(behaviour);
+    UnitBehaviour(UnitBehaviour behaviour, GameState newState) {
+        super(behaviour, newState);
 
         entrench = behaviour.entrench;
         actionPoints = behaviour.actionPoints;

@@ -1,8 +1,8 @@
 package strategos.behaviour;
 
 
-import strategos.*;
 import strategos.behaviour.config.*;
+import strategos.model.GameState;
 import strategos.units.*;
 
 import java.util.logging.*;
@@ -18,8 +18,8 @@ class BehaviourArchers extends UnitBehaviour {
         super(gameState);
     }
 
-    private BehaviourArchers(BehaviourArchers behaviourArchers) {
-        super(behaviourArchers);
+    private BehaviourArchers(BehaviourArchers behaviourArchers, GameState newState) {
+        super(behaviourArchers, newState);
     }
 
     @Override public int getStrength(Unit unit) {
@@ -30,8 +30,8 @@ class BehaviourArchers extends UnitBehaviour {
         return BehaviourConfig.ARCHERS_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourArchers(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourArchers(this, newState);
     }
 
     @Override public void charge(Unit unit) {

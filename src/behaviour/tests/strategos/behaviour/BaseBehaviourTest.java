@@ -4,6 +4,8 @@ package strategos.behaviour;
 import org.junit.*;
 import org.junit.rules.*;
 import strategos.*;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
 import strategos.units.*;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -99,7 +101,8 @@ public class BaseBehaviourTest {
                 return 0;
             }
 
-            @Override public Behaviour copy() {
+            @Override
+            public Behaviour copy(GameState newState) {
                 return null;
             }
 

@@ -1,8 +1,8 @@
 package strategos.behaviour;
 
 
-import strategos.*;
 import strategos.behaviour.config.*;
+import strategos.model.GameState;
 import strategos.units.*;
 
 
@@ -14,8 +14,8 @@ class BehaviourElite extends UnitBehaviour {
         super(gameState);
     }
 
-    private BehaviourElite(BehaviourElite behaviourElite) {
-        super(behaviourElite);
+    private BehaviourElite(BehaviourElite behaviourElite, GameState newState) {
+        super(behaviourElite, newState);
     }
 
     @Override public int getStrength(Unit unit) {
@@ -26,8 +26,8 @@ class BehaviourElite extends UnitBehaviour {
         return BehaviourConfig.ELITE_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourElite(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourElite(this, newState);
     }
 
     @Override

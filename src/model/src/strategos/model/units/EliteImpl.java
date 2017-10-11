@@ -1,11 +1,10 @@
 package strategos.model.units;
 
-import strategos.Graphical;
-import strategos.GraphicalVisitor;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Elite;
 import strategos.units.Unit;
 
@@ -15,7 +14,7 @@ import java.awt.*;
  * Created as part of Strategos project
  * 30/07/2017.
  */
-public class EliteImpl extends UnitImpl implements Elite, Graphical {
+public class EliteImpl extends UnitImpl implements Elite, GameObject {
 	private static final Image sprite = null;
 
 	public EliteImpl(UnitOwner owner, MapLocation startLocation) {
@@ -28,12 +27,12 @@ public class EliteImpl extends UnitImpl implements Elite, Graphical {
 
 
 	@Override
-	public Unit copy(UnitOwner newOwner) {
-		return new EliteImpl(getBehaviour().copy(), newOwner, getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new EliteImpl(getBehaviour().copy(newState), newOwner, getPosition());
 	}
 
 	@Override
-	public void draw(GraphicalVisitor graphicalVisitor) {
-		graphicalVisitor.visit(this);
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
 	}
 }

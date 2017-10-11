@@ -1,7 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.GameState;
+import strategos.model.GameState;
 import strategos.behaviour.config.BehaviourConfig;
 import strategos.units.Unit;
 
@@ -18,8 +18,8 @@ class BehaviourCastle extends UnitBehaviour {
         super(gameState);
     }
 
-    private BehaviourCastle(BehaviourCastle behaviourCastle) {
-        super(behaviourCastle);
+    private BehaviourCastle(BehaviourCastle behaviourCastle, GameState newState) {
+        super(behaviourCastle, newState);
     }
 
     @Override public int getStrength(Unit unit) {
@@ -30,8 +30,8 @@ class BehaviourCastle extends UnitBehaviour {
         return BehaviourConfig.CASTLE_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourCastle(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourCastle(this, newState);
     }
 
     @Override public void charge(Unit unit) {

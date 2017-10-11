@@ -1,7 +1,7 @@
 package strategos.networking.external_testing;
 
-import strategos.GameBoard;
-import strategos.GameCollections;
+import strategos.model.GameBoard;
+import strategos.model.GameCollections;
 import strategos.units.Unit;
 
 import java.util.List;

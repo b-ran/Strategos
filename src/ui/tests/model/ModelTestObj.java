@@ -1,12 +1,12 @@
 package model;
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Observer;
 
 public class ModelTestObj implements GameState {
@@ -45,7 +45,7 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
-    public void move(Unit unit, Direction direction, int amount) {
+    public void move(Unit unit, Direction direction) {
 
     }
 
