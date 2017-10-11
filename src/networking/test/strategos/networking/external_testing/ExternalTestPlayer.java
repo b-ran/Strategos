@@ -14,6 +14,21 @@ public class ExternalTestPlayer implements UnitOwner {
 	}
 
 	@Override
+	public void addUnit(Unit newUnit) {
+
+	}
+
+	@Override
+	public void addVisibleTile(MapLocation newTile) {
+
+	}
+
+	@Override
+	public void removeUnit(Unit toRemove) {
+
+	}
+
+	@Override
 	public List<MapLocation> getVisibleTiles() {
 		return null;
 	}

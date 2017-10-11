@@ -21,6 +21,16 @@ public class UnitOwnerTestObj implements UnitOwner {
     }
 
     @Override
+    public void addVisibleTile(MapLocation newTile) {
+
+    }
+
+    @Override
+    public void removeUnit(Unit toRemove) {
+
+    }
+
+    @Override
     public List<Unit> getUnits() {
         return units;
     }
