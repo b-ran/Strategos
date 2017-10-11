@@ -72,7 +72,7 @@ public class Strategos implements GameState {
 
 		setChanged();
 		if (synced) {
-			turn.getUnits().removeIf(u -> !u.isAlive());
+			//turn.getUnits().removeIf(u -> !u.isAlive());
 
 			turn.getUnits().forEach(Unit::turnTick);
 
@@ -163,7 +163,7 @@ public class Strategos implements GameState {
 	@Override
 	public void attack(Unit unit, MapLocation location) {
 		Unit target = getUnitAt(location);
-		if (unit.getActionPoints() == 0) {
+		if (unit.getActionPoints() <= 0) {
 			return;
 		}
 		if (target == null) {
@@ -186,10 +186,10 @@ public class Strategos implements GameState {
 			unitB.getOwner().getUnits().remove(unitB);
 			world.getAllUnits().remove(unitB);
 			BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
-			unitA.getOwner().getUnits().add(newBridge);
-			world.getAllUnits().add(newBridge);
+			unitA.getOwner().getUnits().add(0, newBridge);
+			world.getAllUnits().add(0, newBridge);
 		}
-		if (!unitB.isAlive()) {
+		if (!unitB.isAlive() && !(unitB instanceof Bridge)) {
 			unitB.getOwner().getUnits().remove(unitB);
 			world.getAllUnits().remove(unitB);
 		}
@@ -312,7 +312,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
-		turn.getUnits().removeIf(u -> !u.isAlive());
+		//turn.getUnits().removeIf(u -> !u.isAlive());
 
 		for (int i = 0; i < turn.getUnits().size(); i++) {
 			turn.getUnits().get(i).turnTick();
