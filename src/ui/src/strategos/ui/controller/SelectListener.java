@@ -37,12 +37,12 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
                 return;
             }
         }*/
-        if (!controller.getSelectionToggle()) {
+       /* if (!controller.getSelectionToggle()) {
             controller.setSelectionToggle(true);
             view.getGridComponent().setSelection(null); //TODO: review
             view.repaint();
             return;
-        }
+        }*/
         controller.setSelectedMapLocation(selectedMapLocation);
         view.repaint();
     }
@@ -66,7 +66,9 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
         if (controller.getSelectedMapLocation().equals(board.get(p.x, p.y))) {
             return;
         }
+        controller.setSelectionToggle(true);
         controller.setSelectedMapLocation(board.get(p.x, p.y));
+        view.repaint();
     }
 
     @Override

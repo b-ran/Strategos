@@ -21,7 +21,7 @@ public class Draw implements GameObjectVisitor {
 
     private static boolean loadImages = true;
 
-    private static BufferedImage bridgeImage = null;
+
     private static BufferedImage forestImage = null;
     private static BufferedImage hillImage = null;
     private static BufferedImage mountainsImage = null;
@@ -29,6 +29,8 @@ public class Draw implements GameObjectVisitor {
     private static BufferedImage riverImage = null;
     private static BufferedImage fogImage = null;
 
+
+    private static BufferedImage[] bridgeImage = new BufferedImage[3];
     private static BufferedImage[] archersImage = new BufferedImage[3];
     private static BufferedImage[] cavalryImage = new BufferedImage[3];
     private static BufferedImage[] eliteImage = new BufferedImage[3];
@@ -39,7 +41,7 @@ public class Draw implements GameObjectVisitor {
     private View view;
 
     private Graphics2D g2d = null;
-    private Point p = null;
+    private Point p;
     private Color selectionColor = null;
     private float selectionStrokeSize = 0;
     private Point hexPoint;
@@ -52,7 +54,7 @@ public class Draw implements GameObjectVisitor {
 
     private void loadImages() {
         if (!loadImages) return;
-        bridgeImage = loadImage(BRIDGE_IMAGE_PATH);
+        bridgeImage = loadUnitImage(BRIDGE_IMAGE_PATH);
         forestImage = loadImage(FOREST_IMAGE_PATH);
         hillImage = loadImage(HILL_IMAGE_PATH);
         mountainsImage = loadImage(MOUNTAINS_IMAGE_PATH);
@@ -217,7 +219,7 @@ public class Draw implements GameObjectVisitor {
     @Override
     public void visit(Bridge bridge) {
         Point p = getTerrainGridPos((hexPoint == null) ? this.p : hexPoint);
-        g2d.drawImage(getTexturedImage(bridgeImage, getHexagon(p), p), p.x, p.y, null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(bridge, bridgeImage), getHexagon(p), p), p.x, p.y, null);
     }
 
     @Override
@@ -256,19 +258,13 @@ public class Draw implements GameObjectVisitor {
 
     private Point getUnitGridPos(Point p) {
         int y = getGridY(p.y);
-        int x = getGridX(p.x)+HEX_SIZE/4;
-        if (y != 0) {
-            x = getGridX(p.x)+p.y*HEX_SIZE/2;
-        }
+        int  x = getGridX(p.x)+p.y*HEX_SIZE/2;
         return new Point(x,y);
     }
 
     private Point getTerrainGridPos(Point p) {
         int y = getGridY(p.y);
-        int x = getGridX(p.x);
-        if (y != 0) {
-            x = getGridX(p.x)+(p.y*HEX_SIZE/2);
-        }
+        int x = getGridX(p.x)+(p.y*HEX_SIZE/2);
         return new Point(x,y);
     }
 

@@ -2,8 +2,6 @@ package strategos.ui.config;
 
 public class ConfigImage {
 
-    public static final String BRIDGE_IMAGE_PATH = "resources/bridgeSpritev2.png";
-
     public static final String FOREST_IMAGE_PATH = "resources/forestSpritev2.png";
 
     public static final String HILL_IMAGE_PATH = "resources/hillSpritev2.png";
@@ -17,6 +15,8 @@ public class ConfigImage {
     public static final String FOG_IMAGE_PATH = "resources/fogSpritev2.png";
 
     public static final String BACKGROUND_IMAGE_PATH = "resources/background.png";
+
+    public static final String BRIDGE_IMAGE_PATH = "resources/bridge%s.png";
 
     public static final String ARCHERS_IMAGE_PATH = "resources/archers%s.png";
 
