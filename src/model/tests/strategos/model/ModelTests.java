@@ -622,6 +622,7 @@ public class ModelTests {
 		Player p2 = new Player(false);
 		Player barbs = new Player(true);
 		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+		gameState.setThisInstancePlayer(p);
 
 		GameCollections world = gameState.getWorld();
 
@@ -661,7 +662,7 @@ public class ModelTests {
 		Player p2 = new Player(false);
 		Player barbs = new Player(true);
 		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
-
+		gameState.setThisInstancePlayer(p);
 		GameCollections world = gameState.getWorld();
 
 		gameState.getPlayers().add(p);
@@ -702,7 +703,7 @@ public class ModelTests {
 		Player p2 = new Player(false);
 		Player barbs = new Player(true);
 		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
-
+		gameState.setThisInstancePlayer(p);
 		GameCollections world = gameState.getWorld();
 
 		gameState.getPlayers().add(p);
@@ -736,7 +737,7 @@ public class ModelTests {
 		Player p2 = new Player(false);
 		Player barbs = new Player(true);
 		Strategos gameState = new Strategos(new World(new Map(7), new ArrayList<>()), p, p2, barbs);
-
+		gameState.setThisInstancePlayer(p);
 		GameCollections world = gameState.getWorld();
 
 		gameState.save();
