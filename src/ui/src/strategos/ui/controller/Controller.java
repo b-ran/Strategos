@@ -200,7 +200,7 @@ public class Controller {
 
         if (this.selectedMapLocation != null && selectedMapLocation != null) {
             if (selectedUnit != null) {
-                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), 1)) &&
+                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), selectedUnit.getAttackRange())) &&
                         selectedUnit.getOwner() == model.getCurrentTurn()) {
                     handleCommand(selectedMapLocation);
                 } else {
