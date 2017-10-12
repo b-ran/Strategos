@@ -104,6 +104,7 @@ public class Controller {
 
         m.getConnectButton().addActionListener(new ConnectListener(this, networkingHandler));
         m.getHostButton().addActionListener(new HostListener(this, networkingHandler));
+        m.getHowToPlayButton().addActionListener(new HowToPlayListener(this));
         m.getExitButton().addActionListener(new ExitListener(this));
 
         for (int i = 1; i <= 3; i++) {
@@ -111,6 +112,7 @@ public class Controller {
         }
         l.getExitButton().addActionListener(new BackListener(this));
 
+        e.getHowToPlayButton().addActionListener(new HowToPlayListener(this));
         e.getResumeButton().addActionListener(new ResumeListener(this));
         e.getNewGameButton().addActionListener(new NewGameListener(this));
         e.getSaveButton().addActionListener(new SaveListener(this));
