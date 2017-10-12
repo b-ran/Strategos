@@ -159,11 +159,8 @@ public class Strategos implements GameState {
 			System.out.println(unit + " attacked " + target + " {");
 			System.out.println("	attacker took " + (attackerHP - unit.getHitpoints()) + " damage");
 			System.out.println("	defender took " + (defenderHP - target.getHitpoints()) + " damage");
-
-			cleanUp(unit, target);
-
-			System.out.println("}\n");
 		}
+		cleanUp(unit, target);
 		setChanged();
 	}
 
@@ -195,6 +192,7 @@ public class Strategos implements GameState {
 			world.getAllUnits().remove(unitA);
 			System.out.println("	attacker was killed");
 		}
+		System.out.println("}\n");
 	}
 
 	@Override
