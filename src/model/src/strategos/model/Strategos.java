@@ -254,12 +254,14 @@ public class Strategos implements GameState {
 		for (MapLocation tile : potentialTiles) {
 			if (tile.isInPlayArea()) {
 				if (canPassUnit(unit, tile)) {
+					System.out.println("can move to " + tile);
 					actualTiles.add(tile);
 				}
 			} else if (getUnitAt(tile) instanceof Bridge && canPassUnit(unit, tile)){
 				actualTiles.add(tile);
 			}
 		}
+		System.out.println();
 		return actualTiles;
 	}
 

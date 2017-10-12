@@ -78,6 +78,7 @@ public class TerrainGeneration implements Generator {
     public Paintable[][] populateMap(Paintable[][] hexMap) {
         Random rand = new Random();
         int seed = rand.nextInt();
+        System.out.println(seed);
         //Map must be min of 15 in size, square
         if (hexMap.length != hexMap[0].length || hexMap.length < 15) {
             throw new RuntimeException("Map too small");
