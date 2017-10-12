@@ -70,6 +70,7 @@ public class FreeRunTest {
         model.setMoveRange(moveRange);
 
         Ui ui = new Ui(model);
+        ui.revealMap();
     }
 
     private static MapLocation[][] setupMap() {

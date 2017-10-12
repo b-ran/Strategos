@@ -90,4 +90,8 @@ public class Ui {
     public void skipMenu() {
         controller.skipMenu();
     }
+
+    public void revealMap() {
+        view.getGridComponent().revealMap();
+    }
 }
