@@ -137,4 +137,8 @@ public class SideComponent extends JComponent {
     public JButton getEntrenchButton() {
         return entrenchButton;
     }
+
+    public JButton getAttackButton() {
+        return attackButton;
+    }
 }
