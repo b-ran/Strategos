@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import static strategos.ui.config.Config.GRID_COMPONENT_SIZE;
-import static strategos.ui.config.Config.MENU_COMPONENT_SIZE;
-import static strategos.ui.config.Config.SIDE_COMPONENT_SIZE;
+import static strategos.ui.config.Config.*;
 
 /**
  * The type View.
@@ -85,6 +83,7 @@ public class View extends JComponent implements Observer {
             setSeenTerrain(getUiOwner().getVisibleTiles());
             if (!firstTurn) {
                 JOptionPane.showMessageDialog(getGridComponent(), "It's your turn");
+                sideComponent.setPlayerText(PLAYER_NAME);
             }
             setFirstTurn(false);
         }
