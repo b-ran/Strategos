@@ -7,6 +7,7 @@ import strategos.hexgrid.Map;
 import strategos.mapGenerator.Generator;
 import strategos.model.*;
 import strategos.units.Bridge;
+import strategos.units.HealthPotion;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class StateCreator implements GameStateFactory {
 		UnitOwner playerOne = new Player(false);
 		UnitOwner playerTwo = new Player(false);
 		UnitOwner barbarians = new Player(true);
-		GameState newState = new Strategos(new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
+		GameState newState = new Strategos(this, new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
 
 		newState.getWorld().getAllUnits().addAll(barbarians.getUnits());
 
@@ -114,16 +115,10 @@ public class StateCreator implements GameStateFactory {
 		barbarianUnits.add(barbSwordsman);
 		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(14, 6)));
 		barbarianUnits.add(barbSwordsman);
-		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(14, 3)));
-		/*barbarianUnits.add(barbSwordsman);
-		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(13, 6)));
-		barbarianUnits.add(barbSwordsman);
-		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(8, 9)));
-		barbarianUnits.add(barbSwordsman);
-		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(6, 7)));
-		barbarianUnits.add(barbSwordsman);
-		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(8, 10)));
-		barbarianUnits.add(barbSwordsman);*/
+		HealthPotionImpl healthPotion = new HealthPotionImpl(factory.createBehaviourHealthPotion(newState), player, newState.getWorld().getMap().get(14, 5));
+		barbarianUnits.add(healthPotion);
+		healthPotion = new HealthPotionImpl(factory.createBehaviourHealthPotion(newState), player, newState.getWorld().getMap().get(0, 9));
+		barbarianUnits.add(healthPotion);
 
 		return barbarianUnits;
 	}

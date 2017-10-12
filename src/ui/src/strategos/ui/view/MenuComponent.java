@@ -16,6 +16,7 @@ public class MenuComponent extends JComponent {
     private JButton loadButton = new JButton(LOAD_BUTTON_NAME);
     private JButton connectButton = new JButton(CONNECT_BUTTON_NAME);
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
+    private JButton howToPlayButton = new JButton(HOW_TO_PLAY_NAME);
     private JButton saveSlotOne = new JButton(SAVE_SLOT_BUTTON_NAME + " 1");
     private JButton saveSlotTwo = new JButton(SAVE_SLOT_BUTTON_NAME + " 2");
     private JButton saveSlotThree = new JButton(SAVE_SLOT_BUTTON_NAME + " 3");
@@ -36,13 +37,11 @@ public class MenuComponent extends JComponent {
      */
      JPanel setMenu() {
         p = constructMenuSkeleton();
-        p.add(newGameButton);
-        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
-        p.add(loadButton);
-        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(connectButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(hostButton);
+        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
+        p.add(howToPlayButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
         return p;
@@ -58,11 +57,13 @@ public class MenuComponent extends JComponent {
         p = constructMenuSkeleton();
         p.add(resumeButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
-        p.add(newGameButton);
-        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(saveButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(loadButton);
+      /*   p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
+         p.add(newGameButton);*/
+        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
+        p.add(howToPlayButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
         return p;
@@ -93,6 +94,7 @@ public class MenuComponent extends JComponent {
         loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         connectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         hostButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        howToPlayButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         saveSlotOne.setAlignmentX(Component.CENTER_ALIGNMENT);
         saveSlotTwo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -105,6 +107,7 @@ public class MenuComponent extends JComponent {
         loadButton.setMaximumSize(MENU_BUTTON_SIZE);
         connectButton.setMaximumSize(MENU_BUTTON_SIZE);
         hostButton.setMaximumSize(MENU_BUTTON_SIZE);
+        howToPlayButton.setMaximumSize(MENU_BUTTON_SIZE);
 
         saveSlotOne.setMaximumSize(MENU_BUTTON_SIZE);
         saveSlotTwo.setMaximumSize(MENU_BUTTON_SIZE);
@@ -183,5 +186,9 @@ public class MenuComponent extends JComponent {
             default:
                 return saveSlotThree;
         }
+    }
+
+    public JButton getHowToPlayButton() {
+        return howToPlayButton;
     }
 }

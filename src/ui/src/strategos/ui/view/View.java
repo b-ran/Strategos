@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import static strategos.ui.config.Config.*;
+
 /**
  * The type View.
  */
@@ -36,10 +38,13 @@ public class View extends JComponent implements Observer {
     private JLayeredPane gridPanel = gridComponent.getGrid();
     private JPanel sidePanel = sideComponent.getSidePanel();
 
+    private JPanel instructionPane = new JPanel();
     private JPanel gamePane = new JPanel();
     private JPanel sidePane = new JPanel();
 
     private List<MapLocation> seenTerrain = new ArrayList<>();
+
+    private boolean firstTurn = true;
 
     /**
      * The game status.
@@ -47,6 +52,15 @@ public class View extends JComponent implements Observer {
      * True if game is running
      */
     private boolean game = false;
+
+
+
+    /**
+     * If escapeMenu is being displayed.
+     * False if escapeMenu not running
+     * True if escapeMenu is running
+     */
+    private boolean escapeMenu = false;
 
     /**
      * Instantiates a new View.
@@ -58,6 +72,14 @@ public class View extends JComponent implements Observer {
         model.addObserver(this);
         this.uiOwner = model.getCurrentTurn();
         frame = new JFrame(Config.WINDOW_NAME);
+
+        JTextArea message = new JTextArea();
+        message.setText(GAME_INSTRUCTION_MESSAGE);
+        message.setLineWrap(true);
+        message.setWrapStyleWord(true);
+        message.setPreferredSize(new Dimension(600, 700));
+        instructionPane.add(message);
+
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMenu();
     }
@@ -68,6 +90,10 @@ public class View extends JComponent implements Observer {
             gridComponent.setEntities(model.getWorld().getAllUnits());
             gridComponent.setTerrain(model.getWorld().getMap().getData());
             setSeenTerrain(getUiOwner().getVisibleTiles());
+            if (!firstTurn) {
+                JOptionPane.showMessageDialog(getGridComponent(), "It's your turn");
+            }
+            setFirstTurn(false);
         }
         gridComponent.requestFocus();
         gridComponent.setFocusable(true);
@@ -95,8 +121,14 @@ public class View extends JComponent implements Observer {
     public void setLoad() {
         removeAllComponents();
         frame.add(loadMenuPanel);
+        loadMenuPanel.setPreferredSize(frame.getSize());
         repack();
         game = false;
+    }
+
+    public void setInstruction() {
+        JOptionPane.showMessageDialog(menuPanel, instructionPane);
+        instructionPane.setPreferredSize(GAME_INSTRUCTION_BOX_DIMENSIONS);
     }
 
     /**
@@ -105,6 +137,7 @@ public class View extends JComponent implements Observer {
     public void addEscapeMenu() {
         gridPanel.add(escapeMenuPanel,0);
         repack();
+        escapeMenu = true;
     }
 
     /**
@@ -113,6 +146,7 @@ public class View extends JComponent implements Observer {
     public void removeEscapeMenu() {
         removeAllComponents();
         setGame();
+        escapeMenu = false;
     }
 
     private void removeAllComponents() {
@@ -211,8 +245,15 @@ public class View extends JComponent implements Observer {
         return model.getThisInstancePlayer();
     }
 
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
+    }
 
-    public List<MapLocation> getSeenTerrain() {
+        public boolean isEscapeMenu() {
+        return escapeMenu;
+    }
+
+    List<MapLocation> getSeenTerrain() {
         return seenTerrain;
     }
 

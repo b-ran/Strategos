@@ -2,6 +2,7 @@ package strategos.model;
 
 import strategos.*;
 import strategos.model.units.BridgeImpl;
+import strategos.model.units.StateCreator;
 import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
@@ -22,14 +23,19 @@ public class Strategos implements GameState {
 	private UnitOwner thisInstancePlayer;
 	private boolean synced = false;
 
+	private StateCreator stateCreator;
+
+	private int turns = 0;
+
 	private List<SaveInstance> saves = new ArrayList<>();
 
-	public Strategos(World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
+	public Strategos(StateCreator stateCreator, World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
 		this.world = world;
 		players.add(playerOne);
 		players.add(playerTwo);
 		players.add(barbarians);
 		turn = playerOne;
+		this.stateCreator = stateCreator;
 	}
 
 	@Override
@@ -40,6 +46,11 @@ public class Strategos implements GameState {
 	@Override
 	public void setThisInstancePlayer(UnitOwner thisInstancePlayer) {
 		this.thisInstancePlayer = thisInstancePlayer;
+	}
+
+	@Override
+	public GameState newGame() {
+		return stateCreator.createNewState();
 	}
 
 	public void save() {
@@ -143,40 +154,59 @@ public class Strategos implements GameState {
 	@Override
 	public void attack(Unit unit, MapLocation location) {
 		Unit target = getUnitAt(location);
+		// If a unit lacks the AP to attack
 		if (unit.getActionPoints() <= 0) {
 			return;
 		}
+		// If the unit is attacking an empty tile
 		if (target == null) {
 			return;
 		}
+		// If the unit is attacking an ally
 		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
-		System.out.println("attacking");
-		int enemyHP = target.getHitpoints();
+		int defenderHP = target.getHitpoints();
+		int attackerHP = unit.getHitpoints();
 		unit.attack(target);
-		System.out.println("dealt " + (enemyHP - target.getHitpoints()) + " damage");
+		if (!(attackerHP == unit.getHitpoints() && defenderHP == target.getHitpoints())) {
+			System.out.println(unit + " attacked " + target + " {");
+			System.out.println("	attacker took " + (attackerHP - unit.getHitpoints()) + " damage");
+			System.out.println("	defender took " + (defenderHP - target.getHitpoints()) + " damage");
+		}
 		cleanUp(unit, target);
 		setChanged();
 	}
 
+	/**
+	 * Handles the result of the combat once two units have fought. If the defender was a bridge, it is captured by
+	 * 		the attacker. If either attacker or defender died, they are removed from the game.
+	 * @param unitA the attacking unit.
+	 * @param unitB the defending unit.
+	 */
 	private void cleanUp(Unit unitA, Unit unitB) {
 		if (unitB instanceof Bridge) {
-			System.out.println("changing bridge ownership");
 			unitB.getOwner().removeUnit(unitB);
 			world.getAllUnits().remove(unitB);
 			BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
+
+			// Bridges must be inserted at the start of the list of units, otherwise they will be drawn on top of
+			// 		units that are standing on them.
 			unitA.getOwner().getUnits().add(0, newBridge);
 			world.getAllUnits().add(0, newBridge);
+			System.out.println("	bridge was captured by Player " + (getPlayers().indexOf(unitA.getOwner()) + 1));
 		}
 		if (!unitB.isAlive()) {
 			unitB.getOwner().removeUnit(unitB);
 			world.getAllUnits().remove(unitB);
+			System.out.println("	defender was killed");
 		}
-		if (unitA.getHitpoints() <= 0) {
+		if (!unitA.isAlive()) {
 			unitA.getOwner().removeUnit(unitA);
 			world.getAllUnits().remove(unitA);
+			System.out.println("	attacker was killed");
 		}
+		System.out.println("}\n");
 	}
 
 	@Override
@@ -254,14 +284,12 @@ public class Strategos implements GameState {
 		for (MapLocation tile : potentialTiles) {
 			if (tile.isInPlayArea()) {
 				if (canPassUnit(unit, tile)) {
-					System.out.println("can move to " + tile);
 					actualTiles.add(tile);
 				}
 			} else if (getUnitAt(tile) instanceof Bridge && canPassUnit(unit, tile)){
 				actualTiles.add(tile);
 			}
 		}
-		System.out.println();
 		return actualTiles;
 	}
 
@@ -297,7 +325,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
-
+		turns++;
 		for (int i = 0; i < turn.getUnits().size(); i++) {
 			turn.getUnits().get(i).turnTick();
 		}
@@ -335,13 +363,14 @@ public class Strategos implements GameState {
 		return turn;
 	}
 
-	public boolean gameOver() {
-		for (int i = 0; i < 2; i++) {
-			if (players.get(i).getUnits().isEmpty()) {
-				return true;
+	@Override
+	public int getWinner() {
+		for (int i = 1; i < 4; i++) {
+			if (players.get(i-1).getUnits().isEmpty()) {
+				return i;
 			}
 		}
-		return false;
+		return -1;
 	}
 
 	@Override
@@ -349,6 +378,11 @@ public class Strategos implements GameState {
 		if (!observers.contains(o)) {
 			observers.add(o);
 		}
+	}
+
+	@Override
+	public int getNumberTurns() {
+		return turns / 3;
 	}
 
 	@Override

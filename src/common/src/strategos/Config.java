@@ -11,24 +11,25 @@ public class Config {
 	public static final double CHARGE_MODIFIER = 1.15;
 
 	public static final int INFANTRY_ACTION_POINTS = 2;
+	public static final int ELITE_ACTION_POINTS = INFANTRY_ACTION_POINTS;
 	public static final int CAVALRY_ACTION_POINTS = 4;
 	
 	public static final int ARCHER_RANGE = 2;
 	
-	public static final int SWORDSMEN_STRENGTH = 25;
+	public static final int SWORDSMEN_STRENGTH = 22;
 	public static final int SWORDSMEN_TOUGHNESS = 18;
 	
 	public static final int SPEARMEN_STRENGTH = 15;
-	public static final int SPEARMEN_TOUGHNESS = 25;
+	public static final int SPEARMEN_TOUGHNESS = 30;
 	
-	public static final int ARCHERS_STRENGTH = 18;
+	public static final int ARCHERS_STRENGTH = 20;
 	public static final int ARCHERS_TOUGHNESS = 10;
 	
-	public static final int CAVALRY_STRENGTH = 30;
+	public static final int CAVALRY_STRENGTH = 20;
 	public static final int CAVALRY_TOUGHNESS = 15;
 	
 	public static final int ELITE_STRENGTH = 20;
-	public static final int ELITE_TOUGHNESS = 35;
+	public static final int ELITE_TOUGHNESS = 40;
 
 	public static final int NUM_SWORDSMEN = 2;
 	public static final int NUM_SPEARMEN = 2;

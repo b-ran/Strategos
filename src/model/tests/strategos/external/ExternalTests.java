@@ -27,7 +27,7 @@ public class ExternalTests {
 
 	@Test(expected = RuleViolationException.class)
 	public void testMovingOutOfBounds() {
-		Strategos strategos = new Strategos(null, null, null, null);
+		Strategos strategos = new Strategos(null, null, null, null, null);
 		Map map = new Map(6);
 		MapLocation start =  map.get(0, 5);
 		MapLocation outOfBounds = start.getNeighbour(Direction.WEST);

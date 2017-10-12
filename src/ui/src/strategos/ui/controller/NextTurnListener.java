@@ -1,13 +1,10 @@
 package strategos.ui.controller;
 
 import strategos.model.SaveInstance;
-import strategos.model.UnitOwner;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
-import static strategos.ui.config.Config.PLAYER_NAME;
 
 class NextTurnListener extends Controller implements ActionListener {
 
@@ -25,26 +22,20 @@ class NextTurnListener extends Controller implements ActionListener {
         }
         model.nextTurn();
 
-        UnitOwner unitOwner = model.getCurrentTurn();
-
-        if (unitOwner != uiOwner) {
-            view.getSideComponent().setPlayerText(OTHER_PLAYER_NAME);
-        } else {
-            view.getSideComponent().setPlayerText(PLAYER_NAME);
+        if (model.getWinner() > 0) {
+            JOptionPane.showMessageDialog(view.getGridComponent(), "Player " + model.getWinner() + " wins!\n" +
+                    "Game took " + model.getNumberTurns() + " turns");
+            return;
         }
+
         controller.setSelectedMapLocation(null);
         view.getGridComponent().setSelection(null);
-        view.getSideComponent().setSelection(null, null); //TODO: review
-        if (model.getPlayers().indexOf(unitOwner) == 1) {
-            for (int i = 0; i < model.getPlayers().get(2).getUnits().size(); i++) {
-                model.getPlayers().get(2).getUnits().get(i).turnTick();
-            }
+        view.getSideComponent().setSelection(null, null);
+        for (int i = 0; i < model.getPlayers().get(2).getUnits().size(); i++) {
+            model.getPlayers().get(2).getUnits().get(i).turnTick();
         }
         view.repaint();
         SaveInstance exported = model.export();
-//        if (exported.getPlayers().indexOf(exported.getTurn()) == model.getPlayers().indexOf(uiOwner)) {
-//            view.setUiOwner(exported.getTurn());
-//        }
         try {
             controller.getNetworkingHandler().send(exported);
         } catch (InterruptedException e1) {

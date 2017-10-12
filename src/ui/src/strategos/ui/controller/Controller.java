@@ -102,10 +102,9 @@ public class Controller {
         MenuComponent e = view.getEscapeMenuComponent();
         MenuComponent l = view.getLoadMenuComponent();
 
-        m.getNewGameButton().addActionListener(new NewGameListener(this));
-        m.getLoadButton().addActionListener(new LoadListener(this));
         m.getConnectButton().addActionListener(new ConnectListener(this, networkingHandler));
         m.getHostButton().addActionListener(new HostListener(this, networkingHandler));
+        m.getHowToPlayButton().addActionListener(new HowToPlayListener(this));
         m.getExitButton().addActionListener(new ExitListener(this));
 
         for (int i = 1; i <= 3; i++) {
@@ -113,6 +112,7 @@ public class Controller {
         }
         l.getExitButton().addActionListener(new BackListener(this));
 
+        e.getHowToPlayButton().addActionListener(new HowToPlayListener(this));
         e.getResumeButton().addActionListener(new ResumeListener(this));
         e.getNewGameButton().addActionListener(new NewGameListener(this));
         e.getSaveButton().addActionListener(new SaveListener(this));
@@ -130,6 +130,7 @@ public class Controller {
         g.addMouseListener(new SelectListener(this));
         g.addMouseMotionListener(new SelectListener(this));
         g.addMouseListener(new MoveListener(this));
+        g.addMouseMotionListener(new MoveListener(this));
         g.addMouseListener(new AttackListener(this));
         s.getNextTurnButton().addActionListener(new NextTurnListener(this));
         s.getEntrenchButton().addActionListener(new EntrenchListener(this));
@@ -183,71 +184,9 @@ public class Controller {
         return selectedMapLocation;
     }
 
-    public NetworkingHandler getNetworkingHandler() {
+    NetworkingHandler getNetworkingHandler() {
         return networkingHandler;
     }
-
-    /*private boolean mapLocationIn(MapLocation location, List<MapLocation> otherLocations) {
-        for (MapLocation other : otherLocations) {
-            if (other.getX() == location.getX() && other.getY() == location.getY()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    void setSelectedMapLocation(MapLocation selectedMapLocation) {
-        if (this.selectedMapLocation != null && selectedMapLocation != null) {
-            if (selectedUnit != null) {
-                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), selectedUnit.getAttackRange())) && selectedUnit.getOwner() == model.getCurrentTurn()) {
-                    handleCommand(selectedMapLocation);
-                } else {
-                    selectionToggle = true;
-                    selectedUnit = model.getUnitAt(selectedMapLocation);
-                }
-            }
-        }
-
-        this.selectedMapLocation = selectedMapLocation;
-        selectedUnit = model.getUnitAt(this.selectedMapLocation);
-        if (selectedMapLocation == null) {
-            selectionHelper();
-            return;
-        }
-
-        if (selectedUnit == null) {
-            selectionToggle = false;
-            view.getGridComponent().setSelection(selectedMapLocation);
-            view.getSideComponent().setSelection(selectedMapLocation, null);
-        } else {
-            selectionToggle = true;
-            unitsInAttackRange = model.getUnitsInAttackRange(selectedUnit);
-            tilesInMoveRange = model.getTilesInMoveRange(selectedUnit);
-            view.getGridComponent().setSelection(selectedMapLocation, unitsInAttackRange,  tilesInMoveRange);
-            view.getSideComponent().setSelection(selectedMapLocation, selectedUnit);
-        }
-        view.repaint();
-    }
-
-    private void handleCommand(MapLocation newLocation) {
-        if (model.getUnitAt(newLocation) == null ) {
-            model.move(selectedUnit, newLocation);
-        } else if (model.getUnitAt(newLocation) instanceof Bridge &&
-                model.getUnitAt(newLocation).getOwner() == selectedUnit.getOwner()) {
-            model.move(selectedUnit, newLocation);
-        } else {
-            model.attack(selectedUnit, newLocation);
-        }
-    }
-
-    private void selectionHelper() {
-        selectionToggle = true;
-        selectedUnit = null;
-        view.getGridComponent().setSelection(null);
-        view.getSideComponent().setSelection(null, null);
-        view.repaint();
-    }*/
-
 
     void setSelectedMapLocation(MapLocation selectedMapLocation) {
         GridComponent g = view.getGridComponent();
@@ -276,7 +215,6 @@ public class Controller {
                 return;
             }
 
-
             s.setSelection(selectedMapLocation, this.selectedUnit);
             g.setSelection(selectedMapLocation, unitsInAttackRange, tilesInMoveRange);
             selectionToggle = false;
@@ -291,16 +229,13 @@ public class Controller {
 
         for (MapLocation m : tilesInMoveRange) {
             if (m.getX() == selectedMapLocation.getX() && m.getY() == selectedMapLocation.getY()) {
-                model.move(selectedUnit,selectedMapLocation);
-                return false;
+                return true;
             }
         }
 
         for (Unit u : unitsInAttackRange) {
             MapLocation m = u.getPosition();
             if (m.equals(selectedMapLocation)) {
-                model.attack(selectedUnit, selectedMapLocation);
-                view.repaint();
                 return true;
             }
         }
@@ -308,8 +243,9 @@ public class Controller {
         return false;
     }
 
-    private void resetSection() {
+    void resetSection() {
         selectionToggle = true;
+        selectedUnit = null;
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null);
         view.repaint();
