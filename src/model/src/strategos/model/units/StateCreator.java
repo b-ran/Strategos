@@ -115,7 +115,7 @@ public class StateCreator implements GameStateFactory {
 		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(14, 6)));
 		barbarianUnits.add(barbSwordsman);
 		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(14, 3)));
-		barbarianUnits.add(barbSwordsman);
+		/*barbarianUnits.add(barbSwordsman);
 		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(13, 6)));
 		barbarianUnits.add(barbSwordsman);
 		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(8, 9)));
@@ -123,7 +123,7 @@ public class StateCreator implements GameStateFactory {
 		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(6, 7)));
 		barbarianUnits.add(barbSwordsman);
 		barbSwordsman = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(8, 10)));
-		barbarianUnits.add(barbSwordsman);
+		barbarianUnits.add(barbSwordsman);*/
 
 		return barbarianUnits;
 	}
