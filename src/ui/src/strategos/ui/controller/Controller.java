@@ -276,7 +276,6 @@ public class Controller {
                 return;
             }
 
-
             s.setSelection(selectedMapLocation, this.selectedUnit);
             g.setSelection(selectedMapLocation, unitsInAttackRange, tilesInMoveRange);
             selectionToggle = false;
@@ -300,7 +299,7 @@ public class Controller {
             MapLocation m = u.getPosition();
             if (m.equals(selectedMapLocation)) {
                 model.attack(selectedUnit, selectedMapLocation);
-                view.repaint();
+                //resetSection();
                 return true;
             }
         }
