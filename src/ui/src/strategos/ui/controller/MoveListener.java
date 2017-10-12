@@ -15,6 +15,7 @@ import static strategos.ui.config.Config.MOVE_INPUT_BUTTON;
 class MoveListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
+    private static MouseEvent lastMoveEvent;
 
     MoveListener(Controller controller) {
         super(controller);
@@ -28,24 +29,9 @@ class MoveListener extends Controller implements MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
+        lastMoveEvent = e;
         if (e.getButton() != MOVE_INPUT_BUTTON) return;
-        Unit selectedUnit = controller.getSelectedUnit();
-        MapLocation selectedMapLocation = controller.getSelectedMapLocation();
-
-        Point p = getHexPos(e.getX(),e.getY());
-
-        if (selectedMapLocation == null || selectedUnit == null) return;
-        if (selectedUnit.getOwner() != view.getUiOwner()) return;
-
-        List<MapLocation> mapLocations = model.getTilesInMoveRange(selectedUnit);
-
-        for (MapLocation maplocation : mapLocations) {
-            if (maplocation.getX() == p.x && maplocation.getY() == p.y) {
-                model.move(selectedUnit, maplocation);
-                controller.setSelectedMapLocation(selectedUnit.getPosition());
-            }
-        }
-        view.repaint();
+        move(e);
     }
 
     @Override
@@ -65,11 +51,33 @@ class MoveListener extends Controller implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mousePressed(e);
+        if (lastMoveEvent == null) return;
+        if (lastMoveEvent.getButton() != MOVE_INPUT_BUTTON) return;
+        move(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    private void move(MouseEvent e) {
+        Unit selectedUnit = controller.getSelectedUnit();
+        MapLocation selectedMapLocation = controller.getSelectedMapLocation();
+
+        Point p = getHexPos(e.getX(),e.getY());
+
+        if (selectedMapLocation == null || selectedUnit == null) return;
+        if (selectedUnit.getOwner() != view.getUiOwner()) return;
+
+        List<MapLocation> mapLocations = model.getTilesInMoveRange(selectedUnit);
+
+        for (MapLocation maplocation : mapLocations) {
+            if (maplocation.getX() == p.x && maplocation.getY() == p.y) {
+                model.move(selectedUnit, maplocation);
+                controller.setSelectedMapLocation(selectedUnit.getPosition());
+            }
+        }
+        view.repaint();
     }
 }
