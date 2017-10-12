@@ -12,12 +12,12 @@ import java.util.List;
 
 import static strategos.ui.config.Config.MOVE_INPUT_BUTTON;
 
-class MoveListener extends Controller implements MouseListener, MouseMotionListener {
+class MoveSelectListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
     private static MouseEvent lastMoveEvent;
 
-    MoveListener(Controller controller) {
+    MoveSelectListener(Controller controller) {
         super(controller);
         this.controller = controller;
     }
