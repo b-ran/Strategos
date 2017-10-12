@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
+import static strategos.ui.config.Config.ATTACK_INPUT_BUTTON;
+
 
 class AttackListener extends Controller implements MouseListener, MouseMotionListener {
 
@@ -25,6 +27,7 @@ class AttackListener extends Controller implements MouseListener, MouseMotionLis
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if (e.getButton() != ATTACK_INPUT_BUTTON) return;
 
         Unit selectedUnit = controller.getSelectedUnit();
         MapLocation selectedMapLocation = controller.getSelectedMapLocation();

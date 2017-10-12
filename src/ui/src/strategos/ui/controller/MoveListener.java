@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 
+import static strategos.ui.config.Config.MOVE_INPUT_BUTTON;
+
 class MoveListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
@@ -26,6 +28,7 @@ class MoveListener extends Controller implements MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
+        if (e.getButton() != MOVE_INPUT_BUTTON) return;
         Unit selectedUnit = controller.getSelectedUnit();
         MapLocation selectedMapLocation = controller.getSelectedMapLocation();
 
