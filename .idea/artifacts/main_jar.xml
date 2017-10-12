@@ -5,7 +5,7 @@
       <element id="archive" name="main.jar">
         <element id="module-output" name="main" />
         <element id="module-output" name="behaviour" />
-        <element id="module-output" name="util" />
+        <element id="module-output" name="common" />
         <element id="module-output" name="mapcreation" />
         <element id="module-output" name="model" />
         <element id="module-output" name="networking" />

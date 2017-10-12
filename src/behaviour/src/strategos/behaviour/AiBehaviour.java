@@ -125,7 +125,7 @@ class AiBehaviour extends BaseBehaviour {
         return aD - bD;
     }
 
-    private boolean pursueUnit(strategos.units.Unit unit, strategos.units.Unit nearest) {
+    private boolean pursueUnit(Unit unit, Unit nearest) {
         int dx = nearest.getPosition().getX() - getPosition(unit).getX();
         int dy = nearest.getPosition().getY() - getPosition(unit).getY();
 
@@ -146,6 +146,8 @@ class AiBehaviour extends BaseBehaviour {
 
         return !previous.equals(getPosition(unit));
     }
+
+
 
     @Override
     public void setPosition(Unit unit, MapLocation position) {
