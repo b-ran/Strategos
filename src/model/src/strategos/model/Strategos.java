@@ -143,12 +143,15 @@ public class Strategos implements GameState {
 	@Override
 	public void attack(Unit unit, MapLocation location) {
 		Unit target = getUnitAt(location);
+		// If a unit lacks the AP to attack
 		if (unit.getActionPoints() <= 0) {
 			return;
 		}
+		// If the unit is attacking an empty tile
 		if (target == null) {
 			return;
 		}
+		// If the unit is attacking an ally
 		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
