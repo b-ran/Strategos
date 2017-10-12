@@ -143,12 +143,15 @@ public class Strategos implements GameState {
 	@Override
 	public void attack(Unit unit, MapLocation location) {
 		Unit target = getUnitAt(location);
+		// If a unit lacks the AP to attack
 		if (unit.getActionPoints() <= 0) {
 			return;
 		}
+		// If the unit is attacking an empty tile
 		if (target == null) {
 			return;
 		}
+		// If the unit is attacking an ally
 		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
@@ -349,13 +352,14 @@ public class Strategos implements GameState {
 		return turn;
 	}
 
-	public boolean gameOver() {
-		for (int i = 0; i < 2; i++) {
+	@Override
+	public int getWinner() {
+		for (int i = 0; i < 3; i++) {
 			if (players.get(i).getUnits().isEmpty()) {
-				return true;
+				return i;
 			}
 		}
-		return false;
+		return -1;
 	}
 
 	@Override

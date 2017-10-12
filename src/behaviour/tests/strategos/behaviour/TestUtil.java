@@ -234,6 +234,11 @@ public class TestUtil {
         @Override public UnitOwner getCurrentTurn() {
             return null;
         }
+
+        @Override
+        public int getWinner() {
+            return 0;
+        }
     };
 }
 }

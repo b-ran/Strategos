@@ -139,6 +139,11 @@ public class ModelTestObj implements GameState {
         return null;
     }
 
+    @Override
+    public int getWinner() {
+        return 0;
+    }
+
 
     public void setWorld(GameCollections gameCollections) {
         this.gameCollections = gameCollections;
