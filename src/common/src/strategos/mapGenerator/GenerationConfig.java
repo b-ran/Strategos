@@ -22,7 +22,7 @@ public class GenerationConfig {
      * Max 100
      * Min 1
      */
-    public static int MAP_ALTITUDE = 80;
+    public static int MAP_ALTITUDE = 75;
 
 
     public static int NUM_OCTAVES = 512;
