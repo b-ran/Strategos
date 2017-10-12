@@ -3,7 +3,7 @@ package strategos.networking.external_testing;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import strategos.*;
+import strategos.model.*;
 import strategos.networking.NetworkingHandler;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.units.Unit;

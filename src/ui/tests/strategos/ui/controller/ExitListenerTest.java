@@ -3,7 +3,7 @@ package strategos.ui.controller;
 
 import model.*;
 import org.junit.jupiter.api.*;
-import strategos.*;
+import strategos.model.GameState;
 import strategos.ui.view.*;
 
 import static org.junit.jupiter.api.Assertions.*;

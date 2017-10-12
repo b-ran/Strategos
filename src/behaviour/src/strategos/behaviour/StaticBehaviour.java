@@ -2,6 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.model.GameState;
 import strategos.units.*;
 
 import java.util.logging.*;

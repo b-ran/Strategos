@@ -11,8 +11,8 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
-import strategos.GameState;
-import strategos.SaveInstance;
+import strategos.model.GameState;
+import strategos.model.SaveInstance;
 import strategos.networking.NetworkingHandler;
 import strategos.networking.handlers.NetworkHandler;
 

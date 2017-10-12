@@ -1,7 +1,7 @@
 package strategos.networking.handlers;
 
-import strategos.GameState;
-import strategos.SaveInstance;
+import strategos.model.GameState;
+import strategos.model.SaveInstance;
 import strategos.networking.networks.Network;
 import strategos.networking.NetworkingHandler;
 import strategos.networking.TestGameState;

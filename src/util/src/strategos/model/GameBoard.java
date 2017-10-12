@@ -1,4 +1,4 @@
-package strategos;
+package strategos.model;
 
 import strategos.terrain.Terrain;
 

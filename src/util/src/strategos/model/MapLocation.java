@@ -1,4 +1,7 @@
-package strategos;
+package strategos.model;
+
+import strategos.Direction;
+import strategos.Paintable;
 
 import java.io.Serializable;
 import java.util.Map;

@@ -1,6 +1,6 @@
 import model.*;
 import org.junit.jupiter.api.Test;
-import strategos.MapLocation;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 import strategos.ui.Ui;
 import strategos.units.Unit;

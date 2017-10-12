@@ -1,8 +1,8 @@
 package strategos.networking;
 
-import strategos.GameCollections;
-import strategos.SaveInstance;
-import strategos.UnitOwner;
+import strategos.model.GameCollections;
+import strategos.model.SaveInstance;
+import strategos.model.UnitOwner;
 
 import java.util.ArrayList;
 

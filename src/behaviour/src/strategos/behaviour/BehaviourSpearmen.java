@@ -1,8 +1,8 @@
 package strategos.behaviour;
 
 
-import strategos.*;
 import strategos.behaviour.config.*;
+import strategos.model.GameState;
 import strategos.units.*;
 
 

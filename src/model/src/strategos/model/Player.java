@@ -2,12 +2,7 @@ package strategos.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.*;
 
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
-import strategos.model.units.UnitImpl;
 import strategos.units.Unit;
 
 public class Player implements UnitOwner{
@@ -28,8 +23,21 @@ public class Player implements UnitOwner{
 		return units;
 	}
 
-	// may make sense to return an unmodifiable list and create an adder
-	// instead of modifying the return of the getter
+	@Override
+	public void addVisibleTile(MapLocation newTile) {
+		visibleTiles.add(newTile);
+	}
+
+	@Override
+	public void addUnit(Unit newUnit) {
+		units.add(newUnit);
+	}
+
+	@Override
+	public void removeUnit(Unit toRemove) {
+		units.remove(toRemove);
+	}
+
 	@Override
 	public List<MapLocation> getVisibleTiles() {
 		return visibleTiles;
@@ -49,8 +57,6 @@ public class Player implements UnitOwner{
 	public UnitOwner copy(GameState newState) {
 		UnitOwner newPlayer = new Player(isNPC);
 
-		// Consider using a stream instead of a for loop here
-		//// newUnits = units.stream().map(Unit::copy).collect(Collectors.toList());
 		List<Unit> newUnits = new ArrayList<>();
 		for (int i = 0; i < getUnits().size(); i++) {
 			newUnits.add(getUnits().get(i).copy(newPlayer, newState));

@@ -1,8 +1,8 @@
 package strategos.hexgrid;
 
 import strategos.Direction;
-import strategos.GameBoard;
-import strategos.MapLocation;
+import strategos.model.GameBoard;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 
 import java.util.ArrayList;

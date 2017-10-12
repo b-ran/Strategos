@@ -1,7 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.GameState;
+import strategos.model.GameState;
 import strategos.behaviour.config.BehaviourConfig;
 import strategos.units.Unit;
 

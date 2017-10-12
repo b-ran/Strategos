@@ -2,9 +2,9 @@ package strategos.behaviour;
 
 
 import strategos.Direction;
-import strategos.GameState;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.exception.RuleViolationException;
 import strategos.units.Unit;
 
@@ -15,7 +15,6 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.hypot;
 
 
 class AiBehaviour extends BaseBehaviour {
@@ -92,8 +91,7 @@ class AiBehaviour extends BaseBehaviour {
             return true;
         }
         else {
-            pursueUnit(unit, nearest);
-            return false;
+            return !pursueUnit(unit, nearest);
         }
     }
 
@@ -102,7 +100,7 @@ class AiBehaviour extends BaseBehaviour {
         directionIndex = (values.length + directionIndex + random.nextInt(2) - 1) % values.length;
         Direction direction = values[directionIndex];
         logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), direction));
-        getGameState().move(unit, direction, 1);
+        getGameState().move(unit, direction);
     }
 
     @Override
@@ -127,22 +125,26 @@ class AiBehaviour extends BaseBehaviour {
         return aD - bD;
     }
 
-    private void pursueUnit(Unit unit, Unit nearest) {
-        int dx = nearest.getPosition().getX() - unit.getPosition().getX();
-        int dy = nearest.getPosition().getY() - unit.getPosition().getY();
+    private boolean pursueUnit(strategos.units.Unit unit, strategos.units.Unit nearest) {
+        int dx = nearest.getPosition().getX() - getPosition(unit).getX();
+        int dy = nearest.getPosition().getY() - getPosition(unit).getY();
+
+        MapLocation previous = getPosition(unit);
 
         if (dx < 0) {
-            getGameState().move(unit, Direction.WEST, 1);
+            getGameState().move(unit, Direction.WEST);
         }
         else if (dx > 0) {
-            getGameState().move(unit, Direction.EAST, 1);
+            getGameState().move(unit, Direction.EAST);
         }
         else if (dy < 0) {
-            getGameState().move(unit, Direction.NORTH_EAST, 1);
+            getGameState().move(unit, Direction.NORTH_EAST);
         }
         else if (dy > 0) {
-            getGameState().move(unit, Direction.NORTH_WEST, 1);
+            getGameState().move(unit, Direction.NORTH_WEST);
         }
+
+        return !previous.equals(getPosition(unit));
     }
 
     @Override
