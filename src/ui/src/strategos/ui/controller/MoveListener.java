@@ -7,9 +7,10 @@ import strategos.units.Unit;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.List;
 
-class MoveListener extends Controller implements MouseListener {
+class MoveListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
 
@@ -25,20 +26,19 @@ class MoveListener extends Controller implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (controller.getSelectedMapLocation() == null) return;
-
         Unit selectedUnit = controller.getSelectedUnit();
+        MapLocation selectedMapLocation = controller.getSelectedMapLocation();
 
         Point p = getHexPos(e.getX(),e.getY());
-        if (selectedUnit == null) {
-            return;
-        }
+
+        if (selectedMapLocation == null || selectedUnit == null) return;
+        if (selectedUnit.getOwner() != view.getUiOwner()) return;
 
         List<MapLocation> mapLocations = model.getTilesInMoveRange(selectedUnit);
 
         for (MapLocation maplocation : mapLocations) {
             if (maplocation.getX() == p.x && maplocation.getY() == p.y) {
-                //model.move(selectedUnit, maplocation);
+                model.move(selectedUnit, maplocation);
                 controller.setSelectedMapLocation(selectedUnit.getPosition());
             }
         }
@@ -57,6 +57,16 @@ class MoveListener extends Controller implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        mousePressed(e);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }
