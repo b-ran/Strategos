@@ -9,7 +9,6 @@ import strategos.ui.view.GridComponent;
 import strategos.ui.view.MenuComponent;
 import strategos.ui.view.SideComponent;
 import strategos.ui.view.View;
-import strategos.units.Bridge;
 import strategos.units.Unit;
 
 import java.awt.*;
@@ -129,12 +128,14 @@ public class Controller {
         g.addKeyListener(new MenuListener(this));
         g.addMouseListener(new SelectListener(this));
         g.addMouseMotionListener(new SelectListener(this));
-        g.addMouseListener(new MoveListener(this));
-        g.addMouseMotionListener(new MoveListener(this));
-        g.addMouseListener(new AttackListener(this));
+        g.addMouseListener(new MoveSelectListener(this));
+        g.addMouseMotionListener(new MoveSelectListener(this));
+        g.addMouseListener(new AttackSelectListener(this));
+        //g.addMouseWheelListener(new CameraListener(this));
         s.getNextTurnButton().addActionListener(new NextTurnListener(this));
         s.getEntrenchButton().addActionListener(new EntrenchListener(this));
         s.getWaryButton().addActionListener(new WaryListener(this));
+        s.getAttackButton().addActionListener(new AttackListener(this));
     }
 
     Point getHexPos(int x, int y) {
