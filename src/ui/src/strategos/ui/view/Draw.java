@@ -124,8 +124,6 @@ public class Draw implements GameObjectVisitor {
         Double d = (((double) health) / 100d)*HEALTH_BAR_SIZE.height;
         Integer height = d.intValue();
 
-        System.out.println(d);
-
         Color c = HEALTH_HIGH_COLOR;
 
         if (health <= HEALTH_LOW_PERCENTAGE) {

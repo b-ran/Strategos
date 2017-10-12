@@ -27,11 +27,6 @@ class NextTurnListener extends Controller implements ActionListener {
 
         UnitOwner unitOwner = model.getCurrentTurn();
 
-        if (unitOwner != uiOwner) {
-            view.getSideComponent().setPlayerText(OTHER_PLAYER_NAME);
-        } else {
-            view.getSideComponent().setPlayerText(PLAYER_NAME);
-        }
         controller.setSelectedMapLocation(null);
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null); //TODO: review
