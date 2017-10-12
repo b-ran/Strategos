@@ -68,7 +68,8 @@ public class Config {
                     "attack and capture any of the three bridges that allow them to cross the river. Your enemy will seek to do the " +
                     "same, to deny you your right to cross and meet them in combat!\n\n" +
                     "Be warned, general. While you engage in your test of strength, a number of filthy barbarians wander " +
-                    "the land, attacking anything that comes near! Slay the brutes, or lure them into your enemy, to make arrow fodder.\n\n";
+                    "the land, attacking anything that comes near! Slay the brutes, or lure them into your enemy, to make arrow fodder. " +
+                    "They have left supplies on the battlefield, which your units can plunder to regain their fighting spirit and heal.\n\n";
 
     //Grid
 
