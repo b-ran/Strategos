@@ -41,7 +41,7 @@ public class StateCreator implements GameStateFactory {
 		UnitOwner playerOne = new Player(false);
 		UnitOwner playerTwo = new Player(false);
 		UnitOwner barbarians = new Player(true);
-		GameState newState = new Strategos(new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
+		GameState newState = new Strategos(this, new World(map, new ArrayList<>()), playerOne, playerTwo, barbarians);
 
 		newState.getWorld().getAllUnits().addAll(barbarians.getUnits());
 

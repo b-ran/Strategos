@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface GameState extends Observable, EntityHandler {
 
+	public GameState newGame();
+
 	public void save();
 
 	public void load(SaveInstance toRestore);
@@ -77,4 +79,6 @@ public interface GameState extends Observable, EntityHandler {
 	public UnitOwner getCurrentTurn();
 
 	int getWinner();
+
+	int getNumberTurns();
 }
