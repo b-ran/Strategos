@@ -36,10 +36,6 @@ public class MenuComponent extends JComponent {
      */
      JPanel setMenu() {
         p = constructMenuSkeleton();
-        p.add(newGameButton);
-        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
-        p.add(loadButton);
-        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(connectButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(hostButton);
@@ -57,8 +53,6 @@ public class MenuComponent extends JComponent {
      JPanel setEscapeMenu(){
         p = constructMenuSkeleton();
         p.add(resumeButton);
-        p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
-        p.add(newGameButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(saveButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));

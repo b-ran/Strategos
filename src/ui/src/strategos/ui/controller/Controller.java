@@ -102,8 +102,6 @@ public class Controller {
         MenuComponent e = view.getEscapeMenuComponent();
         MenuComponent l = view.getLoadMenuComponent();
 
-        m.getNewGameButton().addActionListener(new NewGameListener(this));
-        m.getLoadButton().addActionListener(new LoadListener(this));
         m.getConnectButton().addActionListener(new ConnectListener(this, networkingHandler));
         m.getHostButton().addActionListener(new HostListener(this, networkingHandler));
         m.getExitButton().addActionListener(new ExitListener(this));
