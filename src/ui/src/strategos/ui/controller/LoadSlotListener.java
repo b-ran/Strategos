@@ -6,14 +6,15 @@ import strategos.ui.view.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoadSlotListener extends Controller implements ActionListener {
+class LoadSlotListener extends Controller implements ActionListener {
 	private final int index;
 	private Controller controller;
 
-	protected LoadSlotListener(Controller controller, int index) {
+	LoadSlotListener(Controller controller, int index) {
 		super(controller);
 		this.controller = controller;
 		this.index = index;
+
 	}
 
 	public LoadSlotListener(GameState model, View view, int index) {
@@ -27,6 +28,7 @@ public class LoadSlotListener extends Controller implements ActionListener {
 			model.load(model.getSaves().get(index));
 		}
 		view.removeEscapeMenu();
+		controller.menuToggle();
 		view.setGame();
 	}
 }

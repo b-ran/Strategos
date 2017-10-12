@@ -20,6 +20,7 @@ class ExitListener extends Controller implements ActionListener {
         } else {
             view.exit();
         }
+        controller.menuToggle();
     }
 
 }

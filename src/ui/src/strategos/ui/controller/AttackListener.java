@@ -1,13 +1,17 @@
 package strategos.ui.controller;
 
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import strategos.model.MapLocation;
+import strategos.units.Unit;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.List;
+
+import static strategos.ui.config.Config.ATTACK_INPUT_BUTTON;
 
 
-class AttackListener extends Controller implements MouseListener, KeyListener {
+class AttackListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
 
@@ -23,20 +27,27 @@ class AttackListener extends Controller implements MouseListener, KeyListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        /*if (controller.getSelectedMapLocation() == null) return;
+        if (e.getButton() != ATTACK_INPUT_BUTTON) return;
+
+        Unit selectedUnit = controller.getSelectedUnit();
+        MapLocation selectedMapLocation = controller.getSelectedMapLocation();
 
         Point p = getHexPos(e.getX(),e.getY());
-        Unit oldSelectedUnit = model.getUnitAt(controller.getSelectedMapLocation());
-        Unit newSelectedUnit = model.getUnitAt(board.get(p.x,p.y));
 
-        if (oldSelectedUnit == null || newSelectedUnit == null) return;
+        if (selectedMapLocation == null || selectedUnit == null) return;
+        if (selectedUnit.getOwner() != view.getUiOwner()) return;
 
-        List<Unit> units = model.getUnitsInAttackRange(oldSelectedUnit);
+        Unit target = model.getUnitAt(board.get(p.x,p.y));
 
-        if (units.contains(newSelectedUnit)) {
-            System.out.println("send attack command");
-            model.attack(oldSelectedUnit, newSelectedUnit.getPosition());
-        }*/
+        List<Unit> attackableUnits = model.getUnitsInAttackRange(selectedUnit);
+
+        if (attackableUnits.contains(target)) {
+            model.attack(selectedUnit, target.getPosition());
+            controller.resetSection();
+            view.repaint();
+        }
+
+
     }
 
     @Override
@@ -55,17 +66,12 @@ class AttackListener extends Controller implements MouseListener, KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void mouseDragged(MouseEvent e) {
 
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
+    public void mouseMoved(MouseEvent e) {
 
     }
 }

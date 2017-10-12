@@ -25,7 +25,7 @@ class MenuListener extends Controller implements KeyListener {
             controller.menuToggle();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE){ ;
             view.removeEscapeMenu();
-            menuToggle();
+            controller.menuToggle();
         }
     }
 

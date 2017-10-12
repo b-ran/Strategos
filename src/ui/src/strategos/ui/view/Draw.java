@@ -115,6 +115,25 @@ public class Draw implements GameObjectVisitor {
         this.hexPoint = p;
         this.p = getUnitGridPos(p);
         ((GameObject) u).accept(this);
+        drawHealth(u);
+    }
+
+    private void drawHealth(Unit u) {
+        int health = u.getHitpoints();
+
+        Double d = (((double) health) / 100d)*HEALTH_BAR_SIZE.height;
+        Integer height = d.intValue();
+
+        Color c = HEALTH_HIGH_COLOR;
+
+        if (health <= HEALTH_LOW_PERCENTAGE) {
+            c = HEALTH_LOW_COLOR;
+        } else if (health <= HEALTH_MID_PERCENTAGE) {
+            c = HEALTH_MID_COLOR;
+        }
+
+        g2d.setColor(c);
+        g2d.fillRect(p.x+HEALTH_BAR_RELATIVE_POSITION.x, p.y+HEALTH_BAR_RELATIVE_POSITION.y, HEALTH_BAR_SIZE.width, height);
     }
 
     void drawTerrainNonGrid(Terrain t, Point p, Graphics g) {
@@ -218,7 +237,6 @@ public class Draw implements GameObjectVisitor {
 
     @Override
     public void visit(Bridge bridge) {
-        Point p = getTerrainGridPos((hexPoint == null) ? this.p : hexPoint);
         g2d.drawImage(getTexturedImage(getUnitOwnerImage(bridge, bridgeImage), getHexagon(p), p), p.x, p.y, null);
     }
 
