@@ -152,30 +152,48 @@ public class Strategos implements GameState {
 		if (target.getOwner().equals(unit.getOwner())) {
 			return;
 		}
-		System.out.println("attacking");
-		int enemyHP = target.getHitpoints();
+		int defenderHP = target.getHitpoints();
+		int attackerHP = unit.getHitpoints();
 		unit.attack(target);
-		System.out.println("dealt " + (enemyHP - target.getHitpoints()) + " damage");
-		cleanUp(unit, target);
+		if (!(attackerHP == unit.getHitpoints() && defenderHP == target.getHitpoints())) {
+			System.out.println(unit + " attacked " + target + " {");
+			System.out.println("	attacker took " + (attackerHP - unit.getHitpoints()) + " damage");
+			System.out.println("	defender took " + (defenderHP - target.getHitpoints()) + " damage");
+
+			cleanUp(unit, target);
+
+			System.out.println("}\n");
+		}
 		setChanged();
 	}
 
+	/**
+	 * Handles the result of the combat once two units have fought. If the defender was a bridge, it is captured by
+	 * 		the attacker. If either attacker or defender died, they are removed from the game.
+	 * @param unitA the attacking unit.
+	 * @param unitB the defending unit.
+	 */
 	private void cleanUp(Unit unitA, Unit unitB) {
 		if (unitB instanceof Bridge) {
-			System.out.println("changing bridge ownership");
 			unitB.getOwner().removeUnit(unitB);
 			world.getAllUnits().remove(unitB);
 			BridgeImpl newBridge = new BridgeImpl(unitB.getBehaviour(), unitA.getOwner(), unitB.getPosition());
+
+			// Bridges must be inserted at the start of the list of units, otherwise they will be drawn on top of
+			// 		units that are standing on them.
 			unitA.getOwner().getUnits().add(0, newBridge);
 			world.getAllUnits().add(0, newBridge);
+			System.out.println("	bridge was captured by Player " + (getPlayers().indexOf(unitA.getOwner()) + 1));
 		}
 		if (!unitB.isAlive()) {
 			unitB.getOwner().removeUnit(unitB);
 			world.getAllUnits().remove(unitB);
+			System.out.println("	defender was killed");
 		}
-		if (unitA.getHitpoints() <= 0) {
+		if (!unitA.isAlive()) {
 			unitA.getOwner().removeUnit(unitA);
 			world.getAllUnits().remove(unitA);
+			System.out.println("	attacker was killed");
 		}
 	}
 
@@ -254,14 +272,12 @@ public class Strategos implements GameState {
 		for (MapLocation tile : potentialTiles) {
 			if (tile.isInPlayArea()) {
 				if (canPassUnit(unit, tile)) {
-					System.out.println("can move to " + tile);
 					actualTiles.add(tile);
 				}
 			} else if (getUnitAt(tile) instanceof Bridge && canPassUnit(unit, tile)){
 				actualTiles.add(tile);
 			}
 		}
-		System.out.println();
 		return actualTiles;
 	}
 
