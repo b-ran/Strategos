@@ -28,5 +28,7 @@ public class ConfigImage {
 
     public static final String SWORDSMEN_IMAGE_PATH = "resources/swordsmen%s.png";
 
+    public static final String HEALTH_POTION_IMAGE_PATH = "resources/healthpotion.png";
+
     public static final String[] UNIT_TAGS = {"-b", "-r", "-k"};
 }
