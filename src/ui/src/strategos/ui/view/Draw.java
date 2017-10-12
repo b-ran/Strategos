@@ -218,7 +218,6 @@ public class Draw implements GameObjectVisitor {
 
     @Override
     public void visit(Bridge bridge) {
-        Point p = getTerrainGridPos((hexPoint == null) ? this.p : hexPoint);
         g2d.drawImage(getTexturedImage(getUnitOwnerImage(bridge, bridgeImage), getHexagon(p), p), p.x, p.y, null);
     }
 
