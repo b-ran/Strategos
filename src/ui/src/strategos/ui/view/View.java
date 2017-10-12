@@ -130,6 +130,7 @@ public class View extends JComponent implements Observer {
     public void setInstruction() {
         JOptionPane.showMessageDialog(menuPanel, instructionPane);
         instructionPane.setPreferredSize(GAME_INSTRUCTION_BOX_DIMENSIONS);
+        repack();
     }
 
     /**
