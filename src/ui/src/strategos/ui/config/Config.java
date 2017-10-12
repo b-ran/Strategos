@@ -35,36 +35,6 @@ public class Config {
 
     public static final Integer HEX_SIZE = 60;
 
-    public static final Color NPC_COLOR = Color.YELLOW;
-
-    public static final Color OTHER_PLAYER_COLOR = Color.RED;
-
-    public static final Color PLAYER_COLOR = Color.BLUE;
-
-    public static final Color UNIT_FONT_COLOR = Color.BLACK;
-
-    public static final String UNIT_ARCHERS_LETTER = "A";
-
-    public static final String UNIT_CAVALRY_LETTER = "C";
-
-    public static final String UNIT_BRIDGE_LETTER = "B";
-
-    public static final String UNIT_ELITE_LETTER = "E";
-
-    public static final String UNIT_SPEARMEN_LETTER = "Sp";
-
-    public static final String UNIT_SWORDSMEN_LETTER = "Sw";
-
-    public static final Color TERRAIN_FOREST_COLOR = new Color(0,150,0);
-
-    public static final Color TERRAIN_HILL_COLOR = new Color(0,100,0);
-
-    public static final Color TERRAIN_MOUNTAIN_COLOR = Color.LIGHT_GRAY;
-
-    public static final Color TERRAIN_PLAINS_COLOR = new Color(0,255,0);
-
-    public static final Color TERRAIN_RIVER_COLOR = Color.CYAN;
-
     public static final Color SELECTION_COLOR = new Color(154, 208, 255);
 
     public static final Color SELECTION_MOVE_COLOR =  new Color(255, 245, 199);
@@ -72,6 +42,21 @@ public class Config {
     public static final Color SELECTION_ATTACK_COLOR =  new Color(255, 0, 0);
 
     public static final float SELECTION_STROKE_SIZE = 2;
+
+    public static final Color HEALTH_HIGH_COLOR = new Color(8, 207, 0);
+
+    public static final Color HEALTH_MID_COLOR = new Color(233, 219, 41);
+
+    public static final Color HEALTH_LOW_COLOR = new Color(207, 11, 18);
+
+    public static final Dimension HEALTH_BAR_SIZE = new Dimension(3, 25);
+
+    public static final Point HEALTH_BAR_RELATIVE_POSITION = new Point(5, 20);
+
+    public static final int HEALTH_MID_PERCENTAGE = 60;
+
+    public static final int HEALTH_LOW_PERCENTAGE = 20;
+
 
 
     //Side
