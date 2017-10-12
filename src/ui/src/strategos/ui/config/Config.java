@@ -94,6 +94,13 @@ public class Config {
 
     public static final Point WARY_LABEL_LOCATION = new Point(20, ENTRENCH_LABEL_LOCATION.y+LABEL_PADDING);
 
+    public static final String STRENGTH_LABEL_NAME = "Strength:";
+
+    public static final Point STRENGTH_LABEL_LOCATION = new Point(20, WARY_LABEL_LOCATION.y+LABEL_PADDING);
+
+    public static final String TOUGHNESS_LABEL_NAME = "Toughness:";
+
+    public static final Point TOUGHNESS_LABEL_LOCATION = new Point(20, STRENGTH_LABEL_LOCATION.y+LABEL_PADDING);
 
     //Text
     public static final String WARY_BUTTON_NAME = "Wary";
