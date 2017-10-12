@@ -229,7 +229,7 @@ public class Controller {
 
         for (MapLocation m : tilesInMoveRange) {
             if (m.getX() == selectedMapLocation.getX() && m.getY() == selectedMapLocation.getY()) {
-                return true;
+                return false;
             }
         }
 
