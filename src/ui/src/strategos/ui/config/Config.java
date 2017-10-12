@@ -1,6 +1,7 @@
 package strategos.ui.config;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class Config {
     //Menu
@@ -94,8 +95,6 @@ public class Config {
     public static final Point WARY_LABEL_LOCATION = new Point(20, ENTRENCH_LABEL_LOCATION.y+LABEL_PADDING);
 
 
-
-
     //Text
     public static final String WARY_BUTTON_NAME = "Wary";
 
@@ -104,5 +103,14 @@ public class Config {
     public static final String ATTACK_BUTTON_NAME = "Attack";
 
     public static final String NEXT_TURN_BUTTON_NAME = "Next Turn";
+
+
+    //Input
+
+    public static final int SELECTION_INPUT_BUTTON = MouseEvent.BUTTON1;
+
+    public static final int MOVE_INPUT_BUTTON = MouseEvent.BUTTON3;
+
+    public static final int ATTACK_INPUT_BUTTON = MouseEvent.BUTTON3;
 
 }
