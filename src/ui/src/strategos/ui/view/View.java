@@ -41,6 +41,8 @@ public class View extends JComponent implements Observer {
 
     private List<MapLocation> seenTerrain = new ArrayList<>();
 
+    private boolean firstTurn = true;
+
     /**
      * The game status.
      * False if game not running
@@ -68,6 +70,10 @@ public class View extends JComponent implements Observer {
             gridComponent.setEntities(model.getWorld().getAllUnits());
             gridComponent.setTerrain(model.getWorld().getMap().getData());
             setSeenTerrain(getUiOwner().getVisibleTiles());
+            if (!firstTurn) {
+                JOptionPane.showMessageDialog(getGridComponent(), "It's your turn");
+            }
+            setFirstTurn(false);
         }
         gridComponent.requestFocus();
         gridComponent.setFocusable(true);
@@ -211,6 +217,9 @@ public class View extends JComponent implements Observer {
         return model.getThisInstancePlayer();
     }
 
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
+    }
 
     public List<MapLocation> getSeenTerrain() {
         return seenTerrain;
