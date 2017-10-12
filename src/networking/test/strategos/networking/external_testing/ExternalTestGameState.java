@@ -220,6 +220,11 @@ public class ExternalTestGameState implements GameState {
 	}
 
 	@Override
+	public int getWinner() {
+		return 0;
+	}
+
+	@Override
 	public void addObserver(Observer o) {
 
 	}

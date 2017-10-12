@@ -11,6 +11,7 @@ public class Config {
 	public static final double CHARGE_MODIFIER = 1.15;
 
 	public static final int INFANTRY_ACTION_POINTS = 2;
+	public static final int ELITE_ACTION_POINTS = INFANTRY_ACTION_POINTS;
 	public static final int CAVALRY_ACTION_POINTS = 4;
 	
 	public static final int ARCHER_RANGE = 2;

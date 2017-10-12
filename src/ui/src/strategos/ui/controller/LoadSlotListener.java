@@ -13,13 +13,13 @@ class LoadSlotListener extends Controller implements ActionListener {
 	LoadSlotListener(Controller controller, int index) {
 		super(controller);
 		this.controller = controller;
-		this.index = index;
+		this.index = index - 1;
 
 	}
 
 	public LoadSlotListener(GameState model, View view, int index) {
 		super(model, view);
-		this.index = index;
+		this.index = index - 1;
 	}
 
 	@Override

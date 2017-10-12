@@ -75,4 +75,6 @@ public interface GameState extends Observable, EntityHandler {
 	 * @return a UnitOwner that is stored in currentTurn
 	 */
 	public UnitOwner getCurrentTurn();
+
+	int getWinner();
 }
