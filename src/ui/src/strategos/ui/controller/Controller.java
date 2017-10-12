@@ -130,6 +130,7 @@ public class Controller {
         g.addMouseListener(new SelectListener(this));
         g.addMouseMotionListener(new SelectListener(this));
         g.addMouseListener(new MoveListener(this));
+        g.addMouseMotionListener(new MoveListener(this));
         g.addMouseListener(new AttackListener(this));
         s.getNextTurnButton().addActionListener(new NextTurnListener(this));
         s.getEntrenchButton().addActionListener(new EntrenchListener(this));
@@ -183,71 +184,9 @@ public class Controller {
         return selectedMapLocation;
     }
 
-    public NetworkingHandler getNetworkingHandler() {
+    NetworkingHandler getNetworkingHandler() {
         return networkingHandler;
     }
-
-    /*private boolean mapLocationIn(MapLocation location, List<MapLocation> otherLocations) {
-        for (MapLocation other : otherLocations) {
-            if (other.getX() == location.getX() && other.getY() == location.getY()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    void setSelectedMapLocation(MapLocation selectedMapLocation) {
-        if (this.selectedMapLocation != null && selectedMapLocation != null) {
-            if (selectedUnit != null) {
-                if (mapLocationIn(selectedMapLocation, model.getTilesInRange(selectedUnit.getPosition(), selectedUnit.getAttackRange())) && selectedUnit.getOwner() == model.getCurrentTurn()) {
-                    handleCommand(selectedMapLocation);
-                } else {
-                    selectionToggle = true;
-                    selectedUnit = model.getUnitAt(selectedMapLocation);
-                }
-            }
-        }
-
-        this.selectedMapLocation = selectedMapLocation;
-        selectedUnit = model.getUnitAt(this.selectedMapLocation);
-        if (selectedMapLocation == null) {
-            selectionHelper();
-            return;
-        }
-
-        if (selectedUnit == null) {
-            selectionToggle = false;
-            view.getGridComponent().setSelection(selectedMapLocation);
-            view.getSideComponent().setSelection(selectedMapLocation, null);
-        } else {
-            selectionToggle = true;
-            unitsInAttackRange = model.getUnitsInAttackRange(selectedUnit);
-            tilesInMoveRange = model.getTilesInMoveRange(selectedUnit);
-            view.getGridComponent().setSelection(selectedMapLocation, unitsInAttackRange,  tilesInMoveRange);
-            view.getSideComponent().setSelection(selectedMapLocation, selectedUnit);
-        }
-        view.repaint();
-    }
-
-    private void handleCommand(MapLocation newLocation) {
-        if (model.getUnitAt(newLocation) == null ) {
-            model.move(selectedUnit, newLocation);
-        } else if (model.getUnitAt(newLocation) instanceof Bridge &&
-                model.getUnitAt(newLocation).getOwner() == selectedUnit.getOwner()) {
-            model.move(selectedUnit, newLocation);
-        } else {
-            model.attack(selectedUnit, newLocation);
-        }
-    }
-
-    private void selectionHelper() {
-        selectionToggle = true;
-        selectedUnit = null;
-        view.getGridComponent().setSelection(null);
-        view.getSideComponent().setSelection(null, null);
-        view.repaint();
-    }*/
-
 
     void setSelectedMapLocation(MapLocation selectedMapLocation) {
         GridComponent g = view.getGridComponent();
@@ -290,16 +229,13 @@ public class Controller {
 
         for (MapLocation m : tilesInMoveRange) {
             if (m.getX() == selectedMapLocation.getX() && m.getY() == selectedMapLocation.getY()) {
-                model.move(selectedUnit,selectedMapLocation);
-                return false;
+                return true;
             }
         }
 
         for (Unit u : unitsInAttackRange) {
             MapLocation m = u.getPosition();
             if (m.equals(selectedMapLocation)) {
-                model.attack(selectedUnit, selectedMapLocation);
-                //resetSection();
                 return true;
             }
         }
@@ -307,8 +243,9 @@ public class Controller {
         return false;
     }
 
-    private void resetSection() {
+    void resetSection() {
         selectionToggle = true;
+        selectedUnit = null;
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null);
         view.repaint();
