@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import static strategos.ui.config.Config.GRID_COMPONENT_SIZE;
+import static strategos.ui.config.Config.MENU_COMPONENT_SIZE;
+import static strategos.ui.config.Config.SIDE_COMPONENT_SIZE;
+
 /**
  * The type View.
  */
@@ -49,6 +53,15 @@ public class View extends JComponent implements Observer {
      * True if game is running
      */
     private boolean game = false;
+
+
+
+    /**
+     * If escapeMenu is being displayed.
+     * False if escapeMenu not running
+     * True if escapeMenu is running
+     */
+    private boolean escapeMenu = false;
 
     /**
      * Instantiates a new View.
@@ -101,6 +114,7 @@ public class View extends JComponent implements Observer {
     public void setLoad() {
         removeAllComponents();
         frame.add(loadMenuPanel);
+        loadMenuPanel.setPreferredSize(frame.getSize());
         repack();
         game = false;
     }
@@ -111,6 +125,7 @@ public class View extends JComponent implements Observer {
     public void addEscapeMenu() {
         gridPanel.add(escapeMenuPanel,0);
         repack();
+        escapeMenu = true;
     }
 
     /**
@@ -119,6 +134,7 @@ public class View extends JComponent implements Observer {
     public void removeEscapeMenu() {
         removeAllComponents();
         setGame();
+        escapeMenu = false;
     }
 
     private void removeAllComponents() {
@@ -221,7 +237,11 @@ public class View extends JComponent implements Observer {
         this.firstTurn = firstTurn;
     }
 
-    public List<MapLocation> getSeenTerrain() {
+        public boolean isEscapeMenu() {
+        return escapeMenu;
+    }
+
+    List<MapLocation> getSeenTerrain() {
         return seenTerrain;
     }
 

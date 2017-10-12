@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
+
 class ConnectListener extends Controller implements ActionListener{
 
     private NetworkingHandler networkingHandler;
@@ -38,6 +40,7 @@ class ConnectListener extends Controller implements ActionListener{
             view.setGame();
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());
             view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
+            view.getSideComponent().setPlayerText(OTHER_PLAYER_NAME);
         }
     }
 }

@@ -118,6 +118,14 @@ public class SideComponent extends JComponent {
         this.playerText = playerText;
     }
 
+    public void togglePlayerText() {
+        if (playerText.equals(PLAYER_NAME)) {
+            playerText = OTHER_PLAYER_NAME;
+        } else {
+            playerText = PLAYER_NAME;
+        }
+    }
+
     public JButton getNextTurnButton() {
         return nextTurnButton;
     }
