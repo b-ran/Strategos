@@ -2,6 +2,7 @@ package strategos.model;
 
 import strategos.*;
 import strategos.model.units.BridgeImpl;
+import strategos.model.units.StateCreator;
 import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
@@ -22,14 +23,19 @@ public class Strategos implements GameState {
 	private UnitOwner thisInstancePlayer;
 	private boolean synced = false;
 
+	private StateCreator stateCreator;
+
+	private int turns = 0;
+
 	private List<SaveInstance> saves = new ArrayList<>();
 
-	public Strategos(World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
+	public Strategos(StateCreator stateCreator, World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
 		this.world = world;
 		players.add(playerOne);
 		players.add(playerTwo);
 		players.add(barbarians);
 		turn = playerOne;
+		this.stateCreator = stateCreator;
 	}
 
 	@Override
@@ -40,6 +46,11 @@ public class Strategos implements GameState {
 	@Override
 	public void setThisInstancePlayer(UnitOwner thisInstancePlayer) {
 		this.thisInstancePlayer = thisInstancePlayer;
+	}
+
+	@Override
+	public GameState newGame() {
+		return stateCreator.createNewState();
 	}
 
 	public void save() {
@@ -314,7 +325,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
-
+		turns++;
 		for (int i = 0; i < turn.getUnits().size(); i++) {
 			turn.getUnits().get(i).turnTick();
 		}
@@ -354,8 +365,8 @@ public class Strategos implements GameState {
 
 	@Override
 	public int getWinner() {
-		for (int i = 0; i < 3; i++) {
-			if (players.get(i).getUnits().isEmpty()) {
+		for (int i = 1; i < 4; i++) {
+			if (players.get(i-1).getUnits().isEmpty()) {
 				return i;
 			}
 		}
@@ -367,6 +378,11 @@ public class Strategos implements GameState {
 		if (!observers.contains(o)) {
 			observers.add(o);
 		}
+	}
+
+	@Override
+	public int getNumberTurns() {
+		return turns / 3;
 	}
 
 	@Override
