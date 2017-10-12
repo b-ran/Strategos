@@ -236,7 +236,7 @@ public class Controller {
         for (Unit u : unitsInAttackRange) {
             MapLocation m = u.getPosition();
             if (m.equals(selectedMapLocation)) {
-                return true;
+                return false;
             }
         }
 
