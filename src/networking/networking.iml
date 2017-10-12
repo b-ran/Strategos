@@ -11,7 +11,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.16.18" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-all:5.0.0.Alpha2" level="project" />
-    <orderEntry type="module" module-name="util" />
+    <orderEntry type="module" module-name="common" />
     <orderEntry type="library" name="netty-all-5.0.0.Alpha3-20151217.120754-459" level="project" />
     <orderEntry type="library" scope="TEST" name="junit-4.12" level="project" />
   </component>
