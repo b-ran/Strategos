@@ -17,9 +17,9 @@ public class AttackListener extends Controller implements ActionListener {
         Unit unit = controller.getSelectedUnit();
         if (unit == null) return;
         if (unit.getEntrench()) {
-            unit.entrench();
+            model.entrench(unit);
         } else if (unit.getWary()) {
-            unit.wary();
+            model.wary(unit);
         }
         view.repaint();
     }
