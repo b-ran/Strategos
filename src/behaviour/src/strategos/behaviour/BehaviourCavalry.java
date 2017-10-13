@@ -1,7 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.config.*;
+import strategos.Config;
 import strategos.model.GameState;
 import strategos.units.*;
 
@@ -19,15 +19,15 @@ class BehaviourCavalry extends UnitBehaviour {
     }
 
     @Override int getMaxActionPoints() {
-        return BehaviourConfig.CAVALRY_ACTION_POINTS;
+        return Config.CAVALRY_ACTION_POINTS;
     }
 
     @Override public int getStrength(Unit unit) {
-        return BehaviourConfig.CAVALRY_STRENGTH;
+        return Config.CAVALRY_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return BehaviourConfig.CAVALRY_TOUGHNESS;
+        return Config.CAVALRY_TOUGHNESS;
     }
 
     @Override public Behaviour copy(GameState newState) {
