@@ -97,7 +97,7 @@ public class NoiseTester {
     @Test
     public void forestTest_1() {
         TerrainGeneration TG = new TerrainGeneration();
-        boolean[][] forest = TG.testFillForest(50, 50, 1, 90);
+        boolean[][] forest = TG.testFillForest(50, 50, 1, 0.55);
         //To physically compare to correctForest
         PrintMap.greyImage(forest);
         boolean[][] testForest = noisegenerationtests.TestResources.testForest;
