@@ -123,6 +123,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method move() requires a non-null direction");
         }
 
+        if (getEntrench(unit)) {
+            entrench(unit);
+        }
+
         MapLocation neighbour = getPosition(unit).getNeighbour(direction);
         int movementCost = terrainMovementCost(neighbour.getTerrain());
 
