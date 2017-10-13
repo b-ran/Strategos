@@ -73,6 +73,17 @@ public class View extends JComponent implements Observer {
         this.uiOwner = model.getCurrentTurn();
         frame = new JFrame(Config.WINDOW_NAME);
 
+        //int screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth() - SIDE_COMPONENT_SIZE.width;
+
+        //System.out.println(screenWidth);
+
+        //int size = model.getWorld().getMap().getDiameter()*2;
+
+        //System.out.println(size);
+
+        //HEX_SIZE = screenWidth / size;
+
+
         JTextArea message = new JTextArea();
         message.setText(GAME_INSTRUCTION_MESSAGE);
         message.setLineWrap(true);
@@ -251,7 +262,7 @@ public class View extends JComponent implements Observer {
         this.firstTurn = firstTurn;
     }
 
-        public boolean isEscapeMenu() {
+    public boolean isEscapeMenu() {
         return escapeMenu;
     }
 
