@@ -92,6 +92,7 @@ public class View extends JComponent implements Observer {
             setSeenTerrain(getUiOwner().getVisibleTiles());
             if (!firstTurn) {
                 JOptionPane.showMessageDialog(getGridComponent(), "It's your turn");
+                sideComponent.setPlayerText(PLAYER_NAME);
             }
             setFirstTurn(false);
         }
@@ -129,6 +130,7 @@ public class View extends JComponent implements Observer {
     public void setInstruction() {
         JOptionPane.showMessageDialog(menuPanel, instructionPane);
         instructionPane.setPreferredSize(GAME_INSTRUCTION_BOX_DIMENSIONS);
+        repack();
     }
 
     /**

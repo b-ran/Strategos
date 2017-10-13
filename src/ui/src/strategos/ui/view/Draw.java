@@ -21,7 +21,6 @@ public class Draw implements GameObjectVisitor {
 
     private static boolean loadImages = true;
 
-
     private static BufferedImage forestImage = null;
     private static BufferedImage hillImage = null;
     private static BufferedImage mountainsImage = null;
@@ -36,12 +35,13 @@ public class Draw implements GameObjectVisitor {
     private static BufferedImage[] eliteImage = new BufferedImage[3];
     private static BufferedImage[] spearmenImage = new BufferedImage[3];
     private static BufferedImage[] swordsmenImage = new BufferedImage[3];
+    private static BufferedImage healthPotionImage = null;
 
     static BufferedImage backgroundImage = null;
-    private View view;
+    private View view = null;
 
     private Graphics2D g2d = null;
-    private Point p;
+    private Point p = null;
     private Color selectionColor = null;
     private float selectionStrokeSize = 0;
     private Point hexPoint;
@@ -67,6 +67,7 @@ public class Draw implements GameObjectVisitor {
         eliteImage = loadUnitImage(ELITE_IMAGE_PATH);
         spearmenImage = loadUnitImage(SPEARMEN_IMAGE_PATH);
         swordsmenImage = loadUnitImage(SWORDSMEN_IMAGE_PATH);
+        healthPotionImage = loadImage(HEALTH_POTION_IMAGE_PATH);
 
         backgroundImage = loadImage(BACKGROUND_IMAGE_PATH);
         loadImages = false;
@@ -252,7 +253,7 @@ public class Draw implements GameObjectVisitor {
 
     @Override
     public void visit(HealthPotion healthPotion) {
-
+        g2d.drawImage(getTexturedImage(healthPotionImage, getHexagon(p), p), p.x, p.y , null);
     }
 
     @Override

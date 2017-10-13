@@ -1,22 +1,21 @@
 package strategos.ui.controller;
 
+
 import strategos.model.MapLocation;
 import strategos.units.Unit;
 
-
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.List;
 
-import static strategos.ui.config.Config.MOVE_INPUT_BUTTON;
+import static strategos.ui.config.Config.ATTACK_INPUT_BUTTON;
 
-class MoveListener extends Controller implements MouseListener, MouseMotionListener {
+
+class AttackSelectListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
 
-    MoveListener(Controller controller) {
+    AttackSelectListener(Controller controller) {
         super(controller);
         this.controller = controller;
     }
@@ -28,7 +27,8 @@ class MoveListener extends Controller implements MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getButton() != MOVE_INPUT_BUTTON) return;
+        if (e.getButton() != ATTACK_INPUT_BUTTON) return;
+
         Unit selectedUnit = controller.getSelectedUnit();
         MapLocation selectedMapLocation = controller.getSelectedMapLocation();
 
@@ -37,15 +37,17 @@ class MoveListener extends Controller implements MouseListener, MouseMotionListe
         if (selectedMapLocation == null || selectedUnit == null) return;
         if (selectedUnit.getOwner() != view.getUiOwner()) return;
 
-        List<MapLocation> mapLocations = model.getTilesInMoveRange(selectedUnit);
+        Unit target = model.getUnitAt(board.get(p.x,p.y));
 
-        for (MapLocation maplocation : mapLocations) {
-            if (maplocation.getX() == p.x && maplocation.getY() == p.y) {
-                model.move(selectedUnit, maplocation);
-                controller.setSelectedMapLocation(selectedUnit.getPosition());
-            }
+        List<Unit> attackableUnits = model.getUnitsInAttackRange(selectedUnit);
+
+        if (attackableUnits.contains(target)) {
+            model.attack(selectedUnit, target.getPosition());
+            controller.resetSection();
+            view.repaint();
         }
-        view.repaint();
+
+
     }
 
     @Override
@@ -65,7 +67,7 @@ class MoveListener extends Controller implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mousePressed(e);
+
     }
 
     @Override

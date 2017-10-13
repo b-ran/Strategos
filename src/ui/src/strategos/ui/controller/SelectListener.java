@@ -13,6 +13,7 @@ import static strategos.ui.config.Config.SELECTION_INPUT_BUTTON;
 class SelectListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
+    private static MouseEvent lastMoveEvent;
 
     SelectListener(Controller controller) {
         super(controller);
@@ -26,6 +27,7 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
 
     @Override
     public void mousePressed(MouseEvent e) {
+        lastMoveEvent = e;
         if (e.getButton() != SELECTION_INPUT_BUTTON) return;
         if (!controller.allInput) return;
         Point p = getHexPos(e.getX(),e.getY());
@@ -48,7 +50,8 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (e.getButton() != SELECTION_INPUT_BUTTON) return;
+        if (lastMoveEvent == null) return;
+        if (lastMoveEvent.getButton() != SELECTION_INPUT_BUTTON) return;
         if (!controller.allInput || controller.getSelectedMapLocation() == null) return;
         Point p = getHexPos(e.getX(),e.getY());
         if (controller.getSelectedMapLocation().equals(board.get(p.x, p.y))) {
