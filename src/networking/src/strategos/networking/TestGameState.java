@@ -17,6 +17,11 @@ public class TestGameState implements GameState {
 	private boolean changed = false;
 
 	@Override
+	public GameState newGame() {
+		return null;
+	}
+
+	@Override
 	public void save() {
 
 	}
@@ -129,6 +134,11 @@ public class TestGameState implements GameState {
 
 	@Override
 	public int getWinner() {
+		return 0;
+	}
+
+	@Override
+	public int getNumberTurns() {
 		return 0;
 	}
 

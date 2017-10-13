@@ -19,6 +19,11 @@ public class ExternalTestGameState implements GameState {
 	}
 
 	@Override
+	public GameState newGame() {
+		return null;
+	}
+
+	@Override
 	public void save() {
 
 	}
@@ -221,6 +226,11 @@ public class ExternalTestGameState implements GameState {
 
 	@Override
 	public int getWinner() {
+		return 0;
+	}
+
+	@Override
+	public int getNumberTurns() {
 		return 0;
 	}
 

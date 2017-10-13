@@ -1,5 +1,6 @@
 package strategos.ui.controller;
 
+import strategos.model.SaveInstance;
 import strategos.units.Unit;
 
 import java.awt.event.ActionEvent;
@@ -16,13 +17,19 @@ class NewGameListener extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        model = model.newGame();
+        model.notifyObservers(null);
+
         model.setThisInstancePlayer(model.getPlayers().get(0));
-        if (!controller.allInput) return;
-        for (Unit u : model.getPlayers().get(0).getUnits()) {
+        view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
+        for (Unit u : model.getWorld().getAllUnits()) {
             u.turnTick();
         }
+        view.setFirstTurn(false);
+        view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
         view.setGame();
         view.getGridComponent().setEntities(model.getWorld().getAllUnits());
         view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
+        view.repaint();
     }
 }
