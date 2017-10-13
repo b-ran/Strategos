@@ -2,7 +2,7 @@ package strategos.external;
 
 import org.junit.Test;
 import strategos.Direction;
-import strategos.MapLocation;
+import strategos.model.MapLocation;
 import strategos.exception.RuleViolationException;
 import strategos.hexgrid.Map;
 import strategos.model.Player;
@@ -27,7 +27,7 @@ public class ExternalTests {
 
 	@Test(expected = RuleViolationException.class)
 	public void testMovingOutOfBounds() {
-		Strategos strategos = new Strategos(null, null, null, null);
+		Strategos strategos = new Strategos(null, null, null, null, null);
 		Map map = new Map(6);
 		MapLocation start =  map.get(0, 5);
 		MapLocation outOfBounds = start.getNeighbour(Direction.WEST);

@@ -1,6 +1,7 @@
 package strategos.networking;
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
@@ -14,6 +15,11 @@ import java.util.Observer;
 public class TestGameState implements GameState {
 	SaveInstance instance;
 	private boolean changed = false;
+
+	@Override
+	public GameState newGame() {
+		return null;
+	}
 
 	@Override
 	public void save() {
@@ -32,7 +38,7 @@ public class TestGameState implements GameState {
 	}
 
 	@Override
-	public void move(Unit unit, Direction direction, int amount) {
+	public void move(Unit unit, Direction direction) {
 
 	}
 
@@ -124,6 +130,16 @@ public class TestGameState implements GameState {
 	@Override
 	public UnitOwner getCurrentTurn() {
 		return null;
+	}
+
+	@Override
+	public int getWinner() {
+		return 0;
+	}
+
+	@Override
+	public int getNumberTurns() {
+		return 0;
 	}
 
 	@Override

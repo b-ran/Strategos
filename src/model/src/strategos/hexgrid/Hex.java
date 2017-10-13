@@ -2,7 +2,7 @@ package strategos.hexgrid;
 
 
 import strategos.Direction;
-import strategos.MapLocation;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 
 import java.util.HashMap;
@@ -135,5 +135,26 @@ public class Hex implements MapLocation {
 	@Override
 	public int getY() {
 		return yIndex;
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Hex hex = (Hex) o;
+
+		if (xIndex != hex.xIndex) return false;
+		if (yIndex != hex.yIndex) return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = xIndex;
+		result = 31 * result + yIndex;
+		result = 31 * result + (terrain != null ? terrain.hashCode() : 0);
+		return result;
 	}
 }

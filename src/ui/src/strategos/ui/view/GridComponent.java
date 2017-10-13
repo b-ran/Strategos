@@ -1,7 +1,6 @@
 package strategos.ui.view;
 
-import strategos.MapLocation;
-import strategos.terrain.*;
+import strategos.model.MapLocation;
 import strategos.units.*;
 
 import javax.swing.*;
@@ -22,8 +21,8 @@ public class GridComponent extends JComponent {
     private List<Unit> entities;
     private Draw draw;
     private MapLocation selectedMapLocation;
-    private List<Unit> selectedUnitsInRange = new ArrayList<>();
-    private List<MapLocation> selectedTilesInRange = new ArrayList<>();
+    private List<Unit> unitsInAttackRange = new ArrayList<>();
+    private List<MapLocation> tilesInRange = new ArrayList<>();
 
     /**
      * Instantiates a new Grid component for drawing on.
@@ -98,13 +97,13 @@ public class GridComponent extends JComponent {
     private void paintSelection(Graphics g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
         Point p = new Point();
-        for (MapLocation m : selectedTilesInRange) {
+        for (MapLocation m : tilesInRange) {
             p.x = m.getX();
             p.y = m.getY();
 
             draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_MOVE_COLOR,  SELECTION_STROKE_SIZE, g);
         }
-        for (Unit u : selectedUnitsInRange) {
+        for (Unit u : unitsInAttackRange) {
             MapLocation m = u.getPosition();
             p.x = m.getX();
             p.y = m.getY();
@@ -138,27 +137,28 @@ public class GridComponent extends JComponent {
      */
     public void setTerrain(MapLocation[][] terrain) {
         this.terrain = terrain;
-//        revealMap();
+        //revealMap();
     }
 
 
-    public void setSelection(MapLocation selectedMapLocation, List<Unit> selectedUnitsInRange, List<MapLocation> selectedTilesInRange) {
+    public void setSelection(MapLocation selectedMapLocation, List<Unit> unitsInAttackRange, List<MapLocation> tilesInRange) {
         this.selectedMapLocation = selectedMapLocation;
-        this.selectedUnitsInRange = selectedUnitsInRange;
-        this.selectedTilesInRange = selectedTilesInRange;
+        this.unitsInAttackRange = unitsInAttackRange;
+        this.tilesInRange = tilesInRange;
     }
 
     public void setSelection(MapLocation selectedMapLocation) {
         this.selectedMapLocation = selectedMapLocation;
-        selectedUnitsInRange = new ArrayList<>();
-        selectedTilesInRange = new ArrayList<>();
+        unitsInAttackRange = new ArrayList<>();
+        tilesInRange = new ArrayList<>();
     }
 
-    private void revealMap() {
+    public void revealMap() {
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
                 view.getSeenTerrain().add(terrain[y][x]);
             }
         }
+
     }
 }

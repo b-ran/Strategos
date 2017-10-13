@@ -1,17 +1,11 @@
-package strategos;
+package strategos.model;
 
-import strategos.terrain.Terrain;
+import strategos.Direction;
 import strategos.units.Unit;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public interface GameState extends Observable {
-
-	public void save();
-
-	public void load(SaveInstance toRestore);
+public interface EntityHandler {
 
 	/**
 	 * Finds the Unit (if such a Unit exists) at a given index on the Hex board. If no unit is found at the index, it
@@ -30,9 +24,8 @@ public interface GameState extends Observable {
 	 *
 	 * @param unit the unit to be moved. If this Unit is null, fail the command.
 	 * @param direction the direction to move in, using the Direction enum in the Config file.
-	 * @param amount the magnitude to move by, or the maximum number of action points left.
 	 */
-	public void move(Unit unit, Direction direction, int amount);
+	public void move(Unit unit, Direction direction);
 
 
 	/**
@@ -81,61 +74,6 @@ public interface GameState extends Observable {
 	 */
 	public void entrench(Unit unit);
 
-	/**
-	 * Find all Units within a given number of tiles from a MapLocation.
-	 *
-	 * @param location
-	 * @param range
-	 * @return a List of Units within range.
-	 */
-	public List<Unit> getUnitsInRange(MapLocation location, int range);
-
-	/**
-	 * Find all Units within a attack range of a Unit.
-	 *
-	 * @param unit
-	 * @return a List of Units within attack range.
-	 */
-	public List<Unit> getUnitsInAttackRange(Unit unit);
-
-	/**
-	 * Find all Tiles within a within move range of a Unit.
-	 *
-	 * @param unit
-	 * @return a List of Units within move range.
-	 */
-	public List<MapLocation> getTilesInMoveRange(Unit unit);
-
-	/**
-	 * Packages the GameState's current information into a SaveInstance and returns it.
-	 * The exported SaveInstance contains the World, the Players, and the current Player whose turn it is.
-	 *
-	 * @return a SaveInstance containing the data structures of the GameState.
-	 */
-	public SaveInstance export();
-
-	/**
-	 * Gets the Terrain at a given location. If the MapLocation is not inside the play area, the Terrain is expected to
-	 * 		be a Mountain.
-	 * @param location
-	 * @return the Terrain at location
-	 */
-	public Terrain getTerrainAt(MapLocation location);
-
-	/**
-	 * Find all MapLocations within a given number of tiles from a MapLocation. Includes the MapLocation parameter.
-	 *
-	 * @param location
-	 * @param range
-	 * @return a List of MapLocations within range.
-	 */
-	public List<MapLocation> getTilesInRange(MapLocation location, int range);
-
-	/**
-	 * Resets values and prepares the game for the next player to act.
-	 */
-	public void nextTurn();
-
 	public void setThisInstancePlayer(UnitOwner thisInstancePlayer);
 
 	/**
@@ -147,12 +85,4 @@ public interface GameState extends Observable {
 	public GameCollections getWorld();
 
 	public List<UnitOwner> getPlayers();
-
-	public List<SaveInstance> getSaves();
-
-	/**
-	 * Gets the UnitOwner whose turn it is.
-	 * @return a UnitOwner that is stored in currentTurn
-	 */
-	public UnitOwner getCurrentTurn();
 }

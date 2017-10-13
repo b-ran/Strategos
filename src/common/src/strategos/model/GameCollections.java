@@ -1,9 +1,8 @@
-package strategos;
+package strategos.model;
 
 import strategos.units.Unit;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface GameCollections extends Serializable{

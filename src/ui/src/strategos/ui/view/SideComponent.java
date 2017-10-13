@@ -1,7 +1,7 @@
 package strategos.ui.view;
 
-import strategos.MapLocation;
-import strategos.units.Bridge;
+import strategos.Config;
+import strategos.model.MapLocation;
 import strategos.units.Unit;
 
 import javax.swing.*;
@@ -75,7 +75,6 @@ public class SideComponent extends JComponent {
         if (selectedMapLocation == null) return;
         if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
 
-
         if (selectedUnit != null) {
             draw.drawUnitNonGrid(selectedUnit, SELECTION_LOCATION, g);
             return;
@@ -88,10 +87,23 @@ public class SideComponent extends JComponent {
         if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
 
         g.setColor(Color.BLACK);
-        g.drawString(HEALTH_LABEL_NAME + " " + selectedUnit.getHitpoints(), HEALTH_LABEL_LOCATION.x, HEALTH_LABEL_LOCATION.y);
-        g.drawString(ACTIONPOINT_LABEL_NAME + " " + selectedUnit.getActionPoints(), ACTIONPOINT_LABEL_LOCATION.x, ACTIONPOINT_LABEL_LOCATION.y);
+        g.drawString(HEALTH_LABEL_NAME + " " + Math.max(selectedUnit.getHitpoints(), 0), HEALTH_LABEL_LOCATION.x, HEALTH_LABEL_LOCATION.y);
+        g.drawString(ACTIONPOINT_LABEL_NAME + " " + Math.max(selectedUnit.getActionPoints(), 0), ACTIONPOINT_LABEL_LOCATION.x, ACTIONPOINT_LABEL_LOCATION.y);
         g.drawString(ENTRENCH_LABEL_NAME + " " + selectedUnit.getEntrench(), ENTRENCH_LABEL_LOCATION.x, ENTRENCH_LABEL_LOCATION.y);
         g.drawString(WARY_LABEL_NAME + " " + selectedUnit.getWary(), WARY_LABEL_LOCATION.x, WARY_LABEL_LOCATION.y);
+
+        int toughnessMod  = selectedUnit.getToughness();
+        if (selectedUnit.getWary()) {
+            toughnessMod = (int) ((toughnessMod * Config.WARY_MODIFIER) - selectedUnit.getToughness());
+        } else if (selectedUnit.getEntrench()) {
+            toughnessMod = (int) (( toughnessMod * Config.ENTRENCH_MODIFIER) - selectedUnit.getToughness());
+        }
+
+        g.drawString(STRENGTH_LABEL_NAME + " " + selectedUnit.getStrength(), STRENGTH_LABEL_LOCATION.x, STRENGTH_LABEL_LOCATION.y);
+        g.drawString(TOUGHNESS_LABEL_NAME + " " +
+                         selectedUnit.getToughness() +
+                          ((toughnessMod != selectedUnit.getToughness()) ?" ( + " + toughnessMod + ")" : ""),
+                TOUGHNESS_LABEL_LOCATION.x, TOUGHNESS_LABEL_LOCATION.y);
 
     }
 
@@ -106,6 +118,14 @@ public class SideComponent extends JComponent {
         this.playerText = playerText;
     }
 
+    public void togglePlayerText() {
+        if (playerText.equals(PLAYER_NAME)) {
+            playerText = OTHER_PLAYER_NAME;
+        } else {
+            playerText = PLAYER_NAME;
+        }
+    }
+
     public JButton getNextTurnButton() {
         return nextTurnButton;
     }
@@ -116,5 +136,9 @@ public class SideComponent extends JComponent {
 
     public JButton getEntrenchButton() {
         return entrenchButton;
+    }
+
+    public JButton getAttackButton() {
+        return attackButton;
     }
 }

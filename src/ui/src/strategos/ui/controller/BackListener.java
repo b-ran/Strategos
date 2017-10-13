@@ -3,13 +3,18 @@ package strategos.ui.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BackListener extends Controller implements ActionListener {
-	public BackListener(Controller controller) {
+class BackListener extends Controller implements ActionListener {
+	BackListener(Controller controller) {
 		super(controller);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//view.setMenu();
+		if (view.isEscapeMenu()) {
+			view.setGame();
+		} else {
+			view.setMenu();
+		}
+		view.repaint();
 	}
 }

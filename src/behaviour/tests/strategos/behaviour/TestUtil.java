@@ -2,6 +2,7 @@ package strategos.behaviour;
 
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.*;
 import strategos.units.*;
 
@@ -135,6 +136,11 @@ public class TestUtil {
 
         }
 
+        @Override
+        public GameState newGame() {
+            return null;
+        }
+
         @Override public void save() {
 
         }
@@ -148,7 +154,7 @@ public class TestUtil {
         }
 
         @Override
-        public void move(Unit unit, Direction direction, int amount) {
+        public void move(Unit unit, Direction direction) {
 
         }
 
@@ -232,6 +238,16 @@ public class TestUtil {
 
         @Override public UnitOwner getCurrentTurn() {
             return null;
+        }
+
+        @Override
+        public int getWinner() {
+            return 0;
+        }
+
+        @Override
+        public int getNumberTurns() {
+            return 0;
         }
     };
 }

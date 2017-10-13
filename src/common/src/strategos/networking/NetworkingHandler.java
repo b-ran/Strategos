@@ -1,7 +1,7 @@
 package strategos.networking;
 
-import strategos.GameState;
-import strategos.SaveInstance;
+import strategos.model.GameState;
+import strategos.model.SaveInstance;
 
 /**
  * Handles everything to do with 

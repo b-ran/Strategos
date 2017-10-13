@@ -3,6 +3,9 @@ package strategos.units;
 
 import strategos.*;
 import strategos.behaviour.Behaviour;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 
 import java.io.Serializable;
 

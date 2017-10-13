@@ -1,19 +1,19 @@
 package strategos.ui.controller;
 
 
-import strategos.MapLocation;
-import strategos.units.Unit;
+import strategos.model.MapLocation;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.List;
+
+import static strategos.ui.config.Config.SELECTION_INPUT_BUTTON;
 
 class SelectListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
+    private static MouseEvent lastMoveEvent;
 
     SelectListener(Controller controller) {
         super(controller);
@@ -27,25 +27,11 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
 
     @Override
     public void mousePressed(MouseEvent e) {
+        lastMoveEvent = e;
+        if (e.getButton() != SELECTION_INPUT_BUTTON) return;
         if (!controller.allInput) return;
-
         Point p = getHexPos(e.getX(),e.getY());
         MapLocation selectedMapLocation = board.get(p.x, p.y);
-        /*if (controller.getSelectedUnit() != null) {
-            if (
-                    model.getTilesInMoveRange(controller.getSelectedUnit()).contains(
-                            model.getWorld().getMap().get(selectedMapLocation.getX(), selectedMapLocation.getY())) ||
-                    model.getUnitsInAttackRange(controller.getSelectedUnit()).contains(model.getUnitAt(
-                            model.getWorld().getMap().get(selectedMapLocation.getX(), selectedMapLocation.getY())))) {
-                return;
-            }
-        }*/
-        if (!controller.getSelectionToggle()) {
-            controller.setSelectionToggle(true);
-            view.getGridComponent().setSelection(null); //TODO: review
-            view.repaint();
-            return;
-        }
         controller.setSelectedMapLocation(selectedMapLocation);
         view.repaint();
     }
@@ -64,12 +50,16 @@ class SelectListener extends Controller implements MouseListener, MouseMotionLis
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        if (lastMoveEvent == null) return;
+        if (lastMoveEvent.getButton() != SELECTION_INPUT_BUTTON) return;
         if (!controller.allInput || controller.getSelectedMapLocation() == null) return;
         Point p = getHexPos(e.getX(),e.getY());
         if (controller.getSelectedMapLocation().equals(board.get(p.x, p.y))) {
             return;
         }
+        controller.setSelectionToggle(true);
         controller.setSelectedMapLocation(board.get(p.x, p.y));
+        view.repaint();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package strategos.networking.external_testing;
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
@@ -15,6 +16,11 @@ public class ExternalTestGameState implements GameState {
 	public ExternalTestGameState(GameCollections world, List<UnitOwner> players) {
 		this.world = world;
 		this.players = players;
+	}
+
+	@Override
+	public GameState newGame() {
+		return null;
 	}
 
 	@Override
@@ -40,18 +46,8 @@ public class ExternalTestGameState implements GameState {
 		return null;
 	}
 
-	/**
-	 * Send a move command to the given Unit. Fail the command if the tile is impassable, already contains a Unit, or
-	 * if the Unit does not have enough movement points to satisfy the amount commanded. If the amount is greater
-	 * than the number of points, move the Unit its maximum  number of points. Assume that Units may only move in
-	 * straight lines.
-	 *
-	 * @param unit      the unit to be moved. If this Unit is null, fail the command.
-	 * @param direction the direction to move in, using the Direction enum in the Config file.
-	 * @param amount    the magnitude to move by, or the maximum number of action points left.
-	 */
 	@Override
-	public void move(Unit unit, Direction direction, int amount) {
+	public void move(Unit unit, Direction direction) {
 
 	}
 
@@ -226,6 +222,16 @@ public class ExternalTestGameState implements GameState {
 	@Override
 	public UnitOwner getCurrentTurn() {
 		return null;
+	}
+
+	@Override
+	public int getWinner() {
+		return 0;
+	}
+
+	@Override
+	public int getNumberTurns() {
+		return 0;
 	}
 
 	@Override

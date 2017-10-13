@@ -14,7 +14,7 @@ public class GenerationConfig {
      * Max 100
      * Min 1
      */
-    public static int FOREST_FREQ = 60;
+    public static int FOREST_FREQ = 80;
 
     /**
      * Changes the average elevation of the map

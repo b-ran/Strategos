@@ -3,8 +3,8 @@ package strategos.networking;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import strategos.GameState;
-import strategos.SaveInstance;
+import strategos.model.GameState;
+import strategos.model.SaveInstance;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 
 import static org.junit.Assert.assertEquals;

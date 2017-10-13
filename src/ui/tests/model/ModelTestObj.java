@@ -1,12 +1,12 @@
 package model;
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Observer;
 
 public class ModelTestObj implements GameState {
@@ -14,6 +14,11 @@ public class ModelTestObj implements GameState {
     private  ArrayList<UnitOwner> unitOwners = new ArrayList<>();
     private  ArrayList<Unit> attackRange = new ArrayList<>();
     private  ArrayList<MapLocation> moveRange = new ArrayList<>();
+
+    @Override
+    public GameState newGame() {
+        return null;
+    }
 
     @Override
     public void save() {
@@ -45,7 +50,7 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
-    public void move(Unit unit, Direction direction, int amount) {
+    public void move(Unit unit, Direction direction) {
 
     }
 
@@ -137,6 +142,16 @@ public class ModelTestObj implements GameState {
     @Override
     public UnitOwner getCurrentTurn() {
         return null;
+    }
+
+    @Override
+    public int getWinner() {
+        return 0;
+    }
+
+    @Override
+    public int getNumberTurns() {
+        return 0;
     }
 
 
