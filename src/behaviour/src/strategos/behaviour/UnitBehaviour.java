@@ -178,16 +178,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
         Terrain terrain = getGameState().getTerrainAt(unit.getPosition());
 
         if (terrain instanceof Plains) {
-            return damage;
+            return attacking ? (int) (damage * Config.PLAINS_STRENGTH_BONUS) : (int) (damage * Config.PLAINS_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof Forest) {
-            return attacking ? (int) (damage * 0.85) : (int) (damage * 1.15);
+            return attacking ? (int) (damage * Config.FOREST_STRENGTH_BONUS) : (int) (damage * Config.FOREST_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof Hill) {
-            return attacking ? (int) (damage * 1.1) : (int) (damage * 1.25);
+            return attacking ? (int) (damage * Config.HILL_STRENGTH_BONUS) : (int) (damage * Config.HILL_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof River) {
-            return attacking ? (int) (damage * 0.9) : damage;
+            return attacking ? (int) (damage * Config.RIVER_STRENGTH_BONUS) : (int) (damage * Config.RIVER_TOUGHNESS_BONUS);
         }
         else {
             throw new RuleViolationException("Unit must be on valid Terrain");
@@ -262,16 +262,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     private int terrainMovementCost(Terrain terrain) {
         if (terrain instanceof Plains) {
-            return 1;
+            return Config.PLAINS_MOVEMENT_COST;
         }
         else if (terrain instanceof Forest) {
-            return 2;
+            return Config.FOREST_MOVEMENT_COST;
         }
         else if (terrain instanceof Hill) {
-            return 2;
+            return Config.HILL_MOVEMENT_COST;
         }
         else if (terrain instanceof River) {
-            return 2;
+            return Config.RIVER_MOVEMENT_COST;
         }
         else {
             throw new RuleViolationException("Unit must be on valid Terrain");

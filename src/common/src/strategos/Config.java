@@ -44,4 +44,21 @@ public class Config {
     public static final int MELEE_RANGE = 1;
     public static final int ARCHER_RANGE = 2;
     public static final int CASTLE_RANGE = 2;
+
+    public static final int PLAINS_MOVEMENT_COST = 1;
+    public static final int FOREST_MOVEMENT_COST = 2;
+    public static final int HILL_MOVEMENT_COST = 2;
+    public static final int RIVER_MOVEMENT_COST = 0;
+
+    public static final double FOREST_STRENGTH_BONUS = 0.85;
+    public static final double FOREST_TOUGHNESS_BONUS = 1.15;
+
+    public static final double HILL_STRENGTH_BONUS = 1.1;
+    public static final double HILL_TOUGHNESS_BONUS = 1.25;
+
+    public static final double PLAINS_STRENGTH_BONUS = 1.0;
+    public static final double PLAINS_TOUGHNESS_BONUS = 1.0;
+
+    public static final double RIVER_TOUGHNESS_BONUS = 1.0;
+    public static final double RIVER_STRENGTH_BONUS = 1.0;
 }
