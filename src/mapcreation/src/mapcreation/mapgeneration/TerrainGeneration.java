@@ -1,9 +1,9 @@
 package mapcreation.mapgeneration;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import mapcreation.mapgeneration.terrain.*;
 import mapcreation.noisegeneration.NoiseGenerator;
 import strategos.Paintable;
-import strategos.mapGenerator.GenerationConfig;
 import strategos.mapGenerator.Generator;
 import strategos.terrain.Terrain;
 
@@ -22,7 +22,7 @@ public class TerrainGeneration implements Generator {
     /**
      * Change the resolution if sampling areas to produce map instead of individual pixels(wont be used in this version)
      */
-    private int xRes = 1, yRes = 1;
+    private int xRes = X_RES, yRes = Y_RES;
 
     //Following vars will eventually be pulled from settings that the user can change(set statically for now)
 
@@ -33,7 +33,7 @@ public class TerrainGeneration implements Generator {
 
     /**
      * Changes the average elevation of the map
-     * Higher value = falter map(more plains less mountains)
+     * Lower value = falter map(more plains less mountains)
      * Max 100
      * Min 1
      */
@@ -41,11 +41,11 @@ public class TerrainGeneration implements Generator {
 
     /**
      * Changes the average forest content of the map
-     * Higher value = less forest on the map
-     * Max 100
-     * Min 1
+     * Higher value = more forest on the map
+     * Max 1.0
+     * Min 0.0
      */
-    private int forestFreq = GenerationConfig.FOREST_FREQ;
+    private double forestFreq = FOREST_FREQ;
 
 
     /**
@@ -104,16 +104,16 @@ public class TerrainGeneration implements Generator {
         //Calls the noise generation class to produce a field of noise
         NoiseGenerator generatedNoise = new NoiseGenerator(octaves, seed);
         //Create a topology map to fill
-        double[][] mapTopology = new double[width * xRes][height * yRes];
+        double[][] mapTopology = new double[width][height];
         double noise;
         //Fill mapTopology with noise values
-        for (int x = 0; x < mapTopology.length; x++) {
-            for (int y = 0; y < mapTopology[0].length; y++) {
+        for (int x = 0; x < mapTopology.length * xRes; x += xRes) {
+            for (int y = 0; y < mapTopology[0].length * yRes; y += yRes) {
                 noise = generatedNoise.getNoise(x, y);
                 noise = (noise + 10) / 20;
                 //Shifts the values of map
                 noise = (noise / 100) * mapAltitude;
-                mapTopology[x][y] = noise;
+                mapTopology[x / xRes][y / yRes] = noise;
             }
         }
         return mapTopology;
@@ -148,12 +148,11 @@ public class TerrainGeneration implements Generator {
                 noise = generatedNoise.getNoise(x, y);
                 //noise values are ~ between -10 and 10 but need to be scaled to between ~ 0 and 1 for drawing an image to work in testing
                 noise = (noise + 10) / 20;
-                //Shifts the values of map
-                noise = (noise / 100) * forestFreq;
-                forestMap[x][y] = noise >= 0.5;
+                forestMap[x][y] = noise <= forestFreq;
             }
         }
         return forestMap;
+
     }
 
     /**
@@ -161,7 +160,7 @@ public class TerrainGeneration implements Generator {
      *
      * @return fillForest()
      */
-    public boolean[][] testFillForest(int width, int height, int seed, int forested) {
+    public boolean[][] testFillForest(int width, int height, int seed, double forested) {
         this.forestFreq = forested;
         return fillForest(width, height, seed);
     }
@@ -196,13 +195,18 @@ public class TerrainGeneration implements Generator {
      * @return TerrainTile specific to that hex
      */
     private Terrain getTerrain(double value, boolean forest) {
-        if (value < plainsFreq) {
+
+        if (value < PLAINS_FREQ) {
             return forest ? new ForestTile() : new PlainsTile();
-        } else if (value < hillFreq) {
+        } else if (value < HILL_FREQ) {
             return new HillTile();
-        } else {
+        } else if (value < MOUNTAIN_FREQ) {
             return new MountainTile();
         }
+        if (value > 1 || value < 0) {
+            System.out.println(value);
+        }
+        return new PlainsTile();
     }
 
     /**
