@@ -2,7 +2,6 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.*;
 import strategos.exception.*;
 import strategos.model.GameState;
 import strategos.model.MapLocation;
@@ -38,7 +37,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     UnitBehaviour(GameState gameState) {
         super(gameState);
 
-        hitpoints = BehaviourConfig.UNIT_HITPOINTS;
+        hitpoints = Config.UNIT_HITPOINTS;
         actionPoints = 0;
 
         wary = false;
@@ -72,8 +71,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
             wary = false;
             logger.info(String.format("%s: left wary state", this.getClass()));
         }
-        else if (actionPoints >= BehaviourConfig.WARY_COST) {
-            actionPoints -= BehaviourConfig.WARY_COST;
+        else if (actionPoints >= Config.WARY_COST) {
+            actionPoints -= Config.WARY_COST;
             wary = true;
             if (entrench) {
                 entrench = false;
@@ -95,8 +94,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
             entrench = false;
             logger.info(String.format("%s: left entrench state", this.getClass()));
         }
-        else if (actionPoints >= BehaviourConfig.WARY_COST) {
-            actionPoints -= BehaviourConfig.WARY_COST;
+        else if (actionPoints >= Config.ENTRENCH_COST) {
+            actionPoints -= Config.ENTRENCH_COST;
             entrench = true;
             if (wary) {
                 wary = false;
@@ -151,8 +150,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
 
         int defence = enemy.getToughness();
-        defence += enemy.getWary() ? 1 : 0;
-        defence += enemy.getEntrench() ? 2 : 0;
+        defence += enemy.getWary() ? Config.WARY_MODIFIER : 0;
+        defence += enemy.getEntrench() ? Config.ENTRENCH_MODIFIER : 0;
         defence *= 0.8 + (enemy.getHitpoints() / 500.0);
         defence = terrainDamageBonus(enemy, defence, false);
 
@@ -163,7 +162,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
         if (enemy instanceof HealthPotion) {
             logger.info(String.format("%s: use health potion", this.getClass()));
-            hitpoints = BehaviourConfig.UNIT_HITPOINTS;
+            hitpoints = Config.UNIT_HITPOINTS;
         }
 
         return 0;
@@ -227,7 +226,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     @Override
     public int getAttackRange() {
-        return BehaviourConfig.MELEE_RANGE;
+        return Config.MELEE_RANGE;
     }
 
     @Override
@@ -276,7 +275,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     int getMaxActionPoints() {
-        return BehaviourConfig.INFANTRY_ACTION_POINTS;
+        return Config.INFANTRY_ACTION_POINTS;
     }
 
     void setActionPoints(int actionPoints) {

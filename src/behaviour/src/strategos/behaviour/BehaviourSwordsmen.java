@@ -1,7 +1,7 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.config.*;
+import strategos.Config;
 import strategos.model.GameState;
 import strategos.units.*;
 
@@ -19,11 +19,11 @@ class BehaviourSwordsmen extends UnitBehaviour {
     }
 
     @Override public int getStrength(Unit unit) {
-        return BehaviourConfig.SWORDSMEN_STRENGTH;
+        return Config.SWORDSMEN_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return BehaviourConfig.SWORDSMEN_TOUGHNESS;
+        return Config.SWORDSMEN_TOUGHNESS;
     }
 
     @Override public Behaviour copy(GameState newState) {
