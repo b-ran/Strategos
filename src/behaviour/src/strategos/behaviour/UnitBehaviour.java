@@ -153,6 +153,13 @@ abstract class UnitBehaviour extends BaseBehaviour {
             return 0;
         }
 
+        if (getActionPoints(unit) < 1) {
+            logger.info(String.format("%s: not enough action points for attack", this.getClass()));
+            return 0;
+        }
+
+        actionPoints -= 1;
+
         int defence = enemy.getToughness();
         defence += enemy.getWary() ? Config.WARY_MODIFIER : 0;
         defence += enemy.getEntrench() ? Config.ENTRENCH_MODIFIER : 0;
