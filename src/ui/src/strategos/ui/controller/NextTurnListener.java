@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
+
 class NextTurnListener extends Controller implements ActionListener {
 
     private Controller controller;
