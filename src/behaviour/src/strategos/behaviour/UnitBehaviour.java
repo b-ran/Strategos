@@ -210,7 +210,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int getHitpoints(Unit unit) {
-        return hitpoints;
+        return hitpoints > 0 ? hitpoints : 0;
     }
 
     @Override public boolean isAlive(Unit unit) {
@@ -222,7 +222,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int getActionPoints(Unit unit) {
-        return isAlive(unit) ? actionPoints : 0;
+        return isAlive(unit) && actionPoints > 0 ? actionPoints : 0;
     }
 
     @Override
