@@ -41,5 +41,6 @@ class NextTurnListener extends Controller implements ActionListener {
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
+        view.getSideComponent().setPlayerText(OTHER_PLAYER_NAME);
     }
 }

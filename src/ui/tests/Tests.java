@@ -63,6 +63,7 @@ public class Tests extends JComponent {
         setText("You should be able to see a menu");
         ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
+        ui.revealMap();
         waitToClose();
     }
 
@@ -76,6 +77,7 @@ public class Tests extends JComponent {
         ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
+        ui.revealMap();
         waitToClose();
     }
 
@@ -263,6 +265,7 @@ public class Tests extends JComponent {
         setText("Should able to game view with a of grid hexgons and 4 units");
         ui = new Ui(setupModel(entities,terrain));
         ui.skipMenu();
+        ui.revealMap();
 
         waitToClose();
     }
@@ -325,6 +328,7 @@ public class Tests extends JComponent {
 
         ui.disableInput();
         ui.skipMenu();
+        ui.revealMap();
         waitToClose();
     }
 
@@ -337,6 +341,7 @@ public class Tests extends JComponent {
         ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
+        ui.revealMap();
         waitToClose();
     }
 
@@ -377,6 +382,7 @@ public class Tests extends JComponent {
         ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
+        ui.revealMap();
         waitToClose();
     }
 
@@ -393,6 +399,7 @@ public class Tests extends JComponent {
         ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
+        ui.revealMap();
         waitToClose();
     }
 
@@ -408,6 +415,7 @@ public class Tests extends JComponent {
         ui = new Ui(setupModel(entities,terrain));
         ui.disableInput();
         ui.skipMenu();
+        ui.revealMap();
         waitToClose();
     }
 
