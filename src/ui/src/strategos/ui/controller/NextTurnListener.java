@@ -33,9 +33,6 @@ class NextTurnListener extends Controller implements ActionListener {
         controller.setSelectedMapLocation(null);
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null);
-        for (int i = 0; i < model.getPlayers().get(2).getUnits().size(); i++) {
-            model.getPlayers().get(2).getUnits().get(i).turnTick();
-        }
         view.repaint();
         SaveInstance exported = model.export();
         try {
