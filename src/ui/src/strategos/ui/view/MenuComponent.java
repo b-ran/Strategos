@@ -66,6 +66,7 @@ public class MenuComponent extends JComponent {
         p.add(howToPlayButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
+        p.setOpaque(false);
         return p;
     }
 
