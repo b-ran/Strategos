@@ -14,7 +14,7 @@ import java.util.List;
  * 		top-left and bottom-right corners. This Map uses flat-topped hexagons, and calculates neighbours based on
  * 		axial coordinates.
  * 
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  *
  */
 public class Map implements GameBoard {

@@ -6,6 +6,10 @@ import strategos.units.Unit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
+ */
 public class HostListener extends Controller implements ActionListener {
 
     private NetworkingHandler networkingHandler;
@@ -27,7 +31,6 @@ public class HostListener extends Controller implements ActionListener {
                 e1.printStackTrace();
             }
             while (!networkingHandler.isConnected()) {
-            	//TODO Show waiting for connection
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e1) {

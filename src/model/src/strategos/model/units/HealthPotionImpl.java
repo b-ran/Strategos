@@ -11,7 +11,7 @@ import strategos.units.Unit;
 /**
  * An implementation of the Health Potion Unit.
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class HealthPotionImpl extends UnitImpl implements HealthPotion {
 	public HealthPotionImpl(UnitOwner owner, MapLocation startLocation) {

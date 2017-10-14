@@ -6,6 +6,9 @@ import static strategos.ui.config.Config.*;
 
 /**
  * The type Menu component.
+ *
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
  */
 public class MenuComponent extends JComponent {
 

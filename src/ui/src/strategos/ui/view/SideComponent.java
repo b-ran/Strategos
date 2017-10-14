@@ -11,6 +11,10 @@ import static strategos.ui.config.Config.*;
 
 /**
  * The type Side component.
+ *
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
+ *
  */
 public class SideComponent extends JComponent {
 

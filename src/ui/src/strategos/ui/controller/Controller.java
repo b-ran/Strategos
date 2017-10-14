@@ -18,6 +18,9 @@ import static strategos.ui.config.Config.HEX_SIZE;
 
 /**
  * The type Controller.
+ *
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
  */
 public class Controller {
 

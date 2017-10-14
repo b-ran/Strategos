@@ -11,7 +11,7 @@ import strategos.units.Unit;
 /**
  * An implementation of the Cavalry Unit.
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class CavalryImpl extends UnitImpl implements Cavalry, GameObject {
 
