@@ -136,6 +136,10 @@ public class TestUtil {
 
         }
 
+        @Override
+        public void newGame() {
+        }
+
         @Override public void save() {
 
         }
