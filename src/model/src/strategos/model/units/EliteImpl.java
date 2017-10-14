@@ -11,8 +11,9 @@ import strategos.units.Unit;
 import java.awt.*;
 
 /**
- * Created as part of Strategos project
- * 30/07/2017.
+ * An implementation of the Elites Unit.
+ *
+ * @author Daniel Pinfold
  */
 public class EliteImpl extends UnitImpl implements Elite, GameObject {
 	private static final Image sprite = null;

@@ -18,6 +18,11 @@ import static strategos.Config.*;
 import static strategos.Config.NUM_CAVALRY;
 import static strategos.Config.NUM_ELITES;
 
+/**
+ * An implementation of the GameStateFactory, which creates new GameStates when called.
+ *
+ * @author Daniel Pinfold
+ */
 public class StateCreator implements GameStateFactory {
 
 	private final BehaviourFactory factory;
