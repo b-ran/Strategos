@@ -16,13 +16,12 @@ class NewGameListener extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        model.setThisInstancePlayer(model.getPlayers().get(0));
-        if (!controller.allInput) return;
-        for (Unit u : model.getPlayers().get(0).getUnits()) {
-            u.turnTick();
-        }
+        model.newGame();
+
+        model.notifyObservers(null);
+
+        view.removeEscapeMenu();
+        controller.menuToggle();
         view.setGame();
-        view.getGridComponent().setEntities(model.getWorld().getAllUnits());
-        view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
     }
 }
