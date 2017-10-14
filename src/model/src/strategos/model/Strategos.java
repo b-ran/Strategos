@@ -325,8 +325,38 @@ public class Strategos implements GameState {
 		turnIndex = (turnIndex + 1) % players.size();
 		turn = players.get(turnIndex);
 		if (turnIndex == 2) {
+
+			if (turns >= 36) {
+				double unitType = Math.random() * 5;
+				MapLocation location = randomiseLocation(world.getMap().get(0, 10));
+				if (location != null) {
+					Unit newBarbarian = stateCreator.spawnBarbarian(unitType, this, location);
+					currentTurnPlayer.addUnit(newBarbarian);
+					world.getAllUnits().add(newBarbarian);
+				}
+				location = randomiseLocation(world.getMap().get(14, 6));
+				if (location != null) {
+					Unit newBarbarian = stateCreator.spawnBarbarian(unitType, this, location);
+					currentTurnPlayer.addUnit(newBarbarian);
+					world.getAllUnits().add(newBarbarian);
+				}
+			}
+
 			nextTurn();
 		}
+	}
+
+	private MapLocation randomiseLocation(MapLocation source) {
+		MapLocation location = source;
+		int tries = 0;
+		while (!source.isInPlayArea() || getUnitAt(source) != null) {
+			if (tries >= 3) {
+				return null;
+			}
+			location = world.getMap().get(source.getX() + (int) (Math.random() * 3), source.getY() + (int) (Math.random() * 3));
+			tries++;
+		}
+		return location;
 	}
 
 	@Override
