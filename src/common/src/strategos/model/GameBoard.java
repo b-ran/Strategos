@@ -6,13 +6,13 @@ import java.io.Serializable;
 
 public interface GameBoard extends Serializable {
 
-	public MapLocation[][] getData();
+	MapLocation[][] getData();
 
-	public MapLocation get(int x, int y);
+	MapLocation get(int x, int y);
 
-	public void set(int x, int y, MapLocation location);
+	void set(int x, int y, MapLocation location);
 
-	public int getDiameter();
+	int getDiameter();
 
-	public Terrain getTerrainAt(MapLocation location);
+	Terrain getTerrainAt(MapLocation location);
 }

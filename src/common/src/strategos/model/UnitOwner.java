@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UnitOwner extends Serializable {
 
-	public List<Unit> getUnits();
+	List<Unit> getUnits();
 
 	void addUnit(Unit newUnit);
 
@@ -15,11 +15,11 @@ public interface UnitOwner extends Serializable {
 
 	void removeUnit(Unit toRemove);
 
-	public List<MapLocation> getVisibleTiles();
+	List<MapLocation> getVisibleTiles();
 
-	public boolean isNPC();
+	boolean isNPC();
 
-	public void setUnits(List<Unit> newUnits);
+	void setUnits(List<Unit> newUnits);
 
-	public UnitOwner copy(GameState newState);
+	UnitOwner copy(GameState newState);
 }

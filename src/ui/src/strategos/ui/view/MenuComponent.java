@@ -60,8 +60,8 @@ public class MenuComponent extends JComponent {
         p.add(saveButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(loadButton);
-      /*   p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
-         p.add(newGameButton);*/
+         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
+         p.add(newGameButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(howToPlayButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));

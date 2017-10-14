@@ -16,8 +16,7 @@ public class ModelTestObj implements GameState {
     private  ArrayList<MapLocation> moveRange = new ArrayList<>();
 
     @Override
-    public GameState newGame() {
-        return null;
+    public void newGame() {
     }
 
     @Override

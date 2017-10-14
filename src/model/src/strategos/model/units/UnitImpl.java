@@ -7,6 +7,12 @@ import strategos.model.MapLocation;
 import strategos.model.UnitOwner;
 import strategos.units.Unit;
 
+/**
+ * An implementation of the Unit. Contains functions that are delegated to the Behaviour object stored in it,
+ * 		which dictates how the unit acts.
+ *
+ * @author Daniel Pinfold
+ */
 public class UnitImpl implements Unit, GameObject {
 
 	private Behaviour behaviour;

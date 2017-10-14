@@ -9,8 +9,9 @@ import strategos.units.Archers;
 import strategos.units.Unit;
 
 /**
- * Created as part of Strategos project
- * 30/07/2017.
+ * An implementation of the Archer Unit.
+ *
+ * @author Daniel Pinfold
  */
 public class ArchersImpl extends UnitImpl implements Archers, GameObject {
 

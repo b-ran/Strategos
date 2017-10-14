@@ -17,8 +17,7 @@ public class TestGameState implements GameState {
 	private boolean changed = false;
 
 	@Override
-	public GameState newGame() {
-		return null;
+	public void newGame() {
 	}
 
 	@Override

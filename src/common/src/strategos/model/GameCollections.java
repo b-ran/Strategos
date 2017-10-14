@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface GameCollections extends Serializable{
 
-	public GameBoard getMap();
+	GameBoard getMap();
 
-	public List<Unit> getAllUnits();
+	List<Unit> getAllUnits();
 
-	public void setMap(GameBoard map);
+	void setMap(GameBoard map);
 
-	public void setAllUnits(List<Unit> allUnits);
+	void setAllUnits(List<Unit> allUnits);
 }
