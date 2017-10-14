@@ -5,10 +5,10 @@ import java.io.Serializable;
 
 public interface SaveInstance extends Serializable {
 
-	public GameCollections getWorld();
+	GameCollections getWorld();
 
-	public List<UnitOwner> getPlayers();
+	List<UnitOwner> getPlayers();
 
-	public UnitOwner getTurn();
+	UnitOwner getTurn();
 
 }

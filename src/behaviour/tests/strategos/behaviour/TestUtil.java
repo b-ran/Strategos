@@ -137,8 +137,7 @@ public class TestUtil {
         }
 
         @Override
-        public GameState newGame() {
-            return null;
+        public void newGame() {
         }
 
         @Override public void save() {

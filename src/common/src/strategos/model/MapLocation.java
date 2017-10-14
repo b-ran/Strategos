@@ -21,15 +21,15 @@ public interface MapLocation extends Paintable, Serializable{
      */
     MapLocation getNeighbour(Direction direction);
 
-    public void addNeighbour(Direction direction, MapLocation location);
+    void addNeighbour(Direction direction, MapLocation location);
 
     /**
      * Check if a given MapLocation can be moved into or selected.
      *
      * @return true if the MapLocation is in the play area, false, otherwise
      */
-    public boolean isInPlayArea();
+    boolean isInPlayArea();
 
-    public Map<Direction, MapLocation> getNeighbours();
+    Map<Direction, MapLocation> getNeighbours();
 
 }

@@ -1,8 +1,10 @@
 package strategos.model;
 
-import strategos.Paintable;
-
 public interface GameStateFactory {
 
+	/**
+	 * Constructs a new GameState, repopulating it with units and barbarians
+	 * @return
+	 */
 	GameState createNewState();
 }

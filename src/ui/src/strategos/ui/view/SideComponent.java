@@ -94,15 +94,15 @@ public class SideComponent extends JComponent {
 
         int toughnessMod  = selectedUnit.getToughness();
         if (selectedUnit.getWary()) {
-            toughnessMod = (int) ((toughnessMod * Config.WARY_MODIFIER) - selectedUnit.getToughness());
+            toughnessMod = (toughnessMod + Config.WARY_MODIFIER) - selectedUnit.getToughness();
         } else if (selectedUnit.getEntrench()) {
-            toughnessMod = (int) (( toughnessMod * Config.ENTRENCH_MODIFIER) - selectedUnit.getToughness());
+            toughnessMod = (toughnessMod + Config.ENTRENCH_MODIFIER) - selectedUnit.getToughness();
         }
 
         g.drawString(STRENGTH_LABEL_NAME + " " + selectedUnit.getStrength(), STRENGTH_LABEL_LOCATION.x, STRENGTH_LABEL_LOCATION.y);
         g.drawString(TOUGHNESS_LABEL_NAME + " " +
                          selectedUnit.getToughness() +
-                          ((toughnessMod != selectedUnit.getToughness()) ?" ( + " + toughnessMod + ")" : ""),
+                          ((toughnessMod != selectedUnit.getToughness()) ? " ( + " + toughnessMod + ")" : ""),
                 TOUGHNESS_LABEL_LOCATION.x, TOUGHNESS_LABEL_LOCATION.y);
 
     }
