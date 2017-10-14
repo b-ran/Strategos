@@ -2,6 +2,7 @@ package strategos.model;
 
 import strategos.*;
 import strategos.model.units.BridgeImpl;
+import strategos.model.units.StateCreator;
 import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
@@ -22,10 +23,12 @@ public class Strategos implements GameState {
 	private UnitOwner thisInstancePlayer;
 	private boolean synced = false;
 
+	private StateCreator stateCreator;
+
 	private List<SaveInstance> saves = new ArrayList<>();
 	private int turns;
 
-	public Strategos(World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
+	public Strategos(StateCreator stateCreator, World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
 		this.world = world;
 		players.add(playerOne);
 		players.add(playerTwo);
@@ -399,8 +402,8 @@ public class Strategos implements GameState {
 
 	@Override
 	public int getWinner() {
-		for (int i = 0; i < 3; i++) {
-			if (players.get(i).getUnits().isEmpty()) {
+		for (int i = 1; i < 3; i++) {
+			if (players.get(i-1).getUnits().isEmpty()) {
 				return i;
 			}
 		}

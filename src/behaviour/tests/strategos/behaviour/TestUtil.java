@@ -243,6 +243,11 @@ public class TestUtil {
         public int getWinner() {
             return 0;
         }
+
+        @Override
+        public int getNumberTurns() {
+            return 0;
+        }
     };
 }
 }

@@ -1,5 +1,6 @@
 package strategos.ui.controller;
 
+import strategos.model.SaveInstance;
 import strategos.units.Unit;
 
 import java.awt.event.ActionEvent;

@@ -137,6 +137,11 @@ public class TestGameState implements GameState {
 	}
 
 	@Override
+	public int getNumberTurns() {
+		return 0;
+	}
+
+	@Override
 	public void addObserver(Observer o) {
 
 	}

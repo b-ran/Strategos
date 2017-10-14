@@ -148,6 +148,11 @@ public class ModelTestObj implements GameState {
         return 0;
     }
 
+    @Override
+    public int getNumberTurns() {
+        return 0;
+    }
+
 
     public void setWorld(GameCollections gameCollections) {
         this.gameCollections = gameCollections;
