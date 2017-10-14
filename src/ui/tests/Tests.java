@@ -18,7 +18,6 @@ public class Tests extends JComponent {
     private String text = "";
     private Ui ui;
 
-    private int screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
     private int screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
 
     public Tests() {
@@ -27,7 +26,6 @@ public class Tests extends JComponent {
         frame.setPreferredSize(new Dimension(800,200));
         frame.setLocation(0, screenHeight -300);
         frame.pack();
-
         frame.setVisible(true);
     }
 
