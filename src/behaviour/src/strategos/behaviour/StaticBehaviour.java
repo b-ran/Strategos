@@ -17,7 +17,7 @@ abstract class StaticBehaviour extends BaseBehaviour {
     StaticBehaviour(GameState gameState, int hitpoints) {
         super(gameState);
 
-        hitpointsMax = hitpoints;
+        this.hitpointsMax = hitpoints;
         this.hitpoints = hitpoints;
     }
 
@@ -67,7 +67,7 @@ abstract class StaticBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }
 
-        hitpoints -= enemy.getStrength();
+        this.hitpoints -= enemy.getStrength();
 
         return 0;
     }
@@ -81,11 +81,11 @@ abstract class StaticBehaviour extends BaseBehaviour {
     }
 
     @Override public int getHitpoints(Unit unit) {
-        return Math.max(hitpoints * (100 / hitpointsMax), 0);
+        return Math.max(this.hitpoints * (100 / this.hitpointsMax), 0);
     }
 
     @Override public boolean isAlive(Unit unit) {
-        return hitpoints > 0;
+        return this.hitpoints > 0;
     }
 
     @Override public int getSightRadius(Unit unit) {
@@ -102,8 +102,8 @@ abstract class StaticBehaviour extends BaseBehaviour {
 
     @Override public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + hitpointsMax;
-        result = 31 * result + hitpoints;
+        result = 31 * result + this.hitpointsMax;
+        result = 31 * result + this.hitpoints;
         return result;
     }
 
@@ -114,12 +114,12 @@ abstract class StaticBehaviour extends BaseBehaviour {
 
         StaticBehaviour that = (StaticBehaviour) o;
 
-        if (hitpointsMax != that.hitpointsMax) return false;
-        return hitpoints == that.hitpoints;
+        if (this.hitpointsMax != that.hitpointsMax) return false;
+        return this.hitpoints == that.hitpoints;
     }
 
     @Override public String toString() {
-        return "StaticBehaviour{" + "hitpointsMax=" + hitpointsMax + ", hitpoints=" + hitpoints + "} " +
+        return "StaticBehaviour{" + "hitpointsMax=" + this.hitpointsMax + ", hitpoints=" + this.hitpoints + "} " +
                super.toString();
     }
 }

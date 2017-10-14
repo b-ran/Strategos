@@ -34,13 +34,13 @@ abstract class BaseBehaviour implements Behaviour {
             throw new NullPointerException("BaseBehaviour constructor requires non-null behaviour");
         }
 
-        gameState = newState;
-        position = behaviour.position;
+        this.gameState = newState;
+        this.position = behaviour.position;
     }
 
     @Override public MapLocation getPosition(Unit unit) {
-        assert position != null : "Method getPosition() shouldn't be returning null";
-        return position;
+        assert this.position != null : "Method getPosition() shouldn't be returning null";
+        return this.position;
     }
 
     @Override public void setPosition(Unit unit, MapLocation position) {
@@ -51,8 +51,8 @@ abstract class BaseBehaviour implements Behaviour {
     }
 
     @Override public int hashCode() {
-        int result = gameState.hashCode();
-        result = 31 * result + (position != null ? position.hashCode() : 0);
+        int result = this.gameState.hashCode();
+        result = 31 * result + (this.position != null ? this.position.hashCode() : 0);
         return result;
     }
 
@@ -62,15 +62,15 @@ abstract class BaseBehaviour implements Behaviour {
 
         BaseBehaviour that = (BaseBehaviour) o;
 
-        if (!gameState.equals(that.gameState)) return false;
-        return position != null ? position.equals(that.position) : that.position == null;
+        if (!this.gameState.equals(that.gameState)) return false;
+        return this.position != null ? this.position.equals(that.position) : that.position == null;
     }
 
     @Override public String toString() {
-        return "BaseBehaviour{" + "position=" + position + '}';
+        return "BaseBehaviour{" + "position=" + this.position + '}';
     }
 
     final GameState getGameState() {
-        return gameState;
+        return this.gameState;
     }
 }

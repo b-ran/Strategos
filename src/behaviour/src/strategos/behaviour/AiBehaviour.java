@@ -34,29 +34,28 @@ class AiBehaviour extends BaseBehaviour {
         }
 
         this.behaviour = factoryMethod.apply(gameState);
-        logger.fine(String.format("AI behaviour created inner behaviour %s", behaviour.getClass()));
+        logger.fine(String.format("AI behaviour created inner behaviour %s", this.behaviour.getClass()));
 
         if (this.behaviour == null) {
             throw new NullPointerException("Behaviour factory method should not return null");
         }
 
-        directionIndex = random.nextInt(Direction.values().length);
+        this.directionIndex = random.nextInt(Direction.values().length);
         logger.fine(String.format(
-                "%s AI selected direction %s",
-                behaviour.getClass(),
-                Direction.values()[directionIndex]
+                "%s AI selected direction %s", this.behaviour.getClass(),
+                Direction.values()[this.directionIndex]
         ));
     }
 
     private AiBehaviour(AiBehaviour aiBehaviour, GameState newState) {
         super(aiBehaviour, newState);
 
-        behaviour = aiBehaviour.behaviour.copy(newState);
-        directionIndex = aiBehaviour.directionIndex;
+        this.behaviour = aiBehaviour.behaviour.copy(newState);
+        this.directionIndex = aiBehaviour.directionIndex;
     }
 
     @Override public void turnTick(Unit unit) {
-        behaviour.turnTick(unit);
+        this.behaviour.turnTick(unit);
 
         Optional<Unit> nearest = getNearestUnit(unit);
 
@@ -99,14 +98,14 @@ class AiBehaviour extends BaseBehaviour {
 
     private void explore(Unit unit) {
         Direction[] values = Direction.values();
-        directionIndex = (values.length + directionIndex + random.nextInt(2) - 1) % values.length;
-        Direction direction = values[directionIndex];
-        logger.fine(String.format("%s AI selected direction %s", behaviour.getClass(), direction));
+        this.directionIndex = (values.length + this.directionIndex + random.nextInt(2) - 1) % values.length;
+        Direction direction = values[this.directionIndex];
+        logger.fine(String.format("%s AI selected direction %s", this.behaviour.getClass(), direction));
         getGameState().move(unit, direction);
     }
 
     @Override public MapLocation getPosition(Unit unit) {
-        MapLocation position = behaviour.getPosition(unit);
+        MapLocation position = this.behaviour.getPosition(unit);
         assert position != null : "Method getPosition() shouldn't be returning null";
         return position;
     }
@@ -153,13 +152,13 @@ class AiBehaviour extends BaseBehaviour {
         if (position == null) {
             throw new NullPointerException("Method setPosition() requires non-null position");
         }
-        behaviour.setPosition(unit, position);
+        this.behaviour.setPosition(unit, position);
     }
 
     @Override public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + behaviour.hashCode();
-        result = 31 * result + directionIndex;
+        result = 31 * result + this.behaviour.hashCode();
+        result = 31 * result + this.directionIndex;
         return result;
     }
 
@@ -170,78 +169,78 @@ class AiBehaviour extends BaseBehaviour {
 
         AiBehaviour that = (AiBehaviour) o;
 
-        if (directionIndex != that.directionIndex) return false;
-        return behaviour.equals(that.behaviour);
+        if (this.directionIndex != that.directionIndex) return false;
+        return this.behaviour.equals(that.behaviour);
     }
 
     @Override public String toString() {
-        return "AiBehaviour{" + "behaviour=" + behaviour + ", directionIndex=" + directionIndex + "} " +
+        return "AiBehaviour{" + "behaviour=" + this.behaviour + ", directionIndex=" + this.directionIndex + "} " +
                super.toString();
     }
 
     @Override public void wary(Unit unit) {
-        behaviour.wary(unit);
+        this.behaviour.wary(unit);
     }
 
     @Override public boolean getWary(Unit unit) {
-        return behaviour.getWary(unit);
+        return this.behaviour.getWary(unit);
     }
 
     @Override public void entrench(Unit unit) {
-        behaviour.entrench(unit);
+        this.behaviour.entrench(unit);
     }
 
     @Override public boolean getEntrench(Unit unit) {
-        return behaviour.getEntrench(unit);
+        return this.behaviour.getEntrench(unit);
     }
 
     @Override public void charge(Unit unit) {
-        behaviour.charge(unit);
+        this.behaviour.charge(unit);
     }
 
     @Override public boolean move(Unit unit, Direction direction) {
         if (direction == null) {
             throw new NullPointerException("Method move() requires a non-null direction");
         }
-        return behaviour.move(unit, direction);
+        return this.behaviour.move(unit, direction);
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
-        return behaviour.attack(unit, enemy);
+        return this.behaviour.attack(unit, enemy);
     }
 
     @Override public int defend(Unit unit, Unit enemy) {
         if (enemy == null) {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }
-        return behaviour.defend(unit, enemy);
+        return this.behaviour.defend(unit, enemy);
     }
 
     @Override public int getStrength(Unit unit) {
-        return behaviour.getStrength(unit);
+        return this.behaviour.getStrength(unit);
     }
 
     @Override public int getToughness(Unit unit) {
-        return behaviour.getToughness(unit);
+        return this.behaviour.getToughness(unit);
     }
 
     @Override public int getHitpoints(Unit unit) {
-        return behaviour.getHitpoints(unit);
+        return this.behaviour.getHitpoints(unit);
     }
 
     @Override public boolean isAlive(Unit unit) {
-        return behaviour.isAlive(unit);
+        return this.behaviour.isAlive(unit);
     }
 
     @Override public int getSightRadius(Unit unit) {
-        return behaviour.getSightRadius(unit);
+        return this.behaviour.getSightRadius(unit);
     }
 
     @Override public int getActionPoints(Unit unit) {
-        return behaviour.getActionPoints(unit);
+        return this.behaviour.getActionPoints(unit);
     }
 
     @Override public Behaviour copy(GameState newState) {
@@ -249,6 +248,6 @@ class AiBehaviour extends BaseBehaviour {
     }
 
     @Override public int getAttackRange() {
-        return behaviour.getAttackRange();
+        return this.behaviour.getAttackRange();
     }
 }
