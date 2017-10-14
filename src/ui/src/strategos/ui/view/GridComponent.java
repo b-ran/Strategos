@@ -137,7 +137,7 @@ public class GridComponent extends JComponent {
      */
     public void setTerrain(MapLocation[][] terrain) {
         this.terrain = terrain;
-       //revealMap();
+        //revealMap();
     }
 
 
@@ -153,11 +153,12 @@ public class GridComponent extends JComponent {
         tilesInRange = new ArrayList<>();
     }
 
-    private void revealMap() {
+    public void revealMap() {
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
                 view.getSeenTerrain().add(terrain[y][x]);
             }
         }
+
     }
 }

@@ -75,7 +75,7 @@ public class Config {
 
     public static final Dimension GRID_COMPONENT_SIZE = new Dimension(1500, 700);
 
-    public static final Integer HEX_SIZE = 60;
+    public static Integer HEX_SIZE = 60;
 
     public static final Color SELECTION_COLOR = new Color(154, 208, 255);
 

@@ -2,7 +2,6 @@ package strategos.behaviour;
 
 
 import strategos.*;
-import strategos.behaviour.config.*;
 import strategos.exception.*;
 import strategos.model.GameState;
 import strategos.model.MapLocation;
@@ -38,7 +37,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     UnitBehaviour(GameState gameState) {
         super(gameState);
 
-        hitpoints = BehaviourConfig.UNIT_HITPOINTS;
+        hitpoints = Config.UNIT_HITPOINTS;
         actionPoints = 0;
 
         wary = false;
@@ -72,8 +71,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
             wary = false;
             logger.info(String.format("%s: left wary state", this.getClass()));
         }
-        else if (actionPoints >= BehaviourConfig.WARY_COST) {
-            actionPoints -= BehaviourConfig.WARY_COST;
+        else if (actionPoints >= Config.WARY_COST) {
+            actionPoints -= Config.WARY_COST;
             wary = true;
             if (entrench) {
                 entrench = false;
@@ -95,8 +94,8 @@ abstract class UnitBehaviour extends BaseBehaviour {
             entrench = false;
             logger.info(String.format("%s: left entrench state", this.getClass()));
         }
-        else if (actionPoints >= BehaviourConfig.WARY_COST) {
-            actionPoints -= BehaviourConfig.WARY_COST;
+        else if (actionPoints >= Config.ENTRENCH_COST) {
+            actionPoints -= Config.ENTRENCH_COST;
             entrench = true;
             if (wary) {
                 wary = false;
@@ -122,6 +121,10 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
         if (direction == null) {
             throw new NullPointerException("Method move() requires a non-null direction");
+        }
+
+        if (getEntrench(unit)) {
+            entrench(unit);
         }
 
         MapLocation neighbour = getPosition(unit).getNeighbour(direction);
@@ -150,9 +153,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
             return 0;
         }
 
+        if (getActionPoints(unit) < 1) {
+            logger.info(String.format("%s: not enough action points for attack", this.getClass()));
+            return 0;
+        }
+
+        actionPoints -= 1;
+
         int defence = enemy.getToughness();
-        defence += enemy.getWary() ? 1 : 0;
-        defence += enemy.getEntrench() ? 2 : 0;
+        defence += enemy.getWary() ? Config.WARY_MODIFIER : 0;
+        defence += enemy.getEntrench() ? Config.ENTRENCH_MODIFIER : 0;
         defence *= 0.8 + (enemy.getHitpoints() / 500.0);
         defence = terrainDamageBonus(enemy, defence, false);
 
@@ -163,7 +173,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
         if (enemy instanceof HealthPotion) {
             logger.info(String.format("%s: use health potion", this.getClass()));
-            hitpoints = BehaviourConfig.UNIT_HITPOINTS;
+            hitpoints = Config.UNIT_HITPOINTS;
         }
 
         return 0;
@@ -175,16 +185,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
         Terrain terrain = getGameState().getTerrainAt(unit.getPosition());
 
         if (terrain instanceof Plains) {
-            return damage;
+            return attacking ? (int) (damage * Config.PLAINS_STRENGTH_BONUS) : (int) (damage * Config.PLAINS_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof Forest) {
-            return attacking ? (int) (damage * 0.85) : (int) (damage * 1.15);
+            return attacking ? (int) (damage * Config.FOREST_STRENGTH_BONUS) : (int) (damage * Config.FOREST_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof Hill) {
-            return attacking ? (int) (damage * 1.1) : (int) (damage * 1.25);
+            return attacking ? (int) (damage * Config.HILL_STRENGTH_BONUS) : (int) (damage * Config.HILL_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof River) {
-            return attacking ? (int) (damage * 0.9) : damage;
+            return attacking ? (int) (damage * Config.RIVER_STRENGTH_BONUS) : (int) (damage * Config.RIVER_TOUGHNESS_BONUS);
         }
         else {
             throw new RuleViolationException("Unit must be on valid Terrain");
@@ -210,7 +220,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int getHitpoints(Unit unit) {
-        return hitpoints;
+        return hitpoints > 0 ? hitpoints : 0;
     }
 
     @Override public boolean isAlive(Unit unit) {
@@ -222,12 +232,12 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int getActionPoints(Unit unit) {
-        return isAlive(unit) ? actionPoints : 0;
+        return isAlive(unit) && actionPoints > 0 ? actionPoints : 0;
     }
 
     @Override
     public int getAttackRange() {
-        return BehaviourConfig.MELEE_RANGE;
+        return Config.MELEE_RANGE;
     }
 
     @Override
@@ -259,16 +269,16 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     private int terrainMovementCost(Terrain terrain) {
         if (terrain instanceof Plains) {
-            return 1;
+            return Config.PLAINS_MOVEMENT_COST;
         }
         else if (terrain instanceof Forest) {
-            return 2;
+            return Config.FOREST_MOVEMENT_COST;
         }
         else if (terrain instanceof Hill) {
-            return 2;
+            return Config.HILL_MOVEMENT_COST;
         }
         else if (terrain instanceof River) {
-            return 2;
+            return Config.RIVER_MOVEMENT_COST;
         }
         else {
             throw new RuleViolationException("Unit must be on valid Terrain");
@@ -276,7 +286,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     int getMaxActionPoints() {
-        return BehaviourConfig.INFANTRY_ACTION_POINTS;
+        return Config.INFANTRY_ACTION_POINTS;
     }
 
     void setActionPoints(int actionPoints) {
