@@ -123,4 +123,20 @@ public class StateCreator implements GameStateFactory {
 		return barbarianUnits;
 	}
 
+	public Unit spawnBarbarian(double unitType, GameState gameState, MapLocation location) {
+		if (unitType <= 1) {
+			return new SwordsmenImpl(factory.createAiBehaviour(gameState, factory::createBehaviourSwordsmen), gameState.getPlayers().get(2), location);
+		}
+		if (unitType <= 2) {
+			return new SpearmenImpl(factory.createAiBehaviour(gameState, factory::createBehaviourSpearmen), gameState.getPlayers().get(2), location);
+		}
+		if (unitType <= 3) {
+			return new CavalryImpl(factory.createAiBehaviour(gameState, factory::createBehaviourCavalry), gameState.getPlayers().get(2), location);
+		}
+		if (unitType <= 4) {
+			return new ArchersImpl(factory.createAiBehaviour(gameState, factory::createBehaviourArchers), gameState.getPlayers().get(2), location);
+		}
+		return new EliteImpl(factory.createAiBehaviour(gameState, factory::createBehaviourElite), gameState.getPlayers().get(2), location);
+	}
+
 }
