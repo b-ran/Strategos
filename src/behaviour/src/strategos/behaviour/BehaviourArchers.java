@@ -3,9 +3,9 @@ package strategos.behaviour;
 
 import strategos.Config;
 import strategos.model.GameState;
-import strategos.units.*;
+import strategos.units.Unit;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 
 class BehaviourArchers extends UnitBehaviour {
@@ -62,13 +62,11 @@ class BehaviourArchers extends UnitBehaviour {
         return 0;
     }
 
-    @Override
-    public int getAttackRange() {
+    @Override public int getAttackRange() {
         return Config.ARCHER_RANGE;
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "BehaviourArchers{} " + super.toString();
     }
 }

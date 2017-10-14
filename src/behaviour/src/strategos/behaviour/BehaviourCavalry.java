@@ -3,7 +3,7 @@ package strategos.behaviour;
 
 import strategos.Config;
 import strategos.model.GameState;
-import strategos.units.*;
+import strategos.units.Unit;
 
 
 class BehaviourCavalry extends UnitBehaviour {
@@ -22,6 +22,10 @@ class BehaviourCavalry extends UnitBehaviour {
         return Config.CAVALRY_ACTION_POINTS;
     }
 
+    @Override public String toString() {
+        return "BehaviourCavalry{} " + super.toString();
+    }
+
     @Override public int getStrength(Unit unit) {
         return Config.CAVALRY_STRENGTH;
     }
@@ -32,10 +36,5 @@ class BehaviourCavalry extends UnitBehaviour {
 
     @Override public Behaviour copy(GameState newState) {
         return new BehaviourCavalry(this, newState);
-    }
-
-    @Override
-    public String toString() {
-        return "BehaviourCavalry{} " + super.toString();
     }
 }

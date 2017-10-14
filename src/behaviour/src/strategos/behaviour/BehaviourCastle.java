@@ -5,7 +5,7 @@ import strategos.Config;
 import strategos.model.GameState;
 import strategos.units.Unit;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 
 class BehaviourCastle extends UnitBehaviour {
@@ -62,18 +62,15 @@ class BehaviourCastle extends UnitBehaviour {
         return 0;
     }
 
-    @Override
-    int getMaxActionPoints() {
-        return 0;
-    }
-
-    @Override
-    public int getAttackRange() {
+    @Override public int getAttackRange() {
         return Config.CASTLE_RANGE;
     }
 
-    @Override
-    public String toString() {
+    @Override int getMaxActionPoints() {
+        return 0;
+    }
+
+    @Override public String toString() {
         return "BehaviourArchers{} " + super.toString();
     }
 }

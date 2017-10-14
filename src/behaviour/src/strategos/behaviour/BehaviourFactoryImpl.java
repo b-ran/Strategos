@@ -3,7 +3,7 @@ package strategos.behaviour;
 
 import strategos.model.GameState;
 
-import java.util.function.*;
+import java.util.function.Function;
 import java.util.logging.*;
 
 
@@ -19,6 +19,10 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
         logger.addHandler(handler);
     }
 
+    public BehaviourFactoryImpl() {
+        logger.setUseParentHandlers(false);
+    }
+
     public BehaviourFactoryImpl(Level level) {
         this();
         logger.setLevel(level);
@@ -26,10 +30,6 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
         handler.setFormatter(new SimpleFormatter());
         handler.setLevel(level);
         logger.addHandler(handler);
-    }
-
-    public BehaviourFactoryImpl() {
-        logger.setUseParentHandlers(false);
     }
 
     @Override public Behaviour createBehaviourArchers(GameState gameState) {
@@ -57,8 +57,7 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
         return new BehaviourSwordsmen(gameState);
     }
 
-    @Override
-    public Behaviour createBehaviourCastle(GameState gameState) {
+    @Override public Behaviour createBehaviourCastle(GameState gameState) {
         logger.fine("Create BehaviourCastle with factory");
         return new BehaviourBridge(gameState);
     }

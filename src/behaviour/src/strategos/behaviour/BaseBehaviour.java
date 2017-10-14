@@ -3,9 +3,9 @@ package strategos.behaviour;
 
 import strategos.model.GameState;
 import strategos.model.MapLocation;
-import strategos.units.*;
+import strategos.units.Unit;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 
 abstract class BaseBehaviour implements Behaviour {
@@ -50,8 +50,13 @@ abstract class BaseBehaviour implements Behaviour {
         this.position = position;
     }
 
-    @Override
-    public boolean equals(Object o) {
+    @Override public int hashCode() {
+        int result = gameState.hashCode();
+        result = 31 * result + (position != null ? position.hashCode() : 0);
+        return result;
+    }
+
+    @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -59,24 +64,13 @@ abstract class BaseBehaviour implements Behaviour {
 
         if (!gameState.equals(that.gameState)) return false;
         return position != null ? position.equals(that.position) : that.position == null;
-
     }
 
-    @Override
-    public int hashCode() {
-        int result = gameState.hashCode();
-        result = 31 * result + (position != null ? position.hashCode() : 0);
-        return result;
+    @Override public String toString() {
+        return "BaseBehaviour{" + "position=" + position + '}';
     }
 
     final GameState getGameState() {
         return gameState;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseBehaviour{" +
-                "position=" + position +
-                '}';
     }
 }
