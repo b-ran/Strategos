@@ -42,6 +42,14 @@ public class Strategos implements GameState {
 		this.thisInstancePlayer = thisInstancePlayer;
 	}
 
+	@Override
+	public void newGame() {
+		GameState newState = stateCreator.createNewState();
+		this.turns = 0;
+		SaveInstance save = newState.export();
+		this.load(save);
+	}
+
 	public void save() {
 		if (saves.size() > 3) {
 			saves.remove(saves.size() - 1);
