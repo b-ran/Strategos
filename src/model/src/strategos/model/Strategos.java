@@ -29,7 +29,7 @@ public class Strategos implements GameState {
 	private StateCreator stateCreator;
 
 	private List<SaveInstance> saves = new ArrayList<>();
-	private int turns;
+	private int turns = 1;
 
 	public Strategos(StateCreator stateCreator, World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
 		this.world = world;
@@ -58,6 +58,7 @@ public class Strategos implements GameState {
 		this.load(save);
 	}
 
+	@Override
 	public void save() {
 		if (saves.size() > 3) {
 			saves.remove(saves.size() - 1);
@@ -79,7 +80,7 @@ public class Strategos implements GameState {
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
 		this.currentTurnPlayer = toRestore.getTurn();
-		setThisInstancePlayer(players.get(index));
+		setThisInstancePlayer(toRestore.getPlayers().get(index));
 		calculateVision(thisInstancePlayer);
 
 		for (Unit u : world.getAllUnits()) {
@@ -324,6 +325,7 @@ public class Strategos implements GameState {
 		return actualTiles;
 	}
 
+	@Override
 	public List<MapLocation> getTilesInRange(MapLocation location, int range) {
 
 		List<MapLocation> tiles = new ArrayList<>();
@@ -356,12 +358,9 @@ public class Strategos implements GameState {
 
 	@Override
 	public void nextTurn() {
-
-		for (int i = 0; i < currentTurnPlayer.getUnits().size(); i++) {
-			currentTurnPlayer.getUnits().get(i).turnTick();
-		}
 		turns++;
 		System.out.println("turn " + turns);
+
 		for (int i = 0; i < currentTurnPlayer.getUnits().size(); i++) {
 			currentTurnPlayer.getUnits().get(i).turnTick();
 		}
@@ -372,9 +371,9 @@ public class Strategos implements GameState {
 		turnIndex = (turnIndex + 1) % players.size();
 		currentTurnPlayer = players.get(turnIndex);
 		if (turnIndex == 2) {
-
-			// if the game has gone for long enough, start spawning barbarians every second turn
-			if (turns >= 36 && turns % 2 == 0) {
+			turns--;
+			// if the game has gone for long enough, start spawning barbarians every turn
+			if (turns >= 12) {
 				spawnBarbarians(randomiseLocation(world.getMap().get(0, 10)));
 				spawnBarbarians(randomiseLocation(world.getMap().get(14, 6)));
 			}
@@ -443,11 +442,10 @@ public class Strategos implements GameState {
 
 	@Override
 	public int getWinner() {
-		for (int i = 1; i < 3; i++) {
-			// returns 1 for Player 1, 2 for Player 2, and so on. Barbarians cannot win the game
-			if (players.get(i-1).getUnits().isEmpty()) {
-				return i;
-			}
+		if (players.get(0).getUnits().isEmpty()) {
+			return 2;
+		} else if (players.get(1).getUnits().isEmpty()) {
+			return 1;
 		}
 		return -1;
 	}
