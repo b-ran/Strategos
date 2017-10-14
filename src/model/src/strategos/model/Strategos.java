@@ -16,20 +16,22 @@ import java.util.*;
 public class Strategos implements GameState {
 	private GameCollections world;
 	private List<UnitOwner> players = new ArrayList<>();
-	private UnitOwner turn;
+	private UnitOwner currentTurnPlayer;
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
 	private UnitOwner thisInstancePlayer;
 	private boolean synced = false;
 
 	private List<SaveInstance> saves = new ArrayList<>();
+	private int turns;
 
 	public Strategos(World world, UnitOwner playerOne, UnitOwner playerTwo, UnitOwner barbarians) {
 		this.world = world;
 		players.add(playerOne);
 		players.add(playerTwo);
 		players.add(barbarians);
-		turn = playerOne;
+		currentTurnPlayer = playerOne;
+		this.stateCreator = stateCreator;
 	}
 
 	@Override
@@ -59,14 +61,14 @@ public class Strategos implements GameState {
 
 	@Override
 	public SaveInstance export() {
-		return new SaveState(this, world, players, turn);
+		return new SaveState(this, world, players, currentTurnPlayer);
 	}
 
 	public void load(SaveInstance toRestore) {
 		int index = players.indexOf(getThisInstancePlayer());
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
-		this.turn = toRestore.getTurn();
+		this.currentTurnPlayer = toRestore.getTurn();
 		setThisInstancePlayer(players.get(index));
 		calculateVision(thisInstancePlayer);
 
@@ -76,7 +78,7 @@ public class Strategos implements GameState {
 
 		setChanged();
 		if (synced) {
-			turn.getUnits().forEach(Unit::turnTick);
+			currentTurnPlayer.getUnits().forEach(Unit::turnTick);
 		}
 		notifyObservers(null);
 		synced = true;
@@ -323,15 +325,20 @@ public class Strategos implements GameState {
 	@Override
 	public void nextTurn() {
 
-		for (int i = 0; i < turn.getUnits().size(); i++) {
-			turn.getUnits().get(i).turnTick();
+		for (int i = 0; i < currentTurnPlayer.getUnits().size(); i++) {
+			currentTurnPlayer.getUnits().get(i).turnTick();
+		}
+		turns++;
+		System.out.println("turn " + turns);
+		for (int i = 0; i < currentTurnPlayer.getUnits().size(); i++) {
+			currentTurnPlayer.getUnits().get(i).turnTick();
 		}
 
 		getPlayers().forEach(this::calculateVision);
 
-		int turnIndex = players.indexOf(turn);
+		int turnIndex = players.indexOf(currentTurnPlayer);
 		turnIndex = (turnIndex + 1) % players.size();
-		turn = players.get(turnIndex);
+		currentTurnPlayer = players.get(turnIndex);
 		if (turnIndex == 2) {
 
 			if (turns >= 36) {
@@ -387,7 +394,7 @@ public class Strategos implements GameState {
 
 	@Override
 	public UnitOwner getCurrentTurn() {
-		return turn;
+		return currentTurnPlayer;
 	}
 
 	@Override
@@ -405,6 +412,11 @@ public class Strategos implements GameState {
 		if (!observers.contains(o)) {
 			observers.add(o);
 		}
+	}
+
+	@Override
+	public int getNumberTurns() {
+		return turns;
 	}
 
 	@Override
