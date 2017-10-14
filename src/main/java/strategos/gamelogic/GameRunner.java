@@ -14,7 +14,7 @@ public class GameRunner {
 
 	private GameState gameState;
 
-	public GameRunner() {
+	public GameRunner(boolean testMode) {
 		Generator generator = new TerrainGeneration();
 		BehaviourFactory factory = new BehaviourFactoryImpl();
 
@@ -22,10 +22,12 @@ public class GameRunner {
 
 		gameState = stateCreator.createNewState();
 
-		Ui ui = new Ui(gameState, new NetworkingHandlerImpl());
+		if (!testMode) {
+			Ui ui = new Ui(gameState, new NetworkingHandlerImpl());
+		}
 	}
 
 	public static void main(String[] args) {
-		GameRunner g = new GameRunner();
+		GameRunner g = new GameRunner(false);
 	}
 }
