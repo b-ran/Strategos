@@ -7,9 +7,6 @@ import strategos.units.Unit;
 
 public class Player implements UnitOwner{
 
-	// Acronyms in variable names generally only have the first letter capital
-	// This could maybe be better renamed isNpc, but then again it may be worth
-	// leaving as is as it is following the naming as laid out in the interface
 	private final boolean isNPC;
 	private ArrayList<Unit> units = new ArrayList<>();
 	private List<MapLocation> visibleTiles = new ArrayList<>();

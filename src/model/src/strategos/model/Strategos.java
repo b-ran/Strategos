@@ -2,7 +2,6 @@ package strategos.model;
 
 import strategos.*;
 import strategos.model.units.BridgeImpl;
-import strategos.model.units.StateCreator;
 import strategos.terrain.Terrain;
 import strategos.units.Bridge;
 import strategos.units.Unit;
@@ -20,6 +19,10 @@ public class Strategos implements GameState {
 	private UnitOwner currentTurnPlayer;
 	private List<Observer> observers = new ArrayList<>();
 	private boolean changed = false;
+
+	/**
+	 * This player is the one whose units this instance of the game can control.
+	 */
 	private UnitOwner thisInstancePlayer;
 	private boolean synced = false;
 
@@ -67,7 +70,11 @@ public class Strategos implements GameState {
 		return new SaveState(this, world, players, currentTurnPlayer);
 	}
 
+	@Override
 	public void load(SaveInstance toRestore) {
+		if (toRestore == null) {
+			return;
+		}
 		int index = players.indexOf(getThisInstancePlayer());
 		this.world = toRestore.getWorld();
 		this.players = toRestore.getPlayers();
@@ -96,6 +103,8 @@ public class Strategos implements GameState {
 		for (Unit u : world.getAllUnits()) {
 			if (u.getPosition().getX() == location.getX() && u.getPosition().getY() == location.getY()) {
 				potentialUnit = u;
+				// Prioritises non-bridge units over bridges - if a unit is a bridge, the loop will keep searching
+				//		rather than selecting the first one found.
 				if (!(potentialUnit instanceof Bridge)) {
 					return potentialUnit;
 				}
@@ -128,6 +137,12 @@ public class Strategos implements GameState {
 		notifyObservers(null);
 	}
 
+	/**
+	 * Finds the Direction that a given MapLocation is in reference to another MapLocation, provided that they are neighbours
+	 * @param origin
+	 * @param neighbour
+	 * @return
+	 */
 	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
 		for (java.util.Map.Entry<Direction, MapLocation> entry : origin.getNeighbours().entrySet()) {
 			if (entry.getValue().equals(neighbour)) {
@@ -139,9 +154,15 @@ public class Strategos implements GameState {
 
 	private boolean canPassUnit(Unit mover, MapLocation moveTo) {
 		Unit u = getUnitAt(moveTo);
+		// Can only move onto an empty tile or an owned bridge
 		return u == null || (u instanceof Bridge && u.getOwner().equals(mover.getOwner()));
 	}
 
+	/**
+	 * Gets the vision of a player given the placements of their units (a unit can see 2 tiles). Vision is permanent, and
+	 * 		does not decrease as units are moved away.
+	 * @param player
+	 */
 	private void calculateVision(UnitOwner player) {
 		for (Unit unit : player.getUnits()) {
 			List<MapLocation> sightRange = getTilesInRange(unit.getPosition(), unit.getSightRadius());
@@ -231,12 +252,15 @@ public class Strategos implements GameState {
 
 		List<Unit> units = new ArrayList<>();
 
+		// if the location is out of bounds, there are no units
 		if (location.getY() < 0 || location.getY() > world.getMap().getData().length ||
 				location.getX() < 0 || location.getY() > world.getMap().getData().length) {
 			return units;
 		}
 
 		MapLocation centre = world.getMap().get(location.getX(), location.getY());
+
+		// algorithm inspired by http://www.redblobgames.com/grids/hexagons/#range
 		for (int dX = -range; dX <= range; dX++) {
 
 			int minValue = Math.max(-range, -dX - range);
@@ -261,13 +285,16 @@ public class Strategos implements GameState {
 	public List<Unit> getUnitsInAttackRange(Unit unit) {
 		List<Unit> units = getUnitsInRange(unit.getPosition(), unit.getAttackRange());
 		List<Unit> actualUnits = new ArrayList<>();
+		// if the unit is out of AP, give it no units
 		if (unit.getActionPoints() <= 0) {
 			return actualUnits;
 		}
 		for (Unit other : units) {
+			// don't include this unit
 			if (other.equals(unit)) {
 				continue;
 			}
+			// don't include allied units
 			if (other.getOwner() != unit.getOwner()) {
 				actualUnits.add(other);
 			}
@@ -284,7 +311,9 @@ public class Strategos implements GameState {
 		}
 
 		for (MapLocation tile : potentialTiles) {
+			// don't add impassable tiles
 			if (tile.isInPlayArea()) {
+				// don't add tiles occupied by non-allied-bridge units
 				if (canPassUnit(unit, tile)) {
 					actualTiles.add(tile);
 				}
@@ -344,26 +373,38 @@ public class Strategos implements GameState {
 		currentTurnPlayer = players.get(turnIndex);
 		if (turnIndex == 2) {
 
-			if (turns >= 36) {
-				double unitType = Math.random() * 5;
-				MapLocation location = randomiseLocation(world.getMap().get(0, 10));
-				if (location != null) {
-					Unit newBarbarian = stateCreator.spawnBarbarian(unitType, this, location);
-					currentTurnPlayer.addUnit(newBarbarian);
-					world.getAllUnits().add(newBarbarian);
-				}
-				location = randomiseLocation(world.getMap().get(14, 6));
-				if (location != null) {
-					Unit newBarbarian = stateCreator.spawnBarbarian(unitType, this, location);
-					currentTurnPlayer.addUnit(newBarbarian);
-					world.getAllUnits().add(newBarbarian);
-				}
+			// if the game has gone for long enough, start spawning barbarians every second turn
+			if (turns >= 36 && turns % 2 == 0) {
+				spawnBarbarians(randomiseLocation(world.getMap().get(0, 10)));
+				spawnBarbarians(randomiseLocation(world.getMap().get(14, 6)));
 			}
 
 			nextTurn();
 		}
 	}
 
+	/**
+	 * Spawns a random barbarian at a random location and adds it to the world's units. This prevents stalled games
+	 * 		where neither player wishes to fight.
+	 * @param location the location to spawn the barbarian.
+	 */
+	private void spawnBarbarians(MapLocation location) {
+		double unitType = Math.random() * 5;
+		if (location != null) {
+			Unit newBarbarian = stateCreator.spawnBarbarian(unitType, this, location);
+			currentTurnPlayer.addUnit(newBarbarian);
+			world.getAllUnits().add(newBarbarian);
+		}
+	}
+
+	/**
+	 * Attempts to find a random location on the map, given a particular source. In order to not stall the program if
+	 * 		no location is found, this function only looks for 3 random locations in range before returning null.
+	 * 		This function requires that a location be able to contain a unit i.e. it is not a mountain or river, and
+	 * 		has no unit there already.
+	 * @param source the initial desired point
+	 * @return a random location within 3 tiles of source or null if none exist
+	 */
 	private MapLocation randomiseLocation(MapLocation source) {
 		MapLocation location = source;
 		int tries = 0;
@@ -403,6 +444,7 @@ public class Strategos implements GameState {
 	@Override
 	public int getWinner() {
 		for (int i = 1; i < 3; i++) {
+			// returns 1 for Player 1, 2 for Player 2, and so on. Barbarians cannot win the game
 			if (players.get(i-1).getUnits().isEmpty()) {
 				return i;
 			}
