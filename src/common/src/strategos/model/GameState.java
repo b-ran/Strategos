@@ -7,7 +7,9 @@ import strategos.units.Unit;
 
 import java.util.List;
 
-public interface GameState extends Observable, EntityHandler {
+public interface GameState extends Observable, EntityHandler, TileHandler {
+
+	void newGame();
 
 	public void save();
 
