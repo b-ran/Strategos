@@ -7,23 +7,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Brandon Scott-Hill - scotthbran
- * @author Daniel Pinfold - pinfoldani
+ * The Load slot listener for loading buttons.
+ *
+ * @author Daniel Pinfold
  */
 class LoadSlotListener extends Controller implements ActionListener {
 	private final int index;
 	private Controller controller;
 
+	/**
+	 * Instantiates a new Load slot listener.
+	 *
+	 * @author Daniel Pinfold
+	 *
+	 * @param controller the controller
+	 * @param index      the index
+	 */
 	LoadSlotListener(Controller controller, int index) {
 		super(controller);
 		this.controller = controller;
 		this.index = index - 1;
 
-	}
-
-	public LoadSlotListener(GameState model, View view, int index) {
-		super(model, view);
-		this.index = index - 1;
 	}
 
 	@Override

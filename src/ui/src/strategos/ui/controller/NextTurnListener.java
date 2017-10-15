@@ -8,10 +8,23 @@ import java.awt.event.ActionListener;
 
 import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
 
+/**
+ * The Next turn listener for next turn button.
+ *
+ * @author Brandon Scott-Hill
+ * @author Daniel Pinfold
+ */
 class NextTurnListener extends Controller implements ActionListener {
 
     private Controller controller;
 
+    /**
+     * Instantiates a new Next turn listener.
+     *
+     * @author Daniel Pinfold
+     * @author Brandon Scott-Hill
+     * @param controller the controller
+     */
     NextTurnListener(Controller controller) {
         super(controller);
         this.controller = controller;

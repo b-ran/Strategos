@@ -11,9 +11,10 @@ import java.util.Observer;
 
 public class ModelTestObj implements GameState {
     private GameCollections gameCollections;
-    private  ArrayList<UnitOwner> unitOwners = new ArrayList<>();
-    private  ArrayList<Unit> attackRange = new ArrayList<>();
-    private  ArrayList<MapLocation> moveRange = new ArrayList<>();
+    private ArrayList<UnitOwner> unitOwners = new ArrayList<>();
+    private ArrayList<Unit> attackRange = new ArrayList<>();
+    private ArrayList<MapLocation> moveRange = new ArrayList<>();
+    private UnitOwner owner = null;
 
     @Override
     public void newGame() {
@@ -115,12 +116,12 @@ public class ModelTestObj implements GameState {
 
     @Override
     public void setThisInstancePlayer(UnitOwner thisInstancePlayer) {
-
+        this.owner = thisInstancePlayer;
     }
 
     @Override
     public UnitOwner getThisInstancePlayer() {
-        return null;
+        return owner;
     }
 
     @Override

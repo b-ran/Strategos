@@ -16,10 +16,14 @@ import java.io.InputStream;
 import static strategos.ui.config.Config.*;
 import static strategos.ui.config.ConfigImage.*;
 
+/**
+ * Creates the Draw Object.
+ *
+ * @author Brandon Scott-Hill
+ */
 public class Draw implements GameObjectVisitor {
 
-
-    private static boolean loadImages = true;
+    private static boolean loadImages = true; //Toggle if loading images need to be done
 
     private static BufferedImage forestImage = null;
     private static BufferedImage hillImage = null;
@@ -37,21 +41,39 @@ public class Draw implements GameObjectVisitor {
     private static BufferedImage[] swordsmenImage = new BufferedImage[3];
     private static BufferedImage healthPotionImage = null;
 
+    /**
+     * The Background image.
+     */
     static BufferedImage backgroundImage = null;
+
     private View view = null;
 
     private Graphics2D g2d = null;
     private Point p = null;
     private Color selectionColor = null;
     private float selectionStrokeSize = 0;
-    private Point hexPoint;
+    private Point hexPoint = null;
 
 
-    public Draw(View view) {
+    /**
+     * Instantiates a new Draw Object.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param view the view
+     */
+    Draw(View view) {
         this.view = view;
         loadImages();
     }
 
+
+    /**
+     * Loads all the images.
+     *
+     * @author Brandon Scott-Hill
+     *
+     */
     private void loadImages() {
         if (!loadImages) return;
         bridgeImage = loadUnitImage(BRIDGE_IMAGE_PATH);
@@ -73,6 +95,13 @@ public class Draw implements GameObjectVisitor {
         loadImages = false;
     }
 
+    /**
+     * Load the different images related to a unit type.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param path the file path to the unit images
+     */
     private BufferedImage[] loadUnitImage(String path) {
         BufferedImage[] image = new BufferedImage[3];
         for (int i = 0; i < image.length; i++) {
@@ -81,6 +110,14 @@ public class Draw implements GameObjectVisitor {
         return image;
     }
 
+    /**
+     * Get the correct unit image based on the ownership of the unit.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param u the unit to get the image for
+     * @param images the images to pick from
+     */
     private BufferedImage getUnitOwnerImage(Unit u, BufferedImage[] images) {
         if (u.getOwner().equals(view.getUiOwner())) {
             return images[0];
@@ -91,6 +128,13 @@ public class Draw implements GameObjectVisitor {
         }
     }
 
+    /**
+     * Loads a image from a path.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param path the file path to load the image from
+     */
     private BufferedImage loadImage(String path) {
         if (!loadImages) return null;
         InputStream stream = this.getClass().getClassLoader().getResourceAsStream(path);
@@ -105,12 +149,30 @@ public class Draw implements GameObjectVisitor {
     }
 
 
+    /**
+     * Draws a terrain object on the grid.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param t the terrain to draw
+     * @param p the point on the grid to draw to
+     * @param g the graphics to draw on
+     */
     void drawTerrain(Terrain t, Point p, Graphics g) {
         g2d = (Graphics2D) g;
         this.p = getTerrainGridPos(p);
         ((GameObject) t).accept(this);
     }
 
+    /**
+     * Draw a unit object on the grid.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param u the unit to draw
+     * @param p the point on the grid to draw to
+     * @param g the graphics to draw on
+     */
     void drawUnit(Unit u, Point p, Graphics g) {
         g2d = (Graphics2D) g;
         this.hexPoint = p;
@@ -119,10 +181,17 @@ public class Draw implements GameObjectVisitor {
         drawHealth(u);
     }
 
+    /**
+     * Draw a the health of a unit object on the grid.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param u the unit health to draw
+     */
     private void drawHealth(Unit u) {
         int health = u.getHitpoints();
 
-        Double d = (((double) health) / 100d)*HEALTH_BAR_SIZE.height;
+        Double d = (((double) health) / 100d)*HEX_SIZE/3;
         Integer height = d.intValue();
 
         Color c = HEALTH_HIGH_COLOR;
@@ -134,21 +203,50 @@ public class Draw implements GameObjectVisitor {
         }
 
         g2d.setColor(c);
-        g2d.fillRect(p.x+HEALTH_BAR_RELATIVE_POSITION.x, p.y+HEALTH_BAR_RELATIVE_POSITION.y, HEALTH_BAR_SIZE.width, height);
+        g2d.fillRect(p.x+HEALTH_BAR_RELATIVE_POSITION.x, p.y+HEX_SIZE/3, HEALTH_BAR_SIZE.width, height);
     }
 
+    /**
+     * Draws a terrain object non bound to the grid.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param t the terrain to draw
+     * @param p the point on the graphics to draw to
+     * @param g the graphics to draw on
+     */
     void drawTerrainNonGrid(Terrain t, Point p, Graphics g) {
         g2d = (Graphics2D) g;
         this.p = p;
         ((GameObject) t).accept(this);
     }
 
+    /**
+     * Draw a unit object  non bound to the grid.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param u the unit to draw
+     * @param p the point on the graphics to draw to
+     * @param g the graphics to draw on
+     */
     void drawUnitNonGrid(Unit u, Point p, Graphics g) {
         g2d = (Graphics2D) g;
         this.p = p;
         ((GameObject) u).accept(this);
     }
 
+    /**
+     * Draws the terrain selection.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param t the selected terrain
+     * @param p the point of selection
+     * @param c the colour to draw the selection
+     * @param s the size of the stroke
+     * @param g the graphics to draw on
+     */
     void drawTerrainSelection(Terrain t, Point p, Color c, Float s, Graphics g) {
         g2d = (Graphics2D) g;
         this.p = getTerrainGridPos(p);
@@ -159,14 +257,32 @@ public class Draw implements GameObjectVisitor {
         selectionStrokeSize = 0;
     }
 
+    /**
+     * Draws the fog.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param point the point to draw the fog
+     * @param g     the graphics to draw on
+     */
     void drawFog(Point point, Graphics g) {
         g2d = (Graphics2D) g;
         this.p = getTerrainGridPos(point);
-        g2d.drawImage(getTexturedImage(fogImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(fogImage, getHexagon(p)), p.x, p.y , null);
     }
 
+
+
+    /**
+     * Gets a clipped hexagon image.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param image the image to clip
+     * @param hex   the hexagon shape to clip the texture to
+     */
     //Credit for solution drawing inside a hexagon https://stackoverflow.com/questions/21632411/texture-background-image-for-polygon
-    private BufferedImage getTexturedImage(BufferedImage image, Shape hex, Point p) {
+    private BufferedImage getTexturedImage(BufferedImage image, Shape hex) {
         Rectangle bounds = hex.getBounds();
         BufferedImage texture = new BufferedImage(bounds.width+2, bounds.height+2, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = texture.createGraphics();
@@ -174,9 +290,9 @@ public class Draw implements GameObjectVisitor {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 
-        AffineTransform centerTransform = AffineTransform.getTranslateInstance(-bounds.x+1, -bounds.y+1);
+        AffineTransform centerTransform = AffineTransform.getTranslateInstance(-bounds.x+1, -bounds.y+1); //Moves image to centre of hexagon
         g.setTransform(centerTransform);
-        g.setClip(hex);
+        g.setClip(hex); //Clips the graphics to the hexagon
 
         image.getScaledInstance(bounds.width, bounds.height, Image.SCALE_DEFAULT);
 
@@ -197,6 +313,13 @@ public class Draw implements GameObjectVisitor {
         return texture;
     }
 
+    /**
+     * Gets a hexagons at a point
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param p the point to offset the hexagon
+     */
     private Shape getHexagon(Point p) {
         int nPoints = 6;
         int[] xPoints = {p.x, p.x+HEX_SIZE/2, p.x+HEX_SIZE, p.x+HEX_SIZE, p.x+HEX_SIZE/2, p.x, p.x};
@@ -208,62 +331,62 @@ public class Draw implements GameObjectVisitor {
 
     @Override
     public void visit(Forest forest) {
-        g2d.drawImage(getTexturedImage(forestImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(forestImage, getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(Hill hill) {
-        g2d.drawImage(getTexturedImage(hillImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(hillImage, getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(Mountain Mountain) {
-        g2d.drawImage(getTexturedImage(mountainsImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(mountainsImage, getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(Plains plains) {
-        g2d.drawImage(getTexturedImage(plainsImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(plainsImage, getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(River river) {
-        g2d.drawImage(getTexturedImage(riverImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(riverImage, getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(Archers archers) {
-        g2d.drawImage(getTexturedImage(getUnitOwnerImage(archers,archersImage), getHexagon(p), p), p.x, p.y, null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(archers,archersImage), getHexagon(p)), p.x, p.y, null);
     }
 
     @Override
     public void visit(Bridge bridge) {
-        g2d.drawImage(getTexturedImage(getUnitOwnerImage(bridge, bridgeImage), getHexagon(p), p), p.x, p.y, null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(bridge, bridgeImage), getHexagon(p)), p.x, p.y, null);
     }
 
     @Override
     public void visit(Cavalry cavalry) {
-        g2d.drawImage(getTexturedImage(getUnitOwnerImage(cavalry,cavalryImage), getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(cavalry,cavalryImage), getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(Elite elite) {
-        g2d.drawImage(getTexturedImage(getUnitOwnerImage(elite, eliteImage), getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(elite, eliteImage), getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(HealthPotion healthPotion) {
-        g2d.drawImage(getTexturedImage(healthPotionImage, getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(healthPotionImage, getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(Spearmen spearmen) {
-        g2d.drawImage(getTexturedImage(getUnitOwnerImage(spearmen, spearmenImage), getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(spearmen, spearmenImage), getHexagon(p)), p.x, p.y , null);
     }
 
     @Override
     public void visit(Swordsmen swordsmen) {
-        g2d.drawImage(getTexturedImage(getUnitOwnerImage(swordsmen, swordsmenImage), getHexagon(p), p), p.x, p.y , null);
+        g2d.drawImage(getTexturedImage(getUnitOwnerImage(swordsmen, swordsmenImage), getHexagon(p)), p.x, p.y , null);
     }
 
     //Credit: https://www.redblobgames.com/grids/hexagons/#hex-to-pixel for logic of hex to pixels
