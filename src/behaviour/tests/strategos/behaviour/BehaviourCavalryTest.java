@@ -23,22 +23,20 @@ public class BehaviourCavalryTest {
 
     @Before public void setUp() throws Exception {
         BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
-        behaviour = behaviourFactory.createBehaviourCavalry(TestUtil.getMockGameState());
-        unit = TestUtil.getMockUnit();
+        this.behaviour = behaviourFactory.createBehaviourCavalry(TestUtil.getMockGameState());
+        this.unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Cavalry strength should be same as in BehaviourConfig",
-                behaviour.getStrength(unit),
+                "Cavalry strength should be same as in BehaviourConfig", this.behaviour.getStrength(this.unit),
                 is(Config.CAVALRY_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Cavalry toughness should be same as in BehaviourConfig",
-                behaviour.getToughness(unit),
+                "Cavalry toughness should be same as in BehaviourConfig", this.behaviour.getToughness(this.unit),
                 is(Config.CAVALRY_TOUGHNESS)
         );
     }
@@ -52,10 +50,9 @@ public class BehaviourCavalryTest {
     }
 
     @Test public void getActionPoints() throws Exception {
-        behaviour.turnTick(unit);
+        this.behaviour.turnTick(this.unit);
         assertThat(
-                "Cavalry action points should be same as in BehaviourConfig",
-                behaviour.getActionPoints(unit),
+                "Cavalry action points should be same as in BehaviourConfig", this.behaviour.getActionPoints(this.unit),
                 is(Config.CAVALRY_ACTION_POINTS)
         );
     }

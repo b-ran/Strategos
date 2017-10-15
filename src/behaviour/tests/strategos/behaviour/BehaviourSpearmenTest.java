@@ -23,22 +23,20 @@ public class BehaviourSpearmenTest {
 
     @Before public void setUp() throws Exception {
         BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
-        behaviour = behaviourFactory.createBehaviourSpearmen(TestUtil.getMockGameState());
-        unit = TestUtil.getMockUnit();
+        this.behaviour = behaviourFactory.createBehaviourSpearmen(TestUtil.getMockGameState());
+        this.unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Spearmen strength should be same as in BehaviourConfig",
-                behaviour.getStrength(unit),
+                "Spearmen strength should be same as in BehaviourConfig", this.behaviour.getStrength(this.unit),
                 is(Config.SPEARMEN_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Spearmen toughness should be same as in BehaviourConfig",
-                behaviour.getToughness(unit),
+                "Spearmen toughness should be same as in BehaviourConfig", this.behaviour.getToughness(this.unit),
                 is(Config.SPEARMEN_TOUGHNESS)
         );
     }
@@ -52,10 +50,9 @@ public class BehaviourSpearmenTest {
     }
 
     @Test public void getActionPoints() throws Exception {
-        behaviour.turnTick(unit);
+        this.behaviour.turnTick(this.unit);
         assertThat(
-                "Spearmen action points should be same as in BehaviourConfig",
-                behaviour.getActionPoints(unit),
+                "Spearmen action points should be same as in BehaviourConfig", this.behaviour.getActionPoints(this.unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );
     }

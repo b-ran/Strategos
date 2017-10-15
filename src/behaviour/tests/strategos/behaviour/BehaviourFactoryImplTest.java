@@ -23,15 +23,15 @@ public class BehaviourFactoryImplTest {
     }
 
     @Before public void setUp() throws Exception {
-        factory = new BehaviourFactoryImpl();
-        gameState = TestUtil.getMockGameState();
-        unit = TestUtil.getMockUnit();
+        this.factory = new BehaviourFactoryImpl();
+        this.gameState = TestUtil.getMockGameState();
+        this.unit = TestUtil.getMockUnit();
     }
 
     @Test public void createBehaviourArchers() throws Exception {
         assertThat(
                 "Method createBehaviourArchers() should create an instance of BehaviourArchers",
-                factory.createBehaviourArchers(gameState),
+                this.factory.createBehaviourArchers(this.gameState),
                 instanceOf(BehaviourArchers.class)
         );
     }
@@ -39,7 +39,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourCavalry() throws Exception {
         assertThat(
                 "Method createBehaviourCavalry() should create an instance of BehaviourCavalry",
-                factory.createBehaviourCavalry(gameState),
+                this.factory.createBehaviourCavalry(this.gameState),
                 instanceOf(BehaviourCavalry.class)
         );
     }
@@ -47,7 +47,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourElite() throws Exception {
         assertThat(
                 "Method createBehaviourElite() should create an instance of BehaviourElite",
-                factory.createBehaviourElite(gameState),
+                this.factory.createBehaviourElite(this.gameState),
                 instanceOf(BehaviourElite.class)
         );
     }
@@ -55,7 +55,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourSpearmen() throws Exception {
         assertThat(
                 "Method createBehaviourSpearmen() should create an instance of BehaviourSpearmen",
-                factory.createBehaviourSpearmen(gameState),
+                this.factory.createBehaviourSpearmen(this.gameState),
                 instanceOf(BehaviourSpearmen.class)
         );
     }
@@ -63,7 +63,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createBehaviourSwordsmen() throws Exception {
         assertThat(
                 "Method createBehaviourSwordsmen() should create an instance of BehaviourSwordsmen",
-                factory.createBehaviourSwordsmen(gameState),
+                this.factory.createBehaviourSwordsmen(this.gameState),
                 instanceOf(BehaviourSwordsmen.class)
         );
     }
@@ -71,7 +71,7 @@ public class BehaviourFactoryImplTest {
     @Test public void createAiBehaviour() throws Exception {
         assertThat(
                 "Method createAiBehaviour() should create an instance of AiBehaviour",
-                factory.createAiBehaviour(gameState, factory::createBehaviourArchers),
+                this.factory.createAiBehaviour(this.gameState, this.factory::createBehaviourArchers),
                 instanceOf(AiBehaviour.class)
         );
     }
@@ -79,56 +79,56 @@ public class BehaviourFactoryImplTest {
     @Test public void globalStatePreservedArchers() throws Exception {
         assertThat(
                 "Method createBehaviourArchers() should create identical instances each call",
-                factory.createBehaviourArchers(gameState),
-                equalTo(factory.createBehaviourArchers(gameState))
+                this.factory.createBehaviourArchers(this.gameState),
+                equalTo(this.factory.createBehaviourArchers(this.gameState))
         );
     }
 
     @Test public void globalStatePreservedBridge() throws Exception {
         assertThat(
                 "Method createBehaviourBridge() should create identical instances each call",
-                factory.createBehaviourBridge(gameState),
-                equalTo(factory.createBehaviourBridge(gameState))
+                this.factory.createBehaviourBridge(this.gameState),
+                equalTo(this.factory.createBehaviourBridge(this.gameState))
         );
     }
 
     @Test public void globalStatePreservedCavalry() throws Exception {
         assertThat(
                 "Method createBehaviourCavalry() should create identical instances each call",
-                factory.createBehaviourCavalry(gameState),
-                equalTo(factory.createBehaviourCavalry(gameState))
+                this.factory.createBehaviourCavalry(this.gameState),
+                equalTo(this.factory.createBehaviourCavalry(this.gameState))
         );
     }
 
     @Test public void globalStatePreservedElite() throws Exception {
         assertThat(
                 "Method createBehaviourElite() should create identical instances each call",
-                factory.createBehaviourElite(gameState),
-                equalTo(factory.createBehaviourElite(gameState))
+                this.factory.createBehaviourElite(this.gameState),
+                equalTo(this.factory.createBehaviourElite(this.gameState))
         );
     }
 
     @Test public void globalStatePreservedHealthPotion() throws Exception {
         assertThat(
                 "Method createBehaviourHealthPotion() should create identical instances each call",
-                factory.createBehaviourHealthPotion(gameState),
-                equalTo(factory.createBehaviourHealthPotion(gameState))
+                this.factory.createBehaviourHealthPotion(this.gameState),
+                equalTo(this.factory.createBehaviourHealthPotion(this.gameState))
         );
     }
 
     @Test public void globalStatePreservedSpearmen() throws Exception {
         assertThat(
                 "Method createBehaviourSpearmen() should create identical instances each call",
-                factory.createBehaviourSpearmen(gameState),
-                equalTo(factory.createBehaviourSpearmen(gameState))
+                this.factory.createBehaviourSpearmen(this.gameState),
+                equalTo(this.factory.createBehaviourSpearmen(this.gameState))
         );
     }
 
     @Test public void globalStatePreservedSwordsmen() throws Exception {
         assertThat(
                 "Method createBehaviourSwordsmen() should create identical instances each call",
-                factory.createBehaviourSwordsmen(gameState),
-                equalTo(factory.createBehaviourSwordsmen(gameState))
+                this.factory.createBehaviourSwordsmen(this.gameState),
+                equalTo(this.factory.createBehaviourSwordsmen(this.gameState))
         );
     }
 }

@@ -23,22 +23,20 @@ public class BehaviourEliteTest {
 
     @Before public void setUp() throws Exception {
         BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
-        behaviour = behaviourFactory.createBehaviourElite(TestUtil.getMockGameState());
-        unit = TestUtil.getMockUnit();
+        this.behaviour = behaviourFactory.createBehaviourElite(TestUtil.getMockGameState());
+        this.unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Elite strength should be same as in BehaviourConfig",
-                behaviour.getStrength(unit),
+                "Elite strength should be same as in BehaviourConfig", this.behaviour.getStrength(this.unit),
                 is(Config.ELITE_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Elite toughness should be same as in BehaviourConfig",
-                behaviour.getToughness(unit),
+                "Elite toughness should be same as in BehaviourConfig", this.behaviour.getToughness(this.unit),
                 is(Config.ELITE_TOUGHNESS)
         );
     }
@@ -52,10 +50,9 @@ public class BehaviourEliteTest {
     }
 
     @Test public void getActionPoints() throws Exception {
-        behaviour.turnTick(unit);
+        this.behaviour.turnTick(this.unit);
         assertThat(
-                "Elite action points should be same as in BehaviourConfig",
-                behaviour.getActionPoints(unit),
+                "Elite action points should be same as in BehaviourConfig", this.behaviour.getActionPoints(this.unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );
     }

@@ -23,22 +23,20 @@ public class BehaviourSwordsmenTest {
 
     @Before public void setUp() throws Exception {
         BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
-        behaviour = behaviourFactory.createBehaviourSwordsmen(TestUtil.getMockGameState());
-        unit = TestUtil.getMockUnit();
+        this.behaviour = behaviourFactory.createBehaviourSwordsmen(TestUtil.getMockGameState());
+        this.unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Swordsmen strength should be same as in BehaviourConfig",
-                behaviour.getStrength(unit),
+                "Swordsmen strength should be same as in BehaviourConfig", this.behaviour.getStrength(this.unit),
                 is(Config.SWORDSMEN_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Swordsmen toughness should be same as in BehaviourConfig",
-                behaviour.getToughness(unit),
+                "Swordsmen toughness should be same as in BehaviourConfig", this.behaviour.getToughness(this.unit),
                 is(Config.SWORDSMEN_TOUGHNESS)
         );
     }
@@ -52,10 +50,9 @@ public class BehaviourSwordsmenTest {
     }
 
     @Test public void getActionPoints() throws Exception {
-        behaviour.turnTick(unit);
+        this.behaviour.turnTick(this.unit);
         assertThat(
-                "Swordsmen action points should be same as in BehaviourConfig",
-                behaviour.getActionPoints(unit),
+                "Swordsmen action points should be same as in BehaviourConfig", this.behaviour.getActionPoints(this.unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );
     }

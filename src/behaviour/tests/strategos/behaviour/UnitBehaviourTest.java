@@ -26,8 +26,8 @@ public class UnitBehaviourTest {
     }
 
     @Before public void setUp() throws Exception {
-        unit = TestUtil.getMockUnit();
-        behaviour = new UnitBehaviour(TestUtil.getMockGameState()) {
+        this.unit = TestUtil.getMockUnit();
+        this.behaviour = new UnitBehaviour(TestUtil.getMockGameState()) {
             @Override public int getStrength(Unit unit) {
                 return 50;
             }

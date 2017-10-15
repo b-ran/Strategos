@@ -23,22 +23,20 @@ public class BehaviourArchersTest {
 
     @Before public void setUp() throws Exception {
         BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
-        behaviour = behaviourFactory.createBehaviourArchers(TestUtil.getMockGameState());
-        unit = TestUtil.getMockUnit();
+        this.behaviour = behaviourFactory.createBehaviourArchers(TestUtil.getMockGameState());
+        this.unit = TestUtil.getMockUnit();
     }
 
     @Test public void getStrength() throws Exception {
         assertThat(
-                "Archer strength should be same as in BehaviourConfig",
-                behaviour.getStrength(unit),
+                "Archer strength should be same as in BehaviourConfig", this.behaviour.getStrength(this.unit),
                 is(Config.ARCHERS_STRENGTH)
         );
     }
 
     @Test public void getToughness() throws Exception {
         assertThat(
-                "Archer toughness should be same as in BehaviourConfig",
-                behaviour.getToughness(unit),
+                "Archer toughness should be same as in BehaviourConfig", this.behaviour.getToughness(this.unit),
                 is(Config.ARCHERS_TOUGHNESS)
         );
     }
@@ -52,10 +50,9 @@ public class BehaviourArchersTest {
     }
 
     @Test public void getActionPoints() throws Exception {
-        behaviour.turnTick(unit);
+        this.behaviour.turnTick(this.unit);
         assertThat(
-                "Archer action points should be same as in BehaviourConfig",
-                behaviour.getActionPoints(unit),
+                "Archer action points should be same as in BehaviourConfig", this.behaviour.getActionPoints(this.unit),
                 is(Config.INFANTRY_ACTION_POINTS)
         );
     }

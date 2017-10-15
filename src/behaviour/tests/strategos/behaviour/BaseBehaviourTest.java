@@ -26,12 +26,12 @@ public class BaseBehaviourTest {
     }
 
     @Before public void setUp() throws Exception {
-        gameState = TestUtil.getMockGameState();
+        this.gameState = TestUtil.getMockGameState();
     }
 
     @Test public void BaseBehaviour_nullState() throws Exception {
-        makeBaseBehaviour(gameState);
-        nullException.expect(NullPointerException.class);
+        makeBaseBehaviour(this.gameState);
+        this.nullException.expect(NullPointerException.class);
         makeBaseBehaviour(null);
     }
 
@@ -118,20 +118,20 @@ public class BaseBehaviourTest {
     @Test public void getGameState() throws Exception {
         assertThat(
                 "Provided GameState instance must be returned",
-                makeBaseBehaviour(gameState).getGameState(),
-                is(gameState)
+                makeBaseBehaviour(this.gameState).getGameState(),
+                is(this.gameState)
         );
     }
 
     @Test public void getPosition_setPosition() throws Exception {
-        behaviour = makeBaseBehaviour(this.gameState);
+        this.behaviour = makeBaseBehaviour(this.gameState);
         Unit unit = TestUtil.getMockUnit();
         MapLocation position1 = TestUtil.getMockLocation();
         MapLocation position2 = TestUtil.getMockLocation();
 
-        behaviour.setPosition(unit, position1);
-        assertThat("Must return provided MapLocation", behaviour.getPosition(unit), is(position1));
-        behaviour.setPosition(unit, position2);
-        assertThat("Must return provided MapLocation", behaviour.getPosition(unit), is(position2));
+        this.behaviour.setPosition(unit, position1);
+        assertThat("Must return provided MapLocation", this.behaviour.getPosition(unit), is(position1));
+        this.behaviour.setPosition(unit, position2);
+        assertThat("Must return provided MapLocation", this.behaviour.getPosition(unit), is(position2));
     }
 }
