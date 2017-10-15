@@ -266,4 +266,7 @@ public class View extends JComponent implements Observer {
         this.seenTerrain = seenTerrain;
     }
 
+    public int getNumberTurns() {
+        return model.getNumberTurns();
+    }
 }
