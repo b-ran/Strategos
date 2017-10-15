@@ -39,8 +39,8 @@ public class Config {
     public static final String GAME_INSTRUCTION_MESSAGE =
             "Strategos: \n" +
             "This is a turn-based tactical multiplayer board game. You control a number of units to try and take control of the " +
-                    "board with. You must attack the enemy units with yours, and once you have killed every enemy unit, " +
-                    "you win the game! But beware, your enemy will try to do the same.\n\n" +
+                    "board with. You must attack the enemy units with yours, and once you have killed every enemy unit, and captured" +
+                    "all the bridges, you win the game! But beware, your enemy will try to do the same.\n\n" +
                     "The game must be played on a LAN between two computers, or two instances on a single computer. The " +
                     "host must click the 'Host' button in the main " +
                     "menu, and then tell the other player their local IPv4 address. The connector must then click 'Connect' and " +
@@ -48,10 +48,14 @@ public class Config {
                     "your turn is done.\n" +
                     "One computer may be used to run a game. Simply follow the above steps between two instances of the game, " +
                     "except no IP is required for the connector to use.\n\n" +
+                    "At any point in the game, press 'Escape' on your keyboard and bring up the menu. Here you can save the game," +
+                    " load a previously saved, game, or start a new one.\n\n" +
                     "Select a unit with left click. Hexes that you may move to will appear highlighted in yellow. Right-click to move to them. You may " +
                     "move a unit until it runs out of Action Points (displayed in the right sidebar). If you move within " +
-                    "range of an enemy unit, you may attack it. Your attack is proportional to your unit's Strength (" +
-                    "in the right sidebar), and the enemy unit's Toughness. When attacking with any unit except for " +
+                    "range of an enemy unit, you may attack it with right-click if it is highlighted in red. " +
+                    "Your attack is proportional to your unit's Strength (in the right sidebar), and the enemy unit's Toughness. Wounded units" +
+                    "deal less damage than healthy ones, so manage your units effectively. " +
+                    "When attacking with any unit except for " +
                     "Archers, both units will take damage from combat. Hitpoints are displayed on the right. When your" +
                     " unit reaches 0 hitpoints, it is removed from the game. Use your units wisely! You may Entrench " +
                     "your units, which consumes 2 AP per turn and gives a defensive bonus, or make them Wary, which consumes " +
@@ -60,16 +64,18 @@ public class Config {
                     "Swordsman: High attack, decent defence, " + INFANTRY_ACTION_POINTS + " AP.\n" +
                     "Spearman: Low attack, high defence, " + INFANTRY_ACTION_POINTS + " AP.\n" +
                     "Archers: Decent attack, low defence, " + INFANTRY_ACTION_POINTS + " AP, can attack from "+ ARCHER_RANGE +
-                    " tiles away and take no damage when attacking.\n" +
+                    " tiles away and takes no damage when attacking.\n" +
                     "Cavalry: Decent attack, decent defence, " + CAVALRY_ACTION_POINTS + " AP.\n" +
                     "Elites: Decent attack, very high defence, " + INFANTRY_ACTION_POINTS + " AP\n\n" +
                     "Terrain is your friend and enemy! Hills provide a good defensive bonus to units standing on them, " +
                     "and forests slightly less so. Rivers and mountains are impassable. However, you can use your units to " +
-                    "attack and capture any of the three bridges that allow them to cross the river. Your enemy will seek to do the " +
-                    "same, to deny you your right to cross and meet them in combat!\n\n" +
+                    "attack and capture any of the three bridges that allow them to cross the river. Your cowardly enemy will seek to do the " +
+                    "same, to deny you your right to cross and meet them in righteous combat!\n\n" +
                     "Be warned, general. While you engage in your test of strength, a number of filthy barbarians wander " +
-                    "the land, attacking anything that comes near! Slay the brutes, or lure them into your enemy, to make arrow fodder. " +
-                    "They have left supplies on the battlefield, which your units can plunder to regain their fighting spirit and heal.\n\n";
+                    "the land, attacking anything that comes near! Slay the brutes, or lure them into your enemy as arrow fodder. " +
+                    "They have left supplies on the battlefield, which your units can plunder to regain their fighting spirit and heal." +
+                    "When our scouts found this battlefield, their reports suggested that there were massive numbers of barbarians in the mountains. " +
+                    "Whether they choose to remain there or not is anyone's guess...\n\n";
 
     //Grid
 
