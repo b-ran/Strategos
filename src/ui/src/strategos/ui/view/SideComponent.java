@@ -18,19 +18,23 @@ import static strategos.ui.config.Config.*;
  */
 public class SideComponent extends JComponent {
 
-
     private final View view;
     private JButton waryButton = new JButton(WARY_BUTTON_NAME);
     private JButton entrenchButton = new JButton(ENTRENCH_BUTTON_NAME);
     private JButton attackButton = new JButton(ATTACK_BUTTON_NAME);
     private JButton nextTurnButton = new JButton(NEXT_TURN_BUTTON_NAME);
     private Draw draw;
+
     private MapLocation selectedMapLocation;
     private Unit selectedUnit;
-    private String playerText = PLAYER_NAME;
+
+    private String playerText = PLAYER_NAME; //The text for the current turn
 
     /**
      * Instantiates a new Side component for drawing on.
+     *
+     * @param view the view
+     * @author Brandon Scott-Hill
      */
     SideComponent(View view) {
         this.view = view;
@@ -43,6 +47,7 @@ public class SideComponent extends JComponent {
      * Gets side panel for buttons.
      *
      * @return the side panel
+     * @author Brandon Scott-Hill
      */
     JPanel getSidePanel() {
         JPanel p = new JPanel();
@@ -71,16 +76,39 @@ public class SideComponent extends JComponent {
         paintLabels(g);
     }
 
+
+    /**
+     * Draws the player text
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param g the Graphics
+     */
     private void paintPlayerText(Graphics g) {
         g.setColor(Color.BLACK);
         g.drawString(playerText, PLAYER_NAME_LOCATION.x, PLAYER_NAME_LOCATION.y);
     }
 
+
+    /**
+     * Draws the current turn
+     *
+     * @author Daniel Pinfold
+     *
+     * @param g the Graphics
+     */
     private void paintTurnText(Graphics g) {
         g.setColor(Color.BLACK);
         g.drawString("Turn " + view.getNumberTurns(), TURN_NUMBER_LOCATION.x, TURN_NUMBER_LOCATION.y);
     }
 
+    /**
+     * Draws the current selection
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param g the Graphics
+     */
     private void paintSelection(Graphics g) {
         if (selectedMapLocation == null) return;
         if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
@@ -92,6 +120,14 @@ public class SideComponent extends JComponent {
         draw.drawTerrainNonGrid(selectedMapLocation.getTerrain(), SELECTION_LOCATION, g);
     }
 
+    /**
+     * Draws the labels of the current selection
+     *
+     * @author Brandon Scott-Hill
+     * @author Daniel Pinfold
+     *
+     * @param g the Graphics
+     */
     private void paintLabels(Graphics g) {
         if (selectedUnit == null) return;
         if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
@@ -110,44 +146,75 @@ public class SideComponent extends JComponent {
         }
 
         g.drawString(STRENGTH_LABEL_NAME + " " + selectedUnit.getStrength(), STRENGTH_LABEL_LOCATION.x, STRENGTH_LABEL_LOCATION.y);
-        g.drawString(TOUGHNESS_LABEL_NAME + " " +
-                         selectedUnit.getToughness() +
-                          ((toughnessMod != selectedUnit.getToughness()) ? " ( + " + toughnessMod + ")" : ""),
-                TOUGHNESS_LABEL_LOCATION.x, TOUGHNESS_LABEL_LOCATION.y);
+        g.drawString(TOUGHNESS_LABEL_NAME + " " + selectedUnit.getToughness() + ((toughnessMod != selectedUnit.getToughness()) ? " ( + " + toughnessMod + ")" : ""), TOUGHNESS_LABEL_LOCATION.x, TOUGHNESS_LABEL_LOCATION.y);
 
     }
 
-
+    /**
+     * Sets selection.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param selectedMapLocation the selected map location
+     * @param selectedUnit        the selected unit
+     */
     public void setSelection(MapLocation selectedMapLocation, Unit selectedUnit) {
         this.selectedMapLocation = selectedMapLocation;
         this.selectedUnit = selectedUnit;
     }
 
-
+    /**
+     * Sets player text.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param playerText the player text
+     */
     public void setPlayerText(String playerText) {
         this.playerText = playerText;
     }
 
-    public void togglePlayerText() {
-        if (playerText.equals(PLAYER_NAME)) {
-            playerText = OTHER_PLAYER_NAME;
-        } else {
-            playerText = PLAYER_NAME;
-        }
-    }
 
+    /**
+     * Gets next turn button.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the next turn button
+     */
     public JButton getNextTurnButton() {
         return nextTurnButton;
     }
 
+    /**
+     * Gets wary button.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the wary button
+     */
     public JButton getWaryButton() {
         return waryButton;
     }
 
+    /**
+     * Gets entrench button.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the entrench button
+     */
     public JButton getEntrenchButton() {
         return entrenchButton;
     }
 
+    /**
+     * Gets attack button.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the attack button
+     */
     public JButton getAttackButton() {
         return attackButton;
     }

@@ -7,13 +7,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Brandon Scott-Hill - scotthbran
- * @author Daniel Pinfold - pinfoldani
+ * The New game listener for new game button.
+ *
+ * @author Brandon Scott-Hill
+ * @author Daniel Pinfold
  */
 class NewGameListener extends Controller implements ActionListener {
 
-    Controller controller;
+    private final Controller controller;
 
+    /**
+     * Instantiates a new New game listener.
+     *
+     * @author Brandon Scott-Hill
+     * @author Daniel Pinfold
+     *
+     * @param controller the controller
+     */
     NewGameListener(Controller controller) {
         super(controller);
         this.controller = controller;

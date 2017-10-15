@@ -1,5 +1,9 @@
 package strategos.ui.config;
 
+/**
+ * Config file holding constants for image paths.
+ * @author Brandon Scott-Hill
+ */
 public class ConfigImage {
 
     public static final String FOREST_IMAGE_PATH = "resources/forestSpritev2.png";

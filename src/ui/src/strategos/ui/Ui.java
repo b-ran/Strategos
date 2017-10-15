@@ -9,16 +9,20 @@ import strategos.ui.view.View;
 
 
 /**
- * The type Ui.
+ * Creates the ui.
+ * @author Brandon Scott-Hill
  */
 public class Ui {
 
-    View view = null;
-    Controller controller = null;
-    NetworkingHandler networkingHandler;
+    private View view = null;
+    private Controller controller = null;
+    private NetworkingHandler networkingHandler = null;
 
     /**
      * Instantiates a new Ui.
+     *
+     * @author Brandon Scott-Hill
+     * @author Daniel Pinfold
      *
      * @param model    the current gameStateModel
      *                 <dt><b>Precondition:</b><dd>
@@ -50,6 +54,8 @@ public class Ui {
     /**
      * Instantiates a new Ui.
      *
+     * @author Brandon Scott-Hill
+     *
      * @param model    the current gameStateModel
      *                 <dt><b>Precondition:</b><dd>
      *                 model must not be null<br>
@@ -74,24 +80,38 @@ public class Ui {
 
 
     /**
-     * Exit.
+     * Exits the ui.
+     *
+     * @author Brandon Scott-Hill
      */
     public void exit() {
         view.exit();
     }
 
     /**
-     * Disables User Input.
+     * Disables User Input for ui.
+     *
+     * @author Brandon Scott-Hill
      */
     public void disableInput() {
         controller.disableAllInput();
     }
 
+    /**
+     * Skips the menu.
+     *
+     * @author Brandon Scott-Hill
+     */
     public void skipMenu() {
         controller.skipMenu();
     }
 
+    /**
+     * Reveals the  map.
+     *
+     * @author Brandon Scott-Hill
+     */
     public void revealMap() {
-        view.getGridComponent().revealMap();
+        view.revealMap();
     }
 }

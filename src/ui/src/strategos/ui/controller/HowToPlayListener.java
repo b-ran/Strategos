@@ -7,12 +7,20 @@ import java.awt.event.ActionListener;
 import static strategos.ui.config.Config.GAME_INSTRUCTION_MESSAGE;
 
 /**
- * @author Brandon Scott-Hill - scotthbran
- * @author Daniel Pinfold - pinfoldani
+ * The How to play listener for the how to play button.
+ *
+ * @author Daniel Pinfold
  */
 class HowToPlayListener extends Controller implements ActionListener {
 
 
+	/**
+	 * Instantiates a new How to play listener.
+	 *
+	 * @author Daniel Pinfold
+	 *
+	 * @param controller the controller
+	 */
 	HowToPlayListener(Controller controller) {
 		super(controller);
 	}

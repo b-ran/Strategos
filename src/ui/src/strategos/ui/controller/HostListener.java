@@ -7,13 +7,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Brandon Scott-Hill - scotthbran
- * @author Daniel Pinfold - pinfoldani
+ * The Host listener.
+ *
+ * @author Daniel Pinfold
  */
 public class HostListener extends Controller implements ActionListener {
 
     private NetworkingHandler networkingHandler;
 
+    /**
+     * Instantiates a new Host listener.
+     *
+     * @author Daniel Pinfold
+     *
+     * @param controller        the controller
+     * @param networkingHandler the networking handler
+     */
     HostListener(Controller controller, NetworkingHandler networkingHandler) {
         super(controller);
         this.networkingHandler = networkingHandler;
