@@ -160,7 +160,7 @@ public class TestUtil {
 
         @Override
         public void move(Unit unit, MapLocation mapLocation) {
-            
+
         }
 
         @Override public void attack(Unit unit, int targetX, int targetY) {
@@ -251,4 +251,40 @@ public class TestUtil {
         }
     };
 }
+
+    static MapLocation getMockLocation() {
+        return new MapLocation() {
+            @Override public int getX() {
+                return 0;
+            }
+
+            @Override public int getY() {
+                return 0;
+            }
+
+            @Override public MapLocation getNeighbour(Direction direction) {
+                return null;
+            }
+
+            @Override public void addNeighbour(Direction direction, MapLocation location) {
+
+            }
+
+            @Override public boolean isInPlayArea() {
+                return false;
+            }
+
+            @Override public Map<Direction, MapLocation> getNeighbours() {
+                return null;
+            }
+
+            @Override public Terrain getTerrain() {
+                return null;
+            }
+
+            @Override public void setTerrain(Terrain terrain) {
+
+            }
+        };
+    }
 }

@@ -1,22 +1,25 @@
 package strategos.behaviour;
 
 
-import org.junit.*;
-import org.junit.rules.*;
-import strategos.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import strategos.Direction;
 import strategos.model.GameState;
 import strategos.model.MapLocation;
-import strategos.units.*;
+import strategos.units.Unit;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 
 public class BaseBehaviourTest {
 
-    @Rule public final ExpectedException nullException =
-            ExpectedException.none();
+    @Rule public final ExpectedException nullException = ExpectedException.none();
     private GameState gameState;
+    private Behaviour behaviour;
 
     @BeforeClass public static void beforeAll() {
         TestUtil.logAll();
@@ -101,23 +104,32 @@ public class BaseBehaviourTest {
                 return 0;
             }
 
-            @Override
-            public Behaviour copy(GameState newState) {
+            @Override public Behaviour copy(GameState newState) {
                 return null;
             }
 
-            @Override
-            public int getAttackRange() {
+            @Override public int getAttackRange() {
                 return 0;
             }
         };
     }
 
     @Test public void getGameState() throws Exception {
-        assertThat(
-                "Provided GameState instance must be returned",
-                makeBaseBehaviour(gameState).getGameState(),
-                is(gameState)
+        assertThat("Provided GameState instance must be returned",
+                   makeBaseBehaviour(gameState).getGameState(),
+                   is(gameState)
         );
+    }
+
+    @Test public void getPosition_setPosition() throws Exception {
+        behaviour = makeBaseBehaviour(this.gameState);
+        Unit unit = TestUtil.getMockUnit();
+        MapLocation position1 = TestUtil.getMockLocation();
+        MapLocation position2 = TestUtil.getMockLocation();
+
+        behaviour.setPosition(unit, position1);
+        assertThat("Must return provided MapLocation", behaviour.getPosition(unit), is(position1));
+        behaviour.setPosition(unit, position2);
+        assertThat("Must return provided MapLocation", behaviour.getPosition(unit), is(position2));
     }
 }
