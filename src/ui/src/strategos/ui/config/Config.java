@@ -5,6 +5,11 @@ import java.awt.event.MouseEvent;
 
 import static strategos.Config.*;
 
+
+/**
+ * Config file holding constants ui text and values.
+ * @author Brandon Scott-Hill
+ */
 public class Config {
     //Menu
     public static final int MENU_PADDING_SIZE = 40;
@@ -36,6 +41,11 @@ public class Config {
 
     public static final Dimension GAME_INSTRUCTION_BOX_DIMENSIONS = new Dimension(600, 700);
 
+
+    /**
+     * The Game Instructions
+     * @author Daniel Pinfold
+     */
     public static final String GAME_INSTRUCTION_MESSAGE =
             "Strategos: \n" +
             "This is a turn-based tactical multiplayer board game. You control a number of units to try and take control of the " +
