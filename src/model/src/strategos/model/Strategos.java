@@ -131,6 +131,9 @@ public class Strategos implements GameState {
 	@Override
 	public void move(Unit unit, MapLocation mapLocation) {
 		MapLocation newLocation = world.getMap().get(mapLocation.getX(), mapLocation.getY());
+		if (!currentTurnPlayer.getUnits().contains(unit) && getPlayers().indexOf(unit.getOwner()) != 2) {
+			newLocation = unit.getPosition();
+		}
 		if (getTilesInMoveRange(unit).contains(newLocation)) {
 			unit.move(directionFromNeighbour(unit.getPosition(), newLocation));
 			calculateVision(unit.getOwner());
