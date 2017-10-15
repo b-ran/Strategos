@@ -344,7 +344,7 @@ public class IntegrationTests {
 		client.stop();
 	}
 
-	private NetworkingHandler setupHandler(boolean client, GameState state) throws InterruptedException {
+	NetworkingHandler setupHandler(boolean client, GameState state) throws InterruptedException {
 		NetworkingHandler handler = new NetworkingHandlerImpl();
 		if (client) {
 			handler.initialise(state, 8080);
