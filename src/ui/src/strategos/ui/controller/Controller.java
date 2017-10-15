@@ -17,25 +17,15 @@ import java.util.List;
 import static strategos.ui.config.Config.HEX_SIZE;
 
 /**
- * The type Controller.
+ * The Controller for the ui.
+ *
+ * @author Brandon Scott-Hill
  */
 public class Controller {
 
     private NetworkingHandler networkingHandler;
-    /**
-     * The Model.
-     */
     protected GameState model;
-
-    /**
-     * The Board.
-     */
     GameBoard board;
-    /**
-
-     /**
-     * The View.
-     */
     protected View view;
 
     private MapLocation selectedMapLocation;
@@ -46,10 +36,12 @@ public class Controller {
 
     Boolean allInput = true;
     private boolean menuToggle = false;
-    UnitOwner uiOwner;
+    private UnitOwner uiOwner;
 
     /**
      * Instantiates a new Controller Clone.
+     *
+     * @author Brandon Scott-Hill
      *
      * @param controller the controller
      */
@@ -65,8 +57,11 @@ public class Controller {
     /**
      * Instantiates a new Controller.
      *
-     * @param model  the model
-     * @param view   the view
+     * @author Brandon Scott-Hill
+     *
+     * @param model             the model
+     * @param view              the view
+     * @param networkingHandler the networking handler
      */
     public Controller(GameState model, View view, NetworkingHandler networkingHandler) {
         this.model = model;
@@ -79,10 +74,12 @@ public class Controller {
     }
 
     /**
-     * Instantiates a new Controller.
+     * Instantiates a new Controller Without Networking.
      *
-     * @param model  the model
-     * @param view   the view
+     * @author Brandon Scott-Hill
+     *
+     * @param model the model
+     * @param view  the view
      */
     public Controller(GameState model, View view) {
         this.model = model;
@@ -95,6 +92,8 @@ public class Controller {
 
     /**
      * Sets menu listeners based on status of view.
+     *
+     * @author Brandon Scott-Hill
      */
     private void setMenuListeners() {
         MenuComponent m = view.getMenuComponent();
@@ -121,6 +120,8 @@ public class Controller {
 
     /**
      * Sets game listeners based on status of view.
+     *
+     * @author Brandon Scott-Hill
      */
     private void setGameListeners() {
         GridComponent g = view.getGridComponent();
@@ -138,6 +139,15 @@ public class Controller {
         s.getAttackButton().addActionListener(new AttackListener(this));
     }
 
+    /**
+     * Gets hex pos.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param x the x
+     * @param y the y
+     * @return the hex pos
+     */
     Point getHexPos(int x, int y) {
         Point p = new Point();
         p.y = getHexY(y);
@@ -165,30 +175,73 @@ public class Controller {
     }
 
 
+    /**
+     * Disable all input.
+     *
+     * @author Brandon Scott-Hill
+     */
     public void disableAllInput() {
         allInput = false;
     }
 
+    /**
+     * Skip the menu.
+     *
+     * @author Brandon Scott-Hill
+     */
     public void skipMenu() {
         view.setGame();
     }
 
+    /**
+     * Toggle the status of the menu.
+     *
+     * @author Brandon Scott-Hill
+     */
     void menuToggle() {
         menuToggle = !menuToggle;
     }
 
+    /**
+     * Gets status of the menu.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the menu toggle
+     */
     boolean getMenuToggle() {
         return menuToggle;
     }
 
+    /**
+     * Gets selected map location.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the selected map location
+     */
     MapLocation getSelectedMapLocation() {
         return selectedMapLocation;
     }
 
+    /**
+     * Gets networking handler.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the networking handler
+     */
     NetworkingHandler getNetworkingHandler() {
         return networkingHandler;
     }
 
+    /**
+     * Sets selected map location.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param selectedMapLocation the selected map location
+     */
     void setSelectedMapLocation(MapLocation selectedMapLocation) {
         GridComponent g = view.getGridComponent();
         SideComponent s = view.getSideComponent();
@@ -244,6 +297,11 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Reset section.
+     *
+     * @author Brandon Scott-Hill
+     */
     void resetSection() {
         selectionToggle = true;
         selectedUnit = null;
@@ -252,22 +310,26 @@ public class Controller {
         view.repaint();
     }
 
-    boolean getSelectionToggle() {
-        return selectionToggle;
-    }
 
+    /**
+     * Gets selected unit.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the selected unit
+     */
     Unit getSelectedUnit() {
         return selectedUnit;
     }
 
-    List<MapLocation> getTilesInMoveRange() {
-        return tilesInMoveRange;
-    }
 
-    List<Unit> getUnitsInAttackRange() {
-        return unitsInAttackRange;
-    }
-
+    /**
+     * Sets selection toggle.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param selectionToggle the selection toggle
+     */
     void setSelectionToggle(boolean selectionToggle) {
         this.selectionToggle = selectionToggle;
     }
