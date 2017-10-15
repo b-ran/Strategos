@@ -33,4 +33,10 @@ public class CavalryImpl extends UnitImpl implements Cavalry, GameObject {
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
 	}
+
+
+	@Override
+	public String toString() {
+		return "Cavalry";
+	}
 }

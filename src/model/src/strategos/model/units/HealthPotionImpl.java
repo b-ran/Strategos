@@ -31,4 +31,10 @@ public class HealthPotionImpl extends UnitImpl implements HealthPotion {
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
 	}
+
+
+	@Override
+	public String toString() {
+		return "Health Potion";
+	}
 }

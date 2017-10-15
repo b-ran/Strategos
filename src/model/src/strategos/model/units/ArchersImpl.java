@@ -33,4 +33,9 @@ public class ArchersImpl extends UnitImpl implements Archers, GameObject {
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Archers";
+	}
 }

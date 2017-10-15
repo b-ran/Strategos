@@ -33,4 +33,10 @@ public class SpearmenImpl extends UnitImpl implements Spearmen, GameObject {
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
 	}
+
+
+	@Override
+	public String toString() {
+		return "Spearmen";
+	}
 }
