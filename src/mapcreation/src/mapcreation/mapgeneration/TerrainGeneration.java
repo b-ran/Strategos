@@ -1,6 +1,5 @@
 package mapcreation.mapgeneration;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import mapcreation.mapgeneration.terrain.*;
 import mapcreation.noisegeneration.NoiseGenerator;
 import strategos.Paintable;
@@ -29,7 +28,7 @@ public class TerrainGeneration implements Generator {
     /**
      * Number of octaves used by the generator(currently way to high)
      */
-    private final int octaves = NUM_OCTAVES;
+    private int octaves = NUM_OCTAVES;
 
     /**
      * Changes the average elevation of the map
@@ -124,8 +123,9 @@ public class TerrainGeneration implements Generator {
      *
      * @return fillMap()
      */
-    public double[][] testFillMap(int width, int height, int seed, int flatness) {
+    public double[][] testFillMap(int width, int height, int seed, int flatness, int octaves) {
         this.mapAltitude = flatness;
+        this.octaves = octaves;
         return fillMap(width, height, seed);
     }
 
@@ -140,7 +140,7 @@ public class TerrainGeneration implements Generator {
     private boolean[][] fillForest(int width, int height, int seed) {
         //Calls the noise generation class to produce a field of noise(seed incremented to provide some deviation from the topologyMap)
         NoiseGenerator generatedNoise = new NoiseGenerator(512, seed + 1);
-        boolean[][] forestMap = new boolean[width * xRes][height * yRes];
+        boolean[][] forestMap = new boolean[width][height];
         double noise;
         //Fill forestMap with noise
         for (int x = 0; x < forestMap.length; x++) {

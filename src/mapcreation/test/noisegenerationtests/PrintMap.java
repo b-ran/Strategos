@@ -1,4 +1,4 @@
-package mapcreation.noisegeneration.noiseutil;
+package noisegenerationtests;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -7,16 +7,16 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Used to draw grey scale images for manual testing
+ * Used to draw grey scale images for visual testing
  */
-public class PrintMap {
+class PrintMap {
 
     /**
      * Creates a grey scale image representing the noise past in
      *
      * @param imageData Map topology that gets converted to a grey scale image
      */
-    public static void greyImage(double[][] imageData) {
+    static void greyImage(double[][] imageData) {
         BufferedImage image = new BufferedImage(imageData.length, imageData[0].length, BufferedImage.TYPE_INT_RGB);
         float colorValue;
         for (int x = 0; x < imageData.length; x++) {
@@ -44,7 +44,7 @@ public class PrintMap {
      *
      * @param imageData A field of booleans that state where forest tiles can be
      */
-    public static void greyImage(boolean[][] imageData) {
+    static void greyImage(boolean[][] imageData) {
         BufferedImage image = new BufferedImage(imageData.length, imageData[0].length, BufferedImage.TYPE_INT_RGB);
         int colorValue;
         for (int x = 0; x < imageData.length; x++) {

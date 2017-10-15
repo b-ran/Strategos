@@ -19,6 +19,7 @@ class Octave {
             , 175, 38, 6, 120, 212, 233, 19, 197, 236, 86, 46, 63, 243, 98, 26, 78, 95, 164, 81, 17, 64, 70, 119, 125
             , 220, 5, 181, 140
     };
+
     /**
      * Corners of the graph
      */
@@ -65,29 +66,21 @@ class Octave {
     private final double F2 = 0.5 * (Math.sqrt(3.0) - 1);
     private final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
 
-    //rename to x, y
-
     /**
      * @param xin X position to to sample
      * @param yin Y position to sample
      * @return Noise value at xin, yin
      */
     double noise(double xin, double yin) {
-        double s = (xin + yin) * F2;
-        int i = fastFloor(xin + s);
-        int j = fastFloor(yin + s);
-        double t = (i + j) * G2;
-        double X0 = i - t;
-        double Y0 = j - t;
-        double x0 = xin - X0;
-        double y0 = yin - Y0;
+        int i = fastFloor(xin + (xin + yin) * F2);
+        int j = fastFloor(yin + (xin + yin) * F2);
+
+        double x0 = xin - (i - ((i + j) * G2));
+        double y0 = yin - (j - ((i + j) * G2));
 
         int i1 = 0, j1 = 0;
-        if (x0 > y0) {
-            i1 = 1;
-        } else {
-            j1 = 1;
-        }
+        if (x0 > y0) i1 = 1;
+        else j1 = 1;
 
         double[] x = {
                 x0,
@@ -104,10 +97,14 @@ class Octave {
         i &= 255;
         j &= 255;
 
-        int gi[] = {permMod4[i + perm[j]],
+        int gi[] = {
+                permMod4[i + perm[j]],
                 permMod4[i + i1 + perm[j + j1]],
-                permMod4[i + 1 + perm[j + 1]]};
+                permMod4[i + 1 + perm[j + 1]]
+        };
+
         double n[] = new double[3];
+
         //may be able to use arrays
         double[] tArray = {
                 0.5 - x[0] * x[0] - y[0] * y[0],
@@ -140,7 +137,7 @@ class Octave {
     }
 
     /**
-     * "Faster" version of floor
+     * "Faster" version of floor, rounds values down
      *
      * @return Integer value of x
      */

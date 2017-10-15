@@ -3,7 +3,6 @@ package noisegenerationtests;
 
 import mapcreation.mapgeneration.TerrainGeneration;
 import mapcreation.noisegeneration.NoiseGenerator;
-import mapcreation.noisegeneration.noiseutil.PrintMap;
 import org.junit.Test;
 
 public class NoiseTester {
@@ -83,7 +82,7 @@ public class NoiseTester {
     @Test
     public void mapTest_1() {
         TerrainGeneration TG = new TerrainGeneration();
-        double[][] map = TG.testFillMap(50, 50, 1, 90);
+        double[][] map = TG.testFillMap(50, 50, 1, 90, 512);
         //To physically compare to correctTopology
         PrintMap.greyImage(map);
         double[][] testMap = noisegenerationtests.TestResources.testMap;
@@ -98,13 +97,16 @@ public class NoiseTester {
     public void forestTest_1() {
         TerrainGeneration TG = new TerrainGeneration();
         boolean[][] forest = TG.testFillForest(50, 50, 1, 0.55);
-        //To physically compare to correctForest
+        //To physically compare to correctForest.png
         PrintMap.greyImage(forest);
         boolean[][] testForest = noisegenerationtests.TestResources.testForest;
-        for (int x = 0; x < forest.length; x++) {
+        for (int x = 0; x< forest.length; x++) {
+//            System.out.print("{");
             for (int y = 0; y < forest[0].length; y++) {
+//                System.out.print(aForest[y] + ", ");
                 assert (forest[x][y] == testForest[x][y]);
             }
+//            System.out.print("}\n");
         }
     }
 
