@@ -10,7 +10,7 @@ import strategos.units.Unit;
 /**
  * An implementation of the Swordsmen Unit.
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class SwordsmenImpl extends UnitImpl implements Swordsmen, GameObject {
 

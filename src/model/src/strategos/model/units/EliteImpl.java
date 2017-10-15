@@ -13,7 +13,7 @@ import java.awt.*;
 /**
  * An implementation of the Elites Unit.
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class EliteImpl extends UnitImpl implements Elite, GameObject {
 	private static final Image sprite = null;

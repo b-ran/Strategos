@@ -9,7 +9,7 @@ import strategos.units.Unit;
  * An implementation of the UnitOwner, which contains units and can see a number of tiles. A Player is owned by
  * 		the instance of the Strategos game
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class Player implements UnitOwner{
 

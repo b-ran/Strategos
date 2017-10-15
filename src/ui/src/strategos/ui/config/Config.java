@@ -127,6 +127,8 @@ public class Config {
 
     public static final Point PLAYER_NAME_LOCATION = new Point(20, 10);
 
+    public static final Point TURN_NUMBER_LOCATION = new Point(SIDE_PANEL_SIZE.width - 60, PLAYER_NAME_LOCATION.y);
+
     public static final String HEALTH_LABEL_NAME = "Health:";
 
     public static final Point HEALTH_LABEL_LOCATION = new Point(20, 120);

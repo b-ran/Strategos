@@ -17,6 +17,9 @@ import static strategos.ui.config.Config.*;
 
 /**
  * The type View.
+ *
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
  */
 public class View extends JComponent implements Observer {
 
@@ -368,5 +371,15 @@ public class View extends JComponent implements Observer {
     public void revealMap() {
         revealMap = true;
         getGridComponent().revealMap();
+    }
+
+
+    /**
+     * Get the number of turns.
+     *
+     * @author Daniel Pinfold
+     */
+    int getNumberTurns() {
+        return model.getNumberTurns();
     }
 }

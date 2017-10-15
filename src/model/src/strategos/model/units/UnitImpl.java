@@ -11,7 +11,7 @@ import strategos.units.Unit;
  * An implementation of the Unit. Contains functions that are delegated to the Behaviour object stored in it,
  * 		which dictates how the unit acts.
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class UnitImpl implements Unit, GameObject {
 

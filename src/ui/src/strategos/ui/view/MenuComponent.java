@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import static strategos.ui.config.Config.*;
 
+
 /**
  * Used to create different menus: escapeMenu, mainMenu and loadMenu.
  * @author Brandon Scott-Hill
  */
-
 
 public class MenuComponent extends JComponent {
 

@@ -21,7 +21,7 @@ import static strategos.Config.NUM_ELITES;
 /**
  * An implementation of the GameStateFactory, which creates new GameStates when called.
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class StateCreator implements GameStateFactory {
 
