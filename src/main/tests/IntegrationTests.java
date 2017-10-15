@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class IntegrationTests {
 
 	/**
-	 * Tests that barbarians begins spawning after a number of turns
+	 * Tests that barbarians begin spawning after a number of turns
 	 */
 	@Test
 	public void modelAndBehaviourTest_1() {
@@ -92,18 +92,10 @@ public class IntegrationTests {
 
 		unit.setPosition(enemyUnit.getPosition().getNeighbour(SOUTH_WEST));
 
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
+		for (int i = 0; i < 6; i++) {
+			gameState.attack(unit, enemyUnit.getPosition());
+			unit.turnTick();
+		}
 
 		assertFalse(enemyUnit.isAlive());
 	}
