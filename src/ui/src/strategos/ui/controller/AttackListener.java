@@ -5,9 +5,21 @@ import strategos.units.Unit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The Attack listener for the attack button.
+ *
+ * @author Brandon Scott-Hill
+ */
 public class AttackListener extends Controller implements ActionListener {
     private final Controller controller;
 
+    /**
+     * Instantiates a new Attack listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
     AttackListener(Controller controller) {
         super(controller);
         this.controller = controller;

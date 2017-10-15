@@ -8,10 +8,23 @@ import java.awt.event.ActionListener;
 
 import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
 
+/**
+ * The Connect listener.
+ *
+ * @author Daniel Pinfold
+ */
 class ConnectListener extends Controller implements ActionListener{
 
     private NetworkingHandler networkingHandler;
 
+    /**
+     * Instantiates a new Connect listener.
+     *
+     * @author Daniel Pinfold
+     *
+     * @param controller        the controller
+     * @param networkingHandler the networking handler
+     */
     ConnectListener(Controller controller, NetworkingHandler networkingHandler) {
         super(controller);
         this.networkingHandler = networkingHandler;
