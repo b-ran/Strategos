@@ -37,14 +37,6 @@ public class BaseBehaviourTest {
 
     private static BaseBehaviour makeBaseBehaviour(GameState gameState) {
         return new BaseBehaviour(gameState) {
-            @Override public MapLocation getPosition(Unit unit) {
-                return null;
-            }
-
-            @Override public void setPosition(Unit unit, MapLocation position) {
-
-            }
-
             @Override public void turnTick(Unit unit) {
 
             }
