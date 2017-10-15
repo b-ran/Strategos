@@ -445,12 +445,22 @@ public class Strategos implements GameState {
 		return currentTurnPlayer;
 	}
 
+	private int hasUnits(UnitOwner unitOwner) {
+		int units = 0;
+		for (Unit u : unitOwner.getUnits()) {
+			if (!(u instanceof Bridge)) {
+				units++;
+			}
+		}
+		return units;
+	}
+
 	@Override
 	public int getWinner() {
-		if (players.get(0).getUnits().size() == 0) {
+		if (hasUnits(players.get(0)) == 0) {
 			return 2;
 		}
-		if (players.get(1).getUnits().size() == 0) {
+		if (hasUnits(players.get(1)) == 0) {
 			return 1;
 		}
 		return -1;
