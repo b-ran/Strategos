@@ -41,9 +41,9 @@ class AiBehaviour extends BaseBehaviour {
         }
 
         this.directionIndex = random.nextInt(Direction.values().length);
-        logger.fine(String.format(
-                "%s AI selected direction %s", this.behaviour.getClass(),
-                Direction.values()[this.directionIndex]
+        logger.fine(String.format("%s AI selected direction %s",
+                                  this.behaviour.getClass(),
+                                  Direction.values()[this.directionIndex]
         ));
     }
 

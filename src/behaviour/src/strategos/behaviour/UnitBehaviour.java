@@ -285,8 +285,9 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public String toString() {
-        return "UnitBehaviour{" + "entrench=" + this.entrench + ", actionPoints=" + this.actionPoints + ", wary=" + this.wary +
-               ", hitpoints=" + this.hitpoints + ", hasAttacked=" + this.hasAttacked + "} " + super.toString();
+        return "UnitBehaviour{" + "entrench=" + this.entrench + ", actionPoints=" + this.actionPoints + ", wary=" +
+               this.wary + ", hitpoints=" + this.hitpoints + ", hasAttacked=" + this.hasAttacked + "} " +
+               super.toString();
     }
 
     void setActionPoints(int actionPoints) {
