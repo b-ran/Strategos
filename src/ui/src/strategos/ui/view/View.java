@@ -17,6 +17,9 @@ import static strategos.ui.config.Config.*;
 
 /**
  * The type View.
+ *
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
  */
 public class View extends JComponent implements Observer {
 
@@ -263,4 +266,7 @@ public class View extends JComponent implements Observer {
         this.seenTerrain = seenTerrain;
     }
 
+    public int getNumberTurns() {
+        return model.getNumberTurns();
+    }
 }

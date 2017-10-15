@@ -6,6 +6,10 @@ import strategos.ui.view.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
+ */
 class LoadSlotListener extends Controller implements ActionListener {
 	private final int index;
 	private Controller controller;

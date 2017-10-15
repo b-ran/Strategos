@@ -11,6 +11,10 @@ import static strategos.ui.config.Config.*;
 
 /**
  * The type Side component.
+ *
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
+ *
  */
 public class SideComponent extends JComponent {
 
@@ -63,12 +67,18 @@ public class SideComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         paintSelection(g);
         paintPlayerText(g);
+        paintTurnText(g);
         paintLabels(g);
     }
 
     private void paintPlayerText(Graphics g) {
         g.setColor(Color.BLACK);
         g.drawString(playerText, PLAYER_NAME_LOCATION.x, PLAYER_NAME_LOCATION.y);
+    }
+
+    private void paintTurnText(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.drawString("Turn " + view.getNumberTurns(), TURN_NUMBER_LOCATION.x, TURN_NUMBER_LOCATION.y);
     }
 
     private void paintSelection(Graphics g) {

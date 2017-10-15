@@ -9,7 +9,7 @@ import strategos.units.Unit;
 /**
  * The primary data structure, containing the map and all the units in the game.
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class World implements GameCollections {
 	private GameBoard map;

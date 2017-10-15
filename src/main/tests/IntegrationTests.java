@@ -2,18 +2,13 @@ import mapcreation.mapgeneration.TerrainGeneration;
 import org.junit.Test;
 import strategos.*;
 import strategos.behaviour.BehaviourFactoryImpl;
-import strategos.gamelogic.GameRunner;
+import strategos.hexgrid.Map;
 import strategos.model.*;
 import strategos.networking.NetworkingHandler;
-import strategos.networking.external_testing.ExternalTestGameState;
-import strategos.networking.external_testing.ExternalTestMap;
-import strategos.networking.external_testing.ExternalTestUnit;
-import strategos.networking.external_testing.ExternalTestWorld;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static strategos.Config.*;
 import static strategos.Direction.*;
@@ -27,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 public class IntegrationTests {
 
 	/**
-	 * Tests that barbarians begins spawning after a number of turns
+	 * Tests that barbarians begin spawning after a number of turns
 	 */
 	@Test
 	public void modelAndBehaviourTest_1() {
@@ -35,7 +30,7 @@ public class IntegrationTests {
 
 		GameState gameState = stateCreator.createNewState();
 
-		for (int i = 0 ; i < 13; i++) {
+		for (int i = 0 ; i < 15; i++) {
 			gameState.nextTurn();
 		}
 		assertTrue(gameState.getPlayers().get(2).getUnits().size() > 9);
@@ -86,7 +81,7 @@ public class IntegrationTests {
 	}
 
 	/**
-	 * Tests that calling attack on a unit can kill it
+	 * Tests that calling attack on a unit can kill its target
 	 */
 	@Test
 	public void modelAndBehaviourTest_4() {
@@ -100,18 +95,10 @@ public class IntegrationTests {
 
 		unit.setPosition(enemyUnit.getPosition().getNeighbour(SOUTH_WEST));
 
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
-		gameState.attack(unit, enemyUnit.getPosition());
-		unit.turnTick();
+		for (int i = 0; i < 10; i++) {
+			gameState.attack(unit, enemyUnit.getPosition());
+			unit.turnTick();
+		}
 
 		assertFalse(enemyUnit.isAlive());
 	}
@@ -178,10 +165,133 @@ public class IntegrationTests {
 	}
 
 	/**
-	 * Tests that barbarians will wander the map
+	 * Tests that making a unit attack without action points fails
 	 */
 	@Test
 	public void modelAndBehaviourTest_8() {
+		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
+
+		GameState gameState = stateCreator.createNewState();
+
+		Unit unit = gameState.getPlayers().get(0).getUnits().get(0);
+		unit.turnTick();
+
+		gameState.move(unit, NORTH_WEST);
+		gameState.move(unit, NORTH_WEST);
+		gameState.move(unit, NORTH_WEST);
+
+		MapLocation location = unit.getPosition();
+		Unit enemy = gameState.getPlayers().get(1).getUnits().get(0);
+		enemy.setPosition(location.getNeighbour(NORTH_WEST));
+
+		gameState.attack(unit, unit.getPosition().getNeighbour(NORTH_WEST));
+
+		assertFalse(unit.getHitpoints() < 100);
+		assertFalse(enemy.getHitpoints() < 100);
+	}
+
+	/**
+	 * Tests that making a unit wary without action points fails
+	 */
+	@Test
+	public void modelAndBehaviourTest_9() {
+		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
+
+		GameState gameState = stateCreator.createNewState();
+
+		Unit unit = gameState.getPlayers().get(0).getUnits().get(5);
+		unit.turnTick();
+
+		gameState.move(unit, unit.getPosition().getNeighbour(NORTH_WEST));
+		gameState.move(unit, unit.getPosition().getNeighbour(NORTH_WEST));
+		gameState.move(unit, unit.getPosition().getNeighbour(NORTH_WEST));
+
+		gameState.wary(unit);
+
+		System.out.println(unit);
+
+		assertFalse(unit.getWary());
+	}
+
+	/**
+	 * Tests that making a unit entrench without action points fails
+	 */
+	@Test
+	public void modelAndBehaviourTest_10() {
+		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
+
+		GameState gameState = stateCreator.createNewState();
+
+		Unit unit = gameState.getPlayers().get(0).getUnits().get(5);
+		unit.turnTick();
+
+		gameState.move(unit, unit.getPosition().getNeighbour(NORTH_WEST));
+		gameState.move(unit, unit.getPosition().getNeighbour(NORTH_WEST));
+		gameState.move(unit, unit.getPosition().getNeighbour(NORTH_WEST));
+
+		gameState.entrench(unit);
+
+		assertFalse(unit.getEntrench());
+	}
+
+	/**
+	 * Tests that units can die when attacking
+	 */
+	@Test
+	public void modelAndBehaviourTest_11() {
+		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
+
+		GameState gameState = stateCreator.createNewState();
+
+		Unit unit = gameState.getPlayers().get(0).getUnits().get(6);
+		unit.turnTick();
+
+		MapLocation location = unit.getPosition();
+		Unit enemy = gameState.getPlayers().get(1).getUnits().get(8);
+		enemy.setPosition(location.getNeighbour(NORTH_WEST));
+
+		for (int i = 0; i < 3; i++) {
+			gameState.attack(unit, location.getNeighbour(NORTH_WEST));
+			unit.turnTick();
+		}
+
+		assertTrue(unit.getHitpoints() <= 0);
+		assertFalse(unit.isAlive());
+		assertFalse(unit.getOwner().getUnits().contains(unit));
+	}
+
+	/**
+	 * Tests that units can die when defending
+	 */
+	@Test
+	public void modelAndBehaviourTest_12() {
+		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
+
+		GameState gameState = stateCreator.createNewState();
+
+		Unit unit = gameState.getPlayers().get(0).getUnits().get(6);
+		unit.turnTick();
+
+		MapLocation location = unit.getPosition();
+		Unit enemy = gameState.getPlayers().get(1).getUnits().get(4);
+		enemy.setPosition(location.getNeighbour(NORTH_WEST));
+
+		for (int i = 0; i < 7; i++) {
+			gameState.attack(unit, location.getNeighbour(NORTH_WEST));
+			unit.turnTick();
+		}
+
+		assertTrue(enemy.getHitpoints() <= 0);
+		assertFalse(enemy.isAlive());
+		assertFalse(enemy.getOwner().getUnits().contains(enemy));
+		assertFalse(gameState.getWorld().getAllUnits().contains(enemy));
+	}
+
+	/**
+	 * Tests that barbarians will wander the map
+	 */
+	@Test
+	public void modelAndBehaviourTest_13() {
 		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
 
 		GameState gameState = stateCreator.createNewState();
@@ -190,7 +300,7 @@ public class IntegrationTests {
 
 		MapLocation location = barbarian.getPosition();
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 10; i++) {
 			gameState.nextTurn();
 		}
 
@@ -201,7 +311,7 @@ public class IntegrationTests {
 	 * Tests that barbarians will attack enemies nearby
 	 */
 	@Test
-	public void modelAndBehaviourTest_9() {
+	public void modelAndBehaviourTest_14() {
 		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
 
 		GameState gameState = stateCreator.createNewState();
@@ -222,7 +332,7 @@ public class IntegrationTests {
 	 * Tests that barbarians will capture enemy bridges
 	 */
 	@Test
-	public void modelAndBehaviourTest_10() {
+	public void modelAndBehaviourTest_15() {
 		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
 
 		GameState gameState = stateCreator.createNewState();
@@ -248,8 +358,24 @@ public class IntegrationTests {
 	}
 
 	/**
+	 * Tests that a new game can be set
+	 */
+	@Test
+	public void newGameTest_1() {
+		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
+
+		GameState gameState = stateCreator.createNewState();
+		gameState.setThisInstancePlayer(gameState.getPlayers().get(1));
+
+		GameCollections world = gameState.getWorld();
+
+		gameState.newGame();
+
+		assertFalse(gameState.getWorld().equals(world));
+	}
+
+	/**
 	 * Tests that modifying a unit then sending the gamestate updates the client accordingly
-	 * @throws InterruptedException
 	 */
 	@Test
 	public void modelAndNetworkingTest_1() throws InterruptedException {
@@ -281,7 +407,6 @@ public class IntegrationTests {
 
 	/**
 	 * Tests that loading from a save in the host updates the client as expected
-	 * @throws InterruptedException
 	 */
 	@Test
 	public void modelAndNetworkingTest_2() throws InterruptedException {
@@ -316,7 +441,6 @@ public class IntegrationTests {
 
 	/**
 	 * Tests that the client can send back to the server
-	 * @throws InterruptedException
 	 */
 	@Test
 	public void modelAndNetworkingTest_3() throws InterruptedException {

@@ -11,7 +11,7 @@ import strategos.units.Unit;
 /**
  * An implementation of the Archer Unit.
  *
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  */
 public class ArchersImpl extends UnitImpl implements Archers, GameObject {
 
