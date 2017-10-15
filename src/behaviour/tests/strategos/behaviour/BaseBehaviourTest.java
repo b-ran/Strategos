@@ -30,6 +30,7 @@ public class BaseBehaviourTest {
     }
 
     @Test public void BaseBehaviour_nullState() throws Exception {
+        makeBaseBehaviour(gameState);
         nullException.expect(NullPointerException.class);
         makeBaseBehaviour(null);
     }
