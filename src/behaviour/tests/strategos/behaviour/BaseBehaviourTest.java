@@ -116,9 +116,10 @@ public class BaseBehaviourTest {
     }
 
     @Test public void getGameState() throws Exception {
-        assertThat("Provided GameState instance must be returned",
-                   makeBaseBehaviour(gameState).getGameState(),
-                   is(gameState)
+        assertThat(
+                "Provided GameState instance must be returned",
+                makeBaseBehaviour(gameState).getGameState(),
+                is(gameState)
         );
     }
 

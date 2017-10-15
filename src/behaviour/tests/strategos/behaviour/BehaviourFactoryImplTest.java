@@ -1,19 +1,22 @@
 package strategos.behaviour;
 
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import strategos.model.GameState;
-import strategos.units.*;
+import strategos.units.Unit;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 
 public class BehaviourFactoryImplTest {
 
     private BehaviourFactory factory;
     private GameState gameState;
-    private Unit             unit;
+    private Unit unit;
 
     @BeforeClass public static void beforeAll() {
         TestUtil.logAll();

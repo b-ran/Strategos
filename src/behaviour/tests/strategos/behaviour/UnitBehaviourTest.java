@@ -1,28 +1,25 @@
 package strategos.behaviour;
 
 
-import org.junit.*;
-import org.junit.rules.*;
-import strategos.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import strategos.model.GameState;
 import strategos.model.MapLocation;
-import strategos.terrain.*;
-import strategos.units.*;
+import strategos.units.Unit;
 
-import java.util.*;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 
 public class UnitBehaviourTest {
 
-    @Rule public final ExpectedException nullException =
-            ExpectedException.none();
-    private Behaviour   behaviour;
+    @Rule public final ExpectedException nullException = ExpectedException.none();
+    private Behaviour behaviour;
     private MapLocation position1;
     private MapLocation position2;
-    private Unit        unit;
+    private Unit unit;
 
     @BeforeClass public static void beforeAll() {
         TestUtil.logAll();
@@ -39,8 +36,7 @@ public class UnitBehaviourTest {
                 return 25;
             }
 
-            @Override
-            public Behaviour copy(GameState newState) {
+            @Override public Behaviour copy(GameState newState) {
                 return null;
             }
         };

@@ -1,18 +1,21 @@
 package strategos.behaviour;
 
 
-import org.junit.*;
-import strategos.*;
-import strategos.units.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import strategos.Config;
+import strategos.units.Unit;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 
 
 public class BehaviourSpearmenTest {
 
     private Behaviour behaviour;
-    private Unit      unit;
+    private Unit unit;
 
     @BeforeClass public static void beforeAll() {
         TestUtil.logAll();
@@ -20,8 +23,7 @@ public class BehaviourSpearmenTest {
 
     @Before public void setUp() throws Exception {
         BehaviourFactory behaviourFactory = new BehaviourFactoryImpl();
-        behaviour =
-                behaviourFactory.createBehaviourSpearmen(TestUtil.getMockGameState());
+        behaviour = behaviourFactory.createBehaviourSpearmen(TestUtil.getMockGameState());
         unit = TestUtil.getMockUnit();
     }
 
