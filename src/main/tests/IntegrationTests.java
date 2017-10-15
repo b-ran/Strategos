@@ -2,10 +2,13 @@ import mapcreation.mapgeneration.TerrainGeneration;
 import org.junit.Test;
 import strategos.*;
 import strategos.behaviour.BehaviourFactoryImpl;
+import strategos.hexgrid.Map;
 import strategos.model.*;
 import strategos.networking.NetworkingHandler;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.units.Unit;
+
+import java.util.ArrayList;
 
 import static strategos.Config.*;
 import static strategos.Direction.*;
@@ -352,6 +355,23 @@ public class IntegrationTests {
 		}
 
 		assertTrue(bridge.getOwner().isNPC());
+	}
+
+	/**
+	 * Tests that a new game can be set
+	 */
+	@Test
+	public void newGameTest_1() {
+		StateCreator stateCreator = new StateCreator(new BehaviourFactoryImpl(), new TerrainGeneration());
+
+		GameState gameState = stateCreator.createNewState();
+		gameState.setThisInstancePlayer(gameState.getPlayers().get(1));
+
+		GameCollections world = gameState.getWorld();
+
+		gameState.newGame();
+
+		assertFalse(gameState.getWorld().equals(world));
 	}
 
 	/**
