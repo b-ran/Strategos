@@ -137,29 +137,31 @@ public class Config {
 
     public static final String HEALTH_LABEL_NAME = "Health:";
 
-    public static final Point HEALTH_LABEL_LOCATION = new Point(20, 120);
-
     public static final int LABEL_PADDING = 20;
+
+    public static final Point UNIT_NAME_LOCATION = new Point (20, 120);
+
+    public static final Point HEALTH_LABEL_LOCATION = new Point(UNIT_NAME_LOCATION.x, UNIT_NAME_LOCATION.y + LABEL_PADDING);
 
     public static final String ACTIONPOINT_LABEL_NAME = "Action Points:";
 
-    public static final Point ACTIONPOINT_LABEL_LOCATION = new Point(20, HEALTH_LABEL_LOCATION.y+LABEL_PADDING);
+    public static final Point ACTIONPOINT_LABEL_LOCATION = new Point(UNIT_NAME_LOCATION.x, HEALTH_LABEL_LOCATION.y+LABEL_PADDING);
 
     public static final String ENTRENCH_LABEL_NAME = "Entrench:";
 
-    public static final Point ENTRENCH_LABEL_LOCATION = new Point(20, ACTIONPOINT_LABEL_LOCATION.y+LABEL_PADDING);
+    public static final Point ENTRENCH_LABEL_LOCATION = new Point(UNIT_NAME_LOCATION.x, ACTIONPOINT_LABEL_LOCATION.y+LABEL_PADDING);
 
     public static final String WARY_LABEL_NAME = "Wary:";
 
-    public static final Point WARY_LABEL_LOCATION = new Point(20, ENTRENCH_LABEL_LOCATION.y+LABEL_PADDING);
+    public static final Point WARY_LABEL_LOCATION = new Point(UNIT_NAME_LOCATION.x, ENTRENCH_LABEL_LOCATION.y+LABEL_PADDING);
 
     public static final String STRENGTH_LABEL_NAME = "Strength:";
 
-    public static final Point STRENGTH_LABEL_LOCATION = new Point(20, WARY_LABEL_LOCATION.y+LABEL_PADDING);
+    public static final Point STRENGTH_LABEL_LOCATION = new Point(UNIT_NAME_LOCATION.x, WARY_LABEL_LOCATION.y+LABEL_PADDING);
 
     public static final String TOUGHNESS_LABEL_NAME = "Toughness:";
 
-    public static final Point TOUGHNESS_LABEL_LOCATION = new Point(20, STRENGTH_LABEL_LOCATION.y+LABEL_PADDING);
+    public static final Point TOUGHNESS_LABEL_LOCATION = new Point(UNIT_NAME_LOCATION.x, STRENGTH_LABEL_LOCATION.y+LABEL_PADDING);
 
     //Text
     public static final String WARY_BUTTON_NAME = "Wary";
