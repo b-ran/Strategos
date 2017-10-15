@@ -133,20 +133,21 @@ public class SideComponent extends JComponent {
         if (!view.getSeenTerrain().contains(selectedMapLocation)) return;
 
         g.setColor(Color.BLACK);
+        g.drawString(selectedUnit.toString(), UNIT_NAME_LOCATION.x, UNIT_NAME_LOCATION.y);
         g.drawString(HEALTH_LABEL_NAME + " " + Math.max(selectedUnit.getHitpoints(), 0), HEALTH_LABEL_LOCATION.x, HEALTH_LABEL_LOCATION.y);
         g.drawString(ACTIONPOINT_LABEL_NAME + " " + Math.max(selectedUnit.getActionPoints(), 0), ACTIONPOINT_LABEL_LOCATION.x, ACTIONPOINT_LABEL_LOCATION.y);
         g.drawString(ENTRENCH_LABEL_NAME + " " + selectedUnit.getEntrench(), ENTRENCH_LABEL_LOCATION.x, ENTRENCH_LABEL_LOCATION.y);
         g.drawString(WARY_LABEL_NAME + " " + selectedUnit.getWary(), WARY_LABEL_LOCATION.x, WARY_LABEL_LOCATION.y);
 
-        int toughnessMod  = selectedUnit.getToughness();
+        int toughnessMod = 0;
         if (selectedUnit.getWary()) {
-            toughnessMod = (toughnessMod + Config.WARY_MODIFIER) - selectedUnit.getToughness();
+            toughnessMod = Config.WARY_MODIFIER;
         } else if (selectedUnit.getEntrench()) {
-            toughnessMod = (toughnessMod + Config.ENTRENCH_MODIFIER) - selectedUnit.getToughness();
+            toughnessMod = Config.ENTRENCH_MODIFIER;
         }
 
         g.drawString(STRENGTH_LABEL_NAME + " " + selectedUnit.getStrength(), STRENGTH_LABEL_LOCATION.x, STRENGTH_LABEL_LOCATION.y);
-        g.drawString(TOUGHNESS_LABEL_NAME + " " + selectedUnit.getToughness() + ((toughnessMod != selectedUnit.getToughness()) ? " ( + " + toughnessMod + ")" : ""), TOUGHNESS_LABEL_LOCATION.x, TOUGHNESS_LABEL_LOCATION.y);
+        g.drawString(TOUGHNESS_LABEL_NAME + " " + selectedUnit.getToughness() + ((toughnessMod != 0) ? " ( + " + toughnessMod + ")" : ""), TOUGHNESS_LABEL_LOCATION.x, TOUGHNESS_LABEL_LOCATION.y);
 
     }
 
