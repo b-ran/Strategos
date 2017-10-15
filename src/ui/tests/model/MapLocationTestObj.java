@@ -56,5 +56,25 @@ public class MapLocationTestObj implements MapLocation{
     public Map<Direction, MapLocation> getNeighbours() {
         return null;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MapLocationTestObj hex = (MapLocationTestObj) o;
+
+        if (x != hex.getX()) return false;
+        if (y != hex.getY()) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + (terrain != null ? terrain.hashCode() : 0);
+        return result;
+    }
     
 }
