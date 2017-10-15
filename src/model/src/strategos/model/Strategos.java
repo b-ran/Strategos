@@ -8,6 +8,8 @@ import strategos.units.Unit;
 
 import java.util.*;
 
+import static strategos.Config.TURNS_UNTIL_BARBARIAN_SWARM;
+
 /**
  * An implementation of GameState that handles the core running of the game. Does not interact with any of the other
  * libraries, but uses exposed interfaces to simulate commands on the model's aspects. Also contains implementations
@@ -376,7 +378,7 @@ public class Strategos implements GameState {
 		if (turnIndex == 2) {
 			turns--;
 			// if the game has gone for long enough, start spawning barbarians every turn
-			if (turns >= 12) {
+			if (turns >= TURNS_UNTIL_BARBARIAN_SWARM) {
 				spawnBarbarians(randomiseLocation(world.getMap().get(0, 10)));
 				spawnBarbarians(randomiseLocation(world.getMap().get(14, 6)));
 			}
