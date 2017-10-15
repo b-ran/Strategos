@@ -101,6 +101,12 @@ public class View extends JComponent implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (model.getWorld().getAllUnits() != gridComponent.getEntities()) {
+
+            if (model.getWinner() > 0) {
+                JOptionPane.showMessageDialog(getGridComponent(), "Player " + model.getWinner() + " wins!\n" +
+                        "Game took " + model.getNumberTurns() + " turns");
+            }
+
             gridComponent.setEntities(model.getWorld().getAllUnits());
             gridComponent.setTerrain(model.getWorld().getMap().getData());
             if (!revealMap) {
