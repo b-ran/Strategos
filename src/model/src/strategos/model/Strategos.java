@@ -147,7 +147,7 @@ public class Strategos implements GameState {
 	 * Finds the Direction that a given MapLocation is in reference to another MapLocation, provided that they are neighbours
 	 * @param origin
 	 * @param neighbour
-	 * @return
+	 * @return the desired Direction, or null if none is found
 	 */
 	private Direction directionFromNeighbour(MapLocation origin, MapLocation neighbour) {
 		for (java.util.Map.Entry<Direction, MapLocation> entry : origin.getNeighbours().entrySet()) {
@@ -447,9 +447,10 @@ public class Strategos implements GameState {
 
 	@Override
 	public int getWinner() {
-		if (players.get(0).getUnits().isEmpty()) {
+		if (players.get(0).getUnits().size() == 0) {
 			return 2;
-		} else if (players.get(1).getUnits().isEmpty()) {
+		}
+		if (players.get(1).getUnits().size() == 0) {
 			return 1;
 		}
 		return -1;
