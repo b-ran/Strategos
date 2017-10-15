@@ -30,7 +30,7 @@ public class IntegrationTests {
 
 		GameState gameState = stateCreator.createNewState();
 
-		for (int i = 0 ; i < 13; i++) {
+		for (int i = 0 ; i < 15; i++) {
 			gameState.nextTurn();
 		}
 		assertTrue(gameState.getPlayers().get(2).getUnits().size() > 9);
@@ -81,7 +81,7 @@ public class IntegrationTests {
 	}
 
 	/**
-	 * Tests that calling attack on a unit can kill it
+	 * Tests that calling attack on a unit can kill its target
 	 */
 	@Test
 	public void modelAndBehaviourTest_4() {
@@ -95,7 +95,7 @@ public class IntegrationTests {
 
 		unit.setPosition(enemyUnit.getPosition().getNeighbour(SOUTH_WEST));
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 10; i++) {
 			gameState.attack(unit, enemyUnit.getPosition());
 			unit.turnTick();
 		}
