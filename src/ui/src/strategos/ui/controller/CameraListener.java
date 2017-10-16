@@ -4,8 +4,20 @@ import java.awt.event.*;
 
 import static strategos.ui.config.Config.HEX_SIZE;
 
+/**
+ * The Camera listener.
+ *
+ * @author Brandon Scott-Hill
+ */
 class CameraListener extends Controller implements MouseWheelListener, MouseMotionListener {
 
+    /**
+     * Instantiates a new Camera listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
     CameraListener(Controller controller) {
         super(controller);
     }

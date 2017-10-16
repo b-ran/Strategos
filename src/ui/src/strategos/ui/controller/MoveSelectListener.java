@@ -12,11 +12,23 @@ import java.util.List;
 
 import static strategos.ui.config.Config.MOVE_INPUT_BUTTON;
 
+/**
+ * The type Move select listener.
+ *
+ * @author Brandon Scott-Hill
+ */
 class MoveSelectListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
     private static MouseEvent lastMoveEvent;
 
+    /**
+     * Instantiates a new Move select listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
     MoveSelectListener(Controller controller) {
         super(controller);
         this.controller = controller;
@@ -24,7 +36,6 @@ class MoveSelectListener extends Controller implements MouseListener, MouseMotio
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
@@ -36,17 +47,14 @@ class MoveSelectListener extends Controller implements MouseListener, MouseMotio
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
 
     @Override
@@ -58,7 +66,6 @@ class MoveSelectListener extends Controller implements MouseListener, MouseMotio
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
     }
 
     private void move(MouseEvent e) {

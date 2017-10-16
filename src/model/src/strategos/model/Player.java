@@ -5,11 +5,14 @@ import java.util.List;
 
 import strategos.units.Unit;
 
+/**
+ * An implementation of the UnitOwner, which contains units and can see a number of tiles. A Player is owned by
+ * 		the instance of the Strategos game
+ *
+ * @author Daniel Pinfold - pinfoldani
+ */
 public class Player implements UnitOwner{
 
-	// Acronyms in variable names generally only have the first letter capital
-	// This could maybe be better renamed isNpc, but then again it may be worth
-	// leaving as is as it is following the naming as laid out in the interface
 	private final boolean isNPC;
 	private ArrayList<Unit> units = new ArrayList<>();
 	private List<MapLocation> visibleTiles = new ArrayList<>();

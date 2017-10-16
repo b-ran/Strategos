@@ -14,7 +14,7 @@ public interface EntityHandler {
 	 * @param location
 	 * @return the Unit at the position, if one exists. If no unit is found, it returns null.
 	 */
-	public Unit getUnitAt(MapLocation location);
+	Unit getUnitAt(MapLocation location);
 
 	/**
 	 * Send a move command to the given Unit. Fail the command if the tile is impassable, already contains a Unit, or
@@ -25,7 +25,7 @@ public interface EntityHandler {
 	 * @param unit the unit to be moved. If this Unit is null, fail the command.
 	 * @param direction the direction to move in, using the Direction enum in the Config file.
 	 */
-	public void move(Unit unit, Direction direction);
+	void move(Unit unit, Direction direction);
 
 
 	/**
@@ -37,7 +37,7 @@ public interface EntityHandler {
 	 * @param unit the unit to be moved. If this Unit is null, fail the command.
 	 * @param mapLocation the map location to move too.
 	 */
-	public void move(Unit unit, MapLocation mapLocation);
+	void move(Unit unit, MapLocation mapLocation);
 
 	/**
 	 * Send an attack command to the given Unit, attacking the specified position. Delegate the attack to the Unit
@@ -49,7 +49,7 @@ public interface EntityHandler {
 	 * @param targetX
 	 * @param targetY
 	 */
-	public void attack(Unit unit, int targetX, int targetY);
+	void attack(Unit unit, int targetX, int targetY);
 
 	/**
 	 * Send an attack command to the given Unit, attacking the specified position. Delegate the attack to the Unit
@@ -65,7 +65,7 @@ public interface EntityHandler {
 	 *
 	 * @param unit
 	 */
-	public void wary(Unit unit);
+	void wary(Unit unit);
 
 	/**
 	 * Puts the unit in the entrenched state. Delegates the command to the Unit itself.
@@ -80,9 +80,9 @@ public interface EntityHandler {
 	 * This method sets the player of this instance of the Strategos game.
 	 * @return
 	 */
-	public UnitOwner getThisInstancePlayer();
+	UnitOwner getThisInstancePlayer();
 
-	public GameCollections getWorld();
+	GameCollections getWorld();
 
-	public List<UnitOwner> getPlayers();
+	List<UnitOwner> getPlayers();
 }

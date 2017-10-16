@@ -6,7 +6,7 @@ import strategos.behaviour.BehaviourFactoryImpl;
 import strategos.mapGenerator.Generator;
 import strategos.model.GameState;
 import strategos.model.GameStateFactory;
-import strategos.model.units.*;
+import strategos.model.StateCreator;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 import strategos.ui.Ui;
 

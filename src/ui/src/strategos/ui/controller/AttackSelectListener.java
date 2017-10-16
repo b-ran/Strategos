@@ -11,10 +11,22 @@ import java.util.List;
 import static strategos.ui.config.Config.ATTACK_INPUT_BUTTON;
 
 
+/**
+ * The Attack Select Listener for detecting and perform attack input.
+ *
+ * @author Brandon Scott-Hill
+ */
 class AttackSelectListener extends Controller implements MouseListener, MouseMotionListener {
 
     private Controller controller;
 
+    /**
+     * Instantiates a new Attack select listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
     AttackSelectListener(Controller controller) {
         super(controller);
         this.controller = controller;
@@ -22,7 +34,6 @@ class AttackSelectListener extends Controller implements MouseListener, MouseMot
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
@@ -46,32 +57,25 @@ class AttackSelectListener extends Controller implements MouseListener, MouseMot
             controller.resetSection();
             view.repaint();
         }
-
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
     }
 }

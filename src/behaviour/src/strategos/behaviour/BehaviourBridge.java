@@ -1,14 +1,14 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.config.BehaviourConfig;
+import strategos.Config;
 import strategos.model.GameState;
 
 
 class BehaviourBridge extends StaticBehaviour {
 
     BehaviourBridge(GameState gameState) {
-        super(gameState, BehaviourConfig.BRIDGE_HITPOINTS);
+        super(gameState, Config.BRIDGE_HITPOINTS);
     }
 
     private BehaviourBridge(BehaviourBridge behaviour, GameState newState) {
@@ -19,8 +19,7 @@ class BehaviourBridge extends StaticBehaviour {
         return new BehaviourBridge(this, newState);
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "BehaviourBridge{} " + super.toString();
     }
 }

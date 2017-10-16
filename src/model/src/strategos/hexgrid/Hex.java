@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * The hexagonal tile structure of the map, which holds information on this section of the map.
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  *
  */
 public class Hex implements MapLocation {

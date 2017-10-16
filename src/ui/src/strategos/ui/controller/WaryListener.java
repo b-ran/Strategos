@@ -5,10 +5,22 @@ import strategos.units.*;
 import java.awt.event.*;
 
 
+/**
+ * The Wary listener for the wary button.
+ *
+ * @author Brandon Scott-Hill
+ */
 class WaryListener extends Controller implements ActionListener {
 
     private final Controller controller;
 
+    /**
+     * Instantiates a new Wary listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
     WaryListener(Controller controller) {
         super(controller);
         this.controller = controller;

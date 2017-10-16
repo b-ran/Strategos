@@ -1,9 +1,9 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.config.*;
+import strategos.Config;
 import strategos.model.GameState;
-import strategos.units.*;
+import strategos.units.Unit;
 
 
 class BehaviourSpearmen extends UnitBehaviour {
@@ -19,19 +19,18 @@ class BehaviourSpearmen extends UnitBehaviour {
     }
 
     @Override public int getStrength(Unit unit) {
-        return BehaviourConfig.SPEARMEN_STRENGTH;
+        return Config.SPEARMEN_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return BehaviourConfig.SPEARMEN_TOUGHNESS;
+        return Config.SPEARMEN_TOUGHNESS;
     }
 
     @Override public Behaviour copy(GameState newState) {
         return new BehaviourSpearmen(this, newState);
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "BehaviourSpearmen{} " + super.toString();
     }
 }

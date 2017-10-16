@@ -7,10 +7,10 @@ import strategos.model.MapLocation;
 import strategos.model.UnitOwner;
 import strategos.units.Swordsmen;
 import strategos.units.Unit;
-
 /**
- * Created as part of Strategos project
- * 30/07/2017.
+ * An implementation of the Swordsmen Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
  */
 public class SwordsmenImpl extends UnitImpl implements Swordsmen, GameObject {
 
@@ -31,5 +31,11 @@ public class SwordsmenImpl extends UnitImpl implements Swordsmen, GameObject {
 	@Override
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
+	}
+
+
+	@Override
+	public String toString() {
+		return "Swordsmen";
 	}
 }

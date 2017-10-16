@@ -9,8 +9,9 @@ import strategos.units.Cavalry;
 import strategos.units.Unit;
 
 /**
- * Created as part of Strategos project
- * 30/07/2017.
+ * An implementation of the Cavalry Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
  */
 public class CavalryImpl extends UnitImpl implements Cavalry, GameObject {
 
@@ -31,5 +32,11 @@ public class CavalryImpl extends UnitImpl implements Cavalry, GameObject {
 	@Override
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
+	}
+
+
+	@Override
+	public String toString() {
+		return "Cavalry";
 	}
 }

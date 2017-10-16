@@ -1,11 +1,11 @@
 package strategos.behaviour;
 
 
-import strategos.behaviour.config.*;
+import strategos.Config;
 import strategos.model.GameState;
-import strategos.units.*;
+import strategos.units.Unit;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 
 class BehaviourArchers extends UnitBehaviour {
@@ -23,11 +23,11 @@ class BehaviourArchers extends UnitBehaviour {
     }
 
     @Override public int getStrength(Unit unit) {
-        return BehaviourConfig.ARCHERS_STRENGTH;
+        return Config.ARCHERS_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return BehaviourConfig.ARCHERS_TOUGHNESS;
+        return Config.ARCHERS_TOUGHNESS;
     }
 
     @Override public Behaviour copy(GameState newState) {
@@ -62,13 +62,11 @@ class BehaviourArchers extends UnitBehaviour {
         return 0;
     }
 
-    @Override
-    public int getAttackRange() {
-        return BehaviourConfig.ARCHER_RANGE;
+    @Override public int getAttackRange() {
+        return Config.ARCHER_RANGE;
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "BehaviourArchers{} " + super.toString();
     }
 }

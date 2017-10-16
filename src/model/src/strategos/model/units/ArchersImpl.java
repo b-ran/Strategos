@@ -9,8 +9,9 @@ import strategos.units.Archers;
 import strategos.units.Unit;
 
 /**
- * Created as part of Strategos project
- * 30/07/2017.
+ * An implementation of the Archer Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
  */
 public class ArchersImpl extends UnitImpl implements Archers, GameObject {
 
@@ -31,5 +32,10 @@ public class ArchersImpl extends UnitImpl implements Archers, GameObject {
 	@Override
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Archers";
 	}
 }

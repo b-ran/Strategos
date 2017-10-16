@@ -17,13 +17,19 @@ import static strategos.ui.config.Config.*;
 
 /**
  * The type View.
+ *
+ * @author Brandon Scott-Hill - scotthbran
+ * @author Daniel Pinfold - pinfoldani
  */
 public class View extends JComponent implements Observer {
 
 
 
     private JFrame frame; //Overall Frame
-    private GameState model;
+    /**
+     * The Model.
+     */
+    GameState model;
     private UnitOwner uiOwner;
 
     private MenuComponent menuComponent = new MenuComponent();
@@ -63,9 +69,17 @@ public class View extends JComponent implements Observer {
     private boolean escapeMenu = false;
 
     /**
+     * If map the map is revealed.
+     * False if not revealed
+     * True if revealed
+     */
+    private boolean revealMap = false;
+
+    /**
      * Instantiates a new View.
      *
      * @param model the model
+     * @author Brandon Scott-Hill
      */
     public View(GameState model) {
         this.model = model;
@@ -77,7 +91,7 @@ public class View extends JComponent implements Observer {
         message.setText(GAME_INSTRUCTION_MESSAGE);
         message.setLineWrap(true);
         message.setWrapStyleWord(true);
-        message.setPreferredSize(new Dimension(600, 700));
+        message.setPreferredSize(GAME_INSTRUCTION_BOX_DIMENSIONS);
         instructionPane.add(message);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -87,9 +101,17 @@ public class View extends JComponent implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (model.getWorld().getAllUnits() != gridComponent.getEntities()) {
+
+            if (model.getWinner() > 0) {
+                JOptionPane.showMessageDialog(getGridComponent(), "Player " + model.getWinner() + " wins!\n" +
+                        "Game took " + model.getNumberTurns() + " turns");
+            }
+
             gridComponent.setEntities(model.getWorld().getAllUnits());
             gridComponent.setTerrain(model.getWorld().getMap().getData());
-            setSeenTerrain(getUiOwner().getVisibleTiles());
+            if (!revealMap) {
+                setSeenTerrain(getUiOwner().getVisibleTiles());
+            }
             if (!firstTurn) {
                 JOptionPane.showMessageDialog(getGridComponent(), "It's your turn");
                 sideComponent.setPlayerText(PLAYER_NAME);
@@ -108,6 +130,8 @@ public class View extends JComponent implements Observer {
 
     /**
      * Sets view as main menu.
+     *
+     * @author Brandon Scott-Hill
      */
     public void setMenu() {
         removeAllComponents();
@@ -118,6 +142,8 @@ public class View extends JComponent implements Observer {
 
     /**
      * Sets view as load menu.
+     *
+     * @author Daniel Pinfold
      */
     public void setLoad() {
         removeAllComponents();
@@ -127,6 +153,11 @@ public class View extends JComponent implements Observer {
         game = false;
     }
 
+    /**
+     * Sets view as instruction.
+     *
+     * @author Daniel Pinfold
+     */
     public void setInstruction() {
         JOptionPane.showMessageDialog(menuPanel, instructionPane);
         instructionPane.setPreferredSize(GAME_INSTRUCTION_BOX_DIMENSIONS);
@@ -135,6 +166,8 @@ public class View extends JComponent implements Observer {
 
     /**
      * Adds escape menu on top of grid.
+     *
+     * @author Brandon Scott-Hill
      */
     public void addEscapeMenu() {
         gridPanel.add(escapeMenuPanel,0);
@@ -144,6 +177,8 @@ public class View extends JComponent implements Observer {
 
     /**
      * Removes escape menu off grid.
+     *
+     * @author Brandon Scott-Hill
      */
     public void removeEscapeMenu() {
         removeAllComponents();
@@ -151,6 +186,11 @@ public class View extends JComponent implements Observer {
         escapeMenu = false;
     }
 
+    /**
+     * Removes all components.
+     *
+     * @author Brandon Scott-Hill
+     */
     private void removeAllComponents() {
         gridPanel.remove(escapeMenuPanel);
         gridPanel.remove(gridComponent);
@@ -164,6 +204,8 @@ public class View extends JComponent implements Observer {
 
     /**
      * Sets view as game.
+     *
+     * @author Brandon Scott-Hill
      */
     public void setGame() {
         removeAllComponents();
@@ -186,7 +228,9 @@ public class View extends JComponent implements Observer {
     }
 
     /**
-     * Status boolean.
+     * Status on the game.
+     *
+     * @author Brandon Scott-Hill
      *
      * @return true if game is running or false if not
      */
@@ -196,6 +240,8 @@ public class View extends JComponent implements Observer {
 
     /**
      * End all windows.
+     *
+     * @author Brandon Scott-Hill
      */
     public void exit() {
         frame.dispose();
@@ -203,6 +249,8 @@ public class View extends JComponent implements Observer {
 
     /**
      * Gets menu component.
+     *
+     * @author Brandon Scott-Hill
      *
      * @return the menu component
      */
@@ -213,12 +261,19 @@ public class View extends JComponent implements Observer {
     /**
      * Gets grid component.
      *
+     * @author Brandon Scott-Hill
+     *
      * @return the grid component
      */
     public GridComponent getGridComponent() {
         return gridComponent;
     }
 
+
+    /**Repacks the UI, called when panels are being changed
+     *
+     * @author Brandon Scott-Hill
+     */
     private void repack() {
         frame.pack();
         frame.setVisible(true);
@@ -229,38 +284,108 @@ public class View extends JComponent implements Observer {
     /**
      * Gets escape menu component.
      *
+     * @author Brandon Scott-Hill
+     *
      * @return the escape menu component
      */
     public MenuComponent getEscapeMenuComponent() {
         return escapeMenuComponent;
     }
 
+    /**
+     * Gets side component.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the side component
+     */
     public SideComponent getSideComponent() {
         return sideComponent;
     }
-    
+
+    /**
+     * Gets load menu component.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the load menu component
+     */
     public MenuComponent getLoadMenuComponent() {
         return loadComponent;
     }
-    
+
+    /**
+     * Gets ui owner.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the ui owner
+     */
     public UnitOwner getUiOwner() {
         return model.getThisInstancePlayer();
     }
 
+    /**
+     * Sets if it's first turn or not.
+     *
+     * @author Daniel Pinfold
+     *
+     * @param firstTurn if it's first turn or not.
+     */
     public void setFirstTurn(boolean firstTurn) {
         this.firstTurn = firstTurn;
     }
 
-        public boolean isEscapeMenu() {
+    /**
+     * Is view is display the escapeMenu.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return if escapeMenu is being displayed
+     */
+    public boolean isEscapeMenu() {
         return escapeMenu;
     }
 
+    /**
+     * Gets seen terrain.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @return the seen terrain
+     */
     List<MapLocation> getSeenTerrain() {
         return seenTerrain;
     }
 
+    /**
+     * Sets seen terrain.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param seenTerrain the seen terrain
+     */
     public void setSeenTerrain(List<MapLocation> seenTerrain) {
         this.seenTerrain = seenTerrain;
     }
 
+    /**
+     * Reveals the map.
+     *
+     * @author Brandon Scott-Hill
+     */
+    public void revealMap() {
+        revealMap = true;
+        getGridComponent().revealMap();
+    }
+
+
+    /**
+     * Get the number of turns.
+     *
+     * @author Daniel Pinfold
+     */
+    int getNumberTurns() {
+        return model.getNumberTurns();
+    }
 }
