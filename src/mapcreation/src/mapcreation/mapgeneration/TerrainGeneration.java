@@ -1,5 +1,6 @@
 package mapcreation.mapgeneration;
 
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import mapcreation.mapgeneration.terrain.*;
 import mapcreation.noisegeneration.NoiseGenerator;
 import strategos.Paintable;
@@ -97,7 +98,6 @@ public class TerrainGeneration implements Generator {
         //Dimensions for noise map
         int width = map[0].length, height = map.length;
         for (int i = 0; i < 20 && !isValid(map); i++, seed++) {
-            if(i == 19) System.out.println("sad");
             //Create map and fills it with noise values
             double[][] mapTopology = fillMap(width, height, seed);
             boolean[][] forestMap = fillForest(width, height, seed);
@@ -137,7 +137,6 @@ public class TerrainGeneration implements Generator {
                 }
             }
         }
-        System.out.println(num);
         return (num > ((map.length * map[0].length) / 100) * lowerPercentage) &&
                 (num < ((map.length * map[0].length) / 100) * higherPercentage);
     }
@@ -233,7 +232,7 @@ public class TerrainGeneration implements Generator {
             return new MountainTile();
         }
         if (value > 1 || value < 0) {
-            System.out.println(value);
+            throw new ValueException("Value of noise is out of bounds: " + value);
         }
         return new PlainsTile();
     }
