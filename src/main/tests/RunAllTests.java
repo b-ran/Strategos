@@ -3,11 +3,11 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//        IntegrationTests.class,
-//        UiIntegrationTests.class,
-//        MapGenerationTests.class,
-//        UiTests.class,
-//        BehaviourTests.class,
+        IntegrationTests.class,
+        UiIntegrationTests.class,
+        MapGenerationTests.class,
+        UiTests.class,
+        BehaviourTests.class,
         NetworkingTests.class,
         AllModelTests.class
 })
