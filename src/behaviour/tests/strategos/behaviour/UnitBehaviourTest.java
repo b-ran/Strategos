@@ -13,6 +13,9 @@ import strategos.units.Unit;
 import static org.junit.Assert.assertFalse;
 
 
+/**
+ * @author Devon Mortimer
+ */
 public class UnitBehaviourTest {
 
     @Rule public final ExpectedException nullException = ExpectedException.none();

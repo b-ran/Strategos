@@ -49,8 +49,8 @@ public class Config {
     public static final String GAME_INSTRUCTION_MESSAGE =
             "Strategos: \n" +
             "This is a turn-based tactical multiplayer board game. You control a number of units to try and take control of the " +
-                    "board with. You must attack the enemy units with yours, and once you have killed every enemy unit, and captured" +
-                    "all the bridges, you win the game! But beware, your enemy will try to do the same.\n\n" +
+                    "board with. You must attack the enemy units with yours, and once you have killed every enemy unit, " +
+                    "you win the game! But beware, your enemy will try to do the same.\n\n" +
                     "The game must be played on a LAN between two computers, or two instances on a single computer. The " +
                     "host must click the 'Host' button in the main " +
                     "menu, and then tell the other player their local IPv4 address. The connector must then click 'Connect' and " +

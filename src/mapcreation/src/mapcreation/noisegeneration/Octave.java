@@ -4,7 +4,9 @@ import java.awt.*;
 import java.util.Random;
 
 class Octave {
-    //TODO: rename and describe
+    /**
+     * This is a list of random numbers from 0 - 255 that are sampled to add extra randomness to the noise(predictably)
+     */
     private static short randomSupply[] = {
             146, 225, 186, 223, 234, 58, 113, 176, 151, 231, 203, 11, 43, 13, 150, 74, 249, 187, 110, 44, 221, 33, 241
             , 7, 204, 237, 14, 252, 96, 200, 130, 84, 251, 211, 21, 34, 224, 10, 114, 41, 49, 215, 68, 189, 47, 0, 191
@@ -19,6 +21,7 @@ class Octave {
             , 175, 38, 6, 120, 212, 233, 19, 197, 236, 86, 46, 63, 243, 98, 26, 78, 95, 164, 81, 17, 64, 70, 119, 125
             , 220, 5, 181, 140
     };
+
     /**
      * Corners of the graph
      */
@@ -28,7 +31,8 @@ class Octave {
             new Point(1, -1),
             new Point(-1, -1)
     };
-    //TODO: rename and describe
+
+
     private short[] perm = new short[512];
     private short[] permMod4 = new short[512];
 
@@ -50,6 +54,7 @@ class Octave {
             p[from] = p[to];
             p[to] = temp;
         }
+
         for (int i = 0; i < p.length; i++) {
             //Does binary "and" on the binary values of i and 255
             //eg. 0000 0000 1111 1111
@@ -61,11 +66,8 @@ class Octave {
 
     }
 
-    //rename
-    private final double F2 = 0.5 * (Math.sqrt(3.0) - 1);
-    private final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
-
-    //rename to x, y
+    private final double F2 = 0.5 * (Math.sqrt(3.0) - 1);//0.3660254037844386
+    private final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;//0.21132486540518713
 
     /**
      * @param xin X position to to sample
@@ -73,74 +75,72 @@ class Octave {
      * @return Noise value at xin, yin
      */
     double noise(double xin, double yin) {
-        double s = (xin + yin) * F2;
-        int i = fastFloor(xin + s);
-        int j = fastFloor(yin + s);
-        double t = (i + j) * G2;
-        double X0 = i - t;
-        double Y0 = j - t;
-        double x0 = xin - X0;
-        double y0 = yin - Y0;
+        int xSquashed = fastFloor(xin + (xin + yin) * F2);
+        int ySquashed = fastFloor(yin + (xin + yin) * F2);
+
+        double x = xin - (xSquashed - ((xSquashed + ySquashed) * G2));
+        double y = yin - (ySquashed - ((xSquashed + ySquashed) * G2));
 
         int i1 = 0, j1 = 0;
-        if (x0 > y0) {
-            i1 = 1;
-        } else {
-            j1 = 1;
-        }
+        if (x > y) i1 = 1;
+        else j1 = 1;
 
-        double[] x = {
-                x0,
-                x0 - i1 + G2,
-                x0 - 1.0 + 2.0 * G2
+        double[] xArray = {
+                x,
+                x - i1 + G2,
+                x - 1.0 + 2.0 * G2
         };
-        double[] y = {
-                y0,
-                y0 - j1 + G2,
-                y0 - 1.0 + 2.0 * G2
+        double[] yArray = {
+                y,
+                y - j1 + G2,
+                y - 1.0 + 2.0 * G2
         };
 
-        //Reduce i and j to less than 255 if necessary
-        i &= 255;
-        j &= 255;
+        //Reduce xSquashed and ySquashed to less than 255 if necessary
+        xSquashed &= 255;
+        ySquashed &= 255;
 
-        int gi[] = {permMod4[i + perm[j]],
-                permMod4[i + i1 + perm[j + j1]],
-                permMod4[i + 1 + perm[j + 1]]};
-        double n[] = new double[3];
+        int gi[] = {
+                permMod4[xSquashed + perm[ySquashed]],
+                permMod4[xSquashed + i1 + perm[ySquashed + j1]],
+                permMod4[xSquashed + 1 + perm[ySquashed + 1]]
+        };
+
+        double nArray[] = new double[3];
+
         //may be able to use arrays
         double[] tArray = {
-                0.5 - x[0] * x[0] - y[0] * y[0],
-                0.5 - x[1] * x[1] - y[1] * y[1],
-                0.5 - x[2] * x[2] - y[2] * y[2]
+                0.5 - xArray[0] * xArray[0] - yArray[0] * yArray[0],
+                0.5 - xArray[1] * xArray[1] - yArray[1] * yArray[1],
+                0.5 - xArray[2] * xArray[2] - yArray[2] * yArray[2]
         };
 
         for (int k = 0; k < tArray.length; k++) {
             if (tArray[k] < 0) {
-                n[k] = 0;
+                nArray[k] = 0;
             } else {
                 tArray[k] *= tArray[k];
-                n[k] = tArray[k] * tArray[k] * dot(corners[gi[k]], x[k], y[k]);
+                nArray[k] = tArray[k] * tArray[k] * dot(corners[gi[k]], xArray[k], yArray[k]);
             }
         }
-//        System.out.println((n[0] + n[1] + n[2]));
-        return 70 * (n[0] + n[1] + n[2]);
+//        System.out.println((nArray[0] + nArray[1] + nArray[2]));
+        return 70 * (nArray[0] + nArray[1] + nArray[2]);
     }
 
     /**
-     * //TODO: comment
+     * Dot product
      *
      * @param point Corner started from
      * @param x     X position to to sample
      * @param y     Y position to sample
-     * @return //TODO
+     * @return Scaled vector
      */
     private double dot(Point point, double x, double y) {
         return point.x * x + point.y * y;
     }
 
     /**
-     * "Faster" version of floor
+     * "Faster" version of floor, rounds values down
      *
      * @return Integer value of x
      */

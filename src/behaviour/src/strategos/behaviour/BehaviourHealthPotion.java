@@ -5,6 +5,10 @@ import strategos.Config;
 import strategos.model.GameState;
 
 
+/**
+ * @author Devon Mortimer
+ * Code reviewer: Brandon Scott-Hill
+ */
 class BehaviourHealthPotion extends StaticBehaviour {
 
     BehaviourHealthPotion(GameState gameState) {
