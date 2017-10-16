@@ -1,8 +1,8 @@
-package strategos.ui.controller;
-
-
-import model.GameCollectionTestObj;
-import model.ModelTestObj;
+//package strategos.ui.controller;
+//
+//
+//import model.GameCollectionTestObj;
+//import model.ModelTestObj;
 //import org.junit.Before;
 //import org.junit.Test;
 //import strategos.model.GameState;
