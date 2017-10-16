@@ -17,6 +17,10 @@ import java.util.logging.Logger;
 import static java.lang.Math.abs;
 
 
+/**
+ * @author Devon Mortimer
+ * Code reviewer: Brandon Scott-Hill
+ */
 class AiBehaviour extends BaseBehaviour {
 
     //TODO: Where is your javadoc?

@@ -7,6 +7,10 @@ import java.util.function.Function;
 import java.util.logging.*;
 
 
+/**
+ * @author Devon Mortimer
+ * Code reviewer: Brandon Scott-Hill
+ */
 public class BehaviourFactoryImpl implements BehaviourFactory {
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");

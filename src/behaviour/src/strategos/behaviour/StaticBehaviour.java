@@ -8,6 +8,10 @@ import strategos.units.Unit;
 import java.util.logging.Logger;
 
 
+/**
+ * @author Devon Mortimer
+ * Code reviewer: Brandon Scott-Hill
+ */
 abstract class StaticBehaviour extends BaseBehaviour {
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");
