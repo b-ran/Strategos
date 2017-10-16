@@ -10,6 +10,9 @@ import strategos.networking.handlers.NetworkingHandlerImpl;
 import static org.junit.Assert.assertEquals;
 
 
+/**
+ * These tests must be run one at a time.
+ */
 public class Tests {
 	private SaveInstance testSaveInstance;
 	private TestGameState serverState;
