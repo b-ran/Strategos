@@ -135,7 +135,7 @@ public class TestUtil {
             }
 
             @Override public void newGame() {
-                //return null;
+                return null;
             }
 
             @Override public void save() {
