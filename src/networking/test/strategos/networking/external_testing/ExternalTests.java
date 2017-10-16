@@ -49,6 +49,12 @@ public class ExternalTests {
 
 	@Test
 	public void SendTest_01() throws InterruptedException, java.io.EOFException {
+		GameBoard testMap = new ExternalTestMap(createMap(false, 10), 10);
+		List<Unit> units = new ArrayList<>();
+		units.add(new ExternalTestUnit(1000));
+		GameCollections testWorld = new ExternalTestWorld(testMap, units);
+		clientState = new ExternalTestGameState(testWorld, new ArrayList<>());
+
 		SaveInstance saveInstance = serverState.export();
 
 		server.send(saveInstance);
@@ -57,7 +63,17 @@ public class ExternalTests {
 
 	@Test
 	public void SendTest_03() throws InterruptedException {
+		GameBoard testMap = new ExternalTestMap(createMap(true, 10), 10);
+		List<Unit> units = new ArrayList<>();
+		units.add(new ExternalTestUnit(1000));
+		GameCollections testWorld = new ExternalTestWorld(testMap, units);
+		clientState = new ExternalTestGameState(testWorld, new ArrayList<>());
 
+		testMap = new ExternalTestMap(createMap(true, 10), 10);
+		units = new ArrayList<>();
+		units.add(new ExternalTestUnit(1000));
+		testWorld = new ExternalTestWorld(testMap, units);
+		serverState = new ExternalTestGameState(testWorld, new ArrayList<>());
 
 		SaveInstance saveInstance = serverState.export();
 
