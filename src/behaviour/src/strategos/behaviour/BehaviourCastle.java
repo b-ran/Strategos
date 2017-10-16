@@ -16,8 +16,6 @@ class BehaviourCastle extends UnitBehaviour {
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");
 
-    //TODO: Where is your javadoc?
-
     BehaviourCastle(GameState gameState) {
         super(gameState);
     }

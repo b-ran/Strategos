@@ -16,8 +16,6 @@ class BehaviourArchers extends UnitBehaviour {
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");
 
-    //TODO: Where is your javadoc?
-
     BehaviourArchers(GameState gameState) {
         super(gameState);
     }
