@@ -74,6 +74,7 @@ public class ExternalTests {
 
 	}
 
+	@Test
 	public void SendTest_02() throws InterruptedException {
 		SaveInstance saveInstance = serverState.export();
 		server.stop();

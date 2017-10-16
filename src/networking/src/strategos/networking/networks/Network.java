@@ -21,7 +21,7 @@ public interface Network {
 	/**
 	 * Gets called when a SaveInstance is received
 	 *
-	 * @param instance The received instance
+	 * @param instance The received ins	tance
 	 */
 	void receive(SaveInstance instance);
 
@@ -29,6 +29,11 @@ public interface Network {
 	 * Shuts down the connection
 	 */
 	void stop();
+
+	/**
+	 * Sets the status of the server to {@code connected}
+	 * @param connected The new status of the server
+	 */
 
 	void setConnected(boolean connected);
 }
