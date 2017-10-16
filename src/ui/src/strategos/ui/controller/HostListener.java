@@ -39,7 +39,6 @@ public class HostListener extends Controller implements ActionListener {
         new Thread(()-> {
             dlg.setVisible(true);
         }).start();
-        System.out.println("ho");
         new Thread(()->{
             model.setThisInstancePlayer(model.getPlayers().get(0));
             view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
