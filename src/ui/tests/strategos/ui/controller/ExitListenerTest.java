@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Devon Mortimer (external tester)
  */
-class ExitListenerTest {
+public class ExitListenerTest {
 
     private MockView mockView;
     private ExitListener listener;
