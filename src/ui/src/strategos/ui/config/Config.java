@@ -39,7 +39,7 @@ public class Config {
 
     public static final String HOW_TO_PLAY_NAME = "How to play";
 
-    public static final Dimension GAME_INSTRUCTION_BOX_DIMENSIONS = new Dimension(600, 700);
+    public static final Dimension GAME_INSTRUCTION_BOX_DIMENSIONS = new Dimension(900, 700);
 
 
     /**

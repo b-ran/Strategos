@@ -91,7 +91,7 @@ public class View extends JComponent implements Observer {
         message.setText(GAME_INSTRUCTION_MESSAGE);
         message.setLineWrap(true);
         message.setWrapStyleWord(true);
-        message.setPreferredSize(new Dimension(600, 700));
+        message.setPreferredSize(GAME_INSTRUCTION_BOX_DIMENSIONS);
         instructionPane.add(message);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
