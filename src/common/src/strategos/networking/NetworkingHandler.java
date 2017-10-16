@@ -27,7 +27,7 @@ public interface NetworkingHandler {
 	void run() throws InterruptedException;
 
 	/**
-	 * Sends a {@code SaveInstance} over the network
+	 * Sends a {@link SaveInstance} over the network
 	 * @param instance The SaveInstance to be sent
 	 * @throws InterruptedException when the connection is interrupted
 	 */
@@ -37,6 +37,12 @@ public interface NetworkingHandler {
 	 * Shuts down the connection
 	 */
 	void stop() throws InterruptedException;
+
+	/**
+	 * Closes the connections, and resets the handler. <br>
+	 * {@link #initialise} must be called after this method to use the handler again
+	 */
+	void reset() throws InterruptedException;
 
 	/**
 	 * Is the network connected

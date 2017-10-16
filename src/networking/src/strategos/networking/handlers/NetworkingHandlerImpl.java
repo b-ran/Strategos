@@ -15,22 +15,40 @@ import java.util.Scanner;
  * Handles initialising, running, and sending data from a client or server.
  */
 public class NetworkingHandlerImpl implements NetworkingHandler {
-	private Network type;
-	private boolean connected;
+	private Network type = null;
+	private boolean connected = false;
+	private boolean running = false;
 
 	@Override
 	public void initialise(GameState state, int port) {
-		type = new Server(this, port, state);
+		if(type == null) {
+			type = new Server(this, port, state);
+		} else {
+			throw new IllegalStateException("Initializing twice is not allowed.");
+		}
 	}
 
 	@Override
 	public void initialise(GameState state, String host, int port) {
-		type = new Client(this, host, port, state);
+		if(type == null) {
+			type = new Client(this, host, port, state);
+		} else {
+			throw new IllegalStateException("Initializing twice is not allowed.");
+		}
+	}
+
+	public void reset() throws InterruptedException {
+		if(type != null) {
+			stop();
+			Thread.sleep(200);
+			type = null;
+		}
 	}
 
 	@Override
 	public void run() throws InterruptedException {
 		type.run();
+		running = true;
 		Thread.sleep(1000);
 	}
 
@@ -38,12 +56,13 @@ public class NetworkingHandlerImpl implements NetworkingHandler {
 	public void send(SaveInstance instance) throws InterruptedException {
 		System.out.println("sending L2");
 		type.send(instance);
-		Thread.sleep(3000);
+		Thread.sleep(100);
 	}
 
 	@Override
 	public void stop() throws InterruptedException {
 		type.stop();
+		running = false;
 	}
 
 	@Override
