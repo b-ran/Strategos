@@ -11,10 +11,12 @@ import java.util.logging.Logger;
 /**
  * @author Devon Mortimer
  * Code reviewer: Brandon Scott-Hill
+ *
+ * The abstract class extended by behaviour implementations. This
+ * class implements the position getter and setter used in the all the
+ * behaviour implementations.
  */
 abstract class BaseBehaviour implements Behaviour {
-
-    //TODO: Where is your javadoc?
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");
 

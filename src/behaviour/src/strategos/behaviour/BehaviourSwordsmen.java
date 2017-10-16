@@ -12,8 +12,6 @@ import strategos.units.Unit;
  */
 class BehaviourSwordsmen extends UnitBehaviour {
 
-    //TODO: Where is your javadoc?
-
     BehaviourSwordsmen(GameState gameState) {
         super(gameState);
     }

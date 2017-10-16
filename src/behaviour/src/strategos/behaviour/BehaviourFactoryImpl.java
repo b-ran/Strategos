@@ -15,8 +15,6 @@ public class BehaviourFactoryImpl implements BehaviourFactory {
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");
 
-    //TODO: where is your javadoc?
-
     public BehaviourFactoryImpl(Level level, Handler handler) {
         this();
         logger.setLevel(level);

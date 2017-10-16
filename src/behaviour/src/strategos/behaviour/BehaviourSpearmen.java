@@ -12,8 +12,6 @@ import strategos.units.Unit;
  */
 class BehaviourSpearmen extends UnitBehaviour {
 
-    //TODO: Where is your javadoc?
-
     BehaviourSpearmen(GameState gameState) {
         super(gameState);
     }

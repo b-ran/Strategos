@@ -16,10 +16,10 @@ import java.util.logging.Logger;
 /**
  * @author Devon Mortimer
  * Code reviewer: Brandon Scott-Hill
+ *
+ * Implements basic unit functionality for attacking and moving.
  */
 abstract class UnitBehaviour extends BaseBehaviour {
-
-    //TODO: Where is your javadoc?
 
     private static Logger logger = Logger.getLogger("strategos.behaviour");
 
