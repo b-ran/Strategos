@@ -19,8 +19,7 @@ class BehaviourBridge extends StaticBehaviour {
         return new BehaviourBridge(this, newState);
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "BehaviourBridge{} " + super.toString();
     }
 }

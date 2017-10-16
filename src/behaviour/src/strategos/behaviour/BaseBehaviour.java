@@ -3,9 +3,9 @@ package strategos.behaviour;
 
 import strategos.model.GameState;
 import strategos.model.MapLocation;
-import strategos.units.*;
+import strategos.units.Unit;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 
 abstract class BaseBehaviour implements Behaviour {
@@ -34,13 +34,13 @@ abstract class BaseBehaviour implements Behaviour {
             throw new NullPointerException("BaseBehaviour constructor requires non-null behaviour");
         }
 
-        gameState = newState;
-        position = behaviour.position;
+        this.gameState = newState;
+        this.position = behaviour.position;
     }
 
     @Override public MapLocation getPosition(Unit unit) {
-        assert position != null : "Method getPosition() shouldn't be returning null";
-        return position;
+        assert this.position != null : "Method getPosition() shouldn't be returning null";
+        return this.position;
     }
 
     @Override public void setPosition(Unit unit, MapLocation position) {
@@ -50,33 +50,27 @@ abstract class BaseBehaviour implements Behaviour {
         this.position = position;
     }
 
-    @Override
-    public boolean equals(Object o) {
+    @Override public int hashCode() {
+        int result = this.gameState.hashCode();
+        result = 31 * result + (this.position != null ? this.position.hashCode() : 0);
+        return result;
+    }
+
+    @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         BaseBehaviour that = (BaseBehaviour) o;
 
-        if (!gameState.equals(that.gameState)) return false;
-        return position != null ? position.equals(that.position) : that.position == null;
-
+        if (!this.gameState.equals(that.gameState)) return false;
+        return this.position != null ? this.position.equals(that.position) : that.position == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = gameState.hashCode();
-        result = 31 * result + (position != null ? position.hashCode() : 0);
-        return result;
+    @Override public String toString() {
+        return "BaseBehaviour{" + "position=" + this.position + '}';
     }
 
     final GameState getGameState() {
-        return gameState;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseBehaviour{" +
-                "position=" + position +
-                '}';
+        return this.gameState;
     }
 }

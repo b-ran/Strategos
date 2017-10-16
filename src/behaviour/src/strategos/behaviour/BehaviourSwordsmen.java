@@ -3,7 +3,7 @@ package strategos.behaviour;
 
 import strategos.Config;
 import strategos.model.GameState;
-import strategos.units.*;
+import strategos.units.Unit;
 
 
 class BehaviourSwordsmen extends UnitBehaviour {
@@ -30,8 +30,7 @@ class BehaviourSwordsmen extends UnitBehaviour {
         return new BehaviourSwordsmen(this, newState);
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "BehaviourSwordsmen{} " + super.toString();
     }
 }

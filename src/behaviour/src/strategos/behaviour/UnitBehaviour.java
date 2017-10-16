@@ -1,81 +1,72 @@
 package strategos.behaviour;
 
 
-import strategos.*;
-import strategos.exception.*;
+import strategos.Config;
+import strategos.Direction;
+import strategos.exception.RuleViolationException;
 import strategos.model.GameState;
 import strategos.model.MapLocation;
 import strategos.terrain.*;
-import strategos.units.*;
+import strategos.units.HealthPotion;
+import strategos.units.Unit;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 
 abstract class UnitBehaviour extends BaseBehaviour {
 
     //TODO: Where is your javadoc?
 
-   private static Logger logger = Logger.getLogger("strategos.behaviour");
+    private static Logger logger = Logger.getLogger("strategos.behaviour");
 
     private boolean entrench;
-    private int     actionPoints;
+    private int actionPoints;
     private boolean wary;
-    private int     hitpoints;
+    private int hitpoints;
     private boolean hasAttacked;
-
-    @Override
-    public String toString() {
-        return "UnitBehaviour{" +
-                "entrench=" + entrench +
-                ", actionPoints=" + actionPoints +
-                ", wary=" + wary +
-                ", hitpoints=" + hitpoints +
-                ", hasAttacked=" + hasAttacked +
-                "} " + super.toString();
-    }
 
     UnitBehaviour(GameState gameState) {
         super(gameState);
 
-        hitpoints = Config.UNIT_HITPOINTS;
-        actionPoints = 0;
+        this.hitpoints = Config.UNIT_HITPOINTS;
+        this.actionPoints = 0;
 
-        wary = false;
-        entrench = false;
+        this.wary = false;
+        this.entrench = false;
 
-        hasAttacked = true;
+        this.hasAttacked = true;
     }
 
     UnitBehaviour(UnitBehaviour behaviour, GameState newState) {
         super(behaviour, newState);
 
-        entrench = behaviour.entrench;
-        actionPoints = behaviour.actionPoints;
-        wary = behaviour.wary;
-        hitpoints = behaviour.hitpoints;
+        this.entrench = behaviour.entrench;
+        this.actionPoints = behaviour.actionPoints;
+        this.wary = behaviour.wary;
+        this.hitpoints = behaviour.hitpoints;
     }
 
     @Override public void turnTick(Unit unit) {
         logger.fine(String.format("%s: turn tick", this.getClass()));
 
-        actionPoints = getMaxActionPoints();
-        hasAttacked = false;
+        this.actionPoints = getMaxActionPoints();
+        this.hasAttacked = false;
 
-        if (wary) {
-            actionPoints--;
+        if (this.wary) {
+            this.actionPoints--;
         }
     }
 
     @Override public void wary(Unit unit) {
-        if (wary) {
-            wary = false;
+        if (this.wary) {
+            this.wary = false;
             logger.info(String.format("%s: left wary state", this.getClass()));
         }
-        else if (actionPoints >= Config.WARY_COST) {
-            actionPoints -= Config.WARY_COST;
-            wary = true;
-            if (entrench) {
-                entrench = false;
+        else if (this.actionPoints >= Config.WARY_COST) {
+            this.actionPoints -= Config.WARY_COST;
+            this.wary = true;
+            if (this.entrench) {
+                this.entrench = false;
                 logger.fine(String.format("%s: left entrench state", this.getClass()));
             }
             logger.info(String.format("%s: entered wary state", this.getClass()));
@@ -86,19 +77,19 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public boolean getWary(Unit unit) {
-        return wary;
+        return this.wary;
     }
 
     @Override public void entrench(Unit unit) {
-        if (entrench) {
-            entrench = false;
+        if (this.entrench) {
+            this.entrench = false;
             logger.info(String.format("%s: left entrench state", this.getClass()));
         }
-        else if (actionPoints >= Config.ENTRENCH_COST) {
-            actionPoints -= Config.ENTRENCH_COST;
-            entrench = true;
-            if (wary) {
-                wary = false;
+        else if (this.actionPoints >= Config.ENTRENCH_COST) {
+            this.actionPoints -= Config.ENTRENCH_COST;
+            this.entrench = true;
+            if (this.wary) {
+                this.wary = false;
                 logger.fine(String.format("%s: left wary state", this.getClass()));
             }
             logger.info(String.format("%s: entered entrench state", this.getClass()));
@@ -109,7 +100,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public boolean getEntrench(Unit unit) {
-        return entrench;
+        return this.entrench;
     }
 
     @Override public void charge(Unit unit) {
@@ -136,7 +127,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
         }
         else {
             setPosition(unit, neighbour);
-            actionPoints -= movementCost;
+            this.actionPoints -= movementCost;
             return true;
         }
     }
@@ -148,7 +139,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
-        if (!isAlive(unit) || !enemy.isAlive() || hasAttacked) {
+        if (!isAlive(unit) || !enemy.isAlive() || this.hasAttacked) {
             logger.info(String.format("%s: cannot attack", this.getClass()));
             return 0;
         }
@@ -158,7 +149,7 @@ abstract class UnitBehaviour extends BaseBehaviour {
             return 0;
         }
 
-        actionPoints -= 1;
+        this.actionPoints -= 1;
 
         int defence = enemy.getToughness();
         defence += enemy.getWary() ? Config.WARY_MODIFIER : 0;
@@ -168,12 +159,12 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
         enemy.defend(unit);
 
-        hitpoints -= defence;
-        hasAttacked = true;
+        this.hitpoints -= defence;
+        this.hasAttacked = true;
 
         if (enemy instanceof HealthPotion) {
             logger.info(String.format("%s: use health potion", this.getClass()));
-            hitpoints = Config.UNIT_HITPOINTS;
+            this.hitpoints = Config.UNIT_HITPOINTS;
         }
 
         return 0;
@@ -185,16 +176,24 @@ abstract class UnitBehaviour extends BaseBehaviour {
         Terrain terrain = getGameState().getTerrainAt(unit.getPosition());
 
         if (terrain instanceof Plains) {
-            return attacking ? (int) (damage * Config.PLAINS_STRENGTH_BONUS) : (int) (damage * Config.PLAINS_TOUGHNESS_BONUS);
+            return attacking
+                    ? (int) (damage * Config.PLAINS_STRENGTH_BONUS)
+                    : (int) (damage * Config.PLAINS_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof Forest) {
-            return attacking ? (int) (damage * Config.FOREST_STRENGTH_BONUS) : (int) (damage * Config.FOREST_TOUGHNESS_BONUS);
+            return attacking
+                    ? (int) (damage * Config.FOREST_STRENGTH_BONUS)
+                    : (int) (damage * Config.FOREST_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof Hill) {
-            return attacking ? (int) (damage * Config.HILL_STRENGTH_BONUS) : (int) (damage * Config.HILL_TOUGHNESS_BONUS);
+            return attacking
+                    ? (int) (damage * Config.HILL_STRENGTH_BONUS)
+                    : (int) (damage * Config.HILL_TOUGHNESS_BONUS);
         }
         else if (terrain instanceof River) {
-            return attacking ? (int) (damage * Config.RIVER_STRENGTH_BONUS) : (int) (damage * Config.RIVER_TOUGHNESS_BONUS);
+            return attacking
+                    ? (int) (damage * Config.RIVER_STRENGTH_BONUS)
+                    : (int) (damage * Config.RIVER_TOUGHNESS_BONUS);
         }
         else {
             throw new RuleViolationException("Unit must be on valid Terrain");
@@ -214,17 +213,17 @@ abstract class UnitBehaviour extends BaseBehaviour {
         attack *= 0.8 + (enemy.getHitpoints() / 500.0);
         attack = terrainDamageBonus(enemy, attack, true);
 
-        hitpoints -= attack;
+        this.hitpoints -= attack;
 
         return 0;
     }
 
     @Override public int getHitpoints(Unit unit) {
-        return hitpoints > 0 ? hitpoints : 0;
+        return this.hitpoints > 0 ? this.hitpoints : 0;
     }
 
     @Override public boolean isAlive(Unit unit) {
-        return hitpoints > 0;
+        return this.hitpoints > 0;
     }
 
     @Override public int getSightRadius(Unit unit) {
@@ -232,39 +231,11 @@ abstract class UnitBehaviour extends BaseBehaviour {
     }
 
     @Override public int getActionPoints(Unit unit) {
-        return isAlive(unit) && actionPoints > 0 ? actionPoints : 0;
+        return isAlive(unit) && this.actionPoints > 0 ? this.actionPoints : 0;
     }
 
-    @Override
-    public int getAttackRange() {
+    @Override public int getAttackRange() {
         return Config.MELEE_RANGE;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        UnitBehaviour that = (UnitBehaviour) o;
-
-        if (entrench != that.entrench) return false;
-        if (actionPoints != that.actionPoints) return false;
-        if (wary != that.wary) return false;
-        if (hitpoints != that.hitpoints) return false;
-        return hasAttacked == that.hasAttacked;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (entrench ? 1 : 0);
-        result = 31 * result + actionPoints;
-        result = 31 * result + (wary ? 1 : 0);
-        result = 31 * result + hitpoints;
-        result = 31 * result + (hasAttacked ? 1 : 0);
-        return result;
     }
 
     private int terrainMovementCost(Terrain terrain) {
@@ -287,6 +258,36 @@ abstract class UnitBehaviour extends BaseBehaviour {
 
     int getMaxActionPoints() {
         return Config.INFANTRY_ACTION_POINTS;
+    }
+
+    @Override public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (this.entrench ? 1 : 0);
+        result = 31 * result + this.actionPoints;
+        result = 31 * result + (this.wary ? 1 : 0);
+        result = 31 * result + this.hitpoints;
+        result = 31 * result + (this.hasAttacked ? 1 : 0);
+        return result;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        UnitBehaviour that = (UnitBehaviour) o;
+
+        if (this.entrench != that.entrench) return false;
+        if (this.actionPoints != that.actionPoints) return false;
+        if (this.wary != that.wary) return false;
+        if (this.hitpoints != that.hitpoints) return false;
+        return this.hasAttacked == that.hasAttacked;
+    }
+
+    @Override public String toString() {
+        return "UnitBehaviour{" + "entrench=" + this.entrench + ", actionPoints=" + this.actionPoints + ", wary=" +
+               this.wary + ", hitpoints=" + this.hitpoints + ", hasAttacked=" + this.hasAttacked + "} " +
+               super.toString();
     }
 
     void setActionPoints(int actionPoints) {

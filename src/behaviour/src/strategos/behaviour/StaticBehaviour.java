@@ -1,11 +1,11 @@
 package strategos.behaviour;
 
 
-import strategos.*;
+import strategos.Direction;
 import strategos.model.GameState;
-import strategos.units.*;
+import strategos.units.Unit;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 
 abstract class StaticBehaviour extends BaseBehaviour {
@@ -14,22 +14,10 @@ abstract class StaticBehaviour extends BaseBehaviour {
     private int hitpointsMax;
     private int hitpoints;
 
-    @Override public boolean getWary(Unit unit) {
-        return false;
-    }
-
-    @Override public boolean getEntrench(Unit unit) {
-        return false;
-    }
-
-    @Override public int getHitpoints(Unit unit) {
-        return Math.max(hitpoints * (100 / hitpointsMax), 0);
-    }
-
     StaticBehaviour(GameState gameState, int hitpoints) {
         super(gameState);
 
-        hitpointsMax = hitpoints;
+        this.hitpointsMax = hitpoints;
         this.hitpoints = hitpoints;
     }
 
@@ -48,8 +36,16 @@ abstract class StaticBehaviour extends BaseBehaviour {
 
     }
 
+    @Override public boolean getWary(Unit unit) {
+        return false;
+    }
+
     @Override public void entrench(Unit unit) {
 
+    }
+
+    @Override public boolean getEntrench(Unit unit) {
+        return false;
     }
 
     @Override public void charge(Unit unit) {
@@ -71,7 +67,7 @@ abstract class StaticBehaviour extends BaseBehaviour {
             throw new NullPointerException("Method defend() requires a non-null enemy");
         }
 
-        hitpoints -= enemy.getStrength();
+        this.hitpoints -= enemy.getStrength();
 
         return 0;
     }
@@ -84,29 +80,12 @@ abstract class StaticBehaviour extends BaseBehaviour {
         return 0;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        StaticBehaviour that = (StaticBehaviour) o;
-
-        if (hitpointsMax != that.hitpointsMax) return false;
-        return hitpoints == that.hitpoints;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + hitpointsMax;
-        result = 31 * result + hitpoints;
-        return result;
+    @Override public int getHitpoints(Unit unit) {
+        return Math.max(this.hitpoints * (100 / this.hitpointsMax), 0);
     }
 
     @Override public boolean isAlive(Unit unit) {
-        return hitpoints > 0;
+        return this.hitpoints > 0;
     }
 
     @Override public int getSightRadius(Unit unit) {
@@ -117,16 +96,30 @@ abstract class StaticBehaviour extends BaseBehaviour {
         return 0;
     }
 
-    @Override
-    public String toString() {
-        return "StaticBehaviour{" +
-                "hitpointsMax=" + hitpointsMax +
-                ", hitpoints=" + hitpoints +
-                "} " + super.toString();
+    @Override public int getAttackRange() {
+        return 0;
     }
 
-    @Override
-    public int getAttackRange() {
-        return 0;
+    @Override public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + this.hitpointsMax;
+        result = 31 * result + this.hitpoints;
+        return result;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        StaticBehaviour that = (StaticBehaviour) o;
+
+        if (this.hitpointsMax != that.hitpointsMax) return false;
+        return this.hitpoints == that.hitpoints;
+    }
+
+    @Override public String toString() {
+        return "StaticBehaviour{" + "hitpointsMax=" + this.hitpointsMax + ", hitpoints=" + this.hitpoints + "} " +
+               super.toString();
     }
 }
