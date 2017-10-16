@@ -44,14 +44,6 @@ public class BehaviourArchersTest {
         );
     }
 
-    @Test public void charge() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void attack() throws Exception {
-        assertFalse(true);
-    }
-
     @Test public void getActionPoints() throws Exception {
         this.behaviour.turnTick(this.unit);
         assertThat(
