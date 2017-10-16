@@ -11,6 +11,9 @@ import java.util.logging.Logger;
 /**
  * @author Devon Mortimer
  * Code reviewer: Brandon Scott-Hill
+ *
+ * Implements functionality for 'static' behaviours which cannot be controlled,
+ * only affected by other behaviours.
  */
 abstract class StaticBehaviour extends BaseBehaviour {
 
