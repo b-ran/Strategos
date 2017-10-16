@@ -12,20 +12,18 @@ import strategos.ui.Ui;
 
 public class GameRunner {
 
-	private GameState gameState;
-
-	public GameRunner() {
+	private GameRunner() {
 		Generator generator = new TerrainGeneration();
 		BehaviourFactory factory = new BehaviourFactoryImpl();
 
 		GameStateFactory stateCreator = new StateCreator(factory, generator);
 
-		gameState = stateCreator.createNewState();
+		GameState gameState = stateCreator.createNewState();
 
-		Ui ui = new Ui(gameState, new NetworkingHandlerImpl());
+		new Ui(gameState, new NetworkingHandlerImpl());
 	}
 
 	public static void main(String[] args) {
-		GameRunner g = new GameRunner();
+		new GameRunner();
 	}
 }
