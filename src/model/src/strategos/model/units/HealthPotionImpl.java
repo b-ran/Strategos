@@ -8,6 +8,11 @@ import strategos.model.UnitOwner;
 import strategos.units.HealthPotion;
 import strategos.units.Unit;
 
+/**
+ * An implementation of the Health Potion Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
+ */
 public class HealthPotionImpl extends UnitImpl implements HealthPotion {
 	public HealthPotionImpl(UnitOwner owner, MapLocation startLocation) {
 		super(owner, startLocation);

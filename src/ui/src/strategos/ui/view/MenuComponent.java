@@ -4,9 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import static strategos.ui.config.Config.*;
 
+
 /**
- * The type Menu component.
+ * Used to create different menus: escapeMenu, mainMenu and loadMenu.
+ * @author Brandon Scott-Hill
  */
+
 public class MenuComponent extends JComponent {
 
     private JButton newGameButton = new JButton(NEWGAME_BUTTON_NAME);
@@ -16,12 +19,21 @@ public class MenuComponent extends JComponent {
     private JButton loadButton = new JButton(LOAD_BUTTON_NAME);
     private JButton connectButton = new JButton(CONNECT_BUTTON_NAME);
     private JButton hostButton = new JButton(HOST_BUTTON_NAME);
+
     private JButton howToPlayButton = new JButton(HOW_TO_PLAY_NAME);
     private JButton saveSlotOne = new JButton(SAVE_SLOT_BUTTON_NAME + " 1");
     private JButton saveSlotTwo = new JButton(SAVE_SLOT_BUTTON_NAME + " 2");
     private JButton saveSlotThree = new JButton(SAVE_SLOT_BUTTON_NAME + " 3");
-    private JPanel p = new JPanel();
 
+    private JPanel p = new JPanel(); //The panel the buttons will be created on
+
+
+    /**
+     * Creates skeleton menu panel
+     *
+     * @author Brandon Scott-Hill
+     * @return the skeleton menu
+     */
     private JPanel constructMenuSkeleton() {
         p = new JPanel();
         setupButtons();
@@ -33,6 +45,7 @@ public class MenuComponent extends JComponent {
     /**
      * Sets component as a main menu.
      *
+     * @author Brandon Scott-Hill
      * @return the menu
      */
      JPanel setMenu() {
@@ -51,6 +64,7 @@ public class MenuComponent extends JComponent {
     /**
      * Sets component as an escape menu.
      *
+     * @author Brandon Scott-Hill
      * @return the escape menu
      */
      JPanel setEscapeMenu(){
@@ -60,18 +74,20 @@ public class MenuComponent extends JComponent {
         p.add(saveButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(loadButton);
-      /*   p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
-         p.add(newGameButton);*/
+         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
+         p.add(newGameButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(howToPlayButton);
         p.add(Box.createVerticalStrut(MENU_PADDING_SIZE));
         p.add(exitButton);
+        p.setOpaque(false);
         return p;
     }
 
     /**
      * Sets component as the list of load options.
      *
+     * @author Daniel Pinfold
      * @return the load menu
      */
     JPanel setLoadMenu(){
@@ -86,6 +102,11 @@ public class MenuComponent extends JComponent {
         return p;
     }
 
+    /**
+     * Sets the sizes and alignments of all buttons
+     *
+     * @author Brandon Scott-Hill
+     */
     private void setupButtons() {
         newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -117,6 +138,7 @@ public class MenuComponent extends JComponent {
     /**
      * Gets new game button.
      *
+     * @author Brandon Scott-Hill
      * @return the new game button
      */
     public JButton getNewGameButton() {
@@ -126,6 +148,7 @@ public class MenuComponent extends JComponent {
     /**
      * Gets exit button.
      *
+     * @author Brandon Scott-Hill
      * @return the exit button
      */
     public JButton getExitButton() {
@@ -135,6 +158,7 @@ public class MenuComponent extends JComponent {
     /**
      * Gets resume button.
      *
+     * @author Brandon Scott-Hill
      * @return the resume button
      */
     public JButton getResumeButton() {
@@ -143,7 +167,7 @@ public class MenuComponent extends JComponent {
 
     /**
      * Gets save button.
-     *
+     * @author Brandon Scott-Hill
      * @return the save button
      */
     public JButton getSaveButton() {
@@ -153,6 +177,7 @@ public class MenuComponent extends JComponent {
     /**
      * Gets load button.
      *
+     * @author Brandon Scott-Hill
      * @return the load button
      */
     public JButton getLoadButton() {
@@ -162,6 +187,7 @@ public class MenuComponent extends JComponent {
     /**
      * Gets connect button.
      *
+     * @author Brandon Scott-Hill
      * @return the connect button
      */
     public JButton getConnectButton() {
@@ -171,12 +197,20 @@ public class MenuComponent extends JComponent {
     /**
      * Gets host button.
      *
+     * @author Brandon Scott-Hill
      * @return the host button
      */
     public JButton getHostButton() {
         return hostButton;
     }
 
+    /**
+     * Gets save slot.
+     *
+     * @author Daniel Pinfold
+     * @param index the index
+     * @return the save slot
+     */
     public JButton getSaveSlot(int index) {
         switch (index) {
             case 1:
@@ -188,6 +222,11 @@ public class MenuComponent extends JComponent {
         }
     }
 
+    /**
+     * Gets how to play button.
+     *
+     * @return the how to play button
+     */
     public JButton getHowToPlayButton() {
         return howToPlayButton;
     }

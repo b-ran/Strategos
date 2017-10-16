@@ -9,8 +9,9 @@ import strategos.units.Spearmen;
 import strategos.units.Unit;
 
 /**
- * Created as part of Strategos project
- * 28/07/2017.
+ * An implementation of the Spearmen Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
  */
 public class SpearmenImpl extends UnitImpl implements Spearmen, GameObject {
 

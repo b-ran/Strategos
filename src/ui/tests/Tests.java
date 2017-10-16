@@ -18,7 +18,6 @@ public class Tests extends JComponent {
     private String text = "";
     private Ui ui;
 
-    private int screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
     private int screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
 
     public Tests() {
@@ -27,7 +26,6 @@ public class Tests extends JComponent {
         frame.setPreferredSize(new Dimension(800,200));
         frame.setLocation(0, screenHeight -300);
         frame.pack();
-
         frame.setVisible(true);
     }
 
@@ -60,8 +58,9 @@ public class Tests extends JComponent {
                 {new MountainTestObj(), new MountainTestObj()},
                 {new MountainTestObj(), new MountainTestObj()}
         };
+        UnitOwnerTestObj owner = new UnitOwnerTestObj();
         setText("You should be able to see a menu");
-        ui = new Ui(setupModel(entities,terrain));
+        ui = new Ui(setupModel(entities,terrain,owner));
         ui.disableInput();
         ui.revealMap();
         waitToClose();
@@ -73,8 +72,9 @@ public class Tests extends JComponent {
         Terrain[][] terrain = {
                 {new MountainTestObj()}
         };
+        UnitOwnerTestObj owner = new UnitOwnerTestObj();
         setText("You should be able to see a hexagon");
-        ui = new Ui(setupModel(entities,terrain));
+        ui = new Ui(setupModel(entities,terrain,owner));
         ui.disableInput();
         ui.skipMenu();
         ui.revealMap();
@@ -85,110 +85,115 @@ public class Tests extends JComponent {
     public void test03_display_archer_player() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         ArchersTestObj unit = new ArchersTestObj(owner);
-        createAUnit(unit, owner, "Should be able to see a archer belonging to client's player");
+        createAUnit(unit, owner, owner,"Should be able to see a archer belonging to client's player");
     }
 
     @Test
     public void test04_display_cavalry_player() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         CavalryTestObj unit = new CavalryTestObj(owner);
-        createAUnit(unit, owner, "Should be able to see a cavalry belonging to client's player");
+        createAUnit(unit, owner, owner,"Should be able to see a cavalry belonging to client's player");
     }
 
     @Test
     public void test05_display_elite_player() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         EliteTestObj unit = new EliteTestObj(owner);
-        createAUnit(unit, owner, "You should be able to see a elite belonging to client's player");
+        createAUnit(unit, owner, owner,"You should be able to see a elite belonging to client's player");
     }
 
     @Test
     public void test06_display_spearmen_player() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         SpearmenTestObj unit = new SpearmenTestObj(owner);
-        createAUnit(unit, owner, "You should be able to see a spearmen belonging to client's player");
+        createAUnit(unit, owner, owner,"You should be able to see a spearmen belonging to client's player");
     }
 
     @Test
     public void test07_display_swordmen_player() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         SwordsmenTestObj unit = new SwordsmenTestObj(owner);
-        createAUnit(unit, owner, "You should be able to see a swordmen belonging to client's player");
+        createAUnit(unit, owner, owner,"You should be able to see a swordmen belonging to client's player");
     }
 
     @Test
     public void test08_display_archer_player() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         ArchersTestObj unit = new ArchersTestObj(owner);
-        createAUnit(unit, owner, new MapLocationTestObj(4,4),"Should be able to see a archer belonging to client's player at 4,4");
+        createAUnit(unit, owner, owner, new MapLocationTestObj(3,1), "Should be able to see a archer belonging to client's player at 3,1");
     }
 
     @Test
     public void test09_display_cavalry_player() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         CavalryTestObj unit = new CavalryTestObj(owner);
-        createAUnit(unit, owner, new MapLocationTestObj(3,2),"Should be able to see a cavalry belonging to client's player at 3,2");
+        createAUnit(unit, owner, owner, new MapLocationTestObj(3,2),"Should be able to see a cavalry belonging to client's player at 3,2");
     }
 
     @Test
     public void test10_display_elite_player_pos() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         EliteTestObj unit = new EliteTestObj(owner);
-        createAUnit(unit, owner, new MapLocationTestObj(2,2), "Should be able to see a elite belonging to client's player at 2,2");
+        createAUnit(unit, owner, owner, new MapLocationTestObj(2,2), "Should be able to see a elite belonging to client's player at 2,2");
     }
 
     @Test
     public void test11_display_spearmen_player_pos() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         SpearmenTestObj unit = new SpearmenTestObj(owner);
-        createAUnit(unit, owner, new MapLocationTestObj(1,1),"Should be able to see a spearmen belonging to client's player at 1,1 ");
+        createAUnit(unit, owner, owner, new MapLocationTestObj(1,1),"Should be able to see a spearmen belonging to client's player at 1,1 ");
     }
 
     @Test
     public void test12_display_swordmen_player_pos() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         SwordsmenTestObj unit = new SwordsmenTestObj(owner);
-        createAUnit(unit, owner, new MapLocationTestObj(0,1),"Should be able to see a swordmen belonging to client's player at 1,0");
+        createAUnit(unit, owner, owner, new MapLocationTestObj(0,1),"Should be able to see a swordmen belonging to client's player at 1,0");
     }
 
     @Test
     public void test13_display_archer_npc() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
+        UnitOwnerTestObj uiOwner = new UnitOwnerTestObj();
         owner.setAsNpc();
         ArchersTestObj unit = new ArchersTestObj(owner);
-        createAUnit(unit, owner, "Should be able to see a archer belonging to npc");
+        createAUnit(unit, owner, uiOwner,"Should be able to see a archer belonging to npc");
     }
 
     @Test
     public void test14_display_cavalry_npc() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
+        UnitOwnerTestObj uiOwner = new UnitOwnerTestObj();
         owner.setAsNpc();
         CavalryTestObj unit = new CavalryTestObj(owner);
-        createAUnit(unit, owner, "Should be able to see a cavalry belonging to npc");
+        createAUnit(unit, owner, uiOwner, "Should be able to see a cavalry belonging to npc");
     }
 
     @Test
     public void test15_display_elite_npc() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
+        UnitOwnerTestObj uiOwner = new UnitOwnerTestObj();
         owner.setAsNpc();
         EliteTestObj unit = new EliteTestObj(owner);
-        createAUnit(unit, owner, "You should be able to see a elite belonging to npc");
+        createAUnit(unit, owner, uiOwner,"You should be able to see a elite belonging to npc");
     }
 
     @Test
     public void test16_display_spearmen_npc() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
+        UnitOwnerTestObj uiOwner = new UnitOwnerTestObj();
         owner.setAsNpc();
         SpearmenTestObj unit = new SpearmenTestObj(owner);
-        createAUnit(unit, owner, "You should be able to see a spearmen belonging to npc");
+        createAUnit(unit, owner, uiOwner,"You should be able to see a spearmen belonging to npc");
     }
 
     @Test
     public void test17_display_swordmen_npc() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
+        UnitOwnerTestObj uiOwner = new UnitOwnerTestObj();
         owner.setAsNpc();
         SwordsmenTestObj unit = new SwordsmenTestObj(owner);
-        createAUnit(unit, owner, "You should be able to see a swordmen belonging to npc");
+        createAUnit(unit, owner, uiOwner, "You should be able to see a swordmen belonging to npc");
     }
 
     @Test
@@ -202,7 +207,7 @@ public class Tests extends JComponent {
     public void test14_display_cavalry_otherPlayer() {
         UnitOwnerTestObj owner = new UnitOwnerTestObj();
         CavalryTestObj unit = new CavalryTestObj(owner);
-        createAUnit(unit, owner, "Should be able to see a cavalry belonging to other player");
+        createAOwnerlessUnit(unit, owner, "Should be able to see a cavalry belonging to other player");
     }
 
     @Test
@@ -263,7 +268,7 @@ public class Tests extends JComponent {
         entities.add(e);
         entities.add(s);
         setText("Should able to game view with a of grid hexgons and 4 units");
-        ui = new Ui(setupModel(entities,terrain));
+        ui = new Ui(setupModel(entities,terrain,owner));
         ui.skipMenu();
         ui.revealMap();
 
@@ -306,8 +311,9 @@ public class Tests extends JComponent {
                 {new PlainsTestObj()}
         };
         List<Unit> entities = new ArrayList<>();
+        UnitOwnerTestObj owner = new UnitOwnerTestObj();
         setText("Should be able to see river terrain tile");
-        ModelTestObj model = setupModel(entities,terrain);
+        ModelTestObj model = setupModel(entities,terrain,owner);
         ui = new Ui(model);
 
         MapLocation[][] map = new MapLocation[terrain.length][terrain[0].length];
@@ -338,14 +344,15 @@ public class Tests extends JComponent {
                 {t}
         };
         setText(text);
-        ui = new Ui(setupModel(entities,terrain));
+        UnitOwnerTestObj owner = new UnitOwnerTestObj();
+        ui = new Ui(setupModel(entities,terrain,owner));
         ui.disableInput();
         ui.skipMenu();
         ui.revealMap();
         waitToClose();
     }
 
-    private ModelTestObj setupModel(List<Unit> entities, Terrain[][] terrain) {
+    private ModelTestObj setupModel(List<Unit> entities, Terrain[][] terrain, UnitOwnerTestObj owner) {
         ModelTestObj modelTestObj = new ModelTestObj();
         GameBoardTestObj gameBoardTestObj = new GameBoardTestObj();
         GameCollectionTestObj gameCollectionTestObj = new GameCollectionTestObj();
@@ -364,10 +371,12 @@ public class Tests extends JComponent {
 
         gameCollectionTestObj.setAllUnits(entities);
 
+        modelTestObj.setThisInstancePlayer(owner);
+
         return  modelTestObj;
     }
 
-    private void createAUnit(Unit unit, UnitOwnerTestObj owner, MapLocationTestObj pos, String text) {
+    private void createAUnit(Unit unit, UnitOwnerTestObj owner, UnitOwnerTestObj uiOwner, MapLocationTestObj pos, String text) {
         List<Unit> entities = new ArrayList<>();
         Terrain[][] terrain = {
                 {new PlainsTestObj(), new PlainsTestObj(), new PlainsTestObj(), new PlainsTestObj()},
@@ -379,14 +388,14 @@ public class Tests extends JComponent {
         unit.setPosition(pos);
         entities.add(unit);
         setText(text);
-        ui = new Ui(setupModel(entities,terrain));
+        ui = new Ui(setupModel(entities,terrain,uiOwner));
         ui.disableInput();
         ui.skipMenu();
         ui.revealMap();
         waitToClose();
     }
 
-    private void createAUnit(Unit unit, UnitOwnerTestObj owner, String text) {
+    private void createAUnit(Unit unit, UnitOwnerTestObj owner, UnitOwnerTestObj uiOwner, String text) {
         List<Unit> entities = new ArrayList<>();
         Terrain[][] terrain = {
                 {new PlainsTestObj(), new PlainsTestObj()},
@@ -396,7 +405,7 @@ public class Tests extends JComponent {
         unit.setPosition(new MapLocationTestObj(0,0));
         entities.add(unit);
         setText(text);
-        ui = new Ui(setupModel(entities,terrain));
+        ui = new Ui(setupModel(entities,terrain,uiOwner));
         ui.disableInput();
         ui.skipMenu();
         ui.revealMap();
@@ -412,7 +421,7 @@ public class Tests extends JComponent {
         unit.setPosition(new MapLocationTestObj(0,0));
         entities.add(unit);
         setText(text);
-        ui = new Ui(setupModel(entities,terrain));
+        ui = new Ui(setupModel(entities,terrain,null));
         ui.disableInput();
         ui.skipMenu();
         ui.revealMap();

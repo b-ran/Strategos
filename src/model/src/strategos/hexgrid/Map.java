@@ -14,7 +14,7 @@ import java.util.List;
  * 		top-left and bottom-right corners. This Map uses flat-topped hexagons, and calculates neighbours based on
  * 		axial coordinates.
  * 
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  *
  */
 public class Map implements GameBoard {
@@ -37,28 +37,57 @@ public class Map implements GameBoard {
 	}
 
 	private Hex[][] constructMap(int diameter) {
+		// maps are stored using a 2D array of Hexes. For the grid to be a hexagon, it must also have an amount of 'padding'
+		// 		on the top left and bottom right corners. Padding is represented as [N] :
+		/*
+		[N][N][ ][ ][ ]
+		[N][ ][ ][ ][ ]
+		[ ][ ][ ][ ][ ]
+		[ ][ ][ ][ ][N]
+		[ ][ ][ ][N][N]
+		 */
+		// the grid is then drawn with each hex at an offset from the one above it, by 0.5 the radius of a hex (this shows
+		// 		the diagram without the unplayable hexes [N] being drawn
+		/*
+		   [ ][ ][ ]
+		 [ ][ ][ ][ ]
+		[ ][ ][ ][ ][ ]
+		 [ ][ ][ ][ ]
+		  [ ][ ][ ]
+		 */
+		// the result is a hexagonal grid, stored in a 2D array.
+
 		Hex[][] map = new Hex[diameter][diameter];
 
+		// populates the array with unplayable hexes
 		for (int r = 0; r < diameter; r++) {
 			for (int q = 0; q < diameter; q++) {
 				map[q][r] = new Hex(q, r, false);
 			}
 		}
+		// this variable determines where the offset (as described above) is being placed
 		boolean left = true;
+		// the offset begins at the diameter / 2 (rounded down), and will decrease until it reaches 0, then increase
+		//		on the other side
 		int offset = diameter / 2;
 		for (int r = 0; r < diameter; r++) {
 			for (int q = 0; q < diameter; q++) {
+				// if the value is within the offset of the unplayable hexes, leave this hex as it is.
 				if (left && q < offset || (!left && q >= diameter - offset)) {
 					continue;
 				}
+				// otherwise, set the hex to be playable
 				set(r, q, map, new Hex(r, q, true));
 			}
+			// if the offset is on the left, continue incrementing down to 0
 			if (offset > 0 && left) {
 				offset--;
 			}
+			// otherwise, increase it up to the diameter / 2 again
 			if (!left) {
 				offset++;
 			}
+			// set the offset to draw on the other side if we have reached the middle y-value
 			if (offset == 0) {
 				left = !left;
 			}

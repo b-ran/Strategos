@@ -10,11 +10,22 @@ import java.awt.event.MouseMotionListener;
 
 import static strategos.ui.config.Config.SELECTION_INPUT_BUTTON;
 
+/**
+ * The type Select listener for detecting selecting and doing selection.
+ * @author Brandon Scott-Hill
+ */
 class SelectListener extends Controller implements MouseListener, MouseMotionListener {
 
-    private Controller controller;
+    private final Controller controller;
     private static MouseEvent lastMoveEvent;
 
+    /**
+     * Instantiates a new Select listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
     SelectListener(Controller controller) {
         super(controller);
         this.controller = controller;

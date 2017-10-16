@@ -134,7 +134,7 @@ public class TestUtil {
 
             }
 
-            @Override public GameState newGame() {
+            @Override public void newGame() {
                 return null;
             }
 

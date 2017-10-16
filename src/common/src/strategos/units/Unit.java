@@ -20,6 +20,9 @@ public interface Unit extends Serializable {
 
     void setPosition(MapLocation position);
 
+    /**
+     * Resets the unit's Action Points and, if it is a barbarian, runs the AI code.
+     */
     void turnTick();
 
     void wary();
@@ -54,5 +57,11 @@ public interface Unit extends Serializable {
 
     int getAttackRange();
 
-    public Unit copy(UnitOwner newOwner, GameState newState);
+    /**
+     * Deep copy implementation.
+     * @param newOwner
+     * @param newState
+     * @return
+     */
+    Unit copy(UnitOwner newOwner, GameState newState);
 }

@@ -8,6 +8,11 @@ import strategos.model.UnitOwner;
 import strategos.units.Bridge;
 import strategos.units.Unit;
 
+/**
+ * An implementation of the Bridge Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
+ */
 public class BridgeImpl extends UnitImpl implements Bridge, GameObject {
 
 

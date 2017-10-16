@@ -13,6 +13,8 @@ public class UnitOwnerTestObj implements UnitOwner {
     private List<Unit> units = new ArrayList<>();
     private boolean npc = false;
 
+
+
     public UnitOwnerTestObj() {
     }
 
@@ -59,5 +61,21 @@ public class UnitOwnerTestObj implements UnitOwner {
         npc = true;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        UnitOwnerTestObj that = (UnitOwnerTestObj) o;
+
+        if (npc != that.npc) return false;
+        return units != null ? units.equals(that.units) : that.units == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = units != null ? units.hashCode() : 0;
+        result = 31 * result + (npc ? 1 : 0);
+        return result;
+    }
 }

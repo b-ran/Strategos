@@ -8,10 +8,23 @@ import java.awt.event.ActionListener;
 
 import static strategos.ui.config.Config.OTHER_PLAYER_NAME;
 
+/**
+ * The Next turn listener for next turn button.
+ *
+ * @author Brandon Scott-Hill
+ * @author Daniel Pinfold
+ */
 class NextTurnListener extends Controller implements ActionListener {
 
     private Controller controller;
 
+    /**
+     * Instantiates a new Next turn listener.
+     *
+     * @author Daniel Pinfold
+     * @author Brandon Scott-Hill
+     * @param controller the controller
+     */
     NextTurnListener(Controller controller) {
         super(controller);
         this.controller = controller;
@@ -33,9 +46,6 @@ class NextTurnListener extends Controller implements ActionListener {
         controller.setSelectedMapLocation(null);
         view.getGridComponent().setSelection(null);
         view.getSideComponent().setSelection(null, null);
-        for (int i = 0; i < model.getPlayers().get(2).getUnits().size(); i++) {
-            model.getPlayers().get(2).getUnits().get(i).turnTick();
-        }
         view.repaint();
         SaveInstance exported = model.export();
         try {

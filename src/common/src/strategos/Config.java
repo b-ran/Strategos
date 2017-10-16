@@ -10,11 +10,12 @@ public class Config {
     public static final int NUM_ELITES = 1;
     public static final int NUM_CAVALRY = 2;
 
+    public static final int TURNS_UNTIL_BARBARIAN_SWARM = 14;
 
     public static final int ENTRENCH_COST = 2;
     public static final int WARY_COST = 1;
-    public static final int ENTRENCH_MODIFIER = 2;
-    public static final int WARY_MODIFIER = 1;
+    public static final int ENTRENCH_MODIFIER = 7;
+    public static final int WARY_MODIFIER = 4;
 
     public static final int UNIT_HITPOINTS = 100;
     public static final int POTION_HITPOINTS = 1;

@@ -5,6 +5,7 @@ import strategos.*;
 import strategos.hexgrid.Hex;
 import strategos.hexgrid.Map;
 import strategos.model.units.BridgeImpl;
+import strategos.model.units.UnitImpl;
 import strategos.units.Bridge;
 import util.TestAlwaysDeadBehaviour;
 import util.TestBehaviour;
@@ -751,6 +752,84 @@ public class ModelTests {
 		gameState.load(save);
 
 		assertTrue(gameState.getWorld().getMap().getDiameter() == 7);
+	}
+
+	/**
+	 * Tests that the turn is incremented on a call to nextTurn()
+	 */
+	@Test
+	public void nextTurnTest_1() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(null, new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+		gameState.setThisInstancePlayer(p);
+		GameCollections world = gameState.getWorld();
+
+		gameState.nextTurn();
+
+		assertTrue(gameState.getNumberTurns() == 2);
+	}
+
+	/**
+	 * Tests that the game cannot be won if both the players have units
+	 */
+	@Test
+	public void winnerTest_1() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(null, new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+		gameState.setThisInstancePlayer(p);
+		GameCollections world = gameState.getWorld();
+
+		SwordsmenImpl unit = new SwordsmenImpl(p2, null);
+		p2.addUnit(unit);
+		world.getAllUnits().add(unit);
+
+		unit = new SwordsmenImpl(p, null);
+		p.addUnit(unit);
+		world.getAllUnits().add(unit);
+
+		assertTrue(gameState.getWinner() == -1);
+	}
+
+	/**
+	 * Tests that the game can be won by player one
+	 */
+	@Test
+	public void winnerTest_2() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(null, new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+		gameState.setThisInstancePlayer(p);
+		GameCollections world = gameState.getWorld();
+
+		SwordsmenImpl unit = new SwordsmenImpl(p, null);
+		p.addUnit(unit);
+		world.getAllUnits().add(unit);
+
+		assertTrue(gameState.getWinner() == 1);
+	}
+
+	/**
+	 * Tests that the game can be won by player two
+	 */
+	@Test
+	public void winnerTest_3() {
+		Player p = new Player(false);
+		Player p2 = new Player(false);
+		Player barbs = new Player(true);
+		Strategos gameState = new Strategos(null, new World(new Map(7), new ArrayList<>()), p, p2, barbs);
+		gameState.setThisInstancePlayer(p);
+		GameCollections world = gameState.getWorld();
+
+		SwordsmenImpl unit = new SwordsmenImpl(p2, null);
+		p2.addUnit(unit);
+		world.getAllUnits().add(unit);
+
+		assertTrue(gameState.getWinner() == 2);
 	}
 
 }

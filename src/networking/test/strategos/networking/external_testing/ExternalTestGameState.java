@@ -19,8 +19,7 @@ public class ExternalTestGameState implements GameState {
 	}
 
 	@Override
-	public GameState newGame() {
-		return null;
+	public void newGame() {
 	}
 
 	@Override

@@ -5,6 +5,11 @@ import java.awt.event.MouseEvent;
 
 import static strategos.Config.*;
 
+
+/**
+ * Config file holding constants ui text and values.
+ * @author Brandon Scott-Hill
+ */
 public class Config {
     //Menu
     public static final int MENU_PADDING_SIZE = 40;
@@ -36,6 +41,11 @@ public class Config {
 
     public static final Dimension GAME_INSTRUCTION_BOX_DIMENSIONS = new Dimension(600, 700);
 
+
+    /**
+     * The Game Instructions
+     * @author Daniel Pinfold
+     */
     public static final String GAME_INSTRUCTION_MESSAGE =
             "Strategos: \n" +
             "This is a turn-based tactical multiplayer board game. You control a number of units to try and take control of the " +
@@ -62,7 +72,7 @@ public class Config {
                     "Archers: Decent attack, low defence, " + INFANTRY_ACTION_POINTS + " AP, can attack from "+ ARCHER_RANGE +
                     " tiles away and take no damage when attacking.\n" +
                     "Cavalry: Decent attack, decent defence, " + CAVALRY_ACTION_POINTS + " AP.\n" +
-                    "Elites: Decent attack, very high defence, " + ELITE_ACTION_POINTS + " AP\n\n" +
+                    "Elites: Decent attack, very high defence, " + INFANTRY_ACTION_POINTS + " AP\n\n" +
                     "Terrain is your friend and enemy! Hills provide a good defensive bonus to units standing on them, " +
                     "and forests slightly less so. Rivers and mountains are impassable. However, you can use your units to " +
                     "attack and capture any of the three bridges that allow them to cross the river. Your enemy will seek to do the " +
@@ -116,6 +126,8 @@ public class Config {
     public static final String OTHER_PLAYER_NAME = "Other Player's Turn";
 
     public static final Point PLAYER_NAME_LOCATION = new Point(20, 10);
+
+    public static final Point TURN_NUMBER_LOCATION = new Point(SIDE_PANEL_SIZE.width - 60, PLAYER_NAME_LOCATION.y);
 
     public static final String HEALTH_LABEL_NAME = "Health:";
 
