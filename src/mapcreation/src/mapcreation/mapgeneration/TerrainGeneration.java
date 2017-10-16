@@ -49,7 +49,7 @@ public class TerrainGeneration implements Generator {
     /**
      * Percentage of the map that has to be hills and forests
      */
-    private final int percentage = PERCENTAGE;
+    private final float percentage = PERCENTAGE;
 
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each

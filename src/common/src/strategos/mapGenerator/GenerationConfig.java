@@ -19,7 +19,7 @@ public class GenerationConfig {
     /**
      * Percentage of the map that has to be hills and forests
      */
-    public static int PERCENTAGE = 10;
+    public static float PERCENTAGE = 3.5f;
 
     /**
      * Changes the average elevation of the map
