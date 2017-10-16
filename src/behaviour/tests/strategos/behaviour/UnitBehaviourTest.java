@@ -10,7 +10,6 @@ import org.junit.rules.ExpectedException;
 import strategos.model.GameState;
 import strategos.units.Unit;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 
@@ -46,16 +45,20 @@ public class UnitBehaviourTest {
 
     @Test public void wary() throws Exception {
         assertThat("Wary should be false before call", this.behaviour.getWary(this.unit), CoreMatchers.is(false));
+        this.behaviour.turnTick(this.unit);
         this.behaviour.wary(this.unit);
         assertThat("Wary should be true after call", this.behaviour.getWary(this.unit), CoreMatchers.is(true));
+        this.behaviour.turnTick(this.unit);
         this.behaviour.wary(this.unit);
         assertThat("Wary should be false after second call", this.behaviour.getWary(this.unit), CoreMatchers.is(false));
     }
 
     @Test public void entrench() throws Exception {
         assertThat("Entrench should be false before call", this.behaviour.getEntrench(this.unit), CoreMatchers.is(false));
+        this.behaviour.turnTick(this.unit);
         this.behaviour.entrench(this.unit);
         assertThat("Entrench should be true after call", this.behaviour.getEntrench(this.unit), CoreMatchers.is(true));
+        this.behaviour.turnTick(this.unit);
         this.behaviour.entrench(this.unit);
         assertThat("Entrench should be false after second call", this.behaviour.getEntrench(this.unit), CoreMatchers.is(false));
     }
