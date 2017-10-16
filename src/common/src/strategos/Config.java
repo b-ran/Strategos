@@ -2,7 +2,6 @@ package strategos;
 
 public class Config {
     public static final int MAP_DIAMETER = 15;
-    public static final int HEX_NUM = 0;
 
     public static final int NUM_SWORDSMEN = 2;
     public static final int NUM_SPEARMEN = 2;
@@ -10,7 +9,7 @@ public class Config {
     public static final int NUM_ELITES = 1;
     public static final int NUM_CAVALRY = 2;
 
-    public static final int TURNS_UNTIL_BARBARIAN_SWARM = 14;
+    public static final int TURNS_UNTIL_BARBARIAN_SWARM = 17;
 
     public static final int ENTRENCH_COST = 2;
     public static final int WARY_COST = 1;

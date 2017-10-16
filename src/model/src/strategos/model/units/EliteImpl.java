@@ -36,4 +36,10 @@ public class EliteImpl extends UnitImpl implements Elite, GameObject {
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
 	}
+
+
+	@Override
+	public String toString() {
+		return "Elites";
+	}
 }

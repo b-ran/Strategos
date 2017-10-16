@@ -40,7 +40,6 @@ class NextTurnListener extends Controller implements ActionListener {
         if (model.getWinner() > 0) {
             JOptionPane.showMessageDialog(view.getGridComponent(), "Player " + model.getWinner() + " wins!\n" +
                     "Game took " + model.getNumberTurns() + " turns");
-            return;
         }
 
         controller.setSelectedMapLocation(null);

@@ -33,4 +33,10 @@ public class BridgeImpl extends UnitImpl implements Bridge, GameObject {
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
 	}
+
+
+	@Override
+	public String toString() {
+		return "Bridge";
+	}
 }

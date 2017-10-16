@@ -32,4 +32,10 @@ public class SwordsmenImpl extends UnitImpl implements Swordsmen, GameObject {
 	public void accept(GameObjectVisitor gameObjectVisitor) {
 		gameObjectVisitor.visit(this);
 	}
+
+
+	@Override
+	public String toString() {
+		return "Swordsmen";
+	}
 }

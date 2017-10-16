@@ -378,7 +378,7 @@ public class Strategos implements GameState {
 		if (turnIndex == 2) {
 			turns--;
 			// if the game has gone for long enough, start spawning barbarians every turn
-			if (turns >= TURNS_UNTIL_BARBARIAN_SWARM) {
+			if (turns >= TURNS_UNTIL_BARBARIAN_SWARM && turns % 2 == 0) {
 				spawnBarbarians(randomiseLocation(world.getMap().get(0, 10)));
 				spawnBarbarians(randomiseLocation(world.getMap().get(14, 6)));
 			}
@@ -445,12 +445,22 @@ public class Strategos implements GameState {
 		return currentTurnPlayer;
 	}
 
+	private int hasUnits(UnitOwner unitOwner) {
+		int units = 0;
+		for (Unit u : unitOwner.getUnits()) {
+			if (!(u instanceof Bridge)) {
+				units++;
+			}
+		}
+		return units;
+	}
+
 	@Override
 	public int getWinner() {
-		if (players.get(0).getUnits().size() == 0) {
+		if (hasUnits(players.get(0)) == 0) {
 			return 2;
 		}
-		if (players.get(1).getUnits().size() == 0) {
+		if (hasUnits(players.get(1)) == 0) {
 			return 1;
 		}
 		return -1;
