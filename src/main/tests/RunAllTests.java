@@ -8,11 +8,11 @@ import org.junit.runners.Suite;
         MapGenerationTests.class,
         UiTests.class,
         BehaviourTests.class,
-        NetworkingTests.class,
         AllModelTests.class
 })
 
 
 public class RunAllTests {
     //This runs all the tests for each library independently by simply calling the test classes in each library
+	//Networking tests must be run independently
 }
