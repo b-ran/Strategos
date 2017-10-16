@@ -6,6 +6,10 @@ import strategos.model.GameState;
 import strategos.units.Unit;
 
 
+/**
+ * @author Devon Mortimer
+ * Code reviewer: Brandon Scott-Hill
+ */
 class BehaviourSpearmen extends UnitBehaviour {
 
     //TODO: Where is your javadoc?

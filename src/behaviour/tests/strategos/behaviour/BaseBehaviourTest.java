@@ -15,6 +15,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
+/**
+ * @author Devon Mortimer
+ */
 public class BaseBehaviourTest {
 
     @Rule public final ExpectedException nullException = ExpectedException.none();

@@ -8,6 +8,10 @@ import strategos.units.Unit;
 import java.util.logging.Logger;
 
 
+/**
+ * @author Devon Mortimer
+ * Code reviewer: Brandon Scott-Hill
+ */
 abstract class BaseBehaviour implements Behaviour {
 
     //TODO: Where is your javadoc?

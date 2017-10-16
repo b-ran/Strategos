@@ -13,6 +13,9 @@ import java.util.Observer;
 import java.util.logging.*;
 
 
+/**
+ * @author Devon Mortimer
+ */
 public class TestUtil {
 
     static void logAll() {
@@ -135,7 +138,7 @@ public class TestUtil {
             }
 
             @Override public void newGame() {
-                return null;
+
             }
 
             @Override public void save() {
