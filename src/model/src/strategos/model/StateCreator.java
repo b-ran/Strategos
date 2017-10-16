@@ -141,13 +141,17 @@ public class StateCreator implements GameStateFactory {
 		barbarian = (new ArchersImpl(factory.createAiBehaviour(newState, factory::createBehaviourArchers), player, newState.getWorld().getMap().get(0, 8)));
 		barbarianUnits.add(barbarian);
 
-		barbarian = (new SwordsmenImpl(factory.createAiBehaviour(newState, factory::createBehaviourSwordsmen), player, newState.getWorld().getMap().get(14, 4)));
-		barbarianUnits.add(barbarian);
-		barbarian = (new ArchersImpl(factory.createAiBehaviour(newState, factory::createBehaviourArchers), player, newState.getWorld().getMap().get(14, 6)));
-		barbarianUnits.add(barbarian);
 		HealthPotionImpl healthPotion = new HealthPotionImpl(factory.createBehaviourHealthPotion(newState), player, newState.getWorld().getMap().get(14, 5));
 		barbarianUnits.add(healthPotion);
 		healthPotion = new HealthPotionImpl(factory.createBehaviourHealthPotion(newState), player, newState.getWorld().getMap().get(0, 9));
+		barbarianUnits.add(healthPotion);
+		healthPotion = new HealthPotionImpl(factory.createBehaviourHealthPotion(newState), player, newState.getWorld().getMap().get(0, 13));
+		barbarianUnits.add(healthPotion);
+		healthPotion = new HealthPotionImpl(factory.createBehaviourHealthPotion(newState), player, newState.getWorld().getMap().get(14, 1));
+		barbarianUnits.add(healthPotion);
+		healthPotion = new HealthPotionImpl(factory.createBehaviourHealthPotion(newState), player, newState.getWorld().getMap().get(1, 8));
+		barbarianUnits.add(healthPotion);
+		healthPotion = new HealthPotionImpl(factory.createBehaviourHealthPotion(newState), player, newState.getWorld().getMap().get(13, 6));
 		barbarianUnits.add(healthPotion);
 
 		return barbarianUnits;
