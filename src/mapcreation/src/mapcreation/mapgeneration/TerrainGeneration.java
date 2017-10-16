@@ -46,6 +46,10 @@ public class TerrainGeneration implements Generator {
      */
     private double forestFreq = FOREST_FREQ;
 
+    /**
+     * Percentage of the map that has to be hills and forests
+     */
+    private final int percentage = PERCENTAGE;
 
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each
@@ -131,7 +135,7 @@ public class TerrainGeneration implements Generator {
                 }
             }
         }
-        return num > ((map.length * map[0].length) / 100) * 15;
+        return num > ((map.length * map[0].length) / 100) * percentage;
     }
 
 
