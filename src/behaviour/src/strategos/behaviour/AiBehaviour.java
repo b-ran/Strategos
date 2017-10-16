@@ -20,10 +20,11 @@ import static java.lang.Math.abs;
 /**
  * @author Devon Mortimer
  * Code reviewer: Brandon Scott-Hill
+ *
+ * This class functions as a wrapper for a normal behaviour, executing AI
+ * specific behaviour during {@link #turnTick(strategos.units.Unit)}.
  */
 class AiBehaviour extends BaseBehaviour {
-
-    //TODO: Where is your javadoc?
 
     private static final Random random = new Random();
     private static Logger logger = Logger.getLogger("strategos.behaviour");
