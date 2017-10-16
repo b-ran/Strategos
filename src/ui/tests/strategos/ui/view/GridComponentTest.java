@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Devon Mortimer (external tester)
  */
-class GridComponentTest {
+public class GridComponentTest {
 
     private GridComponent gridComponent;
 
