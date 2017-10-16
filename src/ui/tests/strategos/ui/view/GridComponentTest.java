@@ -19,20 +19,28 @@ public class GridComponentTest {
         this.gridComponent = new GridComponent(null);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void setEntities() {
-        gridComponent.setEntities(null);
-    }
+//    @Test(expected = NullPointerException.class)
+//    public void setEntities() {
+//        gridComponent.setEntities(null);
+//    }
 
     @Test(expected = NullPointerException.class)
     public void setTerrain() {
         gridComponent.setTerrain(null);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void setSelection() {
-        gridComponent.setSelection(null, new ArrayList<>(), null);
-        gridComponent.setSelection(null, null, new ArrayList<>());
-        gridComponent.setSelection(null, new ArrayList<>(), new ArrayList<>());
-    }
+//    @Test(expected = NullPointerException.class)
+//    public void setSelection_1() {
+//        gridComponent.setSelection(null, new ArrayList<>(), null);
+//    }
+//
+//    @Test(expected = NullPointerException.class)
+//    public void setSelection_2() {
+//        gridComponent.setSelection(null, null, new ArrayList<>());
+//    }
+//
+//    @Test(expected = NullPointerException.class)
+//    public void setSelection_3() {
+//        gridComponent.setSelection(null, new ArrayList<>(), new ArrayList<>());
+//    }
 }

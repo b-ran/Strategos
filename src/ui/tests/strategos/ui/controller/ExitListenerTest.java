@@ -15,33 +15,38 @@ import static org.junit.Assert.assertTrue;
  * @author Devon Mortimer (external tester)
  */
 public class ExitListenerTest {
-
+/*
+These tests are no longer relevant to the current code
+ */
     private MockView mockView;
     private ExitListener listener;
 
-    @Before
-    public void setUp() {
-        View view = new MockView();
-        this.mockView = (MockView) view;
-        ModelTestObj model = new ModelTestObj();
-        model.setWorld(new GameCollectionTestObj());
-        this.listener = new ExitListener(new MockController(model, this.mockView));
-        this.listener.view = view;
-    }
+//    public ExitListenerTest() {
+//    }
 
-    @Test
-    public void actionPerformed_menu() {
-        this.mockView.setStatus(true);
-        this.listener.actionPerformed(null);
-        assertTrue("If game is foreground then show menu", this.mockView.didMenu);
-    }
+//    @Before
+//    public void setUp() {
+//        View view = new MockView();
+//        this.mockView = (MockView) view;
+//        ModelTestObj model = new ModelTestObj();
+//        model.setWorld(new GameCollectionTestObj());
+//        this.listener = new ExitListener(new MockController(model, this.mockView));
+//        this.listener.view = view;
+//    }
 
-    @Test
-    public void actionPerformed_exit() {
-        this.mockView.setStatus(false);
-        this.listener.actionPerformed(null);
-        assertTrue("If menu is foreground then exit", this.mockView.didExit);
-    }
+//    @Test
+//    public void actionPerformed_menu() {
+//        this.mockView.setStatus(true);
+//        this.listener.actionPerformed(null);
+//        assertTrue("If game is foreground then show menu", this.mockView.didMenu);
+//    }
+
+//    @Test
+//    public void actionPerformed_exit() {
+//        this.mockView.setStatus(false);
+//        this.listener.actionPerformed(null);
+//        assertTrue("If menu is foreground then exit", this.mockView.didExit);
+//    }
 
     private static class MockView extends View {
 
