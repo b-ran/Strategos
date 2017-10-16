@@ -49,7 +49,8 @@ public class TerrainGeneration implements Generator {
     /**
      * Percentage of the map that has to be hills and forests
      */
-    private final float percentage = PERCENTAGE;
+    private final int lowerPercentage = LOWER_PERCENTAGE;
+    private final int higherPercentage = HIGHER_PERCENTAGE;
 
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each
@@ -95,7 +96,8 @@ public class TerrainGeneration implements Generator {
     private Paintable[][] setTerrain(int seed, Paintable[][] map) {
         //Dimensions for noise map
         int width = map[0].length, height = map.length;
-        for (int i = 0; i < 20 && !isValid(map); i++) {
+        for (int i = 0; i < 20 && !isValid(map); i++, seed++) {
+            if(i == 19) System.out.println("sad");
             //Create map and fills it with noise values
             double[][] mapTopology = fillMap(width, height, seed);
             boolean[][] forestMap = fillForest(width, height, seed);
@@ -130,12 +132,14 @@ public class TerrainGeneration implements Generator {
         int num = 0;
         for (Paintable[] mapRow : map) {
             for (Paintable Tile : mapRow) {
-                if (Tile.getTerrain().toString().equals("HillTile") || Tile.getTerrain().toString().equals("ForestTile")) {
+                if (Tile.getTerrain().toString().equals("PlainsTile")){
                     num++;
                 }
             }
         }
-        return num > ((map.length * map[0].length) / 100) * percentage;
+        System.out.println(num);
+        return (num > ((map.length * map[0].length) / 100) * lowerPercentage) &&
+                (num < ((map.length * map[0].length) / 100) * higherPercentage);
     }
 
 

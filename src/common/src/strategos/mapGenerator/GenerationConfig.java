@@ -17,9 +17,13 @@ public class GenerationConfig {
     public static double FOREST_FREQ = 0.47;
 
     /**
-     * Percentage of the map that has to be hills and forests
+     * Min percentage of the map that has to be hills and forests
      */
-    public static float PERCENTAGE = 3.5f;
+    public static int LOWER_PERCENTAGE = 45;
+    /**
+     * Max percentage of the map that has to be hills and forests
+     */
+    public static int HIGHER_PERCENTAGE = 55;
 
     /**
      * Changes the average elevation of the map
