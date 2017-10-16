@@ -27,6 +27,9 @@ public class TestHex implements Paintable {
     }
 
     void setTerrain(TerrainTile terrain) {
+        if (terrain == null) {
+            throw new NullPointerException();
+        }
         if (isInPlayArea && this.terrain == null) {
             this.terrain = terrain;
         }
