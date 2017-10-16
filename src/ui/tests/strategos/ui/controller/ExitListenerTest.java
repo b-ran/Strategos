@@ -3,23 +3,23 @@ package strategos.ui.controller;
 
 import model.GameCollectionTestObj;
 import model.ModelTestObj;
-import org.junit.Before;
-import org.junit.Test;
-import strategos.model.GameState;
-import strategos.ui.view.View;
-
-import static org.junit.Assert.assertTrue;
-
-
-/**
- * @author Devon Mortimer (external tester)
- */
-public class ExitListenerTest {
+//import org.junit.Before;
+//import org.junit.Test;
+//import strategos.model.GameState;
+//import strategos.ui.view.View;
+//
+//import static org.junit.Assert.assertTrue;
+//
+//
+///**
+// * @author Devon Mortimer (external tester)
+// */
+//public class ExitListenerTest {
 /*
 These tests are no longer relevant to the current code
  */
-    private MockView mockView;
-    private ExitListener listener;
+//    private MockView mockView;
+//    private ExitListener listener;
 
 //    public ExitListenerTest() {
 //    }
@@ -48,45 +48,45 @@ These tests are no longer relevant to the current code
 //        assertTrue("If menu is foreground then exit", this.mockView.didExit);
 //    }
 
-    private static class MockView extends View {
-
-        private boolean status;
-        private boolean didExit;
-        private boolean didMenu;
-
-        MockView() {
-            super(null);
-            this.status = false;
-            this.didMenu = false;
-            this.didExit = false;
-        }
-
-        @Override
-        public void setMenu() {
-            this.didMenu = true;
-        }
-
-        @Override
-        public boolean status() {
-            return this.status;
-        }
-
-        @Override
-        public void exit() {
-            this.didExit = true;
-        }
-
-        void setStatus(boolean status) {
-            this.status = status;
-        }
-    }
-
-
-    private class MockController extends Controller {
-
-        MockController(GameState model, View view) {
-            super(model, view, null);
-            this.allInput = true;
-        }
-    }
-}
+//    private static class MockView extends View {
+//
+//        private boolean status;
+//        private boolean didExit;
+//        private boolean didMenu;
+//
+//        MockView() {
+//            super(null);
+//            this.status = false;
+//            this.didMenu = false;
+//            this.didExit = false;
+//        }
+//
+//        @Override
+//        public void setMenu() {
+//            this.didMenu = true;
+//        }
+//
+//        @Override
+//        public boolean status() {
+//            return this.status;
+//        }
+//
+//        @Override
+//        public void exit() {
+//            this.didExit = true;
+//        }
+//
+//        void setStatus(boolean status) {
+//            this.status = status;
+//        }
+//    }
+//
+//
+//    private class MockController extends Controller {
+//
+//        MockController(GameState model, View view) {
+//            super(model, view, null);
+//            this.allInput = true;
+//        }
+//    }
+//}
