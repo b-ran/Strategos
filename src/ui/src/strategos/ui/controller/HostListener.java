@@ -3,6 +3,8 @@ package strategos.ui.controller;
 import strategos.networking.NetworkingHandler;
 import strategos.units.Unit;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,6 +32,13 @@ public class HostListener extends Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+
+        JOptionPane msg = new JOptionPane("Waiting for Client");
+        final JDialog dlg = msg.createDialog("Hosting");
+        new Thread(()-> {
+            dlg.setVisible(true);
+        }).start();
         new Thread(()->{
             model.setThisInstancePlayer(model.getPlayers().get(0));
             view.setSeenTerrain(model.getThisInstancePlayer().getVisibleTiles());
@@ -59,6 +68,7 @@ public class HostListener extends Controller implements ActionListener {
             view.setGame();
             view.getGridComponent().setEntities(model.getWorld().getAllUnits());
             view.getGridComponent().setTerrain(model.getWorld().getMap().getData());
+            dlg.setVisible(false);
         }).start();
 
     }
