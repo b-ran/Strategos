@@ -7,6 +7,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         NoiseTester.class,
         MapTester.class})
-public class TestAll {
+public class MapGenerationTests {
 //Do the needful
 }

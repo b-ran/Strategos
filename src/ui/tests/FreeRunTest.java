@@ -1,4 +1,5 @@
 import model.*;
+import org.junit.Test;
 import strategos.model.MapLocation;
 import strategos.model.UnitOwner;
 import strategos.terrain.Terrain;
@@ -11,7 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FreeRunTest {
-    public static void main(String[] args) {
+    @Test
+    public void run(){
+        main();
+    }
+
+    private static void main() {
         List<Unit> entities = new ArrayList<>();
         MapLocation[][] map = setupMap();
 
@@ -75,7 +81,7 @@ public class FreeRunTest {
         ui.skipMenu();
     }
 
-    private static MapLocation[][] setupMap() {
+    public static MapLocation[][] setupMap() {
         Terrain[][] terrain = {
                 {new MountainTestObj(), new MountainTestObj(), new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj(),   new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
                 {new MountainTestObj(), new MountainTestObj(), new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),    new ForestTestObj(),     new MountainTestObj(),  new MountainTestObj(),  new MountainTestObj()},
