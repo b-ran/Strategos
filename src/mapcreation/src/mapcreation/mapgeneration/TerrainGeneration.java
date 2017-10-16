@@ -91,7 +91,7 @@ public class TerrainGeneration implements Generator {
     private Paintable[][] setTerrain(int seed, Paintable[][] map) {
         //Dimensions for noise map
         int width = map[0].length, height = map.length;
-        for (int i = 0; i < 50 || !isValid(map); i++) {
+        for (int i = 0; i < 20 && !isValid(map); i++) {
             //Create map and fills it with noise values
             double[][] mapTopology = fillMap(width, height, seed);
             boolean[][] forestMap = fillForest(width, height, seed);
@@ -122,6 +122,7 @@ public class TerrainGeneration implements Generator {
      * @return If the map is valid for play
      */
     private boolean isValid(Paintable[][] map) {
+        if (map[0][0].getTerrain() == null) return false;
         int num = 0;
         for (Paintable[] mapRow : map) {
             for (Paintable Tile : mapRow) {
