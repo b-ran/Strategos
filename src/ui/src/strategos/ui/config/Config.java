@@ -62,7 +62,7 @@ public class Config {
                     "Archers: Decent attack, low defence, " + INFANTRY_ACTION_POINTS + " AP, can attack from "+ ARCHER_RANGE +
                     " tiles away and take no damage when attacking.\n" +
                     "Cavalry: Decent attack, decent defence, " + CAVALRY_ACTION_POINTS + " AP.\n" +
-                    "Elites: Decent attack, very high defence, " + ELITE_ACTION_POINTS + " AP\n\n" +
+                    "Elites: Decent attack, very high defence, " + INFANTRY_ACTION_POINTS + " AP\n\n" +
                     "Terrain is your friend and enemy! Hills provide a good defensive bonus to units standing on them, " +
                     "and forests slightly less so. Rivers and mountains are impassable. However, you can use your units to " +
                     "attack and capture any of the three bridges that allow them to cross the river. Your enemy will seek to do the " +
@@ -75,7 +75,7 @@ public class Config {
 
     public static final Dimension GRID_COMPONENT_SIZE = new Dimension(1500, 700);
 
-    public static Integer HEX_SIZE = 60;
+    public static Integer HEX_SIZE = 40;
 
     public static final Color SELECTION_COLOR = new Color(154, 208, 255);
 

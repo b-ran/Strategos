@@ -5,6 +5,8 @@ import mapcreation.mapgeneration.TerrainGeneration;
 import mapcreation.noisegeneration.NoiseGenerator;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertTrue;
+
 public class NoiseTester {
     /**
      * There was a point during testing where a pretty obscure bug came up
@@ -43,7 +45,6 @@ public class NoiseTester {
 //        //Includes a little leeway due to float rounding being weird
 //        assert (max < 1.02);
 //        assert (min > -0.02);
-//
 //    }
 
 
@@ -88,7 +89,7 @@ public class NoiseTester {
         double[][] testMap = noisegenerationtests.TestResources.testMap;
         for (int x = 0; x < map.length; x++) {
             for (int y = 0; y < map[0].length; y++) {
-                assert (map[x][y] == testMap[x][y]);
+                assertTrue(map[x][y] == testMap[x][y]);
             }
         }
     }
@@ -104,7 +105,7 @@ public class NoiseTester {
 //            System.out.print("{");
             for (int y = 0; y < forest[0].length; y++) {
 //                System.out.print(aForest[y] + ", ");
-                assert (forest[x][y] == testForest[x][y]);
+                assertTrue(forest[x][y] == testForest[x][y]);
             }
 //            System.out.print("}\n");
         }

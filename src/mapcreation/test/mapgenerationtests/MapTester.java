@@ -128,6 +128,7 @@ public class MapTester {
      */
     @Test
     public void genericTest() {
+        System.out.println();
 
     }
 
