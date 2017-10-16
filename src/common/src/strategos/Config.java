@@ -2,7 +2,6 @@ package strategos;
 
 public class Config {
     public static final int MAP_DIAMETER = 15;
-    public static final int HEX_NUM = 0;
 
     public static final int NUM_SWORDSMEN = 2;
     public static final int NUM_SPEARMEN = 2;
