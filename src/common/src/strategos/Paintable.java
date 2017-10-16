@@ -21,5 +21,10 @@ public interface Paintable {
      */
     Terrain getTerrain();
 
+    /**
+     * Sets the type of terrain on this tile
+     *
+     * @param terrain The terrain this tile will have
+     */
     void setTerrain(Terrain terrain);
 }

@@ -4,9 +4,7 @@ import mapcreation.mapgeneration.TerrainGeneration;
 import mapcreation.mapgeneration.terrain.*;
 import org.junit.Test;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class MapTester {
 
@@ -119,15 +117,10 @@ public class MapTester {
         assertEquals("ForestTile", hex.getTerrainName());
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void test_settingTerrain_null_10() {
         TestHex hex = new TestHex(true);
-        try {
-            hex.setTerrain(null);
-            fail("Exception not thrown");
-        } catch (IllegalArgumentException e) {
-            return;
-        }
+        hex.setTerrain(null);
     }
 
     /**
@@ -135,6 +128,7 @@ public class MapTester {
      */
     @Test
     public void genericTest() {
+        System.out.println();
 
     }
 
