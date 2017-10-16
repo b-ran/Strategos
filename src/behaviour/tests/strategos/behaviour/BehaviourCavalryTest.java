@@ -12,6 +12,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 
+/**
+ * @author Devon Mortimer
+ */
 public class BehaviourCavalryTest {
 
     private Behaviour behaviour;

@@ -13,6 +13,9 @@ import java.util.Observer;
 import java.util.logging.*;
 
 
+/**
+ * @author Devon Mortimer
+ */
 public class TestUtil {
 
     static void logAll() {
