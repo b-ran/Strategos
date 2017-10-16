@@ -1,16 +1,17 @@
 package strategos.behaviour;
 
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import strategos.model.GameState;
-import strategos.model.MapLocation;
 import strategos.units.Unit;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 
 
 /**
@@ -20,8 +21,6 @@ public class UnitBehaviourTest {
 
     @Rule public final ExpectedException nullException = ExpectedException.none();
     private Behaviour behaviour;
-    private MapLocation position1;
-    private MapLocation position2;
     private Unit unit;
 
     @BeforeClass public static void beforeAll() {
@@ -45,47 +44,19 @@ public class UnitBehaviourTest {
         };
     }
 
-    @Test public void turnTick() throws Exception {
-        assertFalse(true);
-    }
-
     @Test public void wary() throws Exception {
-        assertFalse(true);
+        assertThat("Wary should be false before call", this.behaviour.getWary(this.unit), CoreMatchers.is(false));
+        this.behaviour.wary(this.unit);
+        assertThat("Wary should be true after call", this.behaviour.getWary(this.unit), CoreMatchers.is(true));
+        this.behaviour.wary(this.unit);
+        assertThat("Wary should be false after second call", this.behaviour.getWary(this.unit), CoreMatchers.is(false));
     }
 
     @Test public void entrench() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void charge() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void move() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void attack() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void defend() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void isAlive() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void getSightRadius() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void getActionPoints() throws Exception {
-        assertFalse(true);
-    }
-
-    @Test public void setActionPoints() throws Exception {
-        assertFalse(true);
+        assertThat("Entrench should be false before call", this.behaviour.getEntrench(this.unit), CoreMatchers.is(false));
+        this.behaviour.entrench(this.unit);
+        assertThat("Entrench should be true after call", this.behaviour.getEntrench(this.unit), CoreMatchers.is(true));
+        this.behaviour.entrench(this.unit);
+        assertThat("Entrench should be false after second call", this.behaviour.getEntrench(this.unit), CoreMatchers.is(false));
     }
 }
