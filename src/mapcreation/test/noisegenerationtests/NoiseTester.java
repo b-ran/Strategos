@@ -3,8 +3,9 @@ package noisegenerationtests;
 
 import mapcreation.mapgeneration.TerrainGeneration;
 import mapcreation.noisegeneration.NoiseGenerator;
-import mapcreation.noisegeneration.noiseutil.PrintMap;
 import org.junit.Test;
+
+import static junit.framework.TestCase.assertTrue;
 
 public class NoiseTester {
     /**
@@ -13,8 +14,8 @@ public class NoiseTester {
      * finding it took running intensive tests like this. this was because of the
      * likely hood of the errors occurring being low as the values that caused
      * them where at the max and min points in the noise generation.
-     * RUN ONLY IF YOU HAVE A BIT OF TIME AND REALLY WANT TO CHECK MY NOISE VALUES
-     * ARE PERFECT.
+     * RUN ONLY IF YOU HAVE A BIT(read a lot) OF TIME AND REALLY WANT TO CHECK MY NOISE VALUES
+     * ARE 99.999% PERFECT.
      */
 //    @Test
 //    public void testNoiseGeneration_0() {
@@ -44,8 +45,9 @@ public class NoiseTester {
 //        //Includes a little leeway due to float rounding being weird
 //        assert (max < 1.02);
 //        assert (min > -0.02);
-//
 //    }
+
+
     @Test
     public void testNoiseGeneration_1() {
         int width = 200, height = 200;
@@ -81,13 +83,13 @@ public class NoiseTester {
     @Test
     public void mapTest_1() {
         TerrainGeneration TG = new TerrainGeneration();
-        double[][] map = TG.testFillMap(50, 50, 1, 90);
+        double[][] map = TG.testFillMap(50, 50, 1, 90, 512);
         //To physically compare to correctTopology
         PrintMap.greyImage(map);
         double[][] testMap = noisegenerationtests.TestResources.testMap;
         for (int x = 0; x < map.length; x++) {
             for (int y = 0; y < map[0].length; y++) {
-                assert (map[x][y] == testMap[x][y]);
+                assertTrue(map[x][y] == testMap[x][y]);
             }
         }
     }
@@ -95,16 +97,20 @@ public class NoiseTester {
     @Test
     public void forestTest_1() {
         TerrainGeneration TG = new TerrainGeneration();
-        boolean[][] forest = TG.testFillForest(50, 50, 1, 90);
-        //To physically compare to correctForest
+        boolean[][] forest = TG.testFillForest(50, 50, 1, 0.55);
+        //To physically compare to correctForest.png
         PrintMap.greyImage(forest);
         boolean[][] testForest = noisegenerationtests.TestResources.testForest;
-        for (int x = 0; x < forest.length; x++) {
+        for (int x = 0; x< forest.length; x++) {
+//            System.out.print("{");
             for (int y = 0; y < forest[0].length; y++) {
-                assert (forest[x][y] == testForest[x][y]);
+//                System.out.print(aForest[y] + ", ");
+                assertTrue(forest[x][y] == testForest[x][y]);
             }
+//            System.out.print("}\n");
         }
     }
+
 
 
 

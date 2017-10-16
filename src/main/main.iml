@@ -13,6 +13,8 @@
     <orderEntry type="module" module-name="model" />
     <orderEntry type="module" module-name="networking" />
     <orderEntry type="module" module-name="ui" />
-    <orderEntry type="module" module-name="util" />
+    <orderEntry type="module" module-name="common" />
+    <orderEntry type="library" name="junit-4.12" level="project" />
+    <orderEntry type="library" name="netty-all-5.0.0.Alpha3" level="project" />
   </component>
 </module>

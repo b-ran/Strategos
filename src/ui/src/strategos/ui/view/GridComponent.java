@@ -1,7 +1,6 @@
 package strategos.ui.view;
 
-import strategos.MapLocation;
-import strategos.terrain.*;
+import strategos.model.MapLocation;
 import strategos.units.*;
 
 import javax.swing.*;
@@ -12,32 +11,38 @@ import java.util.List;
 
 import static strategos.ui.config.Config.*;
 
+
 /**
- * The type Grid component.
+ * Used to create grid that the board and units are drawn on
+ * @author Brandon Scott-Hill
  */
+
 public class GridComponent extends JComponent {
 
-
-
+    private final View view;
     private MapLocation[][] terrain;
-    private MapLocation[][] seenTerrain;
     private List<Unit> entities;
-    private DrawEntity drawEntity = new DrawEntity();
+    private Draw draw;
+
     private MapLocation selectedMapLocation;
-    private List<Unit> selectedUnitsInRange = new ArrayList<>();
-    private List<MapLocation> selectedTilesInRange = new ArrayList<>();
+
+    private List<Unit> unitsInAttackRange = new ArrayList<>(); //Attackable units in range of selected map location
+    private List<MapLocation> tilesInRange = new ArrayList<>(); //Tiles in range of selected map location
 
     /**
      * Instantiates a new Grid component for drawing on.
      */
-    GridComponent() {
+    GridComponent(View view) {
+        this.view = view;
         setLayout(new BorderLayout());
         setPreferredSize(GRID_COMPONENT_SIZE);
+        draw = new Draw(view);
     }
 
     /**
-     * Gets grid panel.
+     * Gets a layered grid panel.
      *
+     * @author Brandon Scott-Hill
      * @return the grid
      */
     JLayeredPane getGrid() {
@@ -49,61 +54,127 @@ public class GridComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
-        //paintBlackTerrain(g, terrain);
-        //TODO: view range UnitOwner.getVisibleTiles()
-        paintTerrain(g, seenTerrain);
-        paintUnits(g, entities);
+        updateHexSize();
+        paintBackground(g);
+        paintTerrain(g, view.getSeenTerrain());
         paintSelection(g, selectedMapLocation);
+        paintUnits(g, entities);
+        paintFogTerrain(g, terrain);
 
     }
 
+    /**
+     * Updates the hex size to fit in grid size.
+     *
+     * @author Brandon Scott-Hill
+     */
+    private void updateHexSize() {
+        int screenWidth = getWidth();
+        int size = view.model.getWorld().getMap().getDiameter();
+        size += Math.round(size/2.0);
+        HEX_SIZE = screenWidth / size;
+    }
+
+    /**
+     * Draws the background image
+     *
+     * @author Brandon Scott-Hill
+     * @param g the Graphics
+     */
+    private void paintBackground(Graphics g) {
+        g.drawImage(Draw.backgroundImage, 0, 0, null);
+    }
+
+
+    /**
+     * Draws all units in a collection
+     *
+     * @author Brandon Scott-Hill
+     * @param g the Graphics
+     * @param entities the Units to draw
+     */
     private void paintUnits(Graphics g, List<Unit> entities) {
         for (Unit unit : entities) {
-            /*
-            TODO - REVIEW: This could be made far neater by, when sprites are implemented, to change draw() to
-            TODO            make draw() take an image and call unit.getSprite(). Then there is no need to use
-            TODO            instanceof. This can be similarly neatened with paintTerrain()
-             */
-            drawEntity.draw(unit, g);
-        }
-    }
-
-    private void paintTerrain(Graphics g, MapLocation[][] mapLocations) {
-        for (int y = 0; y < mapLocations.length; y++) {
-            for (int x = 0; x < mapLocations[0].length; x++) {
-                drawEntity.draw(mapLocations[y][x], x, y, g);
+            if (!view.getSeenTerrain().contains(unit.getPosition())) {
+                continue;
             }
+            Point p = new Point();
+            p.x = unit.getPosition().getX();
+            p.y = unit.getPosition().getY();
+            draw.drawUnit(unit, p, g);
         }
     }
 
-    private void paintBlackTerrain(Graphics g, MapLocation[][] terrain) {
-        g.setColor(Color.BLACK);
+    /**
+     * Draws all visible tiles
+     *
+     * @author Brandon Scott-Hill
+     * @param g the Graphics
+     * @param visibleTiles the visibleTiles to draw
+     */
+    private void paintTerrain(Graphics g, List<MapLocation> visibleTiles) {
+        for (MapLocation tile : visibleTiles) {
+            if (tile.getTerrain() == null) continue;
+            Point p = new Point();
+            p.x = tile.getX();
+            p.y = tile.getY();
+            draw.drawTerrain(tile.getTerrain(), p, g);
+        }
+    }
+
+    /**
+     * Draws all terrain as fog if they have not being seen
+     *
+     * @author Brandon Scott-Hill
+     * @param g the Graphics
+     * @param terrain the visibleTiles to draw
+     */
+    private void paintFogTerrain(Graphics g, MapLocation[][] terrain) {
         for (int y = 0; y < terrain.length; y++) {
             for (int x = 0; x < terrain[0].length; x++) {
-                //drawEntity.fillHexagon(g, drawEntity.getGridX(x)+ ((y % 2 == 0) ? 0 : HEX_SIZE/2), drawEntity.getGridY(y), Color.BLACK);
+                if (view.getSeenTerrain().contains(terrain[y][x])) continue;
+                Point p = new Point();
+                p.x = terrain[y][x].getX();
+                p.y = terrain[y][x].getY();
+                draw.drawFog(p, g);
             }
         }
     }
 
+    /**
+     * Draws all the selection of the user
+     *
+     * @author Brandon Scott-Hill
+     * @param g the Graphics
+     * @param selectedMapLocation the selected location the board
+     */
     private void paintSelection(Graphics g, MapLocation selectedMapLocation) {
         if (selectedMapLocation == null) return;
-        Point p;
-        for (MapLocation m :selectedTilesInRange) {
-            p = drawEntity.getTerrainGridPos(m);
-            drawEntity.drawHexagon(g, p.x, p.y, SELECTION_MOVE_COLOR, SELECTION_STROKE_SIZE);
+        Point p = new Point();
+        for (MapLocation m : tilesInRange) {
+            p.x = m.getX();
+            p.y = m.getY();
+
+            draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_MOVE_COLOR,  SELECTION_STROKE_SIZE, g);
         }
-        for (Unit u :selectedUnitsInRange) {
+        for (Unit u : unitsInAttackRange) {
             MapLocation m = u.getPosition();
-            p = drawEntity.getTerrainGridPos(m);
-            drawEntity.drawHexagon(g, p.x, p.y, SELECTION_ATTACK_COLOR, SELECTION_STROKE_SIZE);
+            p.x = m.getX();
+            p.y = m.getY();
+
+            draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_ATTACK_COLOR,  SELECTION_STROKE_SIZE, g);
+
         }
-        p = drawEntity.getTerrainGridPos(selectedMapLocation);
-        drawEntity.drawHexagon(g, p.x, p.y, SELECTION_COLOR, SELECTION_STROKE_SIZE);
+        MapLocation m = selectedMapLocation;
+        p.x = m.getX();
+        p.y = m.getY();
+        draw.drawTerrainSelection(m.getTerrain(), p, SELECTION_COLOR,  SELECTION_STROKE_SIZE, g);
     }
 
     /**
      * Sets entities.
      *
+     * @author Brandon Scott-Hill
      * @param entities the entities
      */
     public void setEntities(List<Unit> entities) {
@@ -111,25 +182,63 @@ public class GridComponent extends JComponent {
     }
 
     /**
+     * Gets entities.
+     *
+     * @author Brandon Scott-Hill
+     * @return the entities
+     */
+    List<Unit> getEntities() {
+        return entities;
+    }
+
+    /**
      * Sets terrain.
      *
+     * @author Brandon Scott-Hill
      * @param terrain the terrain
      */
     public void setTerrain(MapLocation[][] terrain) {
         this.terrain = terrain;
-        //seenTerrain = new Terrain[terrain.length][terrain[0].length];
-        seenTerrain = terrain;
+//        revealMap();
     }
 
-    public void setSelection(MapLocation selectedMapLocation, List<Unit> selectedUnitsInRange, List<MapLocation> selectedTilesInRange) {
+
+    /**
+     * Sets selection.
+     *
+     * @author Brandon Scott-Hill
+     * @param selectedMapLocation the selected map location
+     * @param unitsInAttackRange  the units in attack range
+     * @param tilesInRange        the tiles in range
+     */
+    public void setSelection(MapLocation selectedMapLocation, List<Unit> unitsInAttackRange, List<MapLocation> tilesInRange) {
         this.selectedMapLocation = selectedMapLocation;
-        this.selectedUnitsInRange = selectedUnitsInRange;
-        this.selectedTilesInRange = selectedTilesInRange;
+        this.unitsInAttackRange = unitsInAttackRange;
+        this.tilesInRange = tilesInRange;
     }
 
+    /**
+     * Sets selection.
+     *
+     * @author Brandon Scott-Hill
+     * @param selectedMapLocation the selected map location
+     */
     public void setSelection(MapLocation selectedMapLocation) {
         this.selectedMapLocation = selectedMapLocation;
-        selectedUnitsInRange = new ArrayList<>();
-        selectedTilesInRange = new ArrayList<>();
+        unitsInAttackRange = new ArrayList<>();
+        tilesInRange = new ArrayList<>();
+    }
+
+    /**
+     * Reveal map.
+     * @author Brandon Scott-Hill
+     */
+    void revealMap() {
+         for (MapLocation[] aTerrain : terrain) {
+             for (int x = 0; x < terrain[0].length; x++) {
+                 view.getSeenTerrain().add(aTerrain[x]);
+             }
+         }
+
     }
 }

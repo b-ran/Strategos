@@ -1,17 +1,18 @@
 package strategos.model.units;
 
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Swordsmen;
 import strategos.units.Unit;
-
 /**
- * Created as part of Strategos project
- * 30/07/2017.
+ * An implementation of the Swordsmen Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
  */
-public class SwordsmenImpl extends UnitImpl implements Swordsmen {
+public class SwordsmenImpl extends UnitImpl implements Swordsmen, GameObject {
 
 
 	public SwordsmenImpl(UnitOwner owner, MapLocation startLocation) {
@@ -23,7 +24,18 @@ public class SwordsmenImpl extends UnitImpl implements Swordsmen {
 	}
 
 	@Override
-	public Unit copy() {
-		return new SwordsmenImpl(getBehaviour().copy(), getOwner(), getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new SwordsmenImpl(getBehaviour().copy(newState), newOwner, getPosition());
+	}
+
+	@Override
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
+	}
+
+
+	@Override
+	public String toString() {
+		return "Swordsmen";
 	}
 }

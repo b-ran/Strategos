@@ -1,33 +1,39 @@
 package strategos.behaviour;
 
 
-import strategos.GameState;
-import strategos.behaviour.config.BehaviourConfig;
+import strategos.Config;
+import strategos.model.GameState;
 import strategos.units.Unit;
 
+import java.util.logging.Logger;
 
+
+/**
+ * @author Devon Mortimer
+ * Code reviewer: Brandon Scott-Hill
+ */
 class BehaviourCastle extends UnitBehaviour {
 
-    //TODO: Where is your javadoc?
+    private static Logger logger = Logger.getLogger("strategos.behaviour");
 
     BehaviourCastle(GameState gameState) {
         super(gameState);
     }
 
-    private BehaviourCastle(BehaviourCastle behaviourCastle) {
-        super(behaviourCastle);
+    private BehaviourCastle(BehaviourCastle behaviourCastle, GameState newState) {
+        super(behaviourCastle, newState);
     }
 
     @Override public int getStrength(Unit unit) {
-        return BehaviourConfig.CASTLE_STRENGTH;
+        return Config.CASTLE_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return BehaviourConfig.CASTLE_TOUGHNESS;
+        return Config.CASTLE_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourCastle(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourCastle(this, newState);
     }
 
     @Override public void charge(Unit unit) {
@@ -36,15 +42,19 @@ class BehaviourCastle extends UnitBehaviour {
     }
 
     @Override public int attack(Unit unit, Unit enemy) {
+        logger.info(String.format("%s: range attack %s", this.getClass(), enemy));
+
         if (enemy == null) {
             throw new NullPointerException("Method attack() requires a non-null enemy");
         }
 
         if (!isAlive(unit) || !enemy.isAlive()) {
+            logger.info(String.format("%s: cannot attack", this.getClass()));
             return 0;
         }
 
         if (getActionPoints(unit) <= 0) {
+            logger.info(String.format("%s: not enough action points to attack", this.getClass()));
             return 0;
         }
 
@@ -54,18 +64,15 @@ class BehaviourCastle extends UnitBehaviour {
         return 0;
     }
 
-    @Override
-    int getMaxActionPoints() {
+    @Override public int getAttackRange() {
+        return Config.CASTLE_RANGE;
+    }
+
+    @Override int getMaxActionPoints() {
         return 0;
     }
 
-    @Override
-    public int getAttackRange() {
-        return BehaviourConfig.CASTLE_RANGE;
-    }
-
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "BehaviourArchers{} " + super.toString();
     }
 }

@@ -2,25 +2,25 @@ package strategos.hexgrid;
 
 import org.junit.Test;
 import strategos.Direction;
-import strategos.MapLocation;
-import strategos.hexgrid.Hex;
-import strategos.hexgrid.Map;
-import strategos.terrain.Forest;
-import strategos.terrain.Mountain;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 import util.TestForest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Verifies the funcionality of the hex grid aspect of this library.
+ *
+ * @author Daniel Pinfold - pinfoldani
+ */
 public class HexGridTests {
 
 	/**
 	 * Ensures that creating the map works as expected, and that all neighbours of a given Hex
-	 * 		are as expected.
+	 * are as expected.
 	 */
 	@org.junit.Test
 	public void MapConstructionTest_1() {
@@ -34,7 +34,7 @@ public class HexGridTests {
 		MapLocation neHex = map.get(4, 2);
 		MapLocation swHex = map.get(2, 4);
 		MapLocation seHex = map.get(3, 4);
-		
+
 		assertTrue(midHex.getNeighbour(Direction.WEST).equals(wHex));
 		assertTrue(midHex.getNeighbour(Direction.EAST).equals(eHex));
 		assertTrue(midHex.getNeighbour(Direction.NORTH_EAST).equals(neHex));
@@ -122,7 +122,7 @@ public class HexGridTests {
 
 		assertTrue(map.getTerrainAt(location).equals(forest));
 	}
-	
+
 	/**
 	 * Tests that a Hex on the edge of the map has unplayable Hexes as its neighbours.
 	 */
@@ -130,7 +130,7 @@ public class HexGridTests {
 	public void MapNeighbourTest_1() {
 		Map map = new Map(6);
 		MapLocation midHex = map.get(0, 5);
-		
+
 		assertFalse(midHex.getNeighbour(Direction.WEST).isInPlayArea());
 		assertTrue(midHex.getNeighbour(Direction.EAST).isInPlayArea());
 	}

@@ -1,37 +1,38 @@
 package strategos.behaviour;
 
 
-import strategos.*;
-import strategos.behaviour.config.*;
-import strategos.units.*;
+import strategos.Config;
+import strategos.model.GameState;
+import strategos.units.Unit;
 
 
+/**
+ * @author Devon Mortimer
+ * Code reviewer: Brandon Scott-Hill
+ */
 class BehaviourSpearmen extends UnitBehaviour {
-
-    //TODO: Where is your javadoc?
 
     BehaviourSpearmen(GameState gameState) {
         super(gameState);
     }
 
-    private BehaviourSpearmen(BehaviourSpearmen behaviourSpearmen) {
-        super(behaviourSpearmen);
+    private BehaviourSpearmen(BehaviourSpearmen behaviourSpearmen, GameState newState) {
+        super(behaviourSpearmen, newState);
     }
 
     @Override public int getStrength(Unit unit) {
-        return BehaviourConfig.SPEARMEN_STRENGTH;
+        return Config.SPEARMEN_STRENGTH;
     }
 
     @Override public int getToughness(Unit unit) {
-        return BehaviourConfig.SPEARMEN_TOUGHNESS;
+        return Config.SPEARMEN_TOUGHNESS;
     }
 
-    @Override public Behaviour copy() {
-        return new BehaviourSpearmen(this);
+    @Override public Behaviour copy(GameState newState) {
+        return new BehaviourSpearmen(this, newState);
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return "BehaviourSpearmen{} " + super.toString();
     }
 }

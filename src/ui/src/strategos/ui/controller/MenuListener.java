@@ -3,11 +3,23 @@ package strategos.ui.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The Escape Menu listener.
+ *
+ * @author Brandon Scott-Hill
+ */
 class MenuListener extends Controller implements KeyListener {
 
 
     private Controller controller;
 
+    /**
+     * Instantiates a new Menu listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
     MenuListener(Controller controller) {
         super(controller);
         this.controller = controller;
@@ -25,7 +37,7 @@ class MenuListener extends Controller implements KeyListener {
             controller.menuToggle();
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE){ ;
             view.removeEscapeMenu();
-            menuToggle();
+            controller.menuToggle();
         }
     }
 

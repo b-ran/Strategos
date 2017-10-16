@@ -1,13 +1,19 @@
 package strategos.model.units;
 
-import strategos.Direction;
-import strategos.Graphical;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Unit;
 
-public class UnitImpl implements Graphical, Unit {
+/**
+ * An implementation of the Unit. Contains functions that are delegated to the Behaviour object stored in it,
+ * 		which dictates how the unit acts.
+ *
+ * @author Daniel Pinfold - pinfoldani
+ */
+public class UnitImpl implements Unit, GameObject {
 
 	private Behaviour behaviour;
 	private UnitOwner owner;
@@ -128,7 +134,12 @@ public class UnitImpl implements Graphical, Unit {
 	}
 
 	@Override
-	public Unit copy() {
-		return new UnitImpl(getBehaviour().copy(), getOwner(), getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new UnitImpl(getBehaviour().copy(newState), newOwner, getPosition());
+	}
+
+	@Override
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+
 	}
 }

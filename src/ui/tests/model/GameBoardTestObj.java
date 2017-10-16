@@ -1,7 +1,7 @@
 package model;
 
-import strategos.GameBoard;
-import strategos.MapLocation;
+import strategos.model.GameBoard;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 
 public class GameBoardTestObj implements GameBoard {
@@ -25,7 +25,7 @@ public class GameBoardTestObj implements GameBoard {
 
     @Override
     public int getDiameter() {
-        return 0;
+        return 15;
     }
 
     @Override

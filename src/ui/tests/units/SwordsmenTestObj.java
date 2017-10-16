@@ -1,10 +1,12 @@
 package units;
 
-import strategos.UnitOwner;
+import strategos.GameObject;
+import strategos.GameObjectVisitor;
+import strategos.model.UnitOwner;
 import strategos.behaviour.Behaviour;
 import strategos.units.Swordsmen;
 
-public class SwordsmenTestObj extends UnitTestObj implements Swordsmen {
+public class SwordsmenTestObj extends UnitTestObj implements Swordsmen, GameObject {
     public SwordsmenTestObj(UnitOwner owner) {
         super(owner);
     }
@@ -12,5 +14,10 @@ public class SwordsmenTestObj extends UnitTestObj implements Swordsmen {
     @Override
     public void setBehaviour(Behaviour behaviour) {
 
+    }
+
+    @Override
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+        gameObjectVisitor.visit(this);
     }
 }

@@ -2,10 +2,7 @@ package strategos.hexgrid;
 
 
 import strategos.Direction;
-import strategos.Graphical;
-import strategos.MapLocation;
-import strategos.Paintable;
-import strategos.exception.RuleViolationException;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 
 import java.util.HashMap;
@@ -14,17 +11,14 @@ import java.util.Map;
 
 /**
  * The hexagonal tile structure of the map, which holds information on this section of the map.
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  *
  */
-public class Hex implements Graphical, MapLocation {
+public class Hex implements MapLocation {
 	private Map<Direction, MapLocation> neighbours;
 	
 	private int xIndex;
 	private int yIndex;
-
-	private double gX;
-	private double gY;
 
 	private Terrain terrain;
 	private final boolean isPlayable;
@@ -71,7 +65,9 @@ public class Hex implements Graphical, MapLocation {
 	 */
 	@Override
 	public boolean isInPlayArea() {
-		// TODO: return if the terrain can be moved over
+		if (terrain != null) {
+			 return isPlayable && terrain.isPassable();
+		}
 		return isPlayable;
 	}
 
@@ -139,5 +135,26 @@ public class Hex implements Graphical, MapLocation {
 	@Override
 	public int getY() {
 		return yIndex;
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Hex hex = (Hex) o;
+
+		if (xIndex != hex.xIndex) return false;
+		if (yIndex != hex.yIndex) return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = xIndex;
+		result = 31 * result + yIndex;
+		result = 31 * result + (terrain != null ? terrain.hashCode() : 0);
+		return result;
 	}
 }

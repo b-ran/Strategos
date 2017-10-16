@@ -1,19 +1,21 @@
 package strategos.model.units;
 
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Elite;
 import strategos.units.Unit;
 
 import java.awt.*;
 
 /**
- * Created as part of Strategos project
- * 30/07/2017.
+ * An implementation of the Elites Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
  */
-public class EliteImpl extends UnitImpl implements Elite {
+public class EliteImpl extends UnitImpl implements Elite, GameObject {
 	private static final Image sprite = null;
 
 	public EliteImpl(UnitOwner owner, MapLocation startLocation) {
@@ -26,7 +28,18 @@ public class EliteImpl extends UnitImpl implements Elite {
 
 
 	@Override
-	public Unit copy() {
-		return new EliteImpl(getBehaviour().copy(), getOwner(), getPosition());
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new EliteImpl(getBehaviour().copy(newState), newOwner, getPosition());
+	}
+
+	@Override
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
+	}
+
+
+	@Override
+	public String toString() {
+		return "Elites";
 	}
 }

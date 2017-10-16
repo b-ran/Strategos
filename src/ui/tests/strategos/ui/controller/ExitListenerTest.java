@@ -1,38 +1,43 @@
 package strategos.ui.controller;
 
 
-import model.*;
-import org.junit.jupiter.api.*;
-import strategos.*;
-import strategos.ui.view.*;
+import model.GameCollectionTestObj;
+import model.ModelTestObj;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import strategos.model.GameState;
+import strategos.ui.view.View;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
+/**
+ * @author Devon Mortimer (external tester)
+ */
 class ExitListenerTest {
 
-    private MockView     mockView;
+    private MockView mockView;
     private ExitListener listener;
 
     @BeforeEach void setUp() {
         View view = new MockView();
-        mockView = (MockView) view;
+        this.mockView = (MockView) view;
         ModelTestObj model = new ModelTestObj();
         model.setWorld(new GameCollectionTestObj());
-        listener = new ExitListener(new MockController(model, mockView));
-        listener.view = view;
+        this.listener = new ExitListener(new MockController(model, this.mockView));
+        this.listener.view = view;
     }
 
     @Test void actionPerformed_menu() {
-        mockView.setStatus(true);
-        listener.actionPerformed(null);
-        assertTrue(mockView.didMenu, "If game is foreground then show menu");
+        this.mockView.setStatus(true);
+        this.listener.actionPerformed(null);
+        assertTrue(this.mockView.didMenu, "If game is foreground then show menu");
     }
 
     @Test void actionPerformed_exit() {
-        mockView.setStatus(false);
-        listener.actionPerformed(null);
-        assertTrue(mockView.didExit, "If menu is foreground then exit");
+        this.mockView.setStatus(false);
+        this.listener.actionPerformed(null);
+        assertTrue(this.mockView.didExit, "If menu is foreground then exit");
     }
 
     private static class MockView extends View {
@@ -43,21 +48,21 @@ class ExitListenerTest {
 
         MockView() {
             super(null);
-            status = false;
-            didMenu = false;
-            didExit = false;
+            this.status = false;
+            this.didMenu = false;
+            this.didExit = false;
         }
 
         @Override public void setMenu() {
-            didMenu = true;
+            this.didMenu = true;
         }
 
         @Override public boolean status() {
-            return status;
+            return this.status;
         }
 
         @Override public void exit() {
-            didExit = true;
+            this.didExit = true;
         }
 
         void setStatus(boolean status) {
@@ -69,8 +74,8 @@ class ExitListenerTest {
     private class MockController extends Controller {
 
         MockController(GameState model, View view) {
-            super(model, view);
-            allInput = true;
+            super(model, view, null);
+            this.allInput = true;
         }
     }
 }

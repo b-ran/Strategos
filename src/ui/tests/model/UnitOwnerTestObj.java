@@ -1,7 +1,8 @@
 package model;
 
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
@@ -12,11 +13,23 @@ public class UnitOwnerTestObj implements UnitOwner {
     private List<Unit> units = new ArrayList<>();
     private boolean npc = false;
 
+
+
     public UnitOwnerTestObj() {
     }
 
     public void addUnit(Unit unit) {
         units.add(unit);
+    }
+
+    @Override
+    public void addVisibleTile(MapLocation newTile) {
+
+    }
+
+    @Override
+    public void removeUnit(Unit toRemove) {
+
     }
 
     @Override
@@ -40,7 +53,7 @@ public class UnitOwnerTestObj implements UnitOwner {
     }
 
     @Override
-    public UnitOwner copy() {
+    public UnitOwner copy(GameState newState) {
         return null;
     }
 
@@ -48,5 +61,21 @@ public class UnitOwnerTestObj implements UnitOwner {
         npc = true;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        UnitOwnerTestObj that = (UnitOwnerTestObj) o;
+
+        if (npc != that.npc) return false;
+        return units != null ? units.equals(that.units) : that.units == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = units != null ? units.hashCode() : 0;
+        result = 31 * result + (npc ? 1 : 0);
+        return result;
+    }
 }

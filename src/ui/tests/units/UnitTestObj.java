@@ -1,12 +1,13 @@
 package units;
 
-import strategos.Direction;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Unit;
 
-public class UnitTestObj implements Unit{
+public class UnitTestObj implements Unit, GameObject {
 
     private UnitOwner owner;
     private MapLocation mapLocation;
@@ -121,8 +122,11 @@ public class UnitTestObj implements Unit{
     }
 
     @Override
-    public Unit copy() {
+    public Unit copy(UnitOwner newOwner, GameState newState) {
         return null;
     }
 
+    @Override
+    public void accept(GameObjectVisitor gameObjectVisitor) {
+    }
 }

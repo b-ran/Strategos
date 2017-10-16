@@ -1,23 +1,24 @@
 package strategos.networking;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import strategos.GameState;
-import strategos.SaveInstance;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import strategos.model.GameState;
+import strategos.model.SaveInstance;
 import strategos.networking.handlers.NetworkingHandlerImpl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class Tests {
+
+public class Tests {
 	private SaveInstance testSaveInstance;
 	private TestGameState serverState;
 	private TestGameState clientState;
 	private NetworkingHandler server;
 	private NetworkingHandler client;
 
-	@BeforeEach
-	void setupNetworks() throws InterruptedException {
+	@Before
+	public void setupNetworks() throws InterruptedException {
 		testSaveInstance = new TestSaveInstance("This is for testing purposes", 15);
 		serverState = new TestGameState();
 		clientState = new TestGameState();
@@ -25,20 +26,20 @@ class Tests {
 		client = setupHandler(true, clientState);
 	}
 
-	@AfterEach
-	void stopNetworks() throws InterruptedException {
+	@After
+	public void stopNetworks() throws InterruptedException {
 		server.stop();
 		client.stop();
 	}
 
 	@Test
-	void testSendFromServer() throws InterruptedException {
+	public void testSendFromServer() throws InterruptedException {
 		server.send(testSaveInstance);
 		assertEquals(testSaveInstance, clientState.instance);
 	}
 
 	@Test
-	void testReceiveFromServer() throws InterruptedException {
+	public void testReceiveFromServer() throws InterruptedException {
 		client.send(testSaveInstance);
 		assertEquals(testSaveInstance, serverState.instance);
 	}

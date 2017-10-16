@@ -1,19 +1,24 @@
 package model;
 
 import strategos.*;
+import strategos.model.*;
 import strategos.terrain.Terrain;
 import strategos.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Observer;
 
 public class ModelTestObj implements GameState {
     private GameCollections gameCollections;
-    private  ArrayList<UnitOwner> unitOwners = new ArrayList<>();
-    private  ArrayList<Unit> attackRange = new ArrayList<>();
-    private  ArrayList<MapLocation> moveRange = new ArrayList<>();
+    private ArrayList<UnitOwner> unitOwners = new ArrayList<>();
+    private ArrayList<Unit> attackRange = new ArrayList<>();
+    private ArrayList<MapLocation> moveRange = new ArrayList<>();
+    private UnitOwner owner = null;
+
+    @Override
+    public void newGame() {
+    }
 
     @Override
     public void save() {
@@ -45,7 +50,7 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
-    public void move(Unit unit, Direction direction, int amount) {
+    public void move(Unit unit, Direction direction) {
 
     }
 
@@ -110,6 +115,16 @@ public class ModelTestObj implements GameState {
     }
 
     @Override
+    public void setThisInstancePlayer(UnitOwner thisInstancePlayer) {
+        this.owner = thisInstancePlayer;
+    }
+
+    @Override
+    public UnitOwner getThisInstancePlayer() {
+        return owner;
+    }
+
+    @Override
     public GameCollections getWorld() {
         return gameCollections;
     }
@@ -127,6 +142,16 @@ public class ModelTestObj implements GameState {
     @Override
     public UnitOwner getCurrentTurn() {
         return null;
+    }
+
+    @Override
+    public int getWinner() {
+        return 0;
+    }
+
+    @Override
+    public int getNumberTurns() {
+        return 0;
     }
 
 

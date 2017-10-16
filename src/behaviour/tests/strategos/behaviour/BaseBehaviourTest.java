@@ -1,40 +1,45 @@
 package strategos.behaviour;
 
 
-import org.junit.*;
-import org.junit.rules.*;
-import strategos.*;
-import strategos.units.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import strategos.Direction;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.units.Unit;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 
+/**
+ * @author Devon Mortimer
+ */
 public class BaseBehaviourTest {
 
-    @Rule public final ExpectedException nullException =
-            ExpectedException.none();
+    @Rule public final ExpectedException nullException = ExpectedException.none();
     private GameState gameState;
+    private Behaviour behaviour;
+
+    @BeforeClass public static void beforeAll() {
+        TestUtil.logAll();
+    }
 
     @Before public void setUp() throws Exception {
-        gameState = TestUtil.getMockGameState();
+        this.gameState = TestUtil.getMockGameState();
     }
 
     @Test public void BaseBehaviour_nullState() throws Exception {
-        nullException.expect(NullPointerException.class);
+        makeBaseBehaviour(this.gameState);
+        this.nullException.expect(NullPointerException.class);
         makeBaseBehaviour(null);
     }
 
     private static BaseBehaviour makeBaseBehaviour(GameState gameState) {
         return new BaseBehaviour(gameState) {
-            @Override public MapLocation getPosition(Unit unit) {
-                return null;
-            }
-
-            @Override public void setPosition(Unit unit, MapLocation position) {
-
-            }
-
             @Override public void turnTick(Unit unit) {
 
             }
@@ -95,12 +100,11 @@ public class BaseBehaviourTest {
                 return 0;
             }
 
-            @Override public Behaviour copy() {
+            @Override public Behaviour copy(GameState newState) {
                 return null;
             }
 
-            @Override
-            public int getAttackRange() {
+            @Override public int getAttackRange() {
                 return 0;
             }
         };
@@ -109,8 +113,20 @@ public class BaseBehaviourTest {
     @Test public void getGameState() throws Exception {
         assertThat(
                 "Provided GameState instance must be returned",
-                makeBaseBehaviour(gameState).getGameState(),
-                is(gameState)
+                makeBaseBehaviour(this.gameState).getGameState(),
+                is(this.gameState)
         );
+    }
+
+    @Test public void getPosition_setPosition() throws Exception {
+        this.behaviour = makeBaseBehaviour(this.gameState);
+        Unit unit = TestUtil.getMockUnit();
+        MapLocation position1 = TestUtil.getMockLocation();
+        MapLocation position2 = TestUtil.getMockLocation();
+
+        this.behaviour.setPosition(unit, position1);
+        assertThat("Must return provided MapLocation", this.behaviour.getPosition(unit), is(position1));
+        this.behaviour.setPosition(unit, position2);
+        assertThat("Must return provided MapLocation", this.behaviour.getPosition(unit), is(position2));
     }
 }

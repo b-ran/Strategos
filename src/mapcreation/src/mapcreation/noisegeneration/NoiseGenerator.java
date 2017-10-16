@@ -8,6 +8,7 @@ import java.util.Random;
  * 28/08/2017.
  */
 public class NoiseGenerator {
+
     /**
      * Array of octaves
      */
@@ -17,9 +18,9 @@ public class NoiseGenerator {
     /**
      * Produces and collates A number of octaves of noise into a map
      *
-     * @param numOctaves  Number of octaves to create
-     * @param seed        Seed for the randomisation so that the same map will be made of the same seed
-     *                    Have removed Persistence
+     * @param numOctaves Number of octaves to create
+     * @param seed       Seed for the randomisation so that the same map will be made of the same seed
+     *                   Have removed Persistence
      */
     public NoiseGenerator(int numOctaves, int seed) {
         Random random = new Random(seed);
@@ -42,6 +43,7 @@ public class NoiseGenerator {
     public double getNoise(int x, int y) {
         double result = 0;
         for (int i = 0; i < octaves.length; i++) {
+            //Adding together octaves of different magnitudes to make the single resulting wave wobble
             result += octaves[i].noise(x / frequencies[i], y / frequencies[i]);
         }
         return result;
