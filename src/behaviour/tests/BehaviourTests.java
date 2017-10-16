@@ -8,7 +8,7 @@ import strategos.behaviour.*;
         BehaviourArchersTest.class,
         BehaviourCavalryTest.class,
         BehaviourEliteTest.class,
-        BehaviourFactoryImpl.class,
+        BehaviourFactoryImplTest.class,
         BehaviourSpearmenTest.class,
         BehaviourSwordsmenTest.class,
         UnitBehaviourTest.class
