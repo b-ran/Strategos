@@ -1,53 +1,36 @@
 package strategos.ui.controller;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import strategos.units.*;
 
-class WaryListener extends Controller implements MouseListener, KeyListener {
+import java.awt.event.*;
 
-    public WaryListener(Controller controller) {
+
+/**
+ * The Wary listener for the wary button.
+ *
+ * @author Brandon Scott-Hill
+ */
+class WaryListener extends Controller implements ActionListener {
+
+    private final Controller controller;
+
+    /**
+     * Instantiates a new Wary listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
+    WaryListener(Controller controller) {
         super(controller);
+        this.controller = controller;
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    @Override public void actionPerformed(ActionEvent e) {
+        Unit unit = controller.model.getUnitAt(controller.getSelectedMapLocation());
+        if (unit != null) {
+            controller.model.wary(unit);
+        }
+        view.repaint();
     }
 }

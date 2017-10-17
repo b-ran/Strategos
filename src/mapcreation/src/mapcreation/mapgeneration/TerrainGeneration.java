@@ -1,177 +1,257 @@
 package mapcreation.mapgeneration;
 
-import mapcreation.mapgeneration.terrain.Forest;
-import mapcreation.mapgeneration.terrain.Hill;
-import mapcreation.mapgeneration.terrain.Mountain;
-import mapcreation.mapgeneration.terrain.Plains;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import mapcreation.mapgeneration.terrain.*;
 import mapcreation.noisegeneration.NoiseGenerator;
 import strategos.Paintable;
+import strategos.mapGenerator.Generator;
 import strategos.terrain.Terrain;
+
+import java.util.Random;
+
+import static strategos.mapGenerator.GenerationConfig.*;
 
 /**
  * Created by Shaun Sinclair
  * Strategos
  * 28/07/2017.
  */
-public class TerrainGeneration {
+public class TerrainGeneration implements Generator {
 
-    //Following vars will eventually be pulled from settings that the user can change(set statically for now)
+
     /**
      * Change the resolution if sampling areas to produce map instead of individual pixels(wont be used in this version)
      */
-    private int xRes = 1, yRes = 1;
+    private int xRes = X_RES, yRes = Y_RES;
+
+    //Following vars will eventually be pulled from settings that the user can change(set statically for now)
+
+    /**
+     * Number of octaves used by the generator(currently way to high)
+     */
+    private int octaves = NUM_OCTAVES;
 
     /**
      * Changes the average elevation of the map
-     * Higher value = falter map(more plains less mountains)
+     * Lower value = falter map(more plains less mountains)
      * Max 100
      * Min 1
      */
-    private int flatness = 90;
+    private int mapAltitude = MAP_ALTITUDE;
 
     /**
      * Changes the average forest content of the map
-     * Higher value = less forest on the map
-     * Max 100
-     * Min 1
+     * Higher value = more forest on the map
+     * Max 1.0
+     * Min 0.0
      */
-    private int forested = 90;
+    private double forestFreq = FOREST_FREQ;
 
     /**
-     * Frequency of different terrain types
-     * Highest value it occurs at
+     * Percentage of the map that has to be hills and forests
      */
-    private double plainsFreq = 0.5, hillFreq = 0.2 + plainsFreq, mountainFreq = 0.3 + hillFreq + plainsFreq;
+    private final int lowerPercentage = LOWER_PERCENTAGE;
+    private final int higherPercentage = HIGHER_PERCENTAGE;
 
     /**
      * Takes a square 2D array of paintable objects and applies generated terrain to each
      *
-     * @param hexMap 2D array(Square) of paintable objects
+     * @param map  2D array(Square) of paintable objects
+     * @param seed Seed for the maps random generator so a map can be played more than once
      * @return 2D array of painted objects
      */
-    public Paintable[][] populateMap(Paintable[][] hexMap, int seed) {
+    public Paintable[][] populateMap(Paintable[][] map, int seed) {
+        //Map must be min of 15 in size, square
+        if (map.length != map[0].length || map.length < 15) {
+            throw new RuntimeException("Map to small");
+        }
 
-        //Dimensions for noise map
-        int width = hexMap[0].length, height = hexMap.length;
-        //Create map and fills it with noise values
-        double[][] mapTopology = fillMap(width, height, seed);
-        boolean[][] forestMap = fillForest(width, height, seed);
-
-        return setTerrain(mapTopology, forestMap, hexMap);
+        return setTerrain(seed, map);
     }
+
+    /**
+     * Takes a square 2D array of paintable objects and applies generated terrain to each
+     *
+     * @param map 2D array(Square) of paintable objects
+     * @return 2D array of painted objects
+     */
+    public Paintable[][] populateMap(Paintable[][] map) {
+        Random rand = new Random();
+        int seed = rand.nextInt();
+        //Map must be min of 15 in size, square
+        if (map.length != map[0].length || map.length < 15) {
+            throw new RuntimeException("Map too small");
+        }
+
+        return setTerrain(seed, map);
+    }
+
+
+    /**
+     * This method fills the Paintable tiles with terrain based of data from mapTopology
+     *
+     * @param seed Seed for the maps random generator
+     * @param map  The map of Printable objects(tiles)
+     * @return map with terrain filled in
+     */
+    private Paintable[][] setTerrain(int seed, Paintable[][] map) {
+        //Dimensions for noise map
+        int width = map[0].length, height = map.length;
+        for (int i = 0; i < 20 && !isValid(map); i++, seed++) {
+            //Create map and fills it with noise values
+            double[][] mapTopology = fillMap(width, height, seed);
+            boolean[][] forestMap = fillForest(width, height, seed);
+
+            if (mapTopology.length != map.length || mapTopology[0].length != map[0].length)
+                throw new RuntimeException("mapTopology resolution is incorrect.");
+
+            for (int x = 0; x < map.length; x++) {
+                for (int y = 0; y < map[0].length; y++) {
+                    if (map[x][y].isInPlayArea()) {
+                        map[x][y].setTerrain(getTerrain(mapTopology[x][y], forestMap[x][y]));
+                    } else {
+                        map[x][y].setTerrain(new MountainTile());
+                    }
+                }
+            }
+        }
+
+        map = generateRiver(map);
+
+        return map;
+    }
+
+    /**
+     * Checks that the map is valid for normal play
+     *
+     * @param map Map to be checked
+     * @return If the map is valid for play
+     */
+    private boolean isValid(Paintable[][] map) {
+        if (map[0][0].getTerrain() == null) return false;
+        int num = 0;
+        for (Paintable[] mapRow : map) {
+            for (Paintable Tile : mapRow) {
+                if (Tile.getTerrain().toString().equals("PlainsTile")){
+                    num++;
+                }
+            }
+        }
+        return (num > ((map.length * map[0].length) / 100) * lowerPercentage) &&
+                (num < ((map.length * map[0].length) / 100) * higherPercentage);
+    }
+
 
     /**
      * Fills a map with noise values
      *
-     * @param width  Width of hexMap to be filled
-     * @param height Height of hexMap to be filled
+     * @param width  Width of Map to be filled
+     * @param height Height of Map to be filled
      * @param seed   The seed the map is being produced from
      * @return Map of noise values
      */
     private double[][] fillMap(int width, int height, int seed) {
         //Calls the noise generation class to produce a field of noise
-        NoiseGenerator generatedNoise = new NoiseGenerator(512, 0.01, seed);
+        NoiseGenerator generatedNoise = new NoiseGenerator(octaves, seed);
         //Create a topology map to fill
-        double[][] mapTopology = new double[width * xRes][height * yRes];
+        double[][] mapTopology = new double[width][height];
         double noise;
         //Fill mapTopology with noise values
-        for (int x = 0; x < mapTopology.length; x++) {
-            for (int y = 0; y < mapTopology[0].length; y++) {
+        for (int x = 0; x < mapTopology.length * xRes; x += xRes) {
+            for (int y = 0; y < mapTopology[0].length * yRes; y += yRes) {
                 noise = generatedNoise.getNoise(x, y);
                 noise = (noise + 10) / 20;
                 //Shifts the values of map
-                noise = (noise / 100) * flatness;
-                if ((noise < -10 && seed % 2 == 0 && seed < 11) || (noise > 10 && seed % 2 == 0 && seed < 11))
-                    System.out.println(noise + "\n" + seed);
-                mapTopology[x][y] = noise;
+                noise = (noise / 100) * mapAltitude;
+                mapTopology[x / xRes][y / yRes] = noise;
             }
         }
         return mapTopology;
     }
 
     /**
-     * For testing fillMap() with a specific value of forested
+     * For testing fillMap() with a specific value of FOREST_FREQ
      *
      * @return fillMap()
      */
-    public double[][] testFillMap(int width, int height, int seed, int flatness) {
-        this.flatness = flatness;
+    public double[][] testFillMap(int width, int height, int seed, int flatness, int octaves) {
+        this.mapAltitude = flatness;
+        this.octaves = octaves;
         return fillMap(width, height, seed);
     }
 
     /**
      * Fills the map with forests
      *
-     * @param width  Width of hexMap to be filled
-     * @param height Height of hexMap to be filled
+     * @param width  Width of Map to be filled
+     * @param height Height of Map to be filled
      * @param seed   The seed the map is being produced from
-     * @return If the tile is forested or not
+     * @return If the tile is FOREST_FREQ or not
      */
     private boolean[][] fillForest(int width, int height, int seed) {
-        //Calls the noise generation class to produce a field of noiseutil(seed incremented to provide some deviation from the topologyMap)
-        NoiseGenerator generatedNoise = new NoiseGenerator(512, 0.01, seed + 1);
-        boolean[][] forestMap = new boolean[width * xRes][height * yRes];
+        //Calls the noise generation class to produce a field of noise(seed incremented to provide some deviation from the topologyMap)
+        NoiseGenerator generatedNoise = new NoiseGenerator(512, seed + 1);
+        boolean[][] forestMap = new boolean[width][height];
         double noise;
-        //Fill forestMap with noiseutil
+        //Fill forestMap with noise
         for (int x = 0; x < forestMap.length; x++) {
             for (int y = 0; y < forestMap[0].length; y++) {
                 noise = generatedNoise.getNoise(x, y);
                 //noise values are ~ between -10 and 10 but need to be scaled to between ~ 0 and 1 for drawing an image to work in testing
                 noise = (noise + 10) / 20;
-                //Shifts the values of map
-                noise = (noise / 100) * forested;
-                forestMap[x][y] = noise >= 0.5;
+                forestMap[x][y] = noise <= forestFreq;
             }
         }
         return forestMap;
+
     }
 
     /**
-     * For testing fillForest() with a specific value of forested
+     * For testing fillForest() with a specific value of FOREST_FREQ
      *
      * @return fillForest()
      */
-    public boolean[][] testFillForest(int width, int height, int seed, int forested) {
-        this.forested = forested;
+    public boolean[][] testFillForest(int width, int height, int seed, double forested) {
+        this.forestFreq = forested;
         return fillForest(width, height, seed);
-    }
-
-    /**
-     * This method fills the Paintable hexes with terrain based of data from mapTopology
-     *
-     * @param mapTopology The map of values produced as noise
-     * @param hexMap      The map of Printable objects(Hexes)
-     * @return hexMap with terrain filled in
-     */
-    private Paintable[][] setTerrain(double[][] mapTopology, boolean[][] forestMap, Paintable[][] hexMap) {
-        if (mapTopology.length != hexMap.length || mapTopology[0].length != hexMap[0].length)
-            throw new RuntimeException("mapTopology resolution is incorrect.");
-        for (int x = 0; x < hexMap.length; x++) {
-            for (int y = 0; y < hexMap[0].length; y++) {
-                hexMap[x][y].setTerrain(getTerrain(mapTopology[x][y], forestMap[x][y]));
-            }
-        }
-        return hexMap;
     }
 
     /**
      * Samples the generated topology and sets the terrain of the paintable object
      *
      * @param value Noise at that point
-     * @return Terrain specific to that hex
+     * @return TerrainTile specific to that tile
      */
     private Terrain getTerrain(double value, boolean forest) {
-        if (value < plainsFreq) {
-            if (forest) {
-                return new Forest();
-            } else {
-                return new Plains();
-            }
-        } else if (value < hillFreq) {
-            return new Hill();
-        } else {
-            return new Mountain();
+
+        if (value < PLAINS_FREQ) {
+            return forest ? new ForestTile() : new PlainsTile();
+        } else if (value < HILL_FREQ) {
+            return new HillTile();
+        } else if (value < MOUNTAIN_FREQ) {
+            return new MountainTile();
         }
+        if (value > 1 || value < 0) {
+            throw new ValueException("Value of noise is out of bounds: " + value);
+        }
+        return new PlainsTile();
+    }
+
+    /**
+     * Generates a river going from top left to bottom right with some variation
+     *
+     * @param map Map to put rivers into
+     * @return ap with river
+     */
+    private Paintable[][] generateRiver(Paintable[][] map) {
+        int width = map.length, height = map[0].length;
+        int x = 0, y = 0;
+        for (int i = 0; i < width + height - 2; i++) {
+            if (i % 2 == 0) x++;
+            else y++;
+            map[x][y].setTerrain(new RiverTile());
+        }
+        return map;
     }
 
 }

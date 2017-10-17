@@ -69,6 +69,8 @@ local.properties
 .idea/dictionaries
 .idea/uiDesigner.xml
 .idea/vcs.xml
+.idea/modules/Strategos.iml
+.idea/modules.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -81,7 +83,6 @@ local.properties
 
 # Gradle:
 .idea/**/gradle.xml
-.idea/**/libraries
 
 # CMake
 cmake-build-debug/
@@ -137,7 +138,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip

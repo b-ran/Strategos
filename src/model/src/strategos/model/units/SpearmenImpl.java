@@ -1,19 +1,42 @@
 package strategos.model.units;
 
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Spearmen;
 import strategos.units.Unit;
 
 /**
- * Created as part of Strategos project
- * 28/07/2017.
+ * An implementation of the Spearmen Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
  */
-public class SpearmenImpl extends UnitImpl implements Spearmen {
+public class SpearmenImpl extends UnitImpl implements Spearmen, GameObject {
 
-	public SpearmenImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+
+	public SpearmenImpl(UnitOwner owner, MapLocation startLocation) {
+		super(owner, startLocation);
+	}
+
+	public SpearmenImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		super(behaviour, owner, startLocation);
+	}
+
+	@Override
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new SpearmenImpl(getBehaviour().copy(newState), newOwner, getPosition());
+	}
+
+	@Override
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
+	}
+
+
+	@Override
+	public String toString() {
+		return "Spearmen";
 	}
 }

@@ -1,99 +1,145 @@
 package strategos.model.units;
 
-import strategos.Graphical;
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Unit;
 
-public class UnitImpl implements Graphical, Unit, Behaviour {
+/**
+ * An implementation of the Unit. Contains functions that are delegated to the Behaviour object stored in it,
+ * 		which dictates how the unit acts.
+ *
+ * @author Daniel Pinfold - pinfoldani
+ */
+public class UnitImpl implements Unit, GameObject {
 
-	private final Behaviour behaviour;
-	private final UnitOwner owner;
-	private int actionPoints;
+	private Behaviour behaviour;
+	private UnitOwner owner;
 
-	public UnitImpl(Behaviour behaviour, UnitOwner owner) {
-		this.behaviour = behaviour;
+	public UnitImpl(UnitOwner owner, MapLocation startLocation) {
+		this.owner = owner;
+	}
+
+	public UnitImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		setBehaviour(behaviour);
+		setPosition(startLocation);
 		this.owner = owner;
 	}
 
 	@Override
+	public void setBehaviour(Behaviour behaviour) {
+		this.behaviour = behaviour;
+	}
+
+	@Override
+	public Behaviour getBehaviour() {
+		return behaviour;
+	}
+
+	@Override
 	public MapLocation getPosition() {
-		return behaviour.getPosition();
+		return behaviour.getPosition(this);
 	}
 
 	@Override
 	public void setPosition(MapLocation position) {
-		behaviour.setPosition(position);
+		behaviour.setPosition(this, position);
 	}
 
 	@Override
 	public void turnTick() {
-		behaviour.turnTick();
+		behaviour.turnTick(this);
 	}
 
 	@Override
 	public void wary() {
-		behaviour.wary();
+		behaviour.wary(this);
+	}
+
+	@Override
+	public boolean getWary() {
+		return behaviour.getWary(this);
 	}
 
 	@Override
 	public void entrench() {
-		behaviour.entrench();
+		behaviour.entrench(this);
+	}
+
+	@Override
+	public boolean getEntrench() {
+		return behaviour.getEntrench(this);
 	}
 
 	@Override
 	public void charge() {
-		behaviour.charge();
+		behaviour.charge(this);
 	}
 
 	@Override
-	public boolean move() {
-		return behaviour.move();
+	public boolean move(Direction direction) {
+		return behaviour.move(this, direction);
 	}
 
 	@Override
 	public int attack(Unit enemy) {
-		return behaviour.attack(enemy);
+		return behaviour.attack(this, enemy);
 	}
 
 	@Override
 	public int defend(Unit enemy) {
-		return behaviour.defend(enemy);
+		return behaviour.defend(this, enemy);
 	}
 
 	@Override
 	public int getStrength() {
-		return behaviour.getStrength();
+		return behaviour.getStrength(this);
 	}
 
 	@Override
 	public int getToughness() {
-		return behaviour.getToughness();
+		return behaviour.getToughness(this);
 	}
 
 	@Override
 	public UnitOwner getOwner() {
-		return null;
+		return owner;
+	}
+
+	@Override
+	public int getHitpoints() {
+		return behaviour.getHitpoints(this);
 	}
 
 	@Override
 	public boolean isAlive() {
-		return false;
+		return behaviour.isAlive(this);
 	}
 
 	@Override
 	public int getSightRadius() {
-		return 0;
+		return behaviour.getSightRadius(this);
 	}
 
 	@Override
 	public int getActionPoints() {
-		return actionPoints;
+		return behaviour.getActionPoints(this);
 	}
 
-	public void setActionPoints(int actionPoints) {
-		this.actionPoints = actionPoints;
+	@Override
+	public int getAttackRange() {
+		return behaviour.getAttackRange();
+	}
+
+	@Override
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new UnitImpl(getBehaviour().copy(newState), newOwner, getPosition());
+	}
+
+	@Override
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+
 	}
 }

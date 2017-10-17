@@ -1,9 +1,8 @@
 package strategos.hexgrid;
 
 
-import strategos.*;
-import strategos.exception.FeatureNotImplementedException;
-import strategos.exception.RuleViolationException;
+import strategos.Direction;
+import strategos.model.MapLocation;
 import strategos.terrain.Terrain;
 
 import java.util.HashMap;
@@ -12,18 +11,18 @@ import java.util.Map;
 
 /**
  * The hexagonal tile structure of the map, which holds information on this section of the map.
- * @author Daniel Pinfold
+ * @author Daniel Pinfold - pinfoldani
  *
  */
-public class Hex implements Paintable, Graphical, MapLocation {
+public class Hex implements MapLocation {
 	private Map<Direction, MapLocation> neighbours;
 	
 	private int xIndex;
 	private int yIndex;
-	
+
 	private Terrain terrain;
 	private final boolean isPlayable;
-	
+
 	/**
 	 * Creates a new Hex object, initialising the neighbours collection.
 	 * This constructor assumes that the neighbours will be added externally.
@@ -34,10 +33,10 @@ public class Hex implements Paintable, Graphical, MapLocation {
 		neighbours = new HashMap<>();
 		this.isPlayable = isPlayable;
 	}
-	
+
 	/**
 	 * Creates a new Hex object with pre-specified neighbours.
-	 * 
+	 *
 	 * @param east - The neighbouring Hex directly to the right.
 	 * @param west - The neighbouring Hex directly to the left.
 	 * @param northeast - The neighbouring Hex one to the right and one up.
@@ -57,25 +56,24 @@ public class Hex implements Paintable, Graphical, MapLocation {
 		neighbours.put(Direction.SOUTH_EAST, southeast);
 		neighbours.put(Direction.SOUTH_WEST, southwest);
 	}
-	
+
 	/**
 	 * Returns whether or not this Hex can be moved onto by a Unit.
 	 * Calls the isPassable method on the terrain stored by this tile.
-	 * 
+	 *
 	 * @return true if the tile can be acted upon or moved onto, false otherwise.
 	 */
 	@Override
 	public boolean isInPlayArea() {
-		if (isPlayable) {
-			// return if the terrain can be moved over
+		if (terrain != null) {
+			 return isPlayable && terrain.isPassable();
 		}
 		return isPlayable;
 	}
 
 	/**
 	 * Gets the neighbour at the specified orientation relative to this Hex.
-	 * Will return a NullHex if no neighbour exists at that position.
-	 *  
+	 *
 	 * @param direction - The Direction that the desired Hex is, relative to this Hex.
 	 * @return A Hex at the specified Direction.
 	 */
@@ -84,12 +82,6 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	}
 	
 	public void addNeighbour(Direction direction, MapLocation newNeighbour) {
-		if (neighbours.get(direction) != null) {
-			throw new IllegalArgumentException("Cannot overwrite a neighbour");
-		}
-		if (neighbours.size() == 6) {
-			throw new RuleViolationException("A Hex cannot have more than 6 neighbours");
-		}
 		neighbours.put(direction, newNeighbour);
 	}
 
@@ -108,7 +100,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	public Map<Direction, MapLocation> getNeighbours() {
 		return neighbours;
 	}
-	
+
 	@Override
 	public String toString() {
 		if (isInPlayArea()) {
@@ -122,7 +114,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
 	 * @param xIndex - the new x-index for the Hex.
 	 */
-	public void setXIndex(int xIndex) {
+	void setXIndex(int xIndex) {
 		this.xIndex = xIndex;
 	}
 
@@ -131,7 +123,7 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	 * 		be used, since Hex indices are usually final. Changing the index could lead to undesired behaviour.
 	 * @param yIndex - the new y-index for the Hex.
 	 */
-	public void setYIndex(int yIndex) {
+	void setYIndex(int yIndex) {
 		this.yIndex = yIndex;
 	}
 
@@ -143,5 +135,26 @@ public class Hex implements Paintable, Graphical, MapLocation {
 	@Override
 	public int getY() {
 		return yIndex;
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Hex hex = (Hex) o;
+
+		if (xIndex != hex.xIndex) return false;
+		if (yIndex != hex.yIndex) return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = xIndex;
+		result = 31 * result + yIndex;
+		result = 31 * result + (terrain != null ? terrain.hashCode() : 0);
+		return result;
 	}
 }

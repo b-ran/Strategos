@@ -1,54 +1,38 @@
 package strategos.ui.controller;
 
+import strategos.units.Unit;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+/**
+ * The Attack listener for the attack button.
+ *
+ * @author Brandon Scott-Hill
+ */
+public class AttackListener extends Controller implements ActionListener {
+    private final Controller controller;
 
-class AttackListener extends Controller implements MouseListener, KeyListener {
-    public AttackListener(Controller controller) {
+    /**
+     * Instantiates a new Attack listener.
+     *
+     * @author Brandon Scott-Hill
+     *
+     * @param controller the controller
+     */
+    AttackListener(Controller controller) {
         super(controller);
+        this.controller = controller;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+    @Override public void actionPerformed(ActionEvent e) {
+        Unit unit = controller.getSelectedUnit();
+        if (unit == null) return;
+        if (unit.getEntrench()) {
+            model.entrench(unit);
+        } else if (unit.getWary()) {
+            model.wary(unit);
+        }
+        view.repaint();
     }
 }

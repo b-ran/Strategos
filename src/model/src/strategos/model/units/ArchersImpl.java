@@ -1,19 +1,41 @@
 package strategos.model.units;
 
-import strategos.MapLocation;
-import strategos.UnitOwner;
+import strategos.*;
 import strategos.behaviour.Behaviour;
-import strategos.hexgrid.Hex;
+import strategos.model.GameState;
+import strategos.model.MapLocation;
+import strategos.model.UnitOwner;
 import strategos.units.Archers;
 import strategos.units.Unit;
 
 /**
- * Created as part of Strategos project
- * 30/07/2017.
+ * An implementation of the Archer Unit.
+ *
+ * @author Daniel Pinfold - pinfoldani
  */
-public class ArchersImpl extends UnitImpl implements Archers {
+public class ArchersImpl extends UnitImpl implements Archers, GameObject {
 
-	public ArchersImpl(Behaviour behaviour, UnitOwner owner) {
-		super(behaviour, owner);
+
+	public ArchersImpl(UnitOwner owner, MapLocation startLocation) {
+		super(owner, startLocation);
+	}
+
+	public ArchersImpl(Behaviour behaviour, UnitOwner owner, MapLocation startLocation) {
+		super(behaviour, owner, startLocation);
+	}
+
+	@Override
+	public Unit copy(UnitOwner newOwner, GameState newState) {
+		return new ArchersImpl(getBehaviour().copy(newState), newOwner, getPosition());
+	}
+
+	@Override
+	public void accept(GameObjectVisitor gameObjectVisitor) {
+		gameObjectVisitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Archers";
 	}
 }
